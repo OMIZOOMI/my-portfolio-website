@@ -29,8 +29,8 @@ interface MailStoreState {
 const seedInbox = (): Email[] => [
   {
     id: "welcome-1",
-    from: "Om Sawkare",
-    to: "You",
+    from: "You",
+    to: "Om Sawkare",
     subject: "Welcome to my portfolio!",
     body: "Hi there! Welcome to my portfolio's mail client.\n\nIf you'd like to get in touch, simply hit 'Compose' and drop me a message. Clicking send will open your device's native email app so you can reach me directly.\n\nLooking forward to hearing from you!",
     sentAt: Date.now() - 1000 * 60 * 60 * 24,
