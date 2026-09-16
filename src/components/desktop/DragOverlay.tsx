@@ -62,9 +62,7 @@ export function DragOverlay() {
     };
   }, []);
 
-  if (!isDragging || !draggedItem) return null;
-
-  const local = clientToDesktopLocal(dragPosition.x, dragPosition.y);
+  const local = isDragging ? clientToDesktopLocal(dragPosition.x, dragPosition.y) : null;
   const x = (local?.x ?? dragPosition.x) - dragGrabOffset.x;
   const y = (local?.y ?? dragPosition.y) - dragGrabOffset.y;
 
@@ -79,13 +77,15 @@ export function DragOverlay() {
         top: 0,
         transform: `translate3d(${x}px, ${y}px, 0)`,
         zIndex: 9999,
-        opacity: 0.95,
+        opacity: isDragging && draggedItem ? 0.95 : 0,
+        visibility: isDragging && draggedItem ? "visible" : "hidden",
         filter: "drop-shadow(0 12px 20px rgba(0,0,0,0.45))",
         willChange: "transform",
+        pointerEvents: "none",
       }}
     >
       <div className="pointer-events-none flex flex-col items-center gap-1.5 w-[84px] p-2">
-        {draggedItem.iconType === "folder" && (
+        {draggedItem?.iconType === "folder" && (
           <img
             src={FolderIconImg.src}
             alt=""
@@ -94,7 +94,7 @@ export function DragOverlay() {
             style={{ width: "56px", height: "56px", objectFit: "contain" }}
           />
         )}
-        {draggedItem.iconType === "file" && (
+        {draggedItem?.iconType === "file" && (
           <svg viewBox="0 0 48 56" width="42" height="49" aria-hidden="true" className="pointer-events-none">
             <path d="M4 4h28l12 12v36a4 4 0 0 1-4 4H4a4 4 0 0 1-4-4V8a4 4 0 0 1 4-4Z" fill="#e8e9ec" />
             <path d="M32 4v12h12L32 4Z" fill="#c7c9ce" />
@@ -103,7 +103,7 @@ export function DragOverlay() {
             <rect x="10" y="40" width="14" height="2.5" rx="1.25" fill="#a9abb1" />
           </svg>
         )}
-        {draggedItem.iconType === "app" && (
+        {draggedItem?.iconType === "app" && (
           <div
             className="pointer-events-none"
             style={{
@@ -131,7 +131,7 @@ export function DragOverlay() {
             whiteSpace: "nowrap",
           }}
         >
-          {draggedItem.name}
+          {draggedItem?.name ?? ""}
         </span>
       </div>
     </div>

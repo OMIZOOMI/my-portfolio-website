@@ -395,19 +395,26 @@ export const useSystemStore = create<SystemState>((set, get) => ({
     if (!wasLive || !item) return;
 
     const hit = hitTestDrop(x, y, item.id);
-    if (hit.target === "trash") {
-      get().addToTrash(item.id);
-      return;
-    }
-    if (hit.target === "desktop") {
-      const local = clientToDesktopLocal(x, y);
-      const grab = state.dragGrabOffset;
-      const pos = clampDesktopPosition((local?.x ?? x) - grab.x, (local?.y ?? y) - grab.y);
-      get().moveToDesktop(item.id, pos);
-      return;
-    }
-    if (hit.target === "finder" && hit.folderId) {
-      get().moveToFolder(item.id, hit.folderId);
+    const grab = state.dragGrabOffset;
+    const applyDrop = () => {
+      if (hit.target === "trash") {
+        get().addToTrash(item.id);
+        return;
+      }
+      if (hit.target === "desktop") {
+        const local = clientToDesktopLocal(x, y);
+        const pos = clampDesktopPosition((local?.x ?? x) - grab.x, (local?.y ?? y) - grab.y);
+        get().moveToDesktop(item.id, pos);
+        return;
+      }
+      if (hit.target === "finder" && hit.folderId) {
+        get().moveToFolder(item.id, hit.folderId);
+      }
+    };
+    if (typeof requestAnimationFrame === "function") {
+      requestAnimationFrame(applyDrop);
+    } else {
+      applyDrop();
     }
   },
   onDragPointerCancel: () => {

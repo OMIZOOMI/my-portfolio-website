@@ -147,7 +147,6 @@ export function clearGrabCursor() {
   document.body.style.cursor = "";
   document.documentElement.style.cursor = "";
   document.body.style.userSelect = "";
-  document.querySelectorAll("[data-finder-ghost]").forEach((el) => el.remove());
 }
 
 export function captureOnDesktop(pointerId: number) {
