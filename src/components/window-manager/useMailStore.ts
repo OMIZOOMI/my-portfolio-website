@@ -65,7 +65,9 @@ export const useMailStore = create<MailStoreState>()(
       storage: createJSONStorage(() => localStorage),
       // Bumped past the attachment-era payloads so stale seeds/sent mail
       // from earlier builds are discarded on rehydrate.
-      version: 2,
+      // v3: sender/recipient swap (From: You, To: Om Sawkare) — wipes the
+      // v2 cache that was still rendering the old fields.
+      version: 3,
       partialize: (state) => ({ inbox: state.inbox, sent: state.sent }),
     }
   )
