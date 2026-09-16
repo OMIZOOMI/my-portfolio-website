@@ -1,0 +1,155 @@
+.layout {
+    display: flex;
+    height: 100%;
+    color: rgba(255, 255, 255, 0.92);
+    font-family: system-ui, -apple-system, sans-serif;
+  }
+  
+  .sidebar {
+    width: 180px;
+    flex-shrink: 0;
+    padding: 16px 10px;
+    background: rgba(0, 0, 0, 0.15);
+    border-right: 1px solid rgba(255, 255, 255, 0.06);
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  
+  .navItem {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 7px 10px;
+    border: none;
+    background: transparent;
+    color: rgba(255, 255, 255, 0.65);
+    font-size: 13px;
+    font-weight: 500;
+    text-align: left;
+    border-radius: 7px;
+    cursor: pointer;
+  }
+  
+  .navItem:hover {
+    color: rgba(255, 255, 255, 0.9);
+  }
+  
+  .navActivePill {
+    position: absolute;
+    inset: 0;
+    border-radius: 7px;
+    background: rgba(76, 141, 255, 0.35);
+    z-index: -1;
+  }
+  
+  .navIcon,
+  .navLabel {
+    position: relative;
+  }
+  
+  .content {
+    flex: 1;
+    padding: 28px 32px;
+    overflow: auto;
+  }
+  
+  .avatar {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    margin-bottom: 14px;
+    background: linear-gradient(160deg, #4c8dff, #8a5cf6);
+  }
+  
+  .name {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin: 0 0 6px;
+  }
+  
+  .tagline {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 14px;
+    margin: 0 0 16px;
+    max-width: 42ch;
+  }
+  
+  .body {
+    color: rgba(255, 255, 255, 0.65);
+    font-size: 13px;
+    line-height: 1.6;
+    max-width: 48ch;
+  }
+  
+  .sectionTitle {
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin: 0 0 16px;
+  }
+  
+  .skillList {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .skillRow {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    padding: 12px 14px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+  }
+  
+  .skillName {
+    width: 72px;
+    flex-shrink: 0;
+    font-weight: 700;
+    font-size: 13px;
+  }
+  
+  .skillDetail {
+    color: rgba(255, 255, 255, 0.65);
+    font-size: 13px;
+  }
+  
+  .card {
+    padding: 16px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+  }
+  
+  .cardTitle {
+    font-size: 15px;
+    font-weight: 700;
+    margin: 0 0 8px;
+  }
+  
+  .cardBody {
+    color: rgba(255, 255, 255, 0.65);
+    font-size: 13px;
+    line-height: 1.6;
+    margin: 0 0 12px;
+  }
+  
+  .tagRow {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  
+  .tag {
+    padding: 3px 9px;
+    border-radius: 20px;
+    background: rgba(76, 141, 255, 0.18);
+    color: #8fb8ff;
+    font-size: 11px;
+    font-weight: 600;
+  }

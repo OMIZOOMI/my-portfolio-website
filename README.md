@@ -1,3 +1,7 @@
+# My Portfolio Website
+
+A macOS-desktop-style interactive portfolio built with Next.js, React Three Fiber, and Zustand — boot sequence, draggable windows with genie effects, Finder with custom pointer drag-and-drop, a rich-text Notes editor, FaceTime with on-device gesture recognition, and more.
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started

@@ -1,0 +1,81 @@
+.dock {
+    position: fixed;
+    bottom: 14px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
+    display: flex;
+    align-items: flex-end;
+    gap: 10px;
+    padding: 8px 12px;
+    border-radius: 20px;
+    background: rgba(24, 24, 27, 0.55);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  
+  .dock::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 1px;
+    border-radius: 20px 20px 0 0;
+    background: rgba(255, 255, 255, 0.16);
+  }
+  
+  .slot {
+    position: relative;
+    width: 46px;
+    height: 46px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+  }
+  
+  .iconWrap {
+    position: relative;
+    transform-origin: 50% 100%; /* grows upward from the dock's base, like macOS */
+    will-change: transform;
+  }
+  
+  .iconButton {
+    width: 46px;
+    height: 46px;
+    border: none;
+    border-radius: 11px;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.35);
+    will-change: transform;
+  }
+  
+  .tooltip {
+    position: absolute;
+    bottom: calc(100% + 10px);
+    left: 50%;
+    translate: -50% 0; /* centering only — not the animated axis, safe alongside `transform` */
+    transform-origin: 50% 100%;
+    padding: 4px 9px;
+    border-radius: 6px;
+    background: rgba(24, 24, 27, 0.92);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 500;
+    white-space: nowrap;
+    pointer-events: none;
+    will-change: transform, opacity;
+  }
+  
+  .runningDot {
+    position: absolute;
+    bottom: -7px;
+    left: 50%;
+    translate: -50% 0;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.85);
+    will-change: transform, opacity;
+  }

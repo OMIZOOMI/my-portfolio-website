@@ -1,0 +1,72 @@
+.icon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    width: 84px;
+    padding: 8px 6px;
+    border: none;
+    background: transparent;
+    cursor: grab;
+    will-change: transform;
+    /* Let the parent draggable wrapper own the cursor so grab/grabbing
+       isn't overridden by inner elements during HTML5 drags. */
+    -webkit-user-drag: element;
+  }
+
+  .icon:active {
+    cursor: grabbing;
+  }
+
+  /* While an HTML5 Finder drag is in flight the OS owns the cursor, so force
+     grabbing everywhere (the 3D canvas underneath would otherwise reset it). */
+  :global(body.is-finder-dragging),
+  :global(body.is-finder-dragging *) {
+    cursor: grabbing !important;
+  }
+
+  :global(.finder-drag-ghost) {
+    position: fixed;
+    top: -1000px;
+    left: -1000px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    width: 84px;
+    padding: 8px 6px;
+    pointer-events: none;
+    opacity: 0.92;
+    filter: drop-shadow(0 12px 20px rgba(0, 0, 0, 0.45));
+    z-index: 2147483647;
+  }
+  
+  .glyphSvg {
+    width: 42px;
+    height: 49px;
+    filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.35));
+  }
+  
+  .appTile {
+    width: 52px;
+    height: 52px;
+    border-radius: 13px;
+    display: grid;
+    place-items: center;
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.35);
+  }
+  
+  .label {
+    color: #fff;
+    font-size: 12px;
+    font-weight: 500;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+    padding: 2px 6px;
+    border-radius: 4px;
+  }
+  
+  @media (hover: hover) and (pointer: fine) {
+    .icon:hover .label {
+      background: rgba(255, 255, 255, 0.12);
+    }
+  }
