@@ -3,18 +3,14 @@
 import React from "react";
 import { useSystemStore } from "../window-manager/useSystemStore";
 import { DesktopIcon } from "./DesktopIcon";
-import { FILE_SYSTEM } from "../../data/fileSystem";
 
 export function BinWindow({ window }: { window: any }) {
-  const { trashItems, emptyTrash } = useSystemStore();
+  const trashItems = useSystemStore((s) => s.trashItems);
+  const emptyTrash = useSystemStore((s) => s.emptyTrash);
+  const getFileItem = useSystemStore((s) => s.getFileItem);
 
-  // Find the actual file data for the IDs currently in the trash
   const trashedFilesData = trashItems.map((id) => {
-    for (const folder in FILE_SYSTEM) {
-      const found = FILE_SYSTEM[folder].find((file) => file.id === id);
-      if (found) return found;
-    }
-    return { id, name: id, type: "file" as const }; // Fallback
+    return getFileItem(id) ?? { id, name: id, type: "file" as const };
   });
 
   return (

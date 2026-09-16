@@ -9,20 +9,16 @@
     background: transparent;
     cursor: grab;
     will-change: transform;
-    /* Let the parent draggable wrapper own the cursor so grab/grabbing
-       isn't overridden by inner elements during HTML5 drags. */
-    -webkit-user-drag: element;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-user-drag: none;
+    touch-action: none;
   }
 
-  .icon:active {
-    cursor: grabbing;
-  }
-
-  /* While an HTML5 Finder drag is in flight the OS owns the cursor, so force
-     grabbing everywhere (the 3D canvas underneath would otherwise reset it). */
   :global(body.is-finder-dragging),
   :global(body.is-finder-dragging *) {
     cursor: grabbing !important;
+    user-select: none !important;
   }
 
   :global(.finder-drag-ghost) {

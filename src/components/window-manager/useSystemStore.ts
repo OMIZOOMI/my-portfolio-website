@@ -1,24 +1,40 @@
 import { create } from "zustand";
-import { FILE_SYSTEM } from "../../data/fileSystem";
+import { FILE_SYSTEM, type FileItem } from "../../data/fileSystem";
+import {
+  applyGrabCursor,
+  captureOnDesktop,
+  clearGrabCursor,
+  clampDesktopPosition,
+  clientToDesktopLocal,
+  defaultDesktopPosition,
+  DRAG_THRESHOLD_PX,
+  hitTestDrop,
+  releaseDesktopCapture,
+  type DraggedItem,
+  type DropTarget,
+} from "../desktop/fileDrag";
 
-export type FileActionLabel = "MOVE_TO_TRASH" | "MOVE_TO_DESKTOP";
+export type FileActionLabel = "MOVE_TO_TRASH" | "MOVE_TO_DESKTOP" | "MOVE_TO_FOLDER" | "MOVE_ON_DESKTOP";
 
-export interface ActiveDragItem {
-  id: string;
-  name: string;
-  type: "folder" | "file" | "app";
-  fromFolder: string;
-  x: number;
-  y: number;
-}
+export type { DraggedItem, DropTarget };
 
 interface FileSnapshot {
   trashItems: string[];
   desktopIds: string[];
+  fileSystem: Record<string, FileItem[]>;
+  desktopPositions: Record<string, { x: number; y: number }>;
 }
 
 interface HistoryEntry extends FileSnapshot {
   label: FileActionLabel;
+}
+
+interface PendingDrag {
+  item: DraggedItem;
+  startX: number;
+  startY: number;
+  grabOffset: { x: number; y: number };
+  pointerId: number;
 }
 
 interface SystemState {
@@ -27,52 +43,143 @@ interface SystemState {
   trashItems: string[];
   deletedIds: string[];
   desktopIds: string[];
+  fileSystem: Record<string, FileItem[]>;
+  desktopPositions: Record<string, { x: number; y: number }>;
   past: HistoryEntry[];
   future: HistoryEntry[];
-  activeDrag: ActiveDragItem | null;
+  isDragging: boolean;
+  draggedItem: DraggedItem | null;
+  dragPosition: { x: number; y: number };
+  dragGrabOffset: { x: number; y: number };
+  dropTarget: DropTarget;
+  dropFolderId: string | null;
+  pendingDrag: PendingDrag | null;
+  dragPointerId: number | null;
   isOverTrash: boolean;
   setTheme: (theme: "dark" | "light") => void;
   setWallpaper: (url: string) => void;
   addToTrash: (id: string) => void;
   emptyTrash: () => void;
-  moveToDesktop: (id: string) => void;
+  moveToDesktop: (id: string, position?: { x: number; y: number }) => void;
+  moveToFolder: (id: string, folderId: string) => void;
   undo: () => void;
   redo: () => void;
-  startDrag: (item: ActiveDragItem) => void;
-  updateDragPos: (x: number, y: number) => void;
+  beginPointerDrag: (input: {
+    item: DraggedItem;
+    position: { x: number; y: number };
+    grabOffset: { x: number; y: number };
+    pointerId: number;
+  }) => void;
+  onDragPointerMove: (x: number, y: number) => void;
+  onDragPointerUp: (x: number, y: number) => void;
+  onDragPointerCancel: () => void;
   endDrag: () => void;
-  setOverTrash: (over: boolean) => void;
   isHidden: (id: string) => boolean;
+  getFileItem: (id: string) => FileItem | null;
 }
 
 const INITIAL_DESKTOP_IDS = ["projects", "about-me"];
 const HISTORY_LIMIT = 50;
 
-function snapshot(state: Pick<SystemState, "trashItems" | "desktopIds">): FileSnapshot {
-  return { trashItems: [...state.trashItems], desktopIds: [...state.desktopIds] };
+function cloneFs(fs: Record<string, FileItem[]>): Record<string, FileItem[]> {
+  const out: Record<string, FileItem[]> = {};
+  for (const key of Object.keys(fs)) {
+    out[key] = fs[key].map((item) => ({ ...item }));
+  }
+  return out;
 }
 
-/**
- * Recursively collect every descendant id under a folder id.
- * FILE_SYSTEM maps folderId -> FileItem[]; folder items pull double duty as
- * keys (e.g. "projects" is both an item and a folder). Cycle-safe.
- */
-function collectDescendantIds(rootId: string): string[] {
+function snapshot(state: Pick<SystemState, "trashItems" | "desktopIds" | "fileSystem" | "desktopPositions">): FileSnapshot {
+  return {
+    trashItems: [...state.trashItems],
+    desktopIds: [...state.desktopIds],
+    fileSystem: cloneFs(state.fileSystem),
+    desktopPositions: { ...state.desktopPositions },
+  };
+}
+
+function findFileItem(fs: Record<string, FileItem[]>, id: string): FileItem | null {
+  for (const items of Object.values(fs)) {
+    const found = items.find((file) => file.id === id);
+    if (found) return found;
+  }
+  return null;
+}
+
+function findParentFolder(fs: Record<string, FileItem[]>, id: string): string | null {
+  for (const [folderId, items] of Object.entries(fs)) {
+    if (items.some((file) => file.id === id)) return folderId;
+  }
+  return null;
+}
+
+function removeFromTree(fs: Record<string, FileItem[]>, id: string): Record<string, FileItem[]> {
+  const next = cloneFs(fs);
+  for (const folderId of Object.keys(next)) {
+    next[folderId] = next[folderId].filter((file) => file.id !== id);
+  }
+  return next;
+}
+
+function addToFolder(fs: Record<string, FileItem[]>, folderId: string, item: FileItem): Record<string, FileItem[]> {
+  const next = cloneFs(fs);
+  if (!next[folderId]) next[folderId] = [];
+  if (!next[folderId].some((file) => file.id === item.id)) {
+    next[folderId] = [...next[folderId], { ...item }];
+  }
+  return next;
+}
+
+function collectDescendantIds(fs: Record<string, FileItem[]>, rootId: string): string[] {
   const out: string[] = [];
   const seen = new Set<string>([rootId]);
   const stack: string[] = [rootId];
   while (stack.length > 0) {
     const cur = stack.pop() as string;
-    const children = FILE_SYSTEM[cur];
+    const children = fs[cur];
     if (!children) continue;
     for (const child of children) {
       if (seen.has(child.id)) continue;
       seen.add(child.id);
       out.push(child.id);
-      if (FILE_SYSTEM[child.id]) stack.push(child.id);
+      if (fs[child.id]) stack.push(child.id);
     }
   }
   return out;
+}
+
+function isNestedUnder(fs: Record<string, FileItem[]>, folderId: string, ancestorId: string): boolean {
+  if (folderId === ancestorId) return true;
+  const children = fs[ancestorId] || [];
+  for (const child of children) {
+    if (child.id === folderId || isNestedUnder(fs, folderId, child.id)) return true;
+  }
+  return false;
+}
+
+function initialDesktopPositions(ids: string[]): Record<string, { x: number; y: number }> {
+  const positions: Record<string, { x: number; y: number }> = {};
+  ids.forEach((id, index) => {
+    positions[id] = defaultDesktopPosition(index);
+  });
+  return positions;
+}
+
+const EMPTY_DRAG = {
+  isDragging: false,
+  draggedItem: null,
+  dragPosition: { x: 0, y: 0 },
+  dragGrabOffset: { x: 0, y: 0 },
+  dropTarget: null as DropTarget,
+  dropFolderId: null as string | null,
+  pendingDrag: null as PendingDrag | null,
+  dragPointerId: null as number | null,
+  isOverTrash: false,
+};
+
+function resetDragVisuals(pointerId: number | null) {
+  releaseDesktopCapture(pointerId);
+  clearGrabCursor();
 }
 
 export const useSystemStore = create<SystemState>((set, get) => ({
@@ -81,25 +188,22 @@ export const useSystemStore = create<SystemState>((set, get) => ({
   trashItems: [],
   deletedIds: [],
   desktopIds: INITIAL_DESKTOP_IDS,
+  fileSystem: cloneFs(FILE_SYSTEM),
+  desktopPositions: initialDesktopPositions(INITIAL_DESKTOP_IDS),
   past: [],
   future: [],
-  activeDrag: null,
-  isOverTrash: false,
+  ...EMPTY_DRAG,
   setTheme: (theme) => set({ theme }),
   setWallpaper: (wallpaper) => set({ wallpaper }),
   addToTrash: (id) =>
     set((state) => {
       if (state.deletedIds.includes(id)) return state;
-      // Cascade: trashing a folder also trashes everything inside it so no
-      // orphaned children stay visible in Finder.
-      const idsToTrash = [id, ...collectDescendantIds(id)].filter(
+      const idsToTrash = [id, ...collectDescendantIds(state.fileSystem, id)].filter(
         (nid) => !state.deletedIds.includes(nid) && !state.trashItems.includes(nid)
       );
       if (idsToTrash.length === 0) return state;
       return {
-        past: [...state.past, { ...snapshot(state), label: "MOVE_TO_TRASH" as const }].slice(
-          -HISTORY_LIMIT
-        ),
+        past: [...state.past, { ...snapshot(state), label: "MOVE_TO_TRASH" as const }].slice(-HISTORY_LIMIT),
         future: [],
         trashItems: [...state.trashItems, ...idsToTrash],
       };
@@ -108,44 +212,101 @@ export const useSystemStore = create<SystemState>((set, get) => ({
     set((state) => {
       if (state.trashItems.length === 0) return state;
       const purged = state.trashItems.filter((id) => !state.deletedIds.includes(id));
+      const purgedSet = new Set(purged);
+      const nextPositions = { ...state.desktopPositions };
+      for (const id of purged) delete nextPositions[id];
       return {
-        // Permanent purge: deliberately NOT pushed to undo history, and redo
-        // is cleared. undo() below also filters against deletedIds so an older
-        // MOVE_TO_TRASH can never resurrect an emptied file.
         deletedIds: [...state.deletedIds, ...purged],
         trashItems: [],
-        desktopIds: state.desktopIds.filter((id) => !purged.includes(id)),
+        desktopIds: state.desktopIds.filter((id) => !purgedSet.has(id)),
+        desktopPositions: nextPositions,
         future: [],
       };
     }),
-  moveToDesktop: (id) =>
+  moveToDesktop: (id, position) =>
     set((state) => {
-      // Can't revive permanently deleted or currently trashed items via drag.
       if (state.deletedIds.includes(id)) return state;
       if (state.trashItems.includes(id)) return state;
-      if (state.desktopIds.includes(id)) return state;
+      const item = findFileItem(state.fileSystem, id);
+      if (!item) return state;
+      const alreadyOnDesktop = state.desktopIds.includes(id);
+      const nextPos = position ?? state.desktopPositions[id] ?? defaultDesktopPosition(state.desktopIds.length);
+      if (alreadyOnDesktop && !position) return state;
+      if (
+        alreadyOnDesktop &&
+        position &&
+        state.desktopPositions[id]?.x === nextPos.x &&
+        state.desktopPositions[id]?.y === nextPos.y
+      ) {
+        return state;
+      }
+      let nextFs = state.fileSystem;
+      if (findParentFolder(state.fileSystem, id) !== "desktop") {
+        nextFs = addToFolder(removeFromTree(state.fileSystem, id), "desktop", item);
+      }
       return {
-        past: [...state.past, { ...snapshot(state), label: "MOVE_TO_DESKTOP" as const }].slice(
-          -HISTORY_LIMIT
-        ),
+        past: [
+          ...state.past,
+          { ...snapshot(state), label: alreadyOnDesktop ? ("MOVE_ON_DESKTOP" as const) : ("MOVE_TO_DESKTOP" as const) },
+        ].slice(-HISTORY_LIMIT),
         future: [],
-        desktopIds: [...state.desktopIds, id],
+        fileSystem: nextFs,
+        desktopIds: alreadyOnDesktop ? state.desktopIds : [...state.desktopIds, id],
+        desktopPositions: { ...state.desktopPositions, [id]: nextPos },
+      };
+    }),
+  moveToFolder: (id, folderId) =>
+    set((state) => {
+      if (state.deletedIds.includes(id) || state.trashItems.includes(id)) return state;
+      if (folderId === id) return state;
+      const destItem = findFileItem(state.fileSystem, folderId);
+      const destIsFolder =
+        folderId === "desktop" || !!state.fileSystem[folderId] || destItem?.type === "folder";
+      if (!destIsFolder) return state;
+      if (isNestedUnder(state.fileSystem, folderId, id)) return state;
+      const item = findFileItem(state.fileSystem, id);
+      if (!item) return state;
+      const currentParent = findParentFolder(state.fileSystem, id);
+      const onDesktop = state.desktopIds.includes(id);
+      if (folderId === "desktop") {
+        if (onDesktop && currentParent === "desktop") return state;
+        const pos = state.desktopPositions[id] ?? defaultDesktopPosition(state.desktopIds.length);
+        const nextFs = addToFolder(removeFromTree(state.fileSystem, id), "desktop", item);
+        return {
+          past: [...state.past, { ...snapshot(state), label: "MOVE_TO_DESKTOP" as const }].slice(-HISTORY_LIMIT),
+          future: [],
+          fileSystem: nextFs,
+          desktopIds: onDesktop ? state.desktopIds : [...state.desktopIds, id],
+          desktopPositions: { ...state.desktopPositions, [id]: pos },
+        };
+      }
+      if (currentParent === folderId && !onDesktop) return state;
+      const nextPositions = { ...state.desktopPositions };
+      delete nextPositions[id];
+      return {
+        past: [...state.past, { ...snapshot(state), label: "MOVE_TO_FOLDER" as const }].slice(-HISTORY_LIMIT),
+        future: [],
+        fileSystem: addToFolder(removeFromTree(state.fileSystem, id), folderId, item),
+        desktopIds: state.desktopIds.filter((desktopId) => desktopId !== id),
+        desktopPositions: nextPositions,
       };
     }),
   undo: () =>
     set((state) => {
       const prev = state.past[state.past.length - 1];
       if (!prev) return state;
-      // Never restore permanently deleted files.
       const alive = (id: string) => !state.deletedIds.includes(id);
+      const nextPositions = { ...prev.desktopPositions };
+      for (const id of Object.keys(nextPositions)) {
+        if (!alive(id)) delete nextPositions[id];
+      }
       return {
         past: state.past.slice(0, -1),
-        future: [
-          ...state.future,
-          { ...snapshot(state), label: prev.label },
-        ].slice(-HISTORY_LIMIT),
+        future: [...state.future, { ...snapshot(state), label: prev.label }].slice(-HISTORY_LIMIT),
         trashItems: prev.trashItems.filter(alive),
         desktopIds: prev.desktopIds.filter(alive),
+        fileSystem: cloneFs(prev.fileSystem),
+        desktopPositions: nextPositions,
       };
     }),
   redo: () =>
@@ -153,46 +314,115 @@ export const useSystemStore = create<SystemState>((set, get) => ({
       const next = state.future[state.future.length - 1];
       if (!next) return state;
       const alive = (id: string) => !state.deletedIds.includes(id);
+      const nextPositions = { ...next.desktopPositions };
+      for (const id of Object.keys(nextPositions)) {
+        if (!alive(id)) delete nextPositions[id];
+      }
       return {
         future: state.future.slice(0, -1),
         past: [...state.past, { ...snapshot(state), label: next.label }].slice(-HISTORY_LIMIT),
         trashItems: next.trashItems.filter(alive),
         desktopIds: next.desktopIds.filter(alive),
+        fileSystem: cloneFs(next.fileSystem),
+        desktopPositions: nextPositions,
       };
     }),
   isHidden: (id) => {
     const { trashItems, deletedIds } = get();
     return trashItems.includes(id) || deletedIds.includes(id);
   },
-  startDrag: (item) =>
-    set(() => {
-      if (typeof document !== "undefined") {
-        document.body.classList.add("is-finder-dragging");
-      }
-      return { activeDrag: { ...item } };
-    }),
-  updateDragPos: (x, y) =>
-    set((state) => {
-      if (!state.activeDrag) return state;
-      if (state.activeDrag.x === x && state.activeDrag.y === y) return state;
-      return { activeDrag: { ...state.activeDrag, x, y } };
-    }),
-  // Idempotent: safe to call from pointerup / drop / blur + Escape.
-  // Owns the cursor reset so no path can leave `grabbing` stuck on.
-  endDrag: () => {
-    if (typeof document !== "undefined") {
-      document.body.classList.remove("is-finder-dragging");
-      document
-        .querySelectorAll("[data-finder-ghost]")
-        .forEach((el) => el.remove());
-    }
-    const { activeDrag, isOverTrash } = get();
-    if (!activeDrag && !isOverTrash) return;
-    set({ activeDrag: null, isOverTrash: false });
+  getFileItem: (id) => findFileItem(get().fileSystem, id),
+  beginPointerDrag: ({ item, position, grabOffset, pointerId }) => {
+    const state = get();
+    if (state.isDragging || state.pendingDrag) return;
+    set({
+      pendingDrag: { item, startX: position.x, startY: position.y, grabOffset, pointerId },
+      dragPosition: position,
+      dragGrabOffset: grabOffset,
+      dragPointerId: pointerId,
+    });
   },
-  setOverTrash: (over) =>
-    set((state) => {
-      if (state.isOverTrash === over) return state;
-      return { isOverTrash: over };
-    }),
+  onDragPointerMove: (x, y) => {
+    const state = get();
+    const pending = state.pendingDrag;
+    if (!state.isDragging && pending) {
+      if (Math.hypot(x - pending.startX, y - pending.startY) < DRAG_THRESHOLD_PX) {
+        if (state.dragPosition.x === x && state.dragPosition.y === y) return;
+        set({ dragPosition: { x, y } });
+        return;
+      }
+      captureOnDesktop(pending.pointerId);
+      applyGrabCursor();
+      const hit = hitTestDrop(x, y, pending.item.id);
+      set({
+        isDragging: true,
+        draggedItem: pending.item,
+        pendingDrag: null,
+        dragPosition: { x, y },
+        dragGrabOffset: pending.grabOffset,
+        dragPointerId: pending.pointerId,
+        dropTarget: hit.target,
+        dropFolderId: hit.folderId,
+        isOverTrash: hit.target === "trash",
+      });
+      return;
+    }
+    if (!state.isDragging || !state.draggedItem) return;
+    const hit = hitTestDrop(x, y, state.draggedItem.id);
+    if (
+      state.dragPosition.x === x &&
+      state.dragPosition.y === y &&
+      state.dropTarget === hit.target &&
+      state.dropFolderId === hit.folderId
+    ) {
+      return;
+    }
+    set({
+      dragPosition: { x, y },
+      dropTarget: hit.target,
+      dropFolderId: hit.folderId,
+      isOverTrash: hit.target === "trash",
+    });
+  },
+  onDragPointerUp: (x, y) => {
+    const state = get();
+    if (!state.isDragging && !state.pendingDrag) return;
+    const item = state.draggedItem ?? state.pendingDrag?.item ?? null;
+    const wasLive = state.isDragging;
+    const pointerId = state.dragPointerId;
+    resetDragVisuals(pointerId);
+    set({ ...EMPTY_DRAG });
+    if (!wasLive || !item) return;
+
+    const hit = hitTestDrop(x, y, item.id);
+    if (hit.target === "trash") {
+      get().addToTrash(item.id);
+      return;
+    }
+    if (hit.target === "desktop") {
+      const local = clientToDesktopLocal(x, y);
+      const grab = state.dragGrabOffset;
+      const pos = clampDesktopPosition((local?.x ?? x) - grab.x, (local?.y ?? y) - grab.y);
+      get().moveToDesktop(item.id, pos);
+      return;
+    }
+    if (hit.target === "finder" && hit.folderId) {
+      get().moveToFolder(item.id, hit.folderId);
+    }
+  },
+  onDragPointerCancel: () => {
+    const { isDragging, pendingDrag, dragPointerId } = get();
+    if (!isDragging && !pendingDrag) return;
+    resetDragVisuals(dragPointerId);
+    set({ ...EMPTY_DRAG });
+  },
+  endDrag: () => {
+    const { dragPointerId, isDragging, pendingDrag, dropTarget } = get();
+    if (!isDragging && !pendingDrag && !dropTarget) {
+      resetDragVisuals(dragPointerId);
+      return;
+    }
+    resetDragVisuals(dragPointerId);
+    set({ ...EMPTY_DRAG });
+  },
 }));

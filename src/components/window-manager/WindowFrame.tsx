@@ -4,6 +4,7 @@ import { useState, useEffect, useRef, type ReactNode } from "react";
 import { motion, useMotionValue } from "framer-motion";
 import { Minus, Square, X } from "lucide-react";
 import { useWindowStore, type WindowState } from "./useWindowStore";
+import { useSystemStore } from "./useSystemStore";
 import styles from "./WindowFrame.module.css";
 
 interface WindowFrameProps {
@@ -91,6 +92,7 @@ export function WindowFrame({ window: win, children }: WindowFrameProps) {
 
   const handlePointerDown = (e: React.PointerEvent) => {
     if (isMaximized || genie) return; // Prevent drag if full screen or genie-closing
+    if (useSystemStore.getState().isDragging || useSystemStore.getState().pendingDrag) return;
     e.stopPropagation();
     focusWindow(win.id);
 
@@ -102,6 +104,7 @@ export function WindowFrame({ window: win, children }: WindowFrameProps) {
     let lastY = e.clientY;
 
     const onPointerMove = (moveEvent: PointerEvent) => {
+      if (useSystemStore.getState().isDragging) return;
       const deltaX = moveEvent.clientX - lastX;
       const deltaY = moveEvent.clientY - lastY;
       lastX = moveEvent.clientX;
@@ -110,13 +113,19 @@ export function WindowFrame({ window: win, children }: WindowFrameProps) {
       y.set(y.get() + deltaY / scale);
     };
 
-    const onPointerUp = () => {
+    const cleanup = () => {
       window.removeEventListener("pointermove", onPointerMove);
       window.removeEventListener("pointerup", onPointerUp);
+      window.removeEventListener("pointercancel", onPointerUp);
+    };
+
+    const onPointerUp = () => {
+      cleanup();
     };
 
     window.addEventListener("pointermove", onPointerMove);
     window.addEventListener("pointerup", onPointerUp);
+    window.addEventListener("pointercancel", onPointerUp);
   };
 
   const contentSize = isMaximized

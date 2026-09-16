@@ -19,7 +19,7 @@ export function DesktopIcon({ label, variant, glyph, accent = "#4c8dff", onOpen 
   return (
     <motion.button
       type="button"
-      className={`${styles.icon} cursor-grab active:cursor-grabbing`}
+      className={`${styles.icon} cursor-grab select-none`}
       onDoubleClick={onOpen}
       whileHover={{ scale: 1.05, y: -2 }}
       whileTap={{ scale: 0.97, y: 0 }}

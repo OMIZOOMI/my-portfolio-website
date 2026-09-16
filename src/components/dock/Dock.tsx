@@ -20,12 +20,11 @@ import BinFullLight from "../../assets/Bin_Full_KtswXfzQ5b_icns-84dec9d369.png";
 import BinEmptyLight from "../../assets/Bin_Empty_FL3A3BWzVE_icns-7500fa1e26.png";
 
 export default function Dock() {
-  const { theme, trashItems } = useSystemStore();
+  const theme = useSystemStore((s) => s.theme);
+  const trashItems = useSystemStore((s) => s.trashItems);
   const isDarkMode = theme === "dark";
   const isBinFull = trashItems.length > 0;
-  // Lit while a pointer drag hovers the bin (computed by coordinate hit-test
-  // in Finder/DragOverlay — no native dragover involved).
-  const isTrashHover = useSystemStore((s) => s.isOverTrash);
+  const isTrashHover = useSystemStore((s) => s.dropTarget === "trash");
 
   const windows = useWindowStore((s) => s.windows);
   const toggleMinimize = useWindowStore((s) => s.toggleMinimize);
