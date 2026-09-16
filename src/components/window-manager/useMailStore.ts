@@ -68,6 +68,9 @@ export const useMailStore = create<MailStoreState>()(
       // v3: sender/recipient swap (From: You, To: Om Sawkare) — wipes the
       // v2 cache that was still rendering the old fields.
       version: 3,
+      // Required by zustand v5 whenever the stored version differs: discard
+      // the stale payload and return fresh defaults.
+      migrate: () => ({ inbox: seedInbox(), sent: [] }),
       partialize: (state) => ({ inbox: state.inbox, sent: state.sent }),
     }
   )
