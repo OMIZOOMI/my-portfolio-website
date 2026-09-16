@@ -30,9 +30,9 @@ const seedInbox = (): Email[] => [
   {
     id: "welcome-1",
     from: "Om Sawkare",
-    to: "Me",
-    subject: "Welcome to your inbox",
-    body: "This is your portfolio mail client.\n\nHit Compose to open your native email client with a pre-filled message.",
+    to: "You",
+    subject: "Welcome to my portfolio!",
+    body: "Hi there! Welcome to my portfolio's mail client.\n\nIf you'd like to get in touch, simply hit 'Compose' and drop me a message. Clicking send will open your device's native email app so you can reach me directly.\n\nLooking forward to hearing from you!",
     sentAt: Date.now() - 1000 * 60 * 60 * 24,
     read: false,
   },
@@ -63,9 +63,9 @@ export const useMailStore = create<MailStoreState>()(
     {
       name: "mail-store",
       storage: createJSONStorage(() => localStorage),
-      // NOTE: very large base64 attachments can exceed the ~5MB localStorage
-      // quota; zustand then keeps state in memory for the session (the write
-      // fails, the app does not). Images stay fully functional either way.
+      // Bumped past the attachment-era payloads so stale seeds/sent mail
+      // from earlier builds are discarded on rehydrate.
+      version: 2,
       partialize: (state) => ({ inbox: state.inbox, sent: state.sent }),
     }
   )
