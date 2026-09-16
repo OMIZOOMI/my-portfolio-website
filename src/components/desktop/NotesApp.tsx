@@ -3,6 +3,7 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { Folder, Search, Edit, X, Bold, Italic, Underline } from "lucide-react";
 import { create } from "zustand";
+import { useSmoothScroll as useMacScroll } from "./useSmoothScroll";
 
 // --- 1. NOTES STORE (single rich-text HTML string per note + search state) ---
 interface Note {
@@ -69,23 +70,7 @@ function notePreview(html: string): { title: string; snippet: string } {
   };
 }
 
-// --- 2. MAC SCROLL FIX ---
-function useMacScroll(ref: React.RefObject<HTMLDivElement | null>) {
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-
-    const handleWheel = (e: Event) => {
-      const wheelEvent = e as WheelEvent;
-      wheelEvent.preventDefault();
-      wheelEvent.stopPropagation();
-      el.scrollTop += wheelEvent.deltaY;
-    };
-
-    el.addEventListener("wheel", handleWheel, { passive: false });
-    return () => el.removeEventListener("wheel", handleWheel);
-  }, [ref]);
-}
+// --- 2. SCROLL FIX (shared normalized hook; see useSmoothScroll.ts) ---
 
 // --- 3. MAIN COMPONENT ---
 export function NotesApp({ window }: { window: { id: string; title: string } }) {

@@ -3,12 +3,13 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Video, VideoOff, Mic, MicOff, PhoneOff, User } from "lucide-react";
 import { useWindowStore } from "../window-manager/useWindowStore";
-import { useHandGestureDetector } from "../webcam/useHandGestureDetector";
+import { useHandGestureDetector, type LandmarkerDelegate } from "../webcam/useHandGestureDetector";
 import type { Gesture } from "../webcam/GestureClassifier";
 import { ConfettiBurst } from "../webcam/ConfettiBurst";
 import { FloatingLikes } from "./FaceTimeEffects";
+import { useSmoothScroll } from "./useSmoothScroll";
 
-type GestureStatus = "loading" | "ready";
+type GestureStatus = "loading" | "ready" | "failed";
 
 export function FaceTimeApp({ window: win }: { window: { id: string; title: string } }) {
   // NOTE: the <video> below renders UNCONDITIONALLY so this ref is populated
@@ -31,7 +32,11 @@ export function FaceTimeApp({ window: win }: { window: { id: string; title: stri
   const [likeKey, setLikeKey] = useState(0);
   const [detectedLabel, setDetectedLabel] = useState<string | null>(null);
   const [gestureStatus, setGestureStatus] = useState<GestureStatus>("loading");
+  const [gestureDelegate, setGestureDelegate] = useState<LandmarkerDelegate | null>(null);
+  const sidebarRef = useRef<HTMLDivElement>(null);
   const closeWindow = useWindowStore((s) => s.closeWindow);
+
+  useSmoothScroll(sidebarRef);
 
   useEffect(() => {
     let cancelled = false;
@@ -54,7 +59,12 @@ export function FaceTimeApp({ window: win }: { window: { id: string; title: stri
 
     navigator.mediaDevices
       // Audio included so the mic toggle has a real track to mute.
-      .getUserMedia({ video: true, audio: true })
+      // `ideal` (not `exact`) so strict Windows drivers don't reject the
+      // request over a resolution they can't match exactly.
+      .getUserMedia({
+        video: { width: { ideal: 1280 }, height: { ideal: 720 }, facingMode: "user" },
+        audio: true,
+      })
       .then((stream) => {
         if (cancelled) {
           // StrictMode remount / unmount beat the promise: release the tracks.
@@ -102,7 +112,12 @@ export function FaceTimeApp({ window: win }: { window: { id: string; title: stri
     [flashLabel]
   );
 
-  const handleModelReady = useCallback(() => setGestureStatus("ready"), []);
+  const handleModelReady = useCallback((delegate: LandmarkerDelegate) => {
+    setGestureDelegate(delegate);
+    setGestureStatus("ready");
+  }, []);
+
+  const handleModelError = useCallback(() => setGestureStatus("failed"), []);
 
   // Detection needs live frames: gate on permission AND an enabled camera.
   const detecting =
@@ -112,6 +127,7 @@ export function FaceTimeApp({ window: win }: { window: { id: string; title: stri
     enabled: hasPermission && isVideoEnabled && !error,
     onGesture: handleGesture,
     onReady: handleModelReady,
+    onError: handleModelError,
   });
 
   const toggleVideo = () => {
@@ -134,9 +150,14 @@ export function FaceTimeApp({ window: win }: { window: { id: string; title: stri
   const showCameraOff = hasPermission && !isVideoEnabled;
 
   return (
-    <div className="flex w-full h-full bg-black text-white font-sans select-none overflow-hidden">
+    <div className="facetime-root flex w-full h-full bg-black text-white font-sans select-none overflow-hidden">
+      <style>{`
+        .facetime-root { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+        .facetime-scroll { scrollbar-width: none; -ms-overflow-style: none; }
+        .facetime-scroll::-webkit-scrollbar { display: none; }
+      `}</style>
       {/* Sidebar — glassmorphism instructions panel */}
-      <aside className="w-52 shrink-0 h-full flex flex-col bg-white/10 backdrop-blur-xl border-r border-white/10 p-4 gap-4">
+      <aside ref={sidebarRef} className="facetime-scroll w-52 shrink-0 h-full flex flex-col bg-white/10 backdrop-blur-xl border-r border-white/10 p-4 gap-4 overflow-y-auto">
         <div className="flex items-center gap-2">
           <span
             className={`w-2 h-2 rounded-full ${
@@ -171,8 +192,20 @@ export function FaceTimeApp({ window: win }: { window: { id: string; title: stri
         <div className="mt-auto flex flex-col gap-1.5 text-xs text-white/60">
           <div className="flex items-center justify-between">
             <span>Gesture detection</span>
-            <span className={gestureStatus === "ready" ? "text-green-300" : "text-white/40"}>
-              {gestureStatus === "ready" ? "Live" : "Loading…"}
+            <span
+              className={
+                gestureStatus === "ready"
+                  ? "text-green-300"
+                  : gestureStatus === "failed"
+                    ? "text-red-300"
+                    : "text-white/40"
+              }
+            >
+              {gestureStatus === "ready"
+                ? `Live${gestureDelegate ? ` (${gestureDelegate})` : ""}`
+                : gestureStatus === "failed"
+                  ? "Unavailable"
+                  : "Loading…"}
             </span>
           </div>
           <div className="flex items-center justify-between">
