@@ -3,23 +3,12 @@
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 
-export interface MailAttachment {
-  name: string;
-  type: string;
-  size: number;
-  /** Base64 data URL (FileReader.readAsDataURL). Plain string => serializable,
-      identical on Windows/macOS, and safe to persist across reloads — unlike
-      Blob handles or URL.createObjectURL lifetimes, which die with the page. */
-  data: string;
-}
-
 export interface Email {
   id: string;
   from: string;
   to: string;
   subject: string;
   body: string;
-  attachments: MailAttachment[];
   sentAt: number;
   read: boolean;
 }
@@ -28,7 +17,6 @@ export interface SendDraft {
   to: string;
   subject: string;
   body: string;
-  attachments: MailAttachment[];
 }
 
 interface MailStoreState {
@@ -44,8 +32,7 @@ const seedInbox = (): Email[] => [
     from: "Om Sawkare",
     to: "Me",
     subject: "Welcome to your inbox",
-    body: "This is your portfolio mail client.\n\nHit Compose, attach an image, and send it to yourself — attachments now render inline in the reader.",
-    attachments: [],
+    body: "This is your portfolio mail client.\n\nHit Compose to open your native email client with a pre-filled message.",
     sentAt: Date.now() - 1000 * 60 * 60 * 24,
     read: false,
   },
