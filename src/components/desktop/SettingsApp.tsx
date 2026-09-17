@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import {
   Sun,
   Moon,
@@ -20,6 +20,7 @@ import {
 } from "../window-manager/useSystemStore";
 import { useNotesStore } from "./NotesApp";
 import { useMailStore } from "../window-manager/useMailStore";
+import { useSmoothScroll } from "./useSmoothScroll";
 
 const ACCENTS: { name: AccentName; label: string }[] = [
   { name: "blue", label: "Blue" },
@@ -100,6 +101,14 @@ export function SettingsApp({ window }: { window: { id: string; title: string } 
 
   const accentHex = ACCENT_HEX[accent];
 
+  // Mirror the Notes scroll architecture: hijacked, normalized wheel deltas
+  // with overscroll containment, so trackpad momentum (esp. swipe-up) can't
+  // escape into the R3F canvas portal or trigger browser pull-to-refresh.
+  const sidebarRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
+  useSmoothScroll(sidebarRef);
+  useSmoothScroll(contentRef);
+
   const handleFactoryReset = () => {
     const confirmed = globalThis.confirm(
       "Erase All Content and Settings?\n\nThis wipes every persisted state (notes, mail, Finder layout, trash) and reloads fresh. This cannot be undone."
@@ -112,7 +121,11 @@ export function SettingsApp({ window }: { window: { id: string; title: string } 
   return (
     <div className="w-full h-full bg-[#f4f4f4] text-gray-800 dark:bg-[#1e1e1e] dark:text-gray-200 font-sans flex overflow-hidden">
       {/* Sidebar — glassmorphic nav */}
-      <div className="w-48 shrink-0 h-full bg-[#ebebeb] dark:bg-black/30 backdrop-blur-xl border-r border-gray-300 dark:border-white/10 p-2 flex flex-col gap-1 overflow-y-auto">
+      <div
+        ref={sidebarRef}
+        className="w-48 shrink-0 h-full bg-[#ebebeb] dark:bg-black/30 backdrop-blur-xl border-r border-gray-300 dark:border-white/10 p-2 flex flex-col gap-1 overflow-y-auto overscroll-contain"
+        style={{ transform: "translateZ(0)" }}
+      >
         {TABS.map((tab) => {
           const active = activeTab === tab.id;
           return (
@@ -135,8 +148,12 @@ export function SettingsApp({ window }: { window: { id: string; title: string } 
         })}
       </div>
 
-      {/* Content */}
-      <div className="flex-1 p-8 overflow-y-auto min-w-0">
+      {/* Content — sole scroll owner: flex-1 + overscroll trapped, like Notes */}
+      <div
+        ref={contentRef}
+        className="flex-1 p-8 overflow-y-auto overscroll-contain min-w-0 min-h-0"
+        style={{ transform: "translateZ(0)" }}
+      >
         {activeTab === "appearance" && (
           <div>
             <h2 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Appearance</h2>
