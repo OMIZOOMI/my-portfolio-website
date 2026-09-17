@@ -1,12 +1,12 @@
 "use client";
 
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { MenuBar } from "../webcam/MenuBar";
 import { DesktopIcon } from "./DesktopIcon";
 import Dock from "../dock/Dock";
 import { WindowManager } from "../window-manager/WindowManager";
 import { useWindowStore } from "../window-manager/useWindowStore";
-import { useSystemStore } from "../window-manager/useSystemStore";
+import { useSystemStore, ACCENT_HEX } from "../window-manager/useSystemStore";
 import { DragOverlay } from "./DragOverlay";
 import { beginFilePointerDrag } from "./beginFilePointerDrag";
 import { defaultDesktopPosition } from "./fileDrag";
@@ -70,6 +70,13 @@ export function DesktopEnvironment() {
   const desktopPositions = useSystemStore((s) => s.desktopPositions);
   const getFileItem = useSystemStore((s) => s.getFileItem);
   const activeDragId = useSystemStore((s) => s.draggedItem?.id ?? null);
+  const accent = useSystemStore((s) => s.accent);
+
+  // Publish the system accent as a global CSS variable so any component can
+  // theme primary highlights off it via var(--system-accent).
+  useEffect(() => {
+    document.documentElement.style.setProperty("--system-accent", ACCENT_HEX[accent]);
+  }, [accent]);
 
   const visibleDesktopIds = desktopIds.filter((id) => !trashItems.includes(id) && !deletedIds.includes(id));
 

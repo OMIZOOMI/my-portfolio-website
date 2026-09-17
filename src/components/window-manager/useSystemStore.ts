@@ -16,6 +16,16 @@ import {
 
 export type FileActionLabel = "MOVE_TO_TRASH" | "MOVE_TO_DESKTOP" | "MOVE_TO_FOLDER" | "MOVE_ON_DESKTOP";
 
+export type AccentName = "blue" | "purple" | "green" | "orange" | "graphite";
+
+export const ACCENT_HEX: Record<AccentName, string> = {
+  blue: "#0A84FF",
+  purple: "#BF5AF2",
+  green: "#30D158",
+  orange: "#FF9F0A",
+  graphite: "#8E8E93",
+};
+
 export type { DraggedItem, DropTarget };
 
 interface FileSnapshot {
@@ -40,6 +50,10 @@ interface PendingDrag {
 interface SystemState {
   theme: "dark" | "light";
   wallpaper: string;
+  accent: AccentName;
+  reduceMotion: boolean;
+  dockMagnification: boolean;
+  dockSize: number;
   trashItems: string[];
   deletedIds: string[];
   desktopIds: string[];
@@ -58,6 +72,10 @@ interface SystemState {
   isOverTrash: boolean;
   setTheme: (theme: "dark" | "light") => void;
   setWallpaper: (url: string) => void;
+  setAccent: (accent: AccentName) => void;
+  setReduceMotion: (on: boolean) => void;
+  setDockMagnification: (on: boolean) => void;
+  setDockSize: (size: number) => void;
   addToTrash: (id: string) => void;
   emptyTrash: () => void;
   moveToDesktop: (id: string, position?: { x: number; y: number }) => void;
@@ -185,6 +203,10 @@ function resetDragVisuals(pointerId: number | null) {
 export const useSystemStore = create<SystemState>((set, get) => ({
   theme: "dark",
   wallpaper: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564",
+  accent: "blue",
+  reduceMotion: false,
+  dockMagnification: true,
+  dockSize: 1,
   trashItems: [],
   deletedIds: [],
   desktopIds: INITIAL_DESKTOP_IDS,
@@ -195,6 +217,11 @@ export const useSystemStore = create<SystemState>((set, get) => ({
   ...EMPTY_DRAG,
   setTheme: (theme) => set({ theme }),
   setWallpaper: (wallpaper) => set({ wallpaper }),
+  setAccent: (accent) => set({ accent }),
+  setReduceMotion: (reduceMotion) => set({ reduceMotion }),
+  setDockMagnification: (dockMagnification) => set({ dockMagnification }),
+  setDockSize: (dockSize) =>
+    set({ dockSize: Math.max(0.75, Math.min(1.5, dockSize)) }),
   addToTrash: (id) =>
     set((state) => {
       if (state.deletedIds.includes(id)) return state;

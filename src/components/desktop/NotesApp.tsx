@@ -29,7 +29,7 @@ interface NotesState {
 }
 
 // This lives OUTSIDE the component, so it never forgets your notes!
-const useNotesStore = create<NotesState>((set) => ({
+export const useNotesStore = create<NotesState>((set) => ({
   notes: [{ id: "1", contentHtml: DEFAULT_NOTE_HTML, updatedAt: Date.now() }],
   activeNoteId: "1",
   searchQuery: "",

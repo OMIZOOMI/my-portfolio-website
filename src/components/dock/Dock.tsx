@@ -25,6 +25,15 @@ export default function Dock() {
   const isDarkMode = theme === "dark";
   const isBinFull = trashItems.length > 0;
   const isTrashHover = useSystemStore((s) => s.dropTarget === "trash");
+  const magnification = useSystemStore((s) => s.dockMagnification);
+  const dockSize = useSystemStore((s) => s.dockSize);
+
+  // Base icon footprint (w-14) scaled by the Dock Size preference.
+  const iconPx = Math.round(56 * dockSize);
+  const iconStyle = { width: `${iconPx}px`, height: `${iconPx}px` };
+  const magnify = magnification
+    ? { scale: 1.4, translateY: -10 }
+    : { scale: 1, translateY: 0 };
 
   const windows = useWindowStore((s) => s.windows);
   const toggleMinimize = useWindowStore((s) => s.toggleMinimize);
@@ -71,8 +80,8 @@ export default function Dock() {
       <div className="flex items-end gap-2 px-3 pb-2 pt-2 bg-white/10 dark:bg-black/20 backdrop-blur-md border border-white/20 dark:border-white/10 rounded-2xl shadow-2xl">
         
         {dockApps.map((app) => (
-          <motion.div key={app.id} data-dock-app={app.id} whileHover={{ scale: 1.4, translateY: -10 }} transition={{ type: "spring", stiffness: 300, damping: 20 }} className="relative group cursor-pointer flex items-center justify-center" onClick={() => handleAppClick(app.id)}>
-            <img src={app.icon} alt={app.name} draggable={false} className="w-12 h-12 md:w-14 md:h-14 drop-shadow-md pointer-events-none select-none object-contain" />
+          <motion.div key={app.id} data-dock-app={app.id} whileHover={magnify} transition={{ type: "spring", stiffness: 300, damping: 20 }} className="relative group cursor-pointer flex items-center justify-center" onClick={() => handleAppClick(app.id)}>
+            <img src={app.icon} alt={app.name} draggable={false} style={iconStyle} className="drop-shadow-md pointer-events-none select-none object-contain" />
             <span className="absolute -top-10 left-1/2 -translate-x-1/2 px-3 py-1 bg-gray-900/80 text-white text-xs rounded-md opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-50">
               {app.name}
             </span>
@@ -82,8 +91,8 @@ export default function Dock() {
         <div className="w-[1px] h-12 bg-white/30 mx-1 rounded-full"></div>
 
         {minimizedWindows.map((win) => (
-          <motion.div key={win.id} whileHover={{ scale: 1.4, translateY: -10 }} transition={{ type: "spring", stiffness: 300, damping: 20 }} className="relative group cursor-pointer flex items-center justify-center" onClick={() => toggleMinimize(win.id)}>
-            <div className="w-12 h-12 md:w-14 md:h-14 bg-[#1e1e1e]/90 backdrop-blur-md border border-white/20 rounded-lg flex flex-col overflow-hidden shadow-lg object-contain">
+          <motion.div key={win.id} whileHover={magnify} transition={{ type: "spring", stiffness: 300, damping: 20 }} className="relative group cursor-pointer flex items-center justify-center" onClick={() => toggleMinimize(win.id)}>
+            <div className="bg-[#1e1e1e]/90 backdrop-blur-md border border-white/20 rounded-lg flex flex-col overflow-hidden shadow-lg object-contain" style={iconStyle}>
               <div className="h-3 w-full bg-white/10 flex items-center px-1 gap-[2px]">
                 <div className="w-1 h-1 rounded-full bg-[#ff5f56]" />
                 <div className="w-1 h-1 rounded-full bg-[#ffbd2e]" />
@@ -101,13 +110,13 @@ export default function Dock() {
         <motion.div
           id="trash-bin"
           data-dock-app="bin"
-          whileHover={{ scale: 1.4, translateY: -10 }}
+          whileHover={magnify}
           animate={isTrashHover ? { scale: 1.4, translateY: -10 } : { scale: 1, translateY: 0 }}
           transition={{ type: "spring", stiffness: 300, damping: 20 }}
           className={`relative group cursor-pointer rounded-xl ${isTrashHover ? "bg-white/20 ring-2 ring-red-400/70" : ""}`}
           onClick={handleBinClick}
         >
-          <img src={getBinIcon()} alt="Bin" draggable={false} className="w-12 h-12 md:w-14 md:h-14 drop-shadow-md pointer-events-none select-none object-contain" />
+          <img src={getBinIcon()} alt="Bin" draggable={false} style={iconStyle} className="drop-shadow-md pointer-events-none select-none object-contain" />
           <span className="absolute -top-10 left-1/2 -translate-x-1/2 px-3 py-1 bg-gray-900/80 text-white text-xs rounded-md opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-50">
             Bin
           </span>

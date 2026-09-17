@@ -3,6 +3,7 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Video, VideoOff, Mic, MicOff, PhoneOff, User } from "lucide-react";
 import { useWindowStore } from "../window-manager/useWindowStore";
+import { useSystemStore } from "../window-manager/useSystemStore";
 import { useHandGestureDetector, type LandmarkerDelegate } from "../webcam/useHandGestureDetector";
 import type { Gesture } from "../webcam/GestureClassifier";
 import { ConfettiBurst } from "../webcam/ConfettiBurst";
@@ -33,6 +34,8 @@ export function FaceTimeApp({ window: win }: { window: { id: string; title: stri
   const [detectedLabel, setDetectedLabel] = useState<string | null>(null);
   const [gestureStatus, setGestureStatus] = useState<GestureStatus>("loading");
   const [gestureDelegate, setGestureDelegate] = useState<LandmarkerDelegate | null>(null);
+  // Accessibility: skip celebratory animation loops, keep the text badge.
+  const reduceMotion = useSystemStore((s) => s.reduceMotion);
   const sidebarRef = useRef<HTMLDivElement>(null);
   const closeWindow = useWindowStore((s) => s.closeWindow);
 
@@ -260,9 +263,9 @@ export function FaceTimeApp({ window: win }: { window: { id: string; title: stri
           </div>
         )}
 
-        {/* Effect overlays (self-unmounting) */}
-        {confettiKey > 0 && <ConfettiBurst key={`confetti-${confettiKey}`} />}
-        {likeKey > 0 && <FloatingLikes key={`likes-${likeKey}`} burstKey={likeKey} />}
+        {/* Effect overlays (self-unmounting; suppressed under Reduce Motion) */}
+        {confettiKey > 0 && !reduceMotion && <ConfettiBurst key={`confetti-${confettiKey}`} />}
+        {likeKey > 0 && !reduceMotion && <FloatingLikes key={`likes-${likeKey}`} burstKey={likeKey} />}
 
         {/* Floating controls (show on hover) */}
         <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-4 bg-white/10 backdrop-blur-md px-6 py-3 rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
