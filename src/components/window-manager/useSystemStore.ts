@@ -26,6 +26,51 @@ export const ACCENT_HEX: Record<AccentName, string> = {
   graphite: "#8E8E93",
 };
 
+export interface WallpaperTheme {
+  name: string;
+  dark: string;
+  light: string;
+}
+
+// Theme-name wallpapers: the store keeps the NAME, DesktopEnvironment resolves
+// the URL for the active color scheme. All IDs are proven-stable Unsplash
+// photos (the old "Mountains" 1506744626753 asset 404'd and is gone).
+export const WALLPAPER_THEMES: WallpaperTheme[] = [
+  {
+    name: "Big Sur",
+    dark: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564",
+    light: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=2564",
+  },
+  {
+    name: "Monterey",
+    dark: "https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=2564",
+    light: "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?q=80&w=2564",
+  },
+  {
+    name: "Ventura",
+    dark: "https://images.unsplash.com/photo-1531366936337-7c912a4589a7?q=80&w=2564",
+    light: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?q=80&w=2564",
+  },
+  {
+    name: "Sonoma",
+    dark: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=2564",
+    light: "https://images.unsplash.com/photo-1509316785289-025f5b846b35?q=80&w=2564",
+  },
+  {
+    name: "Sequoia",
+    dark: "https://images.unsplash.com/photo-1439405326854-014607f694d7?q=80&w=2564",
+    light: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=2564",
+  },
+];
+
+export const DEFAULT_WALLPAPER_THEME = "Big Sur";
+
+export function resolveWallpaper(themeName: string, isDark: boolean): string {
+  const theme =
+    WALLPAPER_THEMES.find((t) => t.name === themeName) ?? WALLPAPER_THEMES[0];
+  return isDark ? theme.dark : theme.light;
+}
+
 export type { DraggedItem, DropTarget };
 
 interface FileSnapshot {
@@ -71,7 +116,8 @@ interface SystemState {
   dragPointerId: number | null;
   isOverTrash: boolean;
   setTheme: (theme: "dark" | "light") => void;
-  setWallpaper: (url: string) => void;
+  /** Wallpaper THEME name (see WALLPAPER_THEMES); resolved per color scheme. */
+  setWallpaper: (themeName: string) => void;
   setAccent: (accent: AccentName) => void;
   setReduceMotion: (on: boolean) => void;
   setDockMagnification: (on: boolean) => void;
@@ -202,7 +248,7 @@ function resetDragVisuals(pointerId: number | null) {
 
 export const useSystemStore = create<SystemState>((set, get) => ({
   theme: "dark",
-  wallpaper: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564",
+  wallpaper: DEFAULT_WALLPAPER_THEME,
   accent: "blue",
   reduceMotion: false,
   dockMagnification: true,

@@ -1,8 +1,13 @@
 @import "tailwindcss";
 
+/* Class-driven dark mode (Tailwind v4 defaults `dark:` to prefers-color-scheme;
+   the OS theme toggle drives a `.dark` class on <html> instead). */
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --system-accent: #0a84ff;
 }
 
 @theme inline {
@@ -22,5 +27,5 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }

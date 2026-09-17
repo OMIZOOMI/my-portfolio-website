@@ -6,7 +6,7 @@ import { DesktopIcon } from "./DesktopIcon";
 import Dock from "../dock/Dock";
 import { WindowManager } from "../window-manager/WindowManager";
 import { useWindowStore } from "../window-manager/useWindowStore";
-import { useSystemStore, ACCENT_HEX } from "../window-manager/useSystemStore";
+import { useSystemStore, ACCENT_HEX, resolveWallpaper } from "../window-manager/useSystemStore";
 import { DragOverlay } from "./DragOverlay";
 import { beginFilePointerDrag } from "./beginFilePointerDrag";
 import { defaultDesktopPosition } from "./fileDrag";
@@ -71,6 +71,8 @@ export function DesktopEnvironment() {
   const getFileItem = useSystemStore((s) => s.getFileItem);
   const activeDragId = useSystemStore((s) => s.draggedItem?.id ?? null);
   const accent = useSystemStore((s) => s.accent);
+  const theme = useSystemStore((s) => s.theme);
+  const isDarkMode = theme === "dark";
 
   // Publish the system accent as a global CSS variable so any component can
   // theme primary highlights off it via var(--system-accent).
@@ -78,14 +80,20 @@ export function DesktopEnvironment() {
     document.documentElement.style.setProperty("--system-accent", ACCENT_HEX[accent]);
   }, [accent]);
 
+  // Class-driven color scheme: Tailwind `dark:` variants key off `.dark`.
+  useEffect(() => {
+    document.documentElement.classList.toggle("dark", isDarkMode);
+  }, [isDarkMode]);
+
   const visibleDesktopIds = desktopIds.filter((id) => !trashItems.includes(id) && !deletedIds.includes(id));
+  const backgroundUrl = resolveWallpaper(wallpaper, isDarkMode);
 
   return (
     <div
       id="desktop-root"
       ref={desktopRef}
       className="w-full h-full relative overflow-hidden select-none bg-cover bg-center transition-all duration-500"
-      style={{ backgroundImage: `url("${wallpaper}")` }}
+      style={{ backgroundImage: `url("${backgroundUrl}")`, backgroundColor: "#1e1e1e" }}
     >
       <MenuBar />
 

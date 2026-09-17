@@ -38,7 +38,7 @@ function FinderDragItem({
       }
       className={`cursor-grab select-none touch-none transition-opacity duration-150 ${
         isDragging ? "opacity-40 scale-[0.97] saturate-50" : "opacity-100"
-      } ${isDropTarget ? "ring-2 ring-blue-400/80 rounded-xl bg-white/10" : ""}`}
+      } ${isDropTarget ? "ring-2 ring-[var(--system-accent)] rounded-xl bg-[var(--system-accent)]/10" : ""}`}
     >
       <DesktopIcon
         label={item.name}
@@ -131,71 +131,73 @@ export function Finder({ window }: { window: { id: string; title: string } }) {
     isFileDragging && dropTarget === "finder" && dropFolderId === currentFolderId && activeDragId !== currentFolderId;
 
   return (
-    <div className="flex w-full h-full bg-[#1e1e1e]/90 text-gray-200 select-none font-sans flex-row">
-      <div className="w-44 bg-black/30 border-r border-white/10 p-3 flex flex-col gap-1">
-        <h3 className="text-[11px] font-bold text-gray-400 mb-1 px-2 uppercase tracking-wider">Favorites</h3>
+    <div className="flex w-full h-full bg-[#f4f4f4]/95 text-gray-800 dark:bg-[#1e1e1e]/90 dark:text-gray-200 select-none font-sans flex-row">
+      <div className="w-44 bg-[#ebebeb] border-r border-gray-300 dark:bg-black/30 dark:border-white/10 p-3 flex flex-col gap-1">
+        <h3 className="text-[11px] font-bold text-gray-500 dark:text-gray-400 mb-1 px-2 uppercase tracking-wider">Favorites</h3>
         <button
           data-drop-folder-id="desktop"
           onClick={() => navigateTo("desktop")}
+          style={currentFolderId === "desktop" ? { backgroundColor: "var(--system-accent)", color: "#fff" } : undefined}
           className={`text-left text-sm px-3 py-1.5 rounded-md transition-colors ${
-            currentFolderId === "desktop" ? "bg-blue-500/80 text-white" : "hover:bg-white/10"
-          } ${isFileDragging && dropFolderId === "desktop" && dropTarget === "finder" ? "ring-2 ring-blue-400/80" : ""}`}
+            currentFolderId === "desktop" ? "" : "hover:bg-gray-300/60 dark:hover:bg-white/10"
+          } ${isFileDragging && dropFolderId === "desktop" && dropTarget === "finder" ? "ring-2 ring-[var(--system-accent)]" : ""}`}
         >
           Desktop
         </button>
         <button
           data-drop-folder-id="documents"
           onClick={() => navigateTo("documents")}
+          style={currentFolderId === "documents" ? { backgroundColor: "var(--system-accent)", color: "#fff" } : undefined}
           className={`text-left text-sm px-3 py-1.5 rounded-md transition-colors ${
-            currentFolderId === "documents" ? "bg-blue-500/80 text-white" : "hover:bg-white/10"
-          } ${isFileDragging && dropFolderId === "documents" && dropTarget === "finder" ? "ring-2 ring-blue-400/80" : ""}`}
+            currentFolderId === "documents" ? "" : "hover:bg-gray-300/60 dark:hover:bg-white/10"
+          } ${isFileDragging && dropFolderId === "documents" && dropTarget === "finder" ? "ring-2 ring-[var(--system-accent)]" : ""}`}
         >
           Documents
         </button>
       </div>
 
-      <div className="flex-1 flex flex-col bg-[#1e1e1e]">
-        <div className="h-12 border-b border-white/10 flex items-center px-4 gap-4 bg-white/5">
+      <div className="flex-1 flex flex-col bg-white dark:bg-[#1e1e1e]">
+        <div className="h-12 border-b border-gray-200 bg-gray-100 dark:border-white/10 flex items-center px-4 gap-4 dark:bg-white/5">
           <div className="flex gap-2">
             <button
               onClick={() => setCurrentIndex(Math.max(0, currentIndex - 1))}
               disabled={currentIndex === 0}
-              className="px-2 py-1 bg-white/10 rounded hover:bg-white/20 disabled:opacity-30"
+              className="px-2 py-1 bg-gray-200 rounded hover:bg-gray-300 dark:bg-white/10 dark:hover:bg-white/20 disabled:opacity-30"
             >
               {"<"}
             </button>
             <button
               onClick={() => setCurrentIndex(Math.min(history.length - 1, currentIndex + 1))}
               disabled={currentIndex === history.length - 1}
-              className="px-2 py-1 bg-white/10 rounded hover:bg-white/20 disabled:opacity-30"
+              className="px-2 py-1 bg-gray-200 rounded hover:bg-gray-300 dark:bg-white/10 dark:hover:bg-white/20 disabled:opacity-30"
             >
               {">"}
             </button>
           </div>
-          <div className="text-sm font-semibold capitalize text-gray-300">{currentFolderId.replace("-", " ")}</div>
+          <div className="text-sm font-semibold capitalize text-gray-600 dark:text-gray-300">{currentFolderId.replace("-", " ")}</div>
         </div>
 
         <div
           data-finder-content={currentFolderId}
           className={`flex-1 p-6 flex flex-wrap gap-8 content-start ${
             isFileDragging ? "overflow-visible" : "overflow-y-auto"
-          } ${contentIsDropTarget ? "ring-2 ring-inset ring-blue-400/40 bg-blue-500/5" : ""}`}
+          } ${contentIsDropTarget ? "ring-2 ring-inset ring-[var(--system-accent)] bg-[var(--system-accent)]/5" : ""}`}
         >
           {isCurrentFolderGone ? (
             <div className="w-full h-full flex flex-col items-center justify-center text-center gap-3 py-16">
-              <div className="text-4xl">{isCurrentFolderDeleted ? "🗑️" : "🚫"}</div>
-              <p className="text-sm font-semibold text-gray-200">
-                {isCurrentFolderDeleted ? "This folder was permanently deleted." : "This folder was moved to the Bin."}
-              </p>
-              <p className="text-xs text-gray-500">
-                {isCurrentFolderDeleted ? "Emptying the Bin cannot be undone." : "Its contents were moved with it."}
-              </p>
-              <button
-                onClick={() => navigateTo("desktop")}
-                className="mt-2 px-4 py-1.5 text-sm bg-white/10 hover:bg-white/20 active:bg-white/30 rounded-md transition-colors"
-              >
-                Go to Desktop
-              </button>
+            <div className="text-4xl">{isCurrentFolderDeleted ? "🗑️" : "🚫"}</div>
+            <p className="text-sm font-semibold text-gray-800 dark:text-gray-200">
+              {isCurrentFolderDeleted ? "This folder was permanently deleted." : "This folder was moved to the Bin."}
+            </p>
+            <p className="text-xs text-gray-500">
+              {isCurrentFolderDeleted ? "Emptying the Bin cannot be undone." : "Its contents were moved with it."}
+            </p>
+            <button
+              onClick={() => navigateTo("desktop")}
+              className="mt-2 px-4 py-1.5 text-sm bg-gray-200 hover:bg-gray-300 dark:bg-white/10 dark:hover:bg-white/20 active:bg-white/30 rounded-md transition-colors"
+            >
+              Go to Desktop
+            </button>
             </div>
           ) : (
             items.map((item) => (

@@ -15,19 +15,11 @@ import {
 import {
   useSystemStore,
   ACCENT_HEX,
+  WALLPAPER_THEMES,
   type AccentName,
 } from "../window-manager/useSystemStore";
 import { useNotesStore } from "./NotesApp";
 import { useMailStore } from "../window-manager/useMailStore";
-
-const WALLPAPERS = [
-  { name: "Graphic", url: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564" },
-  { name: "Mountains", url: "https://images.unsplash.com/photo-1506744626753-eda814117714?q=80&w=2564" },
-  { name: "Desert", url: "https://images.unsplash.com/photo-1509316785289-025f5b846b35?q=80&w=2564" },
-  { name: "Ocean", url: "https://images.unsplash.com/photo-1439405326854-014607f694d7?q=80&w=2564" },
-  { name: "Aurora", url: "https://images.unsplash.com/photo-1531366936337-7c912a4589a7?q=80&w=2564" },
-  { name: "Forest", url: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=2564" },
-];
 
 const ACCENTS: { name: AccentName; label: string }[] = [
   { name: "blue", label: "Blue" },
@@ -49,7 +41,7 @@ const TABS: { id: TabId; label: string; icon: React.ReactNode }[] = [
 
 function SectionTitle({ children }: { children: React.ReactNode }) {
   return (
-    <h3 className="text-sm font-semibold text-gray-400 mb-3 uppercase tracking-wider">
+    <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 mb-3 uppercase tracking-wider">
       {children}
     </h3>
   );
@@ -72,8 +64,8 @@ function Toggle({
       aria-checked={on}
       aria-label={label}
       onClick={() => onChange(!on)}
-      className="w-11 h-6 rounded-full p-0.5 transition-colors shrink-0"
-      style={{ backgroundColor: on ? accent : "rgba(255,255,255,0.15)" }}
+      className={`w-11 h-6 rounded-full p-0.5 transition-colors shrink-0 ${on ? "" : "bg-gray-300 dark:bg-white/15"}`}
+      style={on ? { backgroundColor: accent } : undefined}
     >
       <span
         className="block w-5 h-5 rounded-full bg-white shadow transition-transform"
@@ -118,27 +110,23 @@ export function SettingsApp({ window }: { window: { id: string; title: string } 
   };
 
   return (
-    <div className="w-full h-full bg-[#1e1e1e] text-gray-200 font-sans flex overflow-hidden">
+    <div className="w-full h-full bg-[#f4f4f4] text-gray-800 dark:bg-[#1e1e1e] dark:text-gray-200 font-sans flex overflow-hidden">
       {/* Sidebar — glassmorphic nav */}
-      <div className="w-48 shrink-0 h-full bg-black/30 backdrop-blur-xl border-r border-white/10 p-2 flex flex-col gap-1 overflow-y-auto">
+      <div className="w-48 shrink-0 h-full bg-[#ebebeb] dark:bg-black/30 backdrop-blur-xl border-r border-gray-300 dark:border-white/10 p-2 flex flex-col gap-1 overflow-y-auto">
         {TABS.map((tab) => {
           const active = activeTab === tab.id;
           return (
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className="flex items-center gap-2.5 px-3 py-2 rounded-md text-sm font-medium transition-colors text-left"
+              className={`flex items-center gap-2.5 px-3 py-2 rounded-md text-sm font-medium transition-colors text-left ${
+                active ? "" : "text-gray-600 dark:text-[#d4d4d8] hover:bg-gray-300/60 dark:hover:bg-white/10"
+              }`}
               style={
                 active
                   ? { backgroundColor: `${accentHex}33`, color: accentHex }
-                  : { color: "#d4d4d8" }
+                  : undefined
               }
-              onMouseEnter={(e) => {
-                if (!active) e.currentTarget.style.background = "rgba(255,255,255,0.08)";
-              }}
-              onMouseLeave={(e) => {
-                if (!active) e.currentTarget.style.background = "transparent";
-              }}
             >
               {tab.icon}
               {tab.label}
@@ -151,14 +139,14 @@ export function SettingsApp({ window }: { window: { id: string; title: string } 
       <div className="flex-1 p-8 overflow-y-auto min-w-0">
         {activeTab === "appearance" && (
           <div>
-            <h2 className="text-2xl font-bold mb-6 text-white">Appearance</h2>
+            <h2 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Appearance</h2>
 
             <div className="mb-8">
               <SectionTitle>Mode</SectionTitle>
               <div className="flex gap-4">
                 <button
                   onClick={() => setTheme("light")}
-                  className={`flex flex-col items-center gap-2 p-4 rounded-xl border transition-all ${theme === "light" ? "scale-105" : "border-white/10 hover:border-white/30"}`}
+                  className={`flex flex-col items-center gap-2 p-4 rounded-xl border transition-all ${theme === "light" ? "scale-105" : "border-gray-300 hover:border-gray-400 dark:border-white/10 dark:hover:border-white/30"}`}
                   style={theme === "light" ? { borderColor: accentHex, backgroundColor: `${accentHex}1a` } : undefined}
                 >
                   <Sun size={24} style={theme === "light" ? { color: accentHex } : undefined} className={theme === "light" ? "" : "text-gray-400"} />
@@ -166,7 +154,7 @@ export function SettingsApp({ window }: { window: { id: string; title: string } 
                 </button>
                 <button
                   onClick={() => setTheme("dark")}
-                  className={`flex flex-col items-center gap-2 p-4 rounded-xl border transition-all ${theme === "dark" ? "scale-105" : "border-white/10 hover:border-white/30"}`}
+                  className={`flex flex-col items-center gap-2 p-4 rounded-xl border transition-all ${theme === "dark" ? "scale-105" : "border-gray-300 hover:border-gray-400 dark:border-white/10 dark:hover:border-white/30"}`}
                   style={theme === "dark" ? { borderColor: accentHex, backgroundColor: `${accentHex}1a` } : undefined}
                 >
                   <Moon size={24} style={theme === "dark" ? { color: accentHex } : undefined} className={theme === "dark" ? "" : "text-gray-400"} />
@@ -200,49 +188,57 @@ export function SettingsApp({ window }: { window: { id: string; title: string } 
             <div>
               <SectionTitle>Wallpaper</SectionTitle>
               <div className="grid grid-cols-3 gap-4">
-                {WALLPAPERS.map((wp) => (
+                {WALLPAPER_THEMES.map((wp) => (
                   <button
-                    key={wp.url}
-                    onClick={() => setWallpaper(wp.url)}
+                    key={wp.name}
+                    onClick={() => setWallpaper(wp.name)}
                     className="group text-left"
-                    title={wp.name}
+                    title={`${wp.name} (auto dark/light)`}
                   >
                     <span
-                      className="block w-full h-20 rounded-lg bg-cover bg-center border-2 transition-all"
+                      className="relative block w-full h-20 rounded-lg bg-cover bg-center border-2 transition-all overflow-hidden"
                       style={{
-                        backgroundImage: `url(${wp.url})`,
-                        borderColor: wallpaper === wp.url ? accentHex : "transparent",
-                        transform: wallpaper === wp.url ? "scale(1.05)" : undefined,
+                        backgroundImage: `url(${wp.dark})`,
+                        borderColor: wallpaper === wp.name ? accentHex : "transparent",
+                        transform: wallpaper === wp.name ? "scale(1.05)" : undefined,
                       }}
-                    />
-                    <span className="block text-xs text-gray-400 mt-1.5 group-hover:text-gray-200">
+                    >
+                      <span
+                        className="absolute inset-y-0 right-0 w-1/2 bg-cover bg-center border-l border-white/40"
+                        style={{ backgroundImage: `url(${wp.light})` }}
+                      />
+                    </span>
+                    <span className="block text-xs text-gray-500 mt-1.5 group-hover:text-gray-800 dark:group-hover:text-gray-200">
                       {wp.name}
                     </span>
                   </button>
                 ))}
               </div>
+              <p className="text-[11px] text-gray-500 mt-2">
+                Switches automatically with Light / Dark mode.
+              </p>
             </div>
           </div>
         )}
 
         {activeTab === "about" && (
           <div className="max-w-md">
-            <h2 className="text-2xl font-bold mb-6 text-white">About This Mac</h2>
-            <div className="rounded-2xl bg-white/5 border border-white/10 p-6 flex flex-col items-center text-center">
+            <h2 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">About This Mac</h2>
+            <div className="rounded-2xl bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 p-6 flex flex-col items-center text-center">
               <span className="text-5xl mb-3" aria-hidden="true">💻</span>
-              <p className="text-lg font-bold text-white">Om Nilesh Sawkare</p>
-              <p className="text-sm text-gray-400 mb-5">Portfolio OS 26.4</p>
+              <p className="text-lg font-bold text-gray-900 dark:text-white">Om Nilesh Sawkare</p>
+              <p className="text-sm text-gray-500 dark:text-gray-400 mb-5">Portfolio OS 26.4</p>
               <dl className="w-full text-left text-sm space-y-3">
-                <div className="flex justify-between gap-4 border-b border-white/5 pb-2.5">
-                  <dt className="text-gray-400">Processor</dt>
+                <div className="flex justify-between gap-4 border-b border-gray-200 dark:border-white/5 pb-2.5">
+                  <dt className="text-gray-500 dark:text-gray-400">Processor</dt>
                   <dd className="font-medium text-right">Final-Year Computer Science Engineering</dd>
                 </div>
-                <div className="flex justify-between gap-4 border-b border-white/5 pb-2.5">
-                  <dt className="text-gray-400">Memory</dt>
+                <div className="flex justify-between gap-4 border-b border-gray-200 dark:border-white/5 pb-2.5">
+                  <dt className="text-gray-500 dark:text-gray-400">Memory</dt>
                   <dd className="font-medium text-right">C++, Python, Java, Next.js</dd>
                 </div>
                 <div className="flex justify-between gap-4">
-                  <dt className="text-gray-400">Graphics</dt>
+                  <dt className="text-gray-500 dark:text-gray-400">Graphics</dt>
                   <dd className="font-medium text-right">Edge AI &amp; Cloud-Native Architectures</dd>
                 </div>
               </dl>
@@ -252,11 +248,11 @@ export function SettingsApp({ window }: { window: { id: string; title: string } 
 
         {activeTab === "accessibility" && (
           <div className="max-w-md">
-            <h2 className="text-2xl font-bold mb-6 text-white">Accessibility</h2>
-            <div className="rounded-xl bg-white/5 border border-white/10 p-4 flex items-center justify-between gap-4">
+            <h2 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Accessibility</h2>
+            <div className="rounded-xl bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 p-4 flex items-center justify-between gap-4">
               <div>
                 <p className="text-sm font-semibold">Reduce Motion</p>
-                <p className="text-xs text-gray-400 mt-1 leading-relaxed">
+                <p className="text-xs text-gray-500 dark:text-gray-400 mt-1 leading-relaxed">
                   Disables celebratory animation loops (FaceTime confetti, floating likes)
                   and other heavy motion across the OS.
                 </p>
@@ -268,20 +264,20 @@ export function SettingsApp({ window }: { window: { id: string; title: string } 
 
         {activeTab === "dock" && (
           <div className="max-w-md">
-            <h2 className="text-2xl font-bold mb-6 text-white">Dock</h2>
-            <div className="rounded-xl bg-white/5 border border-white/10 p-4 flex items-center justify-between gap-4 mb-4">
+            <h2 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Dock</h2>
+            <div className="rounded-xl bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 p-4 flex items-center justify-between gap-4 mb-4">
               <div>
                 <p className="text-sm font-semibold">Magnification</p>
-                <p className="text-xs text-gray-400 mt-1">
+                <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
                   Zoom icons on hover.
                 </p>
               </div>
               <Toggle on={dockMagnification} onChange={setDockMagnification} accent={accentHex} label="Dock magnification" />
             </div>
-            <div className="rounded-xl bg-white/5 border border-white/10 p-4">
+            <div className="rounded-xl bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 p-4">
               <div className="flex items-center justify-between mb-3">
                 <p className="text-sm font-semibold">Size</p>
-                <span className="text-xs text-gray-400">{Math.round(dockSize * 100)}%</span>
+                <span className="text-xs text-gray-500 dark:text-gray-400">{Math.round(dockSize * 100)}%</span>
               </div>
               <input
                 type="range"
@@ -304,10 +300,10 @@ export function SettingsApp({ window }: { window: { id: string; title: string } 
 
         {activeTab === "advanced" && (
           <div className="max-w-md">
-            <h2 className="text-2xl font-bold mb-6 text-white">Advanced</h2>
+            <h2 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Advanced</h2>
             <div className="mb-6">
               <SectionTitle>Storage</SectionTitle>
-              <div className="rounded-xl bg-white/5 border border-white/10 divide-y divide-white/5 text-sm">
+              <div className="rounded-xl bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 divide-y divide-gray-200 dark:divide-white/5 text-sm">
                 {[
                   ["Desktop items", desktopIds.length],
                   ["Items in Bin", trashItems.length],
@@ -315,7 +311,7 @@ export function SettingsApp({ window }: { window: { id: string; title: string } 
                   ["Mail messages", inboxCount + sentCount],
                 ].map(([label, count]) => (
                   <div key={label as string} className="flex items-center justify-between px-4 py-2.5">
-                    <span className="text-gray-300">{label}</span>
+                    <span className="text-gray-600 dark:text-gray-300">{label}</span>
                     <span className="font-semibold">{count}</span>
                   </div>
                 ))}

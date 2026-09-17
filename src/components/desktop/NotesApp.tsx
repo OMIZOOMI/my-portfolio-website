@@ -4,6 +4,7 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import { Folder, Search, Edit, X, Bold, Italic, Underline } from "lucide-react";
 import { create } from "zustand";
 import { useSmoothScroll as useMacScroll } from "./useSmoothScroll";
+import { useSystemStore } from "../window-manager/useSystemStore";
 
 // --- 1. NOTES STORE (single rich-text HTML string per note + search state) ---
 interface Note {
@@ -96,6 +97,7 @@ export function NotesApp({ window }: { window: { id: string; title: string } }) 
   const loadedNoteIdRef = useRef<string | null>(null);
 
   const [fmt, setFmt] = useState({ bold: false, italic: false, underline: false, header: false });
+  const isDarkMode = useSystemStore((s) => s.theme === "dark");
 
   useMacScroll(sidebarRef);
   useMacScroll(scrollerRef);
@@ -173,11 +175,11 @@ export function NotesApp({ window }: { window: { id: string; title: string } }) 
   };
 
   const toolBtn =
-    "p-1.5 rounded-md transition-colors text-gray-500 hover:bg-gray-200 hover:text-gray-800";
-  const toolBtnActive = "bg-gray-800 text-white hover:bg-gray-800 hover:text-white";
+    "p-1.5 rounded-md transition-colors text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-white/10 hover:text-gray-800 dark:hover:text-gray-100";
+  const toolBtnActive = "bg-gray-800 dark:bg-white/20 text-white hover:bg-gray-800 dark:hover:bg-white/20 hover:text-white";
 
   return (
-    <div className="flex w-full h-full bg-[#f4f4f4] text-gray-800 font-sans select-text overflow-hidden">
+    <div className="flex w-full h-full bg-[#f4f4f4] text-gray-800 dark:bg-[#1a1a1e] dark:text-gray-200 font-sans select-text overflow-hidden">
       <style>{`
         .notes-editor { outline: none; caret-color: #b8860b; }
         .notes-editor:empty::before {
@@ -191,11 +193,12 @@ export function NotesApp({ window }: { window: { id: string; title: string } }) 
         .notes-editor ul, .notes-editor ol { margin: 0 0 0.6rem; padding-left: 1.4rem; }
         .notes-editor li { margin-bottom: 0.15rem; }
         .notes-editor b, .notes-editor strong { font-weight: 700; }
+        .dark .notes-editor h1, .dark .notes-editor h2 { color: #f4f4f5; }
       `}</style>
 
       {/* Sidebar */}
-      <div className="w-56 h-full bg-[#ebebeb] border-r border-gray-300 flex flex-col overflow-hidden shrink-0">
-        <div className="h-12 flex items-center px-4 border-b border-gray-300 text-gray-500 shrink-0">
+      <div className="w-56 h-full bg-[#ebebeb] border-r border-gray-300 dark:bg-black/30 dark:border-white/10 flex flex-col overflow-hidden shrink-0">
+        <div className="h-12 flex items-center px-4 border-b border-gray-300 dark:border-white/10 text-gray-500 dark:text-gray-400 shrink-0">
           <Folder size={16} className="mr-2 text-yellow-600" />
           <span className="font-semibold text-sm">On My Mac</span>
           {searchQuery.trim() && (
@@ -218,8 +221,8 @@ export function NotesApp({ window }: { window: { id: string; title: string } }) 
                 onClick={() => setActiveNote(note.id)}
                 className={`rounded-md p-3 cursor-pointer border-l-4 transition-colors ${
                   activeNoteId === note.id
-                    ? "bg-yellow-500/20 text-yellow-800 border-yellow-500"
-                    : "text-gray-700 border-transparent hover:bg-gray-200/50"
+                    ? "border-[var(--system-accent)] bg-[var(--system-accent)]/15"
+                    : "text-gray-700 dark:text-gray-300 border-transparent hover:bg-gray-200/50 dark:hover:bg-white/10"
                 }`}
               >
                 <h4 className="font-bold text-sm truncate">{preview.title}</h4>
@@ -236,10 +239,17 @@ export function NotesApp({ window }: { window: { id: string; title: string } }) 
       </div>
 
       {/* Main Content View */}
-      <div className="flex-1 h-full flex flex-col bg-white overflow-hidden" style={{ backgroundImage: "radial-gradient(#e5e5e5 1px, transparent 1px)", backgroundSize: "20px 20px" }}>
+      <div
+        className="flex-1 h-full flex flex-col bg-white dark:bg-[#1e1e1e] overflow-hidden"
+        style={
+          isDarkMode
+            ? undefined
+            : { backgroundImage: "radial-gradient(#e5e5e5 1px, transparent 1px)", backgroundSize: "20px 20px" }
+        }
+      >
 
         {/* Toolbar: formatting + search + new note */}
-        <div className="min-h-12 border-b border-gray-200 flex items-center gap-1 px-3 py-1.5 bg-white/80 backdrop-blur-sm shrink-0 flex-wrap">
+        <div className="min-h-12 border-b border-gray-200 dark:border-white/10 flex items-center gap-1 px-3 py-1.5 bg-white/80 dark:bg-black/40 backdrop-blur-sm shrink-0 flex-wrap">
           <button
             onMouseDown={(e) => e.preventDefault()}
             onClick={() => exec("bold")}
@@ -271,7 +281,7 @@ export function NotesApp({ window }: { window: { id: string; title: string } }) 
             <Underline size={16} />
           </button>
 
-          <div className="w-px h-5 bg-gray-300 mx-1" />
+          <div className="w-px h-5 bg-gray-300 dark:bg-white/15 mx-1" />
 
           <button
             onMouseDown={(e) => e.preventDefault()}
@@ -296,7 +306,7 @@ export function NotesApp({ window }: { window: { id: string; title: string } }) 
           <div className="flex-1" />
 
           {showSearch && (
-            <div className="flex items-center gap-1 bg-gray-100 rounded-md px-2 py-1 mr-1">
+            <div className="flex items-center gap-1 bg-gray-100 dark:bg-white/10 rounded-md px-2 py-1 mr-1">
               <input
                 ref={searchInputRef}
                 value={searchQuery}
@@ -306,13 +316,13 @@ export function NotesApp({ window }: { window: { id: string; title: string } }) 
                   if (e.key === "Escape") toggleSearch();
                 }}
                 placeholder="Search notes…"
-                className="bg-transparent outline-none text-sm w-32 placeholder-gray-400 text-gray-800"
+                className="bg-transparent outline-none text-sm w-32 placeholder-gray-400 dark:placeholder-gray-500 text-gray-800 dark:text-gray-200"
                 aria-label="Search notes"
               />
               {searchQuery && (
                 <button
                   onClick={() => setSearchQuery("")}
-                  className="text-gray-400 hover:text-gray-700"
+                  className="text-gray-400 hover:text-gray-700 dark:hover:text-gray-200"
                   title="Clear search"
                   aria-label="Clear search"
                 >
@@ -332,10 +342,10 @@ export function NotesApp({ window }: { window: { id: string; title: string } }) 
           </button>
           <button
             onClick={addNote}
-            className="p-1 hover:bg-gray-100 rounded-md transition-colors"
+            className="p-1 hover:bg-gray-100 dark:hover:bg-white/10 rounded-md transition-colors"
             title="Create a new note"
           >
-            <Edit size={16} className="text-gray-500 hover:text-gray-800" />
+            <Edit size={16} className="text-gray-500 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-100" />
           </button>
         </div>
 
@@ -357,7 +367,7 @@ export function NotesApp({ window }: { window: { id: string; title: string } }) 
                 onPointerDown={(e) => e.stopPropagation()}
                 data-placeholder="Start writing…"
                 aria-label="Note editor"
-                className="notes-editor w-full bg-transparent text-gray-800 text-[15px] leading-relaxed font-medium min-h-[60vh]"
+                className="notes-editor w-full bg-transparent text-gray-800 dark:text-gray-200 text-[15px] leading-relaxed font-medium min-h-[60vh]"
               />
             </div>
           </div>
