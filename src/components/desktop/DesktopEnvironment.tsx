@@ -64,6 +64,7 @@ function DraggableDesktopItem({
 export function DesktopEnvironment() {
   const desktopRef = useRef<HTMLDivElement>(null);
   const wallpaper = useSystemStore((s) => s.wallpaper);
+  const wallpaperMode = useSystemStore((s) => s.wallpaperMode);
   const trashItems = useSystemStore((s) => s.trashItems);
   const deletedIds = useSystemStore((s) => s.deletedIds);
   const desktopIds = useSystemStore((s) => s.desktopIds);
@@ -86,7 +87,7 @@ export function DesktopEnvironment() {
   }, [isDarkMode]);
 
   const visibleDesktopIds = desktopIds.filter((id) => !trashItems.includes(id) && !deletedIds.includes(id));
-  const nextBackgroundUrl = resolveWallpaper(wallpaper, isDarkMode);
+  const nextBackgroundUrl = resolveWallpaper(wallpaper, wallpaperMode, isDarkMode);
 
   // Preloaded swap: keep the CURRENT wallpaper painted until the next one has
   // fully decoded. Swapping backgroundImage directly flashes the fallback

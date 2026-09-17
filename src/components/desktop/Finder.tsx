@@ -119,7 +119,7 @@ export function Finder({ window }: { window: { id: string; title: string } }) {
   }, [currentFolderId, window?.id]);
 
   const navigateTo = (folderId: string) => {
-    if (!fileSystem[folderId] && folderId !== "desktop") return;
+    if (!fileSystem[folderId] && folderId !== "desktop" && folderId !== "bin") return;
     if (trashItems.includes(folderId) || deletedIds.includes(folderId)) return;
     const newHistory = history.slice(0, currentIndex + 1);
     newHistory.push(folderId);
@@ -153,6 +153,16 @@ export function Finder({ window }: { window: { id: string; title: string } }) {
           } ${isFileDragging && dropFolderId === "documents" && dropTarget === "finder" ? "ring-2 ring-[var(--system-accent)]" : ""}`}
         >
           Documents
+        </button>
+        <button
+          data-drop-folder-id="bin"
+          onClick={() => navigateTo("bin")}
+          style={currentFolderId === "bin" ? { backgroundColor: "var(--system-accent)", color: "#fff" } : undefined}
+          className={`text-left text-sm px-3 py-1.5 rounded-md transition-colors ${
+            currentFolderId === "bin" ? "" : "hover:bg-gray-300/60 dark:hover:bg-white/10"
+          } ${isFileDragging && dropFolderId === "bin" && dropTarget === "finder" ? "ring-2 ring-[var(--system-accent)]" : ""}`}
+        >
+          Bin
         </button>
       </div>
 

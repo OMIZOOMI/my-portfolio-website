@@ -17,6 +17,7 @@ import {
   ACCENT_HEX,
   WALLPAPER_THEMES,
   type AccentName,
+  type WallpaperMode,
 } from "../window-manager/useSystemStore";
 import { useNotesStore } from "./NotesApp";
 import { useMailStore } from "../window-manager/useMailStore";
@@ -84,6 +85,8 @@ export function SettingsApp({ window }: { window: { id: string; title: string } 
     setTheme,
     wallpaper,
     setWallpaper,
+    wallpaperMode,
+    setWallpaperMode,
     accent,
     setAccent,
     reduceMotion,
@@ -203,7 +206,7 @@ export function SettingsApp({ window }: { window: { id: string; title: string } 
             </div>
 
             <div>
-              <SectionTitle>Wallpaper</SectionTitle>
+              <SectionTitle>Wallpaper Theme</SectionTitle>
               <div className="grid grid-cols-3 gap-4">
                 {WALLPAPER_THEMES.map((wp) => (
                   <button
@@ -226,9 +229,26 @@ export function SettingsApp({ window }: { window: { id: string; title: string } 
                   </button>
                 ))}
               </div>
-              <p className="text-[11px] text-gray-500 mt-2">
-                Switches automatically with Light / Dark mode.
-              </p>
+            </div>
+
+            <div>
+              <SectionTitle>Wallpaper Mode</SectionTitle>
+              <div className="flex gap-3">
+                {(["auto", "light", "dark"] as WallpaperMode[]).map((mode) => (
+                  <button
+                    key={mode}
+                    onClick={() => setWallpaperMode(mode)}
+                    className={`flex-1 px-4 py-2.5 rounded-lg text-sm font-medium transition-colors ${
+                      wallpaperMode === mode
+                        ? "bg-[var(--system-accent)] text-white"
+                        : "bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600"
+                    }`}
+                    aria-pressed={wallpaperMode === mode}
+                  >
+                    {mode.charAt(0).toUpperCase() + mode.slice(1)}
+                  </button>
+                ))}
+              </div>
             </div>
           </div>
         )}

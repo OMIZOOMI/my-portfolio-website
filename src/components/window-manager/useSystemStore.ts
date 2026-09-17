@@ -26,6 +26,8 @@ export const ACCENT_HEX: Record<AccentName, string> = {
   graphite: "#8E8E93",
 };
 
+export type WallpaperMode = "auto" | "light" | "dark";
+
 export interface WallpaperTheme {
   name: string;
   /** Base photo URL (day version). */
@@ -66,11 +68,20 @@ export const WALLPAPER_THEMES: WallpaperTheme[] = [
 ];
 
 export const DEFAULT_WALLPAPER_THEME = "Big Sur";
+export const DEFAULT_WALLPAPER_MODE = "auto";
 
-export function resolveWallpaper(themeName: string, isDark: boolean): string {
+export function resolveWallpaper(themeName: string, wallpaperMode: WallpaperMode, isDark: boolean): string {
   const theme =
     WALLPAPER_THEMES.find((t) => t.name === themeName) ?? WALLPAPER_THEMES[0];
-  return isDark ? `${theme.photo}${NIGHT_PARAMS}` : theme.photo;
+  
+  let isDarkMode: boolean;
+  if (wallpaperMode === "auto") {
+    isDarkMode = isDark;
+  } else {
+    isDarkMode = wallpaperMode === "dark";
+  }
+  
+  return isDarkMode ? `${theme.photo}${NIGHT_PARAMS}` : theme.photo;
 }
 
 export type { DraggedItem, DropTarget };
@@ -97,6 +108,7 @@ interface PendingDrag {
 interface SystemState {
   theme: "dark" | "light";
   wallpaper: string;
+  wallpaperMode: WallpaperMode;
   accent: AccentName;
   reduceMotion: boolean;
   dockMagnification: boolean;
@@ -120,6 +132,7 @@ interface SystemState {
   setTheme: (theme: "dark" | "light") => void;
   /** Wallpaper THEME name (see WALLPAPER_THEMES); resolved per color scheme. */
   setWallpaper: (themeName: string) => void;
+  setWallpaperMode: (mode: WallpaperMode) => void;
   setAccent: (accent: AccentName) => void;
   setReduceMotion: (on: boolean) => void;
   setDockMagnification: (on: boolean) => void;
@@ -251,6 +264,7 @@ function resetDragVisuals(pointerId: number | null) {
 export const useSystemStore = create<SystemState>((set, get) => ({
   theme: "dark",
   wallpaper: DEFAULT_WALLPAPER_THEME,
+  wallpaperMode: DEFAULT_WALLPAPER_MODE,
   accent: "blue",
   reduceMotion: false,
   dockMagnification: true,
@@ -265,6 +279,7 @@ export const useSystemStore = create<SystemState>((set, get) => ({
   ...EMPTY_DRAG,
   setTheme: (theme) => set({ theme }),
   setWallpaper: (wallpaper) => set({ wallpaper }),
+  setWallpaperMode: (wallpaperMode) => set({ wallpaperMode }),
   setAccent: (accent) => set({ accent }),
   setReduceMotion: (reduceMotion) => set({ reduceMotion }),
   setDockMagnification: (dockMagnification) => set({ dockMagnification }),

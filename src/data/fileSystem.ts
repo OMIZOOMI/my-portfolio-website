@@ -10,6 +10,7 @@ export type FileItem = {
     "desktop": [
       { id: "projects", name: "Projects", type: "folder" },
       { id: "about-me", name: "About Me", type: "folder" },
+      { id: "bin", name: "Bin", type: "folder" },
     ],
     "documents": [
       { id: "game", name: "Game", type: "folder" },
@@ -24,5 +25,6 @@ export type FileItem = {
     "about-me": [],
     "game": [
         { id: "Neural Block", name: "Neural Block.app", type: "app" }
-    ]
+    ],
+    "bin": []
   };

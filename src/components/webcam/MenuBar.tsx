@@ -1,9 +1,16 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Wifi, BatteryFull, BatteryMedium, BatteryLow } from "lucide-react";
 import { useWindowStore } from "../window-manager/useWindowStore";
 import { useSystemStore } from "../window-manager/useSystemStore";
+
+// Simple counter for unique window IDs without impure functions during render
+let windowIdCounter = 0;
+function generateWindowId(prefix: string): string {
+  windowIdCounter++;
+  return `${prefix}-${windowIdCounter}-${Date.now()}`;
+}
 
 // --- Time Hook ---
 function useAccurateClock() {
@@ -119,8 +126,12 @@ export function MenuBar() {
   const DYNAMIC_MENU_ITEMS: Record<string, string[]> = {
     "": ["About This Mac", "System Settings...", "Restart", "Shut Down"],
     [activeAppName]: [`About ${activeAppName}`, "Preferences...", "Empty Trash"],
-    "File": ["New Window", "New Folder", "Close Window"],
+    "File": ["New Finder Window", "New Folder", "Close Window"],
     "Edit": ["Undo", "Redo", "Cut", "Copy", "Paste"],
+    "View": ["Show Sidebar", "Show Path Bar", "Show Status Bar"],
+    "Go": ["Desktop", "Documents", "Bin"],
+    "Window": ["Minimize", "Zoom", "Bring All to Front"],
+    "Help": ["About This Portfolio", "GitHub Repository", "Documentation"],
   };
 
   const handleMenuClick = (menu: string) => {
@@ -143,6 +154,95 @@ export function MenuBar() {
         useSystemStore.getState().undo();
       } else if (item === "Redo" && useSystemStore.getState().future.length > 0) {
         useSystemStore.getState().redo();
+      }
+      return;
+    }
+
+    if (menu === "File") {
+      if (item === "New Finder Window") {
+        const uniqueId = generateWindowId("finder");
+        useWindowStore.getState().openWindow({
+          id: uniqueId,
+          kind: "finder",
+          title: "Desktop"
+        });
+      } else if (item === "New Folder") {
+        // Could add folder creation logic here
+        console.log("New Folder requested");
+      } else if (item === "Close Window") {
+        const { focusedWindowId, closeWindow } = useWindowStore.getState();
+        if (focusedWindowId) {
+          closeWindow(focusedWindowId);
+        }
+      }
+      return;
+    }
+
+    if (menu === "Edit") {
+      if (item === "Undo" && useSystemStore.getState().past.length > 0) {
+        useSystemStore.getState().undo();
+      } else if (item === "Redo" && useSystemStore.getState().future.length > 0) {
+        useSystemStore.getState().redo();
+      }
+      return;
+    }
+
+    if (menu === "View") {
+      // View actions - could toggle sidebar, path bar, etc.
+      if (item === "Show Sidebar") {
+        console.log("Toggle sidebar");
+      }
+      return;
+    }
+
+    if (menu === "Go") {
+      if (item === "Desktop") {
+        useWindowStore.getState().openWindow({
+          id: "finder-desktop",
+          kind: "finder",
+          title: "Desktop"
+        });
+      } else if (item === "Documents") {
+        useWindowStore.getState().openWindow({
+          id: "finder-documents",
+          kind: "finder",
+          title: "Documents"
+        });
+      } else if (item === "Bin") {
+        useWindowStore.getState().openWindow({
+          id: "bin-window",
+          kind: "bin",
+          title: "Bin"
+        });
+      }
+      return;
+    }
+
+    if (menu === "Window") {
+      const { focusedWindowId, toggleMinimize, closeWindow } = useWindowStore.getState();
+      if (item === "Minimize" && focusedWindowId) {
+        toggleMinimize(focusedWindowId);
+      } else if (item === "Zoom" && focusedWindowId) {
+        // Toggle maximize - would need maximize support in window store
+        console.log("Zoom window");
+      } else if (item === "Bring All to Front") {
+        console.log("Bring all to front");
+      }
+      return;
+    }
+
+    if (menu === "Help") {
+      if (item === "About This Portfolio") {
+        useWindowStore.getState().openWindow({
+          id: "about-portfolio",
+          kind: "about-app",
+          title: "About This Portfolio",
+          size: { width: 400, height: 400 }
+        });
+      } else if (item === "GitHub Repository") {
+        window.open("https://github.com/OMIZOOMI/my-portfolio-website", "_blank");
+      } else if (item === "Documentation") {
+        window.open("https://github.com/OMIZOOMI/my-portfolio-website#readme", "_blank");
       }
       return;
     }
