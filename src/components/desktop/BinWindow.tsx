@@ -64,8 +64,8 @@ export function BinWindow({ window: win }: { window: { id: string; title: string
         <button
           data-drop-folder-id="bin"
           onClick={() => navigateTo("bin")}
-          className={`text-left text-sm px-3 py-1.5 rounded-md text-white transition-colors duration-1000 ease-in-out ${
-            currentFolderId === "bin" ? "bg-[var(--system-accent)] text-white" : "hover:bg-gray-300/60 dark:hover:bg-white/10"
+          className={`text-left text-sm px-3 py-1.5 rounded-md transition-colors duration-1000 ease-in-out ${
+            currentFolderId === "bin" ? "bg-[var(--system-accent)] text-white" : "text-gray-700 dark:text-gray-300 hover:bg-gray-300/60 dark:hover:bg-white/10"
           }`}
         >
           Bin
@@ -115,6 +115,7 @@ export function BinWindow({ window: win }: { window: { id: string; title: string
                 <DesktopIcon 
                   label={item.name}
                   variant={item.type}
+                  tone="window"
                   onOpen={() => {
                     if (currentFolderId === "bin") {
                       console.log("Cannot open trashed files");

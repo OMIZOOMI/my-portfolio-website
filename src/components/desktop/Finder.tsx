@@ -43,6 +43,7 @@ function FinderDragItem({
       <DesktopIcon
         label={item.name}
         variant={item.type}
+        tone="window"
         onOpen={() => {
           if (isHidden(item.id)) return;
           if (item.type === "folder") {
@@ -76,6 +77,7 @@ export function Finder({ window }: { window: { id: string; title: string } }) {
   const trashItems = useSystemStore((s) => s.trashItems);
   const deletedIds = useSystemStore((s) => s.deletedIds);
   const desktopIds = useSystemStore((s) => s.desktopIds);
+  const emptyTrash = useSystemStore((s) => s.emptyTrash);
 
   const isHidden = (id: string) => trashItems.includes(id) || deletedIds.includes(id);
 
@@ -179,7 +181,7 @@ export function Finder({ window }: { window: { id: string; title: string } }) {
       </div>
 
       <div className="flex-1 flex flex-col bg-white dark:bg-[#1e1e1e] transition-colors duration-1000 ease-in-out">
-        <div className="h-12 border-b border-gray-200 bg-gray-100 dark:border-white/10 flex items-center px-4 gap-4 dark:bg-white/5 transition-colors duration-1000 ease-in-out">
+        <div className="h-12 border-b border-gray-200 bg-gray-100 dark:border-white/10 flex items-center px-4 gap-x-3 dark:bg-white/5 transition-colors duration-1000 ease-in-out">
           <div className="flex gap-2">
             <button
               onClick={() => setCurrentIndex(Math.max(0, currentIndex - 1))}
@@ -196,7 +198,17 @@ export function Finder({ window }: { window: { id: string; title: string } }) {
               {">"}
             </button>
           </div>
-          <div className="text-sm font-semibold capitalize text-gray-600 dark:text-gray-300">{currentFolderId.replace("-", " ")}</div>
+          <div className="text-sm font-semibold capitalize text-gray-900 dark:text-gray-100">{currentFolderId.replace("-", " ")}</div>
+          <div className="flex-1" />
+          {currentFolderId === "bin" && (
+            <button
+              onClick={emptyTrash}
+              disabled={trashItems.length === 0}
+              className="px-4 py-1 text-sm font-medium text-gray-700 dark:text-gray-200 bg-gray-200 hover:bg-gray-300 dark:bg-white/10 dark:hover:bg-white/20 active:bg-white/30 rounded-md transition-colors duration-1000 ease-in-out disabled:opacity-30 disabled:cursor-not-allowed"
+            >
+              Empty
+            </button>
+          )}
         </div>
 
         <div

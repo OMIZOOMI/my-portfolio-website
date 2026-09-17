@@ -14,9 +14,11 @@ interface DesktopIconProps {
   glyph?: ReactNode; 
   accent?: string; 
   onOpen: () => void;
+  /** "desktop" (white labels for wallpapers) or "window" (theme-aware labels). */
+  tone?: "desktop" | "window";
 }
 
-export function DesktopIcon({ label, variant, glyph, accent = "#4c8dff", onOpen }: DesktopIconProps) {
+export function DesktopIcon({ label, variant, glyph, accent = "#4c8dff", onOpen, tone = "desktop" }: DesktopIconProps) {
   const isFileDragging = useSystemStore((s) => s.isDragging);
   return (
     <motion.button
@@ -57,7 +59,7 @@ export function DesktopIcon({ label, variant, glyph, accent = "#4c8dff", onOpen 
         </div>
       )}
       
-      <span className={styles.label}>{label}</span>
+      <span className={`${styles.label} ${tone === "window" ? styles.labelWindow : ""}`}>{label}</span>
     </motion.button>
   );
 }

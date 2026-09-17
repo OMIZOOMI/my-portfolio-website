@@ -68,7 +68,7 @@ export const WALLPAPER_THEMES: WallpaperTheme[] = [
 ];
 
 export const DEFAULT_WALLPAPER_THEME = "Big Sur";
-export const DEFAULT_WALLPAPER_MODE = "auto";
+export const DEFAULT_WALLPAPER_MODE: WallpaperMode = "light";
 
 export function resolveWallpaper(themeName: string, wallpaperMode: WallpaperMode, isDark: boolean): string {
   const theme =
@@ -262,7 +262,7 @@ function resetDragVisuals(pointerId: number | null) {
 }
 
 export const useSystemStore = create<SystemState>((set, get) => ({
-  theme: "light",
+  theme: "dark",
   wallpaper: DEFAULT_WALLPAPER_THEME,
   wallpaperMode: DEFAULT_WALLPAPER_MODE,
   accent: "blue",
