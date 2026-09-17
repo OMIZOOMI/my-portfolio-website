@@ -157,10 +157,12 @@ export function MenuBar() {
           size: { width: 300, height: 320 } 
         });
       } else if (item === "Preferences...") {
-        useWindowStore.getState().openWindow({ 
-          id: "settings", 
-          kind: "settings", 
-          title: "Settings" 
+        // Same app id the Dock uses ("app-settings") so the store's id check
+        // hits; the kind-based single-instance rule covers any stragglers.
+        useWindowStore.getState().openWindow({
+          id: "app-settings",
+          kind: "settings",
+          title: "Settings"
         });
       } else if (item === "Empty Trash") {
         useSystemStore.getState().emptyTrash();

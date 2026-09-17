@@ -46,6 +46,30 @@ const DEFAULT_SIZE: WindowSize = { width: 640, height: 440 };
 const CASCADE_STEP = 24;
 const CASCADE_ORIGIN = { x: 250, y: 150 };
 
+// Single-instance apps: launching one while ANY window of the same kind is
+// open focuses the existing window instead of spawning a duplicate. This is
+// matched by KIND, not id, because launchers historically use different ids
+// for the same app (Dock: "app-settings" vs MenuBar Preferences: "settings").
+// Finder / file-viewer stay multi-instance (one window per folder/file), as do
+// the per-app About modals (unique id per app already).
+const SINGLE_INSTANCE_KINDS: ReadonlySet<string> = new Set([
+  "settings",
+  "mail",
+  "music",
+  "terminal",
+  "safari",
+  "facetime",
+  "bin",
+]);
+
+const findWindowByKind = (windows: Record<string, WindowState>, kind: string) => {
+  let best: WindowState | null = null;
+  for (const w of Object.values(windows)) {
+    if (w.kind === kind && (!best || w.zIndex > best.zIndex)) best = w;
+  }
+  return best;
+};
+
 const getTopWindowId = (windows: Record<string, WindowState>, excludeId?: string) => {
   let topId: string | null = null;
   let maxZ = -1;
@@ -78,6 +102,25 @@ export const useWindowStore = create<WindowStoreState>((set, get) => ({
         },
       }));
       return;
+    }
+
+    // Single-instance rule: same app already open under a different id?
+    // Bring it to front (and un-minimize) instead of duplicating.
+    if (SINGLE_INSTANCE_KINDS.has(config.kind)) {
+      const kindMatch = findWindowByKind(get().windows, config.kind);
+      if (kindMatch) {
+        get().focusWindow(kindMatch.id);
+        set((state) => ({
+          focusedWindowId: kindMatch.id,
+          windows: state.windows[kindMatch.id]
+            ? {
+                ...state.windows,
+                [kindMatch.id]: { ...state.windows[kindMatch.id], minimized: false },
+              }
+            : state.windows,
+        }));
+        return;
+      }
     }
 
     const openCount = Object.keys(get().windows).length;
