@@ -13,6 +13,9 @@
     border: 1px solid rgba(0, 0, 0, 0.12);
     box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
     will-change: transform, opacity;
+    /* Color-only crossfade for theme toggles — transform/opacity stay on
+       Framer's spring so the two systems never fight over one property. */
+    transition: background-color 1s ease-in-out, border-color 1s ease-in-out, box-shadow 1s ease-in-out;
   }
 
   :global(.dark) .window {
@@ -31,6 +34,7 @@
     cursor: grab;
     touch-action: none;
     flex-shrink: 0;
+    transition: background-color 1s ease-in-out, border-color 1s ease-in-out;
   }
 
   :global(.dark) .titleBar {
@@ -87,6 +91,7 @@
     color: rgba(0, 0, 0, 0.55);
     font-size: 12px;
     font-weight: 500;
+    transition: color 1s ease-in-out;
   }
 
   :global(.dark) .title {

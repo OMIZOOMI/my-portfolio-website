@@ -15,7 +15,7 @@ export function MusicApp({ window: win }: { window: { id: string; title: string 
   };
 
   return (
-    <div className="w-full h-full bg-[#f4f4f4]/95 dark:bg-[#1e1e1e]/95 backdrop-blur-xl flex flex-col text-gray-900 dark:text-white font-sans">
+    <div className="w-full h-full bg-[#f4f4f4]/95 dark:bg-[#1e1e1e]/95 backdrop-blur-xl flex flex-col text-gray-900 dark:text-white font-sans transition-colors duration-1000 ease-in-out">
       {/* Hidden Audio Element (Using a royalty-free lo-fi beat placeholder) */}
       <audio ref={audioRef} loop src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3" />
       
@@ -28,7 +28,7 @@ export function MusicApp({ window: win }: { window: { id: string; title: string 
       </div>
 
       {/* Player Controls */}
-      <div className="h-20 bg-gray-200/70 dark:bg-black/40 border-t border-gray-300 dark:border-white/10 flex items-center justify-between px-6">
+      <div className="h-20 bg-gray-200/70 dark:bg-black/40 border-t border-gray-300 dark:border-white/10 flex items-center justify-between px-6 transition-colors duration-1000 ease-in-out">
         <div className="flex gap-4 items-center w-1/3">
           <Volume2 size={16} className="text-gray-500 dark:text-gray-400" />
           <div className="w-20 h-1 bg-gray-400/40 dark:bg-white/20 rounded-full"><div className="w-2/3 h-full bg-gray-700 dark:bg-white rounded-full" /></div>

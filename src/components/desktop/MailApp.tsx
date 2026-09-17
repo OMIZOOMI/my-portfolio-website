@@ -64,9 +64,9 @@ export function MailApp({ window: win }: { window: { id: string; title: string }
   };
 
   return (
-    <div className="w-full h-full flex bg-[#f5f5f5] text-gray-800 dark:bg-[#1e1e1e] dark:text-gray-200 font-sans overflow-hidden">
+    <div className="w-full h-full flex bg-[#f5f5f5] text-gray-800 dark:bg-[#1e1e1e] dark:text-gray-200 font-sans overflow-hidden transition-colors duration-1000 ease-in-out">
       {/* Mailbox sidebar + message list */}
-      <div className="w-60 h-full bg-[#ebebeb] border-r border-gray-300 dark:bg-black/30 dark:border-white/10 flex flex-col overflow-hidden shrink-0">
+      <div className="w-60 h-full bg-[#ebebeb] border-r border-gray-300 dark:bg-black/30 dark:border-white/10 flex flex-col overflow-hidden shrink-0 transition-colors duration-1000 ease-in-out">
         <div className="p-3 shrink-0">
           <button
             onClick={() => setComposing(true)}
@@ -79,7 +79,7 @@ export function MailApp({ window: win }: { window: { id: string; title: string }
         <div className="px-3 pb-2 flex gap-1 shrink-0">
           <button
             onClick={() => switchMailbox("inbox")}
-            className={`flex-1 flex items-center justify-center gap-1.5 text-sm rounded-md px-2 py-1.5 transition-colors ${
+            className={`flex-1 flex items-center justify-center gap-1.5 text-sm rounded-md px-2 py-1.5 transition-colors duration-1000 ease-in-out ${
               mailbox === "inbox" && !composing
                 ? "bg-gray-300 dark:bg-white/15 font-semibold"
                 : "hover:bg-gray-300/50 dark:hover:bg-white/10 text-gray-600 dark:text-gray-300"
@@ -94,7 +94,7 @@ export function MailApp({ window: win }: { window: { id: string; title: string }
           </button>
           <button
             onClick={() => switchMailbox("sent")}
-            className={`flex-1 flex items-center justify-center gap-1.5 text-sm rounded-md px-2 py-1.5 transition-colors ${
+            className={`flex-1 flex items-center justify-center gap-1.5 text-sm rounded-md px-2 py-1.5 transition-colors duration-1000 ease-in-out ${
               mailbox === "sent" && !composing
                 ? "bg-gray-300 dark:bg-white/15 font-semibold"
                 : "hover:bg-gray-300/50 dark:hover:bg-white/10 text-gray-600 dark:text-gray-300"
@@ -113,7 +113,7 @@ export function MailApp({ window: win }: { window: { id: string; title: string }
             <div
               key={mail.id}
               onClick={() => selectEmail(mail.id)}
-              className={`rounded-md p-2.5 cursor-pointer border-l-4 transition-colors ${
+              className={`rounded-md p-2.5 cursor-pointer border-l-4 transition-colors duration-1000 ease-in-out ${
                 selectedId === mail.id && !composing
                   ? "border-[var(--system-accent)] bg-[var(--system-accent)]/15"
                   : "border-transparent hover:bg-gray-300/50 dark:hover:bg-white/10"
@@ -139,8 +139,8 @@ export function MailApp({ window: win }: { window: { id: string; title: string }
 
       {/* Right pane: reader or compose */}
       {composing ? (
-        <div className="flex-1 h-full flex flex-col bg-white dark:bg-[#1e1e1e] overflow-hidden">
-          <div className="h-12 bg-[#e8e8e8] dark:bg-white/5 border-b border-gray-300 dark:border-white/10 flex items-center justify-between px-4 shrink-0">
+        <div className="flex-1 h-full flex flex-col bg-white dark:bg-[#1e1e1e] overflow-hidden transition-colors duration-1000 ease-in-out">
+          <div className="h-12 bg-[#e8e8e8] dark:bg-white/5 border-b border-gray-300 dark:border-white/10 flex items-center justify-between px-4 shrink-0 transition-colors duration-1000 ease-in-out">
             <button
               onClick={handleSend}
               style={{ color: "var(--system-accent)" }}
@@ -151,7 +151,7 @@ export function MailApp({ window: win }: { window: { id: string; title: string }
             </button>
           </div>
 
-          <div className="flex flex-col border-b border-gray-200 dark:border-white/10 bg-white dark:bg-[#1e1e1e] shrink-0">
+          <div className="flex flex-col border-b border-gray-200 dark:border-white/10 bg-white dark:bg-[#1e1e1e] shrink-0 transition-colors duration-1000 ease-in-out">
             <div className="flex px-4 py-2 border-b border-gray-100 dark:border-white/5 items-center">
               <span className="text-gray-400 w-16 text-sm">To:</span>
               <span className="bg-[var(--system-accent)]/15 text-[var(--system-accent)] px-2 py-0.5 rounded-md text-sm font-medium">Om Sawkare</span>
@@ -176,8 +176,8 @@ export function MailApp({ window: win }: { window: { id: string; title: string }
           />
         </div>
       ) : selected ? (
-        <div className="flex-1 h-full flex flex-col bg-white dark:bg-[#1e1e1e] overflow-hidden">
-          <div className="px-5 pt-4 pb-3 border-b border-gray-200 dark:border-white/10 shrink-0">
+        <div className="flex-1 h-full flex flex-col bg-white dark:bg-[#1e1e1e] overflow-hidden transition-colors duration-1000 ease-in-out">
+          <div className="px-5 pt-4 pb-3 border-b border-gray-200 dark:border-white/10 shrink-0 transition-colors duration-1000 ease-in-out">
             <h2 className="text-lg font-bold text-gray-900 dark:text-white leading-snug">{selected.subject}</h2>
             <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
               From: <span className="font-medium text-gray-700 dark:text-gray-200">{selected.from}</span>
@@ -192,7 +192,7 @@ export function MailApp({ window: win }: { window: { id: string; title: string }
           </div>
         </div>
       ) : (
-        <div className="flex-1 flex items-center justify-center text-gray-400 text-sm bg-white dark:bg-[#1e1e1e]">
+        <div className="flex-1 flex items-center justify-center text-gray-400 text-sm bg-white dark:bg-[#1e1e1e] transition-colors duration-1000 ease-in-out">
           Select a message to read it.
         </div>
       )}

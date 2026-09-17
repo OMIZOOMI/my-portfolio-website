@@ -262,7 +262,7 @@ function resetDragVisuals(pointerId: number | null) {
 }
 
 export const useSystemStore = create<SystemState>((set, get) => ({
-  theme: "dark",
+  theme: "light",
   wallpaper: DEFAULT_WALLPAPER_THEME,
   wallpaperMode: DEFAULT_WALLPAPER_MODE,
   accent: "blue",

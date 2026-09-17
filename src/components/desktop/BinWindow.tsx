@@ -39,14 +39,14 @@ export function BinWindow({ window: win }: { window: { id: string; title: string
   };
 
   return (
-    <div className="flex w-full h-full bg-[#f4f4f4]/95 text-gray-800 dark:bg-[#1e1e1e]/90 dark:text-gray-200 select-none font-sans flex-row">
+    <div className="flex w-full h-full bg-[#f4f4f4]/95 text-gray-800 dark:bg-[#1e1e1e]/90 dark:text-gray-200 select-none font-sans flex-row transition-colors duration-1000 ease-in-out">
       {/* Sidebar */}
-      <div className="w-44 bg-[#ebebeb] border-r border-gray-300 dark:bg-black/30 dark:border-white/10 p-3 flex flex-col gap-1">
+      <div className="w-44 bg-[#ebebeb] border-r border-gray-300 dark:bg-black/30 dark:border-white/10 p-3 flex flex-col gap-1 transition-colors duration-1000 ease-in-out">
         <h3 className="text-[11px] font-bold text-gray-500 dark:text-gray-400 mb-1 px-2 uppercase tracking-wider">Favorites</h3>
         <button
           data-drop-folder-id="desktop"
           onClick={() => navigateTo("desktop")}
-          className={`text-left text-sm px-3 py-1.5 rounded-md transition-colors ${
+          className={`text-left text-sm px-3 py-1.5 rounded-md transition-colors duration-1000 ease-in-out ${
             currentFolderId === "desktop" ? "bg-[var(--system-accent)] text-white" : "hover:bg-gray-300/60 dark:hover:bg-white/10"
           }`}
         >
@@ -55,7 +55,7 @@ export function BinWindow({ window: win }: { window: { id: string; title: string
         <button
           data-drop-folder-id="documents"
           onClick={() => navigateTo("documents")}
-          className={`text-left text-sm px-3 py-1.5 rounded-md transition-colors ${
+          className={`text-left text-sm px-3 py-1.5 rounded-md transition-colors duration-1000 ease-in-out ${
             currentFolderId === "documents" ? "bg-[var(--system-accent)] text-white" : "hover:bg-gray-300/60 dark:hover:bg-white/10"
           }`}
         >
@@ -64,7 +64,7 @@ export function BinWindow({ window: win }: { window: { id: string; title: string
         <button
           data-drop-folder-id="bin"
           onClick={() => navigateTo("bin")}
-          className={`text-left text-sm px-3 py-1.5 rounded-md text-white transition-colors ${
+          className={`text-left text-sm px-3 py-1.5 rounded-md text-white transition-colors duration-1000 ease-in-out ${
             currentFolderId === "bin" ? "bg-[var(--system-accent)] text-white" : "hover:bg-gray-300/60 dark:hover:bg-white/10"
           }`}
         >
@@ -73,9 +73,9 @@ export function BinWindow({ window: win }: { window: { id: string; title: string
       </div>
 
       {/* Main View */}
-      <div className="flex-1 flex flex-col bg-white dark:bg-[#1e1e1e]">
+      <div className="flex-1 flex flex-col bg-white dark:bg-[#1e1e1e] transition-colors duration-1000 ease-in-out">
         {/* Toolbar */}
-        <div className="h-12 border-b border-gray-200 dark:border-white/10 flex items-center justify-between px-4 bg-gray-100 dark:bg-white/5">
+        <div className="h-12 border-b border-gray-200 dark:border-white/10 flex items-center justify-between px-4 bg-gray-100 dark:bg-white/5 transition-colors duration-1000 ease-in-out">
           <div className="flex gap-2">
             <button 
               onClick={() => {
@@ -86,10 +86,10 @@ export function BinWindow({ window: win }: { window: { id: string; title: string
                 }
               }} 
               disabled={history.length <= 1}
-              className="px-2 py-1 bg-gray-200 dark:bg-white/10 rounded opacity-30 hover:opacity-100 disabled:opacity-30">
+              className="px-2 py-1 bg-gray-200 dark:bg-white/10 rounded opacity-30 hover:opacity-100 disabled:opacity-30 transition-colors duration-1000 ease-in-out">
             {"<"}
             </button>
-            <button disabled className="px-2 py-1 bg-gray-200 dark:bg-white/10 rounded opacity-30">{">"}</button>
+            <button disabled className="px-2 py-1 bg-gray-200 dark:bg-white/10 rounded opacity-30 transition-colors duration-1000 ease-in-out">{">"}</button>
             <span className="text-sm font-semibold ml-4 text-gray-600 dark:text-gray-300">Bin</span>
           </div>
           
@@ -97,7 +97,7 @@ export function BinWindow({ window: win }: { window: { id: string; title: string
           <button 
             onClick={emptyTrash}
             disabled={trashItems.length === 0}
-            className="px-4 py-1 text-sm bg-gray-200 hover:bg-gray-300 dark:bg-white/10 dark:hover:bg-white/20 active:bg-white/30 rounded-md transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+            className="px-4 py-1 text-sm bg-gray-200 hover:bg-gray-300 dark:bg-white/10 dark:hover:bg-white/20 active:bg-white/30 rounded-md transition-colors duration-1000 ease-in-out disabled:opacity-30 disabled:cursor-not-allowed"
           >
             Empty
           </button>

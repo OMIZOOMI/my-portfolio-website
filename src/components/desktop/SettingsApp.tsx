@@ -122,11 +122,11 @@ export function SettingsApp({ window }: { window: { id: string; title: string } 
   };
 
   return (
-    <div className="w-full h-full bg-[#f4f4f4] text-gray-800 dark:bg-[#1e1e1e] dark:text-gray-200 font-sans flex overflow-hidden">
+    <div className="w-full h-full bg-[#f4f4f4] text-gray-800 dark:bg-[#1e1e1e] dark:text-gray-200 font-sans flex overflow-hidden transition-colors duration-1000 ease-in-out">
       {/* Sidebar — glassmorphic nav */}
       <div
         ref={sidebarRef}
-        className="w-48 shrink-0 h-full bg-[#ebebeb] dark:bg-black/30 backdrop-blur-xl border-r border-gray-300 dark:border-white/10 p-2 flex flex-col gap-1 overflow-y-auto overscroll-contain"
+        className="w-48 shrink-0 h-full bg-[#ebebeb] dark:bg-black/30 backdrop-blur-xl border-r border-gray-300 dark:border-white/10 p-2 flex flex-col gap-1 overflow-y-auto overscroll-contain transition-colors duration-1000 ease-in-out"
         style={{ transform: "translateZ(0)" }}
       >
         {TABS.map((tab) => {
@@ -135,7 +135,7 @@ export function SettingsApp({ window }: { window: { id: string; title: string } 
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`flex items-center gap-2.5 px-3 py-2 rounded-md text-sm font-medium transition-colors text-left ${
+              className={`flex items-center gap-2.5 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-1000 ease-in-out text-left ${
                 active ? "" : "text-gray-600 dark:text-[#d4d4d8] hover:bg-gray-300/60 dark:hover:bg-white/10"
               }`}
               style={
@@ -154,7 +154,7 @@ export function SettingsApp({ window }: { window: { id: string; title: string } 
       {/* Content — sole scroll owner: flex-1 + overscroll trapped, like Notes */}
       <div
         ref={contentRef}
-        className="flex-1 p-8 overflow-y-auto overscroll-contain min-w-0 min-h-0"
+        className="flex-1 p-8 overflow-y-auto overscroll-contain min-w-0 min-h-0 transition-colors duration-1000 ease-in-out"
         style={{ transform: "translateZ(0)" }}
       >
         {activeTab === "appearance" && (
@@ -256,7 +256,7 @@ export function SettingsApp({ window }: { window: { id: string; title: string } 
         {activeTab === "about" && (
           <div className="max-w-md">
             <h2 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">About This Mac</h2>
-            <div className="rounded-2xl bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 p-6 flex flex-col items-center text-center">
+            <div className="rounded-2xl bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 p-6 flex flex-col items-center text-center transition-colors duration-1000 ease-in-out">
               <span className="text-5xl mb-3" aria-hidden="true">💻</span>
               <p className="text-lg font-bold text-gray-900 dark:text-white">Om Nilesh Sawkare</p>
               <p className="text-sm text-gray-500 dark:text-gray-400 mb-5">Portfolio OS 26.4</p>
@@ -281,7 +281,7 @@ export function SettingsApp({ window }: { window: { id: string; title: string } 
         {activeTab === "accessibility" && (
           <div className="max-w-md">
             <h2 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Accessibility</h2>
-            <div className="rounded-xl bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 p-4 flex items-center justify-between gap-4">
+            <div className="rounded-xl bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 p-4 transition-colors duration-1000 ease-in-out flex items-center justify-between gap-4">
               <div>
                 <p className="text-sm font-semibold">Reduce Motion</p>
                 <p className="text-xs text-gray-500 dark:text-gray-400 mt-1 leading-relaxed">
@@ -297,7 +297,7 @@ export function SettingsApp({ window }: { window: { id: string; title: string } 
         {activeTab === "dock" && (
           <div className="max-w-md">
             <h2 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Dock</h2>
-            <div className="rounded-xl bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 p-4 flex items-center justify-between gap-4 mb-4">
+            <div className="rounded-xl bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 p-4 transition-colors duration-1000 ease-in-out flex items-center justify-between gap-4 mb-4">
               <div>
                 <p className="text-sm font-semibold">Magnification</p>
                 <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
@@ -306,7 +306,7 @@ export function SettingsApp({ window }: { window: { id: string; title: string } 
               </div>
               <Toggle on={dockMagnification} onChange={setDockMagnification} accent={accentHex} label="Dock magnification" />
             </div>
-            <div className="rounded-xl bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 p-4">
+            <div className="rounded-xl bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 p-4 transition-colors duration-1000 ease-in-out">
               <div className="flex items-center justify-between mb-3">
                 <p className="text-sm font-semibold">Size</p>
                 <span className="text-xs text-gray-500 dark:text-gray-400">{Math.round(dockSize * 100)}%</span>
@@ -335,7 +335,7 @@ export function SettingsApp({ window }: { window: { id: string; title: string } 
             <h2 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Advanced</h2>
             <div className="mb-6">
               <SectionTitle>Storage</SectionTitle>
-              <div className="rounded-xl bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 divide-y divide-gray-200 dark:divide-white/5 text-sm">
+              <div className="rounded-xl bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 divide-y divide-gray-200 dark:divide-white/5 text-sm transition-colors duration-1000 ease-in-out">
                 {[
                   ["Desktop items", desktopIds.length],
                   ["Items in Bin", trashItems.length],

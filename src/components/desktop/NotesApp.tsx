@@ -179,7 +179,7 @@ export function NotesApp({ window }: { window: { id: string; title: string } }) 
   const toolBtnActive = "bg-gray-800 dark:bg-white/20 text-white hover:bg-gray-800 dark:hover:bg-white/20 hover:text-white";
 
   return (
-    <div className="flex w-full h-full bg-[#f4f4f4] text-gray-800 dark:bg-[#1a1a1e] dark:text-gray-200 font-sans select-text overflow-hidden">
+    <div className="flex w-full h-full bg-[#f4f4f4] text-gray-800 dark:bg-[#1a1a1e] dark:text-gray-200 font-sans select-text overflow-hidden transition-colors duration-1000 ease-in-out">
       <style>{`
         .notes-editor { outline: none; caret-color: #b8860b; }
         .notes-editor:empty::before {
@@ -197,7 +197,7 @@ export function NotesApp({ window }: { window: { id: string; title: string } }) 
       `}</style>
 
       {/* Sidebar */}
-      <div className="w-56 h-full bg-[#ebebeb] border-r border-gray-300 dark:bg-black/30 dark:border-white/10 flex flex-col overflow-hidden shrink-0">
+      <div className="w-56 h-full bg-[#ebebeb] border-r border-gray-300 dark:bg-black/30 dark:border-white/10 flex flex-col overflow-hidden shrink-0 transition-colors duration-1000 ease-in-out">
         <div className="h-12 flex items-center px-4 border-b border-gray-300 dark:border-white/10 text-gray-500 dark:text-gray-400 shrink-0">
           <Folder size={16} className="mr-2 text-yellow-600" />
           <span className="font-semibold text-sm">On My Mac</span>
@@ -219,7 +219,7 @@ export function NotesApp({ window }: { window: { id: string; title: string } }) 
               <div
                 key={note.id}
                 onClick={() => setActiveNote(note.id)}
-                className={`rounded-md p-3 cursor-pointer border-l-4 transition-colors ${
+                className={`rounded-md p-3 cursor-pointer border-l-4 transition-colors duration-1000 ease-in-out ${
                   activeNoteId === note.id
                     ? "border-[var(--system-accent)] bg-[var(--system-accent)]/15"
                     : "text-gray-700 dark:text-gray-300 border-transparent hover:bg-gray-200/50 dark:hover:bg-white/10"
@@ -240,7 +240,7 @@ export function NotesApp({ window }: { window: { id: string; title: string } }) 
 
       {/* Main Content View */}
       <div
-        className="flex-1 h-full flex flex-col bg-white dark:bg-[#1e1e1e] overflow-hidden"
+        className="flex-1 h-full flex flex-col bg-white dark:bg-[#1e1e1e] overflow-hidden transition-colors duration-1000 ease-in-out"
         style={
           isDarkMode
             ? undefined
@@ -249,7 +249,7 @@ export function NotesApp({ window }: { window: { id: string; title: string } }) 
       >
 
         {/* Toolbar: formatting + search + new note */}
-        <div className="min-h-12 border-b border-gray-200 dark:border-white/10 flex items-center gap-1 px-3 py-1.5 bg-white/80 dark:bg-black/40 backdrop-blur-sm shrink-0 flex-wrap">
+        <div className="min-h-12 border-b border-gray-200 dark:border-white/10 flex items-center gap-1 px-3 py-1.5 bg-white/80 dark:bg-black/40 backdrop-blur-sm shrink-0 flex-wrap transition-colors duration-1000 ease-in-out">
           <button
             onMouseDown={(e) => e.preventDefault()}
             onClick={() => exec("bold")}
