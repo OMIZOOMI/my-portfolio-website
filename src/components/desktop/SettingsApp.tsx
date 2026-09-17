@@ -193,21 +193,16 @@ export function SettingsApp({ window }: { window: { id: string; title: string } 
                     key={wp.name}
                     onClick={() => setWallpaper(wp.name)}
                     className="group text-left"
-                    title={`${wp.name} (auto dark/light)`}
+                    title={`${wp.name} (auto day/night)`}
                   >
                     <span
-                      className="relative block w-full h-20 rounded-lg bg-cover bg-center border-2 transition-all overflow-hidden"
+                      className="block w-full h-20 rounded-lg bg-cover bg-center border-2 transition-all"
                       style={{
-                        backgroundImage: `url(${wp.dark})`,
+                        backgroundImage: `url(${wp.photo})`,
                         borderColor: wallpaper === wp.name ? accentHex : "transparent",
                         transform: wallpaper === wp.name ? "scale(1.05)" : undefined,
                       }}
-                    >
-                      <span
-                        className="absolute inset-y-0 right-0 w-1/2 bg-cover bg-center border-l border-white/40"
-                        style={{ backgroundImage: `url(${wp.light})` }}
-                      />
-                    </span>
+                    />
                     <span className="block text-xs text-gray-500 mt-1.5 group-hover:text-gray-800 dark:group-hover:text-gray-200">
                       {wp.name}
                     </span>
