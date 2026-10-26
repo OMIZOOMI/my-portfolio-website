@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import Image from "next/image";
 import FinderIcon from "../../assets/3d-mac-os-finder.png";
 import TerminalIcon from "../../assets/Terminal.png";
 import NotesIcon from "../../assets/Notes.png";
@@ -23,17 +23,18 @@ const APP_DATA: Record<string, { icon: string; version: string }> = {
   "About Me": { icon: FinderIcon.src, version: "Version 1.0" },
 };
 
-export function AboutAppWindow({ window }: { window: any }) {
+export function AboutAppWindow({ window }: { window: { title: string } }) {
   // Extract the app name from the window title (e.g., "About Terminal" -> "Terminal")
   const appName = window.title.replace("About ", "");
   const data = APP_DATA[appName] || APP_DATA["Finder"]; // Fallback to Finder
 
   return (
     <div className="w-full h-full flex flex-col items-center bg-[#282828] text-gray-200 font-sans p-5 pt-6 text-center select-none">
-      <img 
-        src={data.icon} 
+      <Image
+        src={data.icon}
         alt={appName} 
-        draggable={false}
+        width={80}
+        height={80}
         className="w-20 h-20 drop-shadow-2xl mb-3 pointer-events-none"
       />
       <h1 className="text-xl font-bold text-white mb-1 tracking-wide">{appName}</h1>

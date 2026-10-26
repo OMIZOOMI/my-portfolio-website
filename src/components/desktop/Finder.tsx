@@ -46,6 +46,10 @@ function FinderDragItem({
         tone="window"
         onOpen={() => {
           if (isHidden(item.id)) return;
+          if (fromFolder === "bin") {
+            useSystemStore.getState().restoreFromTrash(item.id);
+            return;
+          }
           if (item.type === "folder") {
             navigateTo(item.id);
           } else {
@@ -78,6 +82,9 @@ export function Finder({ window }: { window: { id: string; title: string } }) {
   const deletedIds = useSystemStore((s) => s.deletedIds);
   const desktopIds = useSystemStore((s) => s.desktopIds);
   const emptyTrash = useSystemStore((s) => s.emptyTrash);
+  const sidebarVisible = useSystemStore((s) => s.finderSidebarVisible);
+  const pathBarVisible = useSystemStore((s) => s.finderPathBarVisible);
+  const statusBarVisible = useSystemStore((s) => s.finderStatusBarVisible);
 
   const isHidden = (id: string) => trashItems.includes(id) || deletedIds.includes(id);
 
@@ -146,7 +153,7 @@ export function Finder({ window }: { window: { id: string; title: string } }) {
 
   return (
     <div className="flex w-full h-full bg-[#f4f4f4]/95 text-gray-800 dark:bg-[#1e1e1e]/90 dark:text-gray-200 select-none font-sans flex-row transition-colors duration-1000 ease-in-out">
-      <div className="w-44 bg-[#ebebeb] border-r border-gray-300 dark:bg-black/30 dark:border-white/10 p-3 flex flex-col gap-1 transition-colors duration-1000 ease-in-out">
+      {sidebarVisible && <div className="w-44 bg-[#ebebeb] border-r border-gray-300 dark:bg-black/30 dark:border-white/10 p-3 flex flex-col gap-1 transition-colors duration-1000 ease-in-out">
         <h3 className="text-[11px] font-bold text-gray-500 dark:text-gray-400 mb-1 px-2 uppercase tracking-wider">Favorites</h3>
         <button
           data-drop-folder-id="desktop"
@@ -178,7 +185,7 @@ export function Finder({ window }: { window: { id: string; title: string } }) {
         >
           Bin
         </button>
-      </div>
+      </div>}
 
       <div className="flex-1 flex flex-col bg-white dark:bg-[#1e1e1e] transition-colors duration-1000 ease-in-out">
         <div className="h-12 border-b border-gray-200 bg-gray-100 dark:border-white/10 flex items-center px-4 gap-x-3 dark:bg-white/5 transition-colors duration-1000 ease-in-out">
@@ -253,6 +260,16 @@ export function Finder({ window }: { window: { id: string; title: string } }) {
             ))
           )}
         </div>
+        {pathBarVisible && (
+          <div className="h-7 shrink-0 border-t border-gray-200 px-4 text-[11px] text-gray-500 dark:border-white/10 dark:text-gray-400 flex items-center">
+            Macintosh HD / {currentFolderId.replace(/-/g, " ")}
+          </div>
+        )}
+        {statusBarVisible && (
+          <div className="h-6 shrink-0 border-t border-gray-200 px-4 text-[11px] text-gray-500 dark:border-white/10 dark:text-gray-400 flex items-center justify-end">
+            {items.length} {items.length === 1 ? "item" : "items"}
+          </div>
+        )}
       </div>
     </div>
   );

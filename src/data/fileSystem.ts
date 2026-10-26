@@ -1,4 +1,4 @@
-// src/data/fileSystem.ts
+import { PROJECTS } from "./projectsData";
 
 export type FileItem = { 
     id: string; 
@@ -6,7 +6,7 @@ export type FileItem = {
     type: "folder" | "file" | "app"; 
   };
   
-  export const FILE_SYSTEM: Record<string, FileItem[]> = {
+export const FILE_SYSTEM: Record<string, FileItem[]> = {
     "desktop": [
       { id: "projects", name: "Projects", type: "folder" },
       { id: "about-me", name: "About Me", type: "folder" },
@@ -15,13 +15,7 @@ export type FileItem = {
     "documents": [
       { id: "game", name: "Game", type: "folder" },
     ],
-    "projects": [
-      { id: "edge-ai-white-box", name: "Edge AI White Box", type: "file" },
-      { id: "cloud-native-task-api", name: "Cloud Native Task API", type: "file" },
-      { id: "sl-translator", name: "Sign Language Translator", type: "file" },
-      { id: "smart-stick", name: "Smart Assistive Stick", type: "file" },
-      { id: "vehicle-tracking", name: "GPS Vehicle Tracking", type: "file" }
-    ],
+    "projects": PROJECTS.map((project) => ({ id: project.id, name: project.name, type: "file" as const })),
     "about-me": [],
     "game": [
         { id: "Neural Block", name: "Neural Block.app", type: "app" }

@@ -14,7 +14,7 @@ import {
   type DropTarget,
 } from "../desktop/fileDrag";
 
-export type FileActionLabel = "MOVE_TO_TRASH" | "MOVE_TO_DESKTOP" | "MOVE_TO_FOLDER" | "MOVE_ON_DESKTOP";
+export type FileActionLabel = "MOVE_TO_TRASH" | "MOVE_TO_DESKTOP" | "MOVE_TO_FOLDER" | "MOVE_ON_DESKTOP" | "CREATE_FOLDER" | "RESTORE_FROM_TRASH";
 
 export type AccentName = "blue" | "purple" | "green" | "orange" | "graphite";
 
@@ -29,59 +29,50 @@ export const ACCENT_HEX: Record<AccentName, string> = {
 export type WallpaperMode = "auto" | "light" | "dark";
 
 export interface WallpaperTheme {
+  id: string;
   name: string;
-  /** Base photo URL (day version). */
-  photo: string;
+  lightUrl: string;
+  darkUrl: string;
 }
-
-// Theme-name wallpapers: the store keeps the NAME, DesktopEnvironment resolves
-// the URL for the active color scheme.
-//
-// True matched pairs: day AND night are the EXACT same landscape — the night
-// variant is the same photo with imgix brightness/saturation grading
-// (images.unsplash.com is imgix-backed), so the dynamic-theme illusion never
-// breaks from mismatched scenes or unverified second URLs. The old standalone
-// "Mountains" asset 404'd and is gone.
-const NIGHT_PARAMS = "&bri=-38&sat=-32&con=-8";
 
 export const WALLPAPER_THEMES: WallpaperTheme[] = [
   {
+    id: "big-sur",
     name: "Big Sur",
-    photo: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564",
+    lightUrl: "https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=2564&q=85",
+    darkUrl: "https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=2564&q=85",
   },
   {
+    id: "monterey",
     name: "Monterey",
-    photo: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=2564",
+    lightUrl: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=2564&q=85",
+    darkUrl: "https://images.unsplash.com/photo-1483347756197-71ef80e95f73?auto=format&fit=crop&w=2564&q=85",
   },
   {
+    id: "ventura",
     name: "Ventura",
-    photo: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?q=80&w=2564",
+    lightUrl: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=2564&q=85",
+    darkUrl: "https://images.unsplash.com/photo-1511497584788-876760111969?auto=format&fit=crop&w=2564&q=85",
   },
   {
+    id: "sonoma",
     name: "Sonoma",
-    photo: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=2564",
+    lightUrl: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=2564&q=85",
+    darkUrl: "https://images.unsplash.com/photo-1534791547706-4d44c1f5c3d3?auto=format&fit=crop&w=2564&q=85",
   },
   {
+    id: "sequoia",
     name: "Sequoia",
-    photo: "https://images.unsplash.com/photo-1439405326854-014607f694d7?q=80&w=2564",
+    lightUrl: "https://images.unsplash.com/photo-1439405326854-014607f694d7?auto=format&fit=crop&w=2564&q=85",
+    darkUrl: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=2564&q=85",
   },
 ];
 
 export const DEFAULT_WALLPAPER_THEME = "Big Sur";
 export const DEFAULT_WALLPAPER_MODE: WallpaperMode = "light";
 
-export function resolveWallpaper(themeName: string, wallpaperMode: WallpaperMode, isDark: boolean): string {
-  const theme =
-    WALLPAPER_THEMES.find((t) => t.name === themeName) ?? WALLPAPER_THEMES[0];
-  
-  let isDarkMode: boolean;
-  if (wallpaperMode === "auto") {
-    isDarkMode = isDark;
-  } else {
-    isDarkMode = wallpaperMode === "dark";
-  }
-  
-  return isDarkMode ? `${theme.photo}${NIGHT_PARAMS}` : theme.photo;
+export function getWallpaperTheme(themeName: string): WallpaperTheme {
+  return WALLPAPER_THEMES.find((theme) => theme.name === themeName) ?? WALLPAPER_THEMES[0];
 }
 
 export type { DraggedItem, DropTarget };
@@ -113,6 +104,9 @@ interface SystemState {
   reduceMotion: boolean;
   dockMagnification: boolean;
   dockSize: number;
+  finderSidebarVisible: boolean;
+  finderPathBarVisible: boolean;
+  finderStatusBarVisible: boolean;
   trashItems: string[];
   deletedIds: string[];
   desktopIds: string[];
@@ -137,6 +131,11 @@ interface SystemState {
   setReduceMotion: (on: boolean) => void;
   setDockMagnification: (on: boolean) => void;
   setDockSize: (size: number) => void;
+  toggleFinderSidebar: () => void;
+  toggleFinderPathBar: () => void;
+  toggleFinderStatusBar: () => void;
+  createFolder: (parentId?: string, name?: string) => string | null;
+  restoreFromTrash: (id: string) => void;
   addToTrash: (id: string) => void;
   emptyTrash: () => void;
   moveToDesktop: (id: string, position?: { x: number; y: number }) => void;
@@ -269,6 +268,9 @@ export const useSystemStore = create<SystemState>((set, get) => ({
   reduceMotion: false,
   dockMagnification: true,
   dockSize: 1,
+  finderSidebarVisible: true,
+  finderPathBarVisible: true,
+  finderStatusBarVisible: true,
   trashItems: [],
   deletedIds: [],
   desktopIds: INITIAL_DESKTOP_IDS,
@@ -285,6 +287,45 @@ export const useSystemStore = create<SystemState>((set, get) => ({
   setDockMagnification: (dockMagnification) => set({ dockMagnification }),
   setDockSize: (dockSize) =>
     set({ dockSize: Math.max(0.75, Math.min(1.5, dockSize)) }),
+  toggleFinderSidebar: () => set((state) => ({ finderSidebarVisible: !state.finderSidebarVisible })),
+  toggleFinderPathBar: () => set((state) => ({ finderPathBarVisible: !state.finderPathBarVisible })),
+  toggleFinderStatusBar: () => set((state) => ({ finderStatusBarVisible: !state.finderStatusBarVisible })),
+  createFolder: (parentId = "desktop", name = "Untitled Folder") => {
+    const state = get();
+    const validParent = parentId === "desktop" || !!state.fileSystem[parentId];
+    if (!validParent) return null;
+
+    let id = `folder-${Date.now()}`;
+    let suffix = 2;
+    while (findFileItem(state.fileSystem, id)) {
+      id = `folder-${Date.now()}-${suffix}`;
+      suffix += 1;
+    }
+
+    const item: FileItem = { id, name, type: "folder" };
+    const nextFs = addToFolder(state.fileSystem, parentId, item);
+    nextFs[id] = [];
+    const onDesktop = parentId === "desktop";
+    set({
+      past: [...state.past, { ...snapshot(state), label: "CREATE_FOLDER" as const }].slice(-HISTORY_LIMIT),
+      future: [],
+      fileSystem: nextFs,
+      desktopIds: onDesktop ? [...state.desktopIds, id] : state.desktopIds,
+      desktopPositions: onDesktop
+        ? { ...state.desktopPositions, [id]: defaultDesktopPosition(state.desktopIds.length) }
+        : state.desktopPositions,
+    });
+    return id;
+  },
+  restoreFromTrash: (id) =>
+    set((state) => {
+      if (!state.trashItems.includes(id) || state.deletedIds.includes(id)) return state;
+      return {
+        past: [...state.past, { ...snapshot(state), label: "RESTORE_FROM_TRASH" as const }].slice(-HISTORY_LIMIT),
+        future: [],
+        trashItems: state.trashItems.filter((trashId) => trashId !== id),
+      };
+    }),
   addToTrash: (id) =>
     set((state) => {
       if (state.deletedIds.includes(id)) return state;

@@ -23,6 +23,8 @@ interface NotesState {
   searchQuery: string;
   showSearch: boolean;
   addNote: () => void;
+  clearActiveNote: () => void;
+  deleteActiveNote: () => void;
   setActiveNote: (id: string) => void;
   updateNoteContent: (id: string, html: string) => void;
   setSearchQuery: (q: string) => void;
@@ -40,6 +42,18 @@ export const useNotesStore = create<NotesState>((set) => ({
       // Blank page — no forced Title/Body split, the user formats freely.
       const newNote: Note = { id: Date.now().toString(), contentHtml: BLANK_NOTE_HTML, updatedAt: Date.now() };
       return { notes: [newNote, ...state.notes], activeNoteId: newNote.id };
+    }),
+  clearActiveNote: () =>
+    set((state) => ({
+      notes: state.notes.map((note) =>
+        note.id === state.activeNoteId ? { ...note, contentHtml: "", updatedAt: Date.now() } : note
+      ),
+    })),
+  deleteActiveNote: () =>
+    set((state) => {
+      if (!state.activeNoteId || state.notes.length <= 1) return state;
+      const remaining = state.notes.filter((note) => note.id !== state.activeNoteId);
+      return { notes: remaining, activeNoteId: remaining[0]?.id ?? null };
     }),
   setActiveNote: (id) => set({ activeNoteId: id }),
   updateNoteContent: (id, html) =>

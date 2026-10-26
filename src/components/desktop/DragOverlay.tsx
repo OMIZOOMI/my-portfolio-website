@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import Image from "next/image";
 import { useSystemStore } from "../window-manager/useSystemStore";
 import { clientToDesktopLocal } from "./fileDrag";
 import FolderIconImg from "../../assets/FolderIcon.png";
@@ -86,10 +87,11 @@ export function DragOverlay() {
     >
       <div className="pointer-events-none flex flex-col items-center gap-1.5 w-[84px] p-2">
         {draggedItem?.iconType === "folder" && (
-          <img
-            src={FolderIconImg.src}
+          <Image
+            src={FolderIconImg}
             alt=""
-            draggable={false}
+            width={56}
+            height={56}
             className="pointer-events-none select-none"
             style={{ width: "56px", height: "56px", objectFit: "contain" }}
           />

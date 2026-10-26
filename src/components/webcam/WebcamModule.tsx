@@ -12,7 +12,7 @@
  * if you see dropped frames elsewhere on the page while this is open.
  */
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState, type RefObject } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Hand } from "lucide-react";
 import { useHandGestureDetector } from "./useHandGestureDetector";
@@ -57,8 +57,9 @@ export function WebcamModule({ open, onClose }: WebcamModuleProps) {
   }, []);
 
   useEffect(() => {
-    if (open) startCamera();
+    const startTimer = open ? window.setTimeout(() => { void startCamera(); }, 0) : undefined;
     return () => {
+      if (startTimer) window.clearTimeout(startTimer);
       streamRef.current?.getTracks().forEach((track) => track.stop());
       streamRef.current = null;
       setPermission("idle");
@@ -73,7 +74,7 @@ export function WebcamModule({ open, onClose }: WebcamModuleProps) {
   }, []);
 
   useHandGestureDetector({
-    videoRef: videoRef as any,
+    videoRef: videoRef as RefObject<HTMLVideoElement>,
     enabled: open && permission === "granted",
     onGesture: handleGesture,
   });
@@ -109,9 +110,9 @@ export function WebcamModule({ open, onClose }: WebcamModuleProps) {
                 {permission === "idle" && <p>Starting camera…</p>}
                 {permission === "requesting" && <p>Requesting camera access…</p>}
                 {permission === "denied" && (
-                  <p>Camera access was denied. Enable it in your browser's site settings to try this demo.</p>
+                   <p>Camera access was denied. Enable it in your browser&apos;s site settings to try this demo.</p>
                 )}
-                {permission === "unsupported" && <p>Your browser doesn't support camera access.</p>}
+                {permission === "unsupported" && <p>Your browser doesn&apos;t support camera access.</p>}
               </div>
             )}
 

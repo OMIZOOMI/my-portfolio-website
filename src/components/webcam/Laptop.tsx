@@ -1,17 +1,13 @@
-// @ts-nocheck
 "use client";
 
 import { useRef, useEffect, type ReactNode } from "react";
 import { useFrame } from "@react-three/fiber";
 import { Html } from "@react-three/drei";
-import * as THREE from "three";
 import type { ScenePhase } from "./MacBookScene";
 import { Model as MacbookModel } from './Macbook';
 
 // Import our store to trigger the lock
 import { useWindowStore } from "../window-manager/useWindowStore";
-
-const OPEN_ROTATION = -1.85; 
 
 export const BASE_SIZE: [number, number, number] = [2.0, 0.06, 1.4];
 export const LID_SIZE: [number, number, number] = [2.0, 0.05, 1.35];

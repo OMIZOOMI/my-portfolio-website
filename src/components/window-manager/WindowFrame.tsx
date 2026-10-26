@@ -1,6 +1,6 @@
  "use client";
 
-import { useState, useEffect, useRef, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { motion, useMotionValue } from "framer-motion";
 import { Minus, Square, X } from "lucide-react";
 import { useWindowStore, type WindowState } from "./useWindowStore";
@@ -26,11 +26,13 @@ interface GenieTarget {
 export function WindowFrame({ window: win, children }: WindowFrameProps) {
   const closeWindow = useWindowStore((s) => s.closeWindow);
   const focusWindow = useWindowStore((s) => s.focusWindow);
+  const setWindowPosition = useWindowStore((s) => s.setWindowPosition);
   const toggleMinimize = useWindowStore((s) => s.toggleMinimize);
+  const toggleMaximize = useWindowStore((s) => s.toggleMaximize);
 
-  const [isMaximized, setIsMaximized] = useState(false);
   const [isHoveringControls, setIsHoveringControls] = useState(false);
   const [genie, setGenie] = useState<GenieTarget | null>(null);
+  const isMaximized = win.maximized;
 
   const frameRef = useRef<HTMLDivElement>(null);
   const closeTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -41,8 +43,8 @@ export function WindowFrame({ window: win, children }: WindowFrameProps) {
 
   useEffect(() => {
     if (isMaximized) {
-      x.set(MAXIMIZED_MARGIN);
-      y.set(MAXIMIZED_MARGIN);
+       x.set(MAXIMIZED_MARGIN);
+       y.set(MAXIMIZED_MARGIN);
     } else {
       x.set(win.position.x);
       y.set(win.position.y);
@@ -92,6 +94,7 @@ export function WindowFrame({ window: win, children }: WindowFrameProps) {
 
   const handlePointerDown = (e: React.PointerEvent) => {
     if (isMaximized || genie) return; // Prevent drag if full screen or genie-closing
+    if ((e.target as HTMLElement).closest("button")) return;
     if (useSystemStore.getState().isDragging || useSystemStore.getState().pendingDrag) return;
     e.stopPropagation();
     focusWindow(win.id);
@@ -121,6 +124,7 @@ export function WindowFrame({ window: win, children }: WindowFrameProps) {
 
     const onPointerUp = () => {
       cleanup();
+      setWindowPosition(win.id, { x: x.get(), y: y.get() });
     };
 
     window.addEventListener("pointermove", onPointerMove);
@@ -199,7 +203,7 @@ export function WindowFrame({ window: win, children }: WindowFrameProps) {
           <motion.button type="button" onClick={() => toggleMinimize(win.id)} whileTap={{ scale: 0.85 }} transition={PRESS_TRANSITION} aria-label="Minimize" style={{ width: "13px", height: "13px", borderRadius: "50%", backgroundColor: "#ffbd2e", border: "0.5px solid rgba(0,0,0,0.15)", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", padding: 0 }}>
             <Minus size={8} color="#5c4300" strokeWidth={3} style={{ opacity: isHoveringControls ? 1 : 0, transition: "opacity 0.1s ease" }} />
           </motion.button>
-          <motion.button type="button" onClick={() => setIsMaximized((v) => !v)} whileTap={{ scale: 0.85 }} transition={PRESS_TRANSITION} aria-label="Maximize" style={{ width: "13px", height: "13px", borderRadius: "50%", backgroundColor: "#27c93f", border: "0.5px solid rgba(0,0,0,0.15)", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", padding: 0 }}>
+           <motion.button type="button" onClick={() => toggleMaximize(win.id)} whileTap={{ scale: 0.85 }} transition={PRESS_TRANSITION} aria-label={isMaximized ? "Restore" : "Maximize"} style={{ width: "13px", height: "13px", borderRadius: "50%", backgroundColor: "#27c93f", border: "0.5px solid rgba(0,0,0,0.15)", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", padding: 0 }}>
             <Square size={6} color="#004d09" strokeWidth={3} style={{ opacity: isHoveringControls ? 1 : 0, transition: "opacity 0.1s ease" }} />
           </motion.button>
         </div>

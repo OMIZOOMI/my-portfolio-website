@@ -1,6 +1,7 @@
 "use client";
 
 import type { ReactNode } from "react";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import styles from "./DesktopIcon.module.css";
 import { useSystemStore } from "../window-manager/useSystemStore";
@@ -43,10 +44,11 @@ export function DesktopIcon({ label, variant, glyph, accent = "#4c8dff", onOpen,
 
       {/* 2. NEW LOCAL FOLDER IMAGE VARIANT */}
       {variant === "folder" && (
-        <img 
-          src={FolderIconImg.src} 
+        <Image
+          src={FolderIconImg}
           alt="Folder" 
-          draggable={false}
+          width={56}
+          height={56}
           className="pointer-events-none select-none drop-shadow-md"
           style={{ width: "56px", height: "56px", objectFit: "contain" }}
         />

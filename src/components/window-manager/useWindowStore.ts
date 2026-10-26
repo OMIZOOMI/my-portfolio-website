@@ -20,6 +20,7 @@ export interface WindowState {
   size: WindowSize;
   zIndex: number;
   minimized: boolean;
+  maximized: boolean;
 }
 
 interface OpenWindowConfig {
@@ -39,7 +40,10 @@ interface WindowStoreState {
   openWindow: (config: OpenWindowConfig) => void;
   closeWindow: (id: string) => void;
   focusWindow: (id: string) => void;
+  setWindowPosition: (id: string, position: WindowPosition) => void;
   toggleMinimize: (id: string) => void;
+  toggleMaximize: (id: string) => void;
+  bringAllToFront: () => void;
 }
 
 const DEFAULT_SIZE: WindowSize = { width: 640, height: 440 };
@@ -142,6 +146,7 @@ export const useWindowStore = create<WindowStoreState>((set, get) => ({
           size: config.size ?? DEFAULT_SIZE,
           zIndex,
           minimized: false,
+          maximized: false,
         },
       },
     }));
@@ -168,6 +173,13 @@ export const useWindowStore = create<WindowStoreState>((set, get) => ({
     });
   },
 
+  setWindowPosition: (id, position) => {
+    set((state) => {
+      if (!state.windows[id]) return state;
+      return { windows: { ...state.windows, [id]: { ...state.windows[id], position } } };
+    });
+  },
+
   toggleMinimize: (id) => {
     set((state) => {
       if (!state.windows[id]) return state;
@@ -182,6 +194,37 @@ export const useWindowStore = create<WindowStoreState>((set, get) => ({
           ...state.windows,
           [id]: { ...state.windows[id], minimized: isMinimizing },
         },
+      };
+    });
+  },
+
+  toggleMaximize: (id) => {
+    set((state) => {
+      if (!state.windows[id]) return state;
+      return {
+        windows: {
+          ...state.windows,
+          [id]: { ...state.windows[id], maximized: !state.windows[id].maximized },
+        },
+      };
+    });
+  },
+
+  bringAllToFront: () => {
+    set((state) => {
+      const ordered = Object.values(state.windows).sort((a, b) => a.zIndex - b.zIndex);
+      const windows = { ...state.windows };
+      let nextZIndex = state.nextZIndex;
+
+      for (const win of ordered) {
+        windows[win.id] = { ...windows[win.id], zIndex: nextZIndex, minimized: false };
+        nextZIndex += 1;
+      }
+
+      return {
+        windows,
+        nextZIndex,
+        focusedWindowId: ordered[ordered.length - 1]?.id ?? null,
       };
     });
   },

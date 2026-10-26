@@ -23,14 +23,22 @@ function emailPreview(body: string): string {
 // FIX: Renamed the prop to 'win' so it doesn't shadow the browser's 'window'
 export function MailApp({ window: win }: { window: { id: string; title: string } }) {
   void win; // kept for WindowManager prop parity; compose is window-agnostic
-  const { inbox, sent, sendEmail, markRead } = useMailStore();
+  const {
+    inbox,
+    sent,
+    composing,
+    draftSubject,
+    draftBody,
+    openComposer,
+    closeComposer,
+    clearDraft,
+    setDraftSubject,
+    setDraftBody,
+    sendEmail,
+    markRead,
+  } = useMailStore();
   const [mailbox, setMailbox] = useState<"inbox" | "sent">("inbox");
   const [selectedId, setSelectedId] = useState<string | null>(inbox[0]?.id ?? null);
-  const [composing, setComposing] = useState(false);
-
-  // --- compose state (text-only; mailto: carries no binaries) ---
-  const [subject, setSubject] = useState("");
-  const [message, setMessage] = useState("");
 
   const list = mailbox === "inbox" ? inbox : sent;
   const selected: Email | null = list.find((m) => m.id === selectedId) ?? null;
@@ -38,29 +46,28 @@ export function MailApp({ window: win }: { window: { id: string; title: string }
 
   const selectEmail = (id: string) => {
     setSelectedId(id);
-    setComposing(false);
+    closeComposer();
     markRead(id);
   };
 
   const switchMailbox = (box: "inbox" | "sent") => {
     setMailbox(box);
-    setComposing(false);
+    closeComposer();
     const first = (box === "inbox" ? inbox : sent)[0];
     setSelectedId(first?.id ?? null);
     if (first) markRead(first.id);
   };
 
   const handleSend = () => {
-    if (!subject || !message) return;
+    if (!draftSubject || !draftBody) return;
     // Text-only handoff to the visitor's native mail client.
-    window.location.href = `mailto:${MY_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}`;
+    globalThis.location.href = `mailto:${MY_EMAIL}?subject=${encodeURIComponent(draftSubject)}&body=${encodeURIComponent(draftBody)}`;
     // Record a copy in Sent, then close compose and clear its state.
-    const id = sendEmail({ to: "Om Sawkare", subject, body: message });
-    setSubject("");
-    setMessage("");
+    const id = sendEmail({ to: "Om Sawkare", subject: draftSubject, body: draftBody });
+    clearDraft();
     setMailbox("sent");
     setSelectedId(id);
-    setComposing(false);
+    closeComposer();
   };
 
   return (
@@ -69,7 +76,7 @@ export function MailApp({ window: win }: { window: { id: string; title: string }
       <div className="w-60 h-full bg-[#ebebeb] border-r border-gray-300 dark:bg-black/30 dark:border-white/10 flex flex-col overflow-hidden shrink-0 transition-colors duration-1000 ease-in-out">
         <div className="p-3 shrink-0">
           <button
-            onClick={() => setComposing(true)}
+            onClick={openComposer}
             style={{ backgroundColor: "var(--system-accent)" }}
             className="w-full flex items-center justify-center gap-1.5 hover:brightness-110 text-white text-sm font-medium rounded-lg px-3 py-2 transition"
           >
@@ -145,7 +152,7 @@ export function MailApp({ window: win }: { window: { id: string; title: string }
               onClick={handleSend}
               style={{ color: "var(--system-accent)" }}
               className="flex items-center gap-1.5 hover:brightness-125 text-sm font-medium disabled:opacity-50"
-              disabled={!subject || !message}
+               disabled={!draftSubject || !draftBody}
             >
               <Send size={16} /> Send
             </button>
@@ -160,8 +167,8 @@ export function MailApp({ window: win }: { window: { id: string; title: string }
               <span className="text-gray-400 w-16 text-sm">Subject:</span>
               <input
                 type="text"
-                value={subject}
-                onChange={(e) => setSubject(e.target.value)}
+                 value={draftSubject}
+                 onChange={(e) => setDraftSubject(e.target.value)}
                 className="flex-1 outline-none text-sm bg-transparent placeholder-gray-400 dark:placeholder-gray-500"
                 placeholder="Opportunity / Networking"
               />
@@ -169,8 +176,8 @@ export function MailApp({ window: win }: { window: { id: string; title: string }
           </div>
 
           <textarea
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
+             value={draftBody}
+             onChange={(e) => setDraftBody(e.target.value)}
             className="flex-1 w-full p-4 outline-none resize-none bg-white dark:bg-[#1e1e1e] text-sm placeholder-gray-400 dark:placeholder-gray-500"
             placeholder="Type your message here..."
           />

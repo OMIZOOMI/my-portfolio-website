@@ -22,11 +22,12 @@ CustomEase.create("easeOut", "0.23, 1, 0.32, 1"); // entrances / exits
 CustomEase.create("easeInOut", "0.77, 0, 0.175, 1"); // on-screen morphs
 
 function usePrefersReducedMotion() {
-  const [reduced, setReduced] = useState(false);
+  const [reduced, setReduced] = useState(() =>
+    typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches
+  );
 
   useEffect(() => {
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
-    setReduced(mq.matches);
     const listener = (e: MediaQueryListEvent) => setReduced(e.matches);
     mq.addEventListener("change", listener);
     return () => mq.removeEventListener("change", listener);

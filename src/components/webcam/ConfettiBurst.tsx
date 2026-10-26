@@ -29,18 +29,18 @@ interface Particle {
 
 function useParticles() {
   return useMemo<Particle[]>(() => {
-    return Array.from({ length: PARTICLE_COUNT }, () => {
-      const angle = Math.random() * Math.PI * 2;
-      const speed = 1.5 + Math.random() * 2.5;
+    return Array.from({ length: PARTICLE_COUNT }, (_, index) => {
+      const angle = ((index * 37) % 360) * (Math.PI / 180);
+      const speed = 1.5 + ((index * 17) % 25) / 10;
       return {
-        position: new THREE.Vector3((Math.random() - 0.5) * 0.5, -0.5, 0),
+        position: new THREE.Vector3((((index * 13) % 20) / 20 - 0.5) * 0.5, -0.5, 0),
         velocity: new THREE.Vector3(
           Math.cos(angle) * speed * 0.6,
-          2.5 + Math.random() * 2,
-          (Math.random() - 0.5) * 1.5
+          2.5 + ((index * 11) % 20) / 10,
+          (((index * 19) % 20) / 20 - 0.5) * 1.5
         ),
-        spin: new THREE.Vector3(Math.random() * 6, Math.random() * 6, Math.random() * 6),
-        color: COLORS[Math.floor(Math.random() * COLORS.length)],
+        spin: new THREE.Vector3(((index * 7) % 60) / 10, ((index * 23) % 60) / 10, ((index * 29) % 60) / 10),
+        color: COLORS[index % COLORS.length],
       };
     });
   }, []);

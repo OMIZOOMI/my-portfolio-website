@@ -216,13 +216,23 @@ export function SettingsApp({ window }: { window: { id: string; title: string } 
                     title={`${wp.name} (auto day/night)`}
                   >
                     <span
-                      className="block w-full h-20 rounded-lg bg-cover bg-center border-2 transition-all"
+                      className="relative block w-full h-20 overflow-hidden rounded-lg border-2 transition-all"
                       style={{
-                        backgroundImage: `url(${wp.photo})`,
                         borderColor: wallpaper === wp.name ? accentHex : "transparent",
                         transform: wallpaper === wp.name ? "scale(1.05)" : undefined,
                       }}
-                    />
+                    >
+                      <span
+                        aria-hidden="true"
+                        className="absolute inset-0 bg-cover bg-center transition-opacity duration-700"
+                        style={{ backgroundImage: `url(${wp.lightUrl})`, opacity: theme === "dark" ? 0 : 1 }}
+                      />
+                      <span
+                        aria-hidden="true"
+                        className="absolute inset-0 bg-cover bg-center transition-opacity duration-700"
+                        style={{ backgroundImage: `url(${wp.darkUrl})`, opacity: theme === "dark" ? 1 : 0 }}
+                      />
+                    </span>
                     <span className="block text-xs text-gray-500 mt-1.5 group-hover:text-gray-800 dark:group-hover:text-gray-200">
                       {wp.name}
                     </span>

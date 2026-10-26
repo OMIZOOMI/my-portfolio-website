@@ -10,6 +10,7 @@ export function BinWindow({ window: win }: { window: { id: string; title: string
   
   const trashItems = useSystemStore((s) => s.trashItems);
   const emptyTrash = useSystemStore((s) => s.emptyTrash);
+  const restoreFromTrash = useSystemStore((s) => s.restoreFromTrash);
   const getFileItem = useSystemStore((s) => s.getFileItem);
   const fileSystem = useSystemStore((s) => s.fileSystem);
 
@@ -118,7 +119,7 @@ export function BinWindow({ window: win }: { window: { id: string; title: string
                   tone="window"
                   onOpen={() => {
                     if (currentFolderId === "bin") {
-                      console.log("Cannot open trashed files");
+                       restoreFromTrash(item.id);
                     } else if (item.type === "folder") {
                       navigateTo(item.id);
                     } else {

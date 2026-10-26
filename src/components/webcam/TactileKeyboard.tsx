@@ -48,6 +48,10 @@ interface TactileKeyboardProps {
   nodes: Record<string, THREE.Object3D>;
 }
 
+function dampObjectY(node: THREE.Object3D, target: number, lambda: number, delta: number) {
+  node.position.y = THREE.MathUtils.damp(node.position.y, target, lambda, delta);
+}
+
 export function TactileKeyboard({ nodes }: TactileKeyboardProps) {
   const inputStateRef = usePhysicalInputState();
 
@@ -75,14 +79,14 @@ export function TactileKeyboard({ nodes }: TactileKeyboardProps) {
       const isPressed = pressedKeyCodes.has(code);
       const target = isPressed ? restY - KEY_PRESS_DEPTH : restY;
       const lambda = isPressed ? PRESS_DAMP_LAMBDA : RELEASE_DAMP_LAMBDA;
-      node.position.y = THREE.MathUtils.damp(node.position.y, target, lambda, delta);
+       dampObjectY(node, target, lambda, delta);
     }
 
     if (trackpadRef.current) {
       const { node, restY } = trackpadRef.current;
       const target = trackpadPressed ? restY - TRACKPAD_PRESS_DEPTH : restY;
       const lambda = trackpadPressed ? PRESS_DAMP_LAMBDA : RELEASE_DAMP_LAMBDA;
-      node.position.y = THREE.MathUtils.damp(node.position.y, target, lambda, delta);
+       dampObjectY(node, target, lambda, delta);
     }
   });
 

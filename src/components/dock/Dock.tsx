@@ -2,6 +2,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { useWindowStore } from "../window-manager/useWindowStore";
 import { useSystemStore } from "../window-manager/useSystemStore";
 
@@ -40,21 +41,21 @@ export default function Dock() {
   const minimizedWindows = Object.values(windows).filter((w) => w.minimized);
 
   const dockApps = [
-    { id: "finder", name: "Finder", icon: FinderIcon.src },
-    { id: "terminal", name: "Terminal", icon: TerminalIcon.src },
-    { id: "notes", name: "Notes", icon: NotesIcon.src },
-    { id: "mail", name: "Mail", icon: MailIcon.src },
-    { id: "safari", name: "Safari", icon: SafariIcon.src },
-    { id: "music", name: "Apple Music", icon: MusicIcon.src },
-    { id: "facetime", name: "FaceTime", icon: FaceTimeIcon.src },
-    { id: "settings", name: "Settings", icon: SettingsIcon.src },
+    { id: "finder", name: "Finder", icon: FinderIcon },
+    { id: "terminal", name: "Terminal", icon: TerminalIcon },
+    { id: "notes", name: "Notes", icon: NotesIcon },
+    { id: "mail", name: "Mail", icon: MailIcon },
+    { id: "safari", name: "Safari", icon: SafariIcon },
+    { id: "music", name: "Apple Music", icon: MusicIcon },
+    { id: "facetime", name: "FaceTime", icon: FaceTimeIcon },
+    { id: "settings", name: "Settings", icon: SettingsIcon },
   ];
 
   const getBinIcon = () => {
-    if (isDarkMode && isBinFull) return BinFullDark.src;
-    if (isDarkMode && !isBinFull) return BinEmptyDark.src;
-    if (!isDarkMode && isBinFull) return BinFullLight.src;
-    return BinEmptyLight.src;
+     if (isDarkMode && isBinFull) return BinFullDark;
+     if (isDarkMode && !isBinFull) return BinEmptyDark;
+     if (!isDarkMode && isBinFull) return BinFullLight;
+     return BinEmptyLight;
   };
 
   const handleAppClick = (appId: string) => {
@@ -81,7 +82,7 @@ export default function Dock() {
         
         {dockApps.map((app) => (
           <motion.div key={app.id} data-dock-app={app.id} whileHover={magnify} transition={{ type: "spring", stiffness: 300, damping: 20 }} className="relative group cursor-pointer flex items-center justify-center" onClick={() => handleAppClick(app.id)}>
-            <img src={app.icon} alt={app.name} draggable={false} style={iconStyle} className="drop-shadow-md pointer-events-none select-none object-contain" />
+            <Image src={app.icon} alt={app.name} width={iconPx} height={iconPx} draggable={false} style={iconStyle} className="drop-shadow-md pointer-events-none select-none object-contain" />
             <span className="absolute -top-10 left-1/2 -translate-x-1/2 px-3 py-1 bg-gray-900/80 text-white text-xs rounded-md opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-50">
               {app.name}
             </span>
@@ -116,7 +117,7 @@ export default function Dock() {
           className={`relative group cursor-pointer rounded-xl ${isTrashHover ? "bg-white/20 ring-2 ring-red-400/70" : ""}`}
           onClick={handleBinClick}
         >
-          <img src={getBinIcon()} alt="Bin" draggable={false} style={iconStyle} className="drop-shadow-md pointer-events-none select-none object-contain" />
+           <Image src={getBinIcon()} alt="Bin" width={iconPx} height={iconPx} draggable={false} style={iconStyle} className="drop-shadow-md pointer-events-none select-none object-contain" />
           <span className="absolute -top-10 left-1/2 -translate-x-1/2 px-3 py-1 bg-gray-900/80 text-white text-xs rounded-md opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-50">
             Bin
           </span>

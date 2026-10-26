@@ -1,6 +1,6 @@
 "use client";
 import { DesktopEnvironment } from "../desktop/DesktopEnvironment";
-import { Suspense, useEffect, useState, type ReactNode } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { Environment, OrbitControls } from "@react-three/drei";
 import * as THREE from "three";
@@ -22,28 +22,31 @@ const FRAMED_CAMERA_POS: [number, number, number] = [0, FRAMED_LOOK_AT_Y + ELEVA
 const LOOK_AT: [number, number, number] = [0, FRAMED_LOOK_AT_Y, 0];
 const CAMERA_DAMP_LAMBDA = 2.4; 
 
+function dampCamera(camera: THREE.Camera, target: [number, number, number], lookAtTarget: THREE.Vector3, delta: number) {
+  camera.position.x = THREE.MathUtils.damp(camera.position.x, target[0], CAMERA_DAMP_LAMBDA, delta);
+  camera.position.y = THREE.MathUtils.damp(camera.position.y, target[1], CAMERA_DAMP_LAMBDA, delta);
+  camera.position.z = THREE.MathUtils.damp(camera.position.z, target[2], CAMERA_DAMP_LAMBDA, delta);
+  camera.lookAt(lookAtTarget);
+}
+
 function CameraRig({ phase }: { phase: ScenePhase }) {
   const { camera } = useThree();
   const lookAtTarget = useState(() => new THREE.Vector3(...LOOK_AT))[0];
 
   useFrame((_, delta) => {
     const target = phase === "closed" ? INITIAL_CAMERA_POS : FRAMED_CAMERA_POS;
-    camera.position.x = THREE.MathUtils.damp(camera.position.x, target[0], CAMERA_DAMP_LAMBDA, delta);
-    camera.position.y = THREE.MathUtils.damp(camera.position.y, target[1], CAMERA_DAMP_LAMBDA, delta);
-    camera.position.z = THREE.MathUtils.damp(camera.position.z, target[2], CAMERA_DAMP_LAMBDA, delta);
-    camera.lookAt(lookAtTarget);
+    dampCamera(camera, target, lookAtTarget, delta);
   });
 
   return null;
 }
 
 interface MacBookSceneProps {
-  children?: ReactNode;
   autoOpenDelay?: number;
   debugOrbit?: boolean;
 }
 
-export function MacBookScene({ children, autoOpenDelay = 600, debugOrbit = false }: MacBookSceneProps) {
+export function MacBookScene({ autoOpenDelay = 600, debugOrbit = false }: MacBookSceneProps) {
   const [phase, setPhase] = useState<ScenePhase>("closed");
   
   // Pull our lock state
@@ -78,7 +81,7 @@ export function MacBookScene({ children, autoOpenDelay = 600, debugOrbit = false
 
         <CameraRig phase={phase} />
 
-        <Laptop phase={phase} onOpened={() => console.log("Opened")}>
+        <Laptop phase={phase}>
           <DesktopEnvironment />
         </Laptop>
 

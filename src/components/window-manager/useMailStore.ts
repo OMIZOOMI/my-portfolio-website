@@ -22,6 +22,14 @@ export interface SendDraft {
 interface MailStoreState {
   inbox: Email[];
   sent: Email[];
+  composing: boolean;
+  draftSubject: string;
+  draftBody: string;
+  openComposer: () => void;
+  closeComposer: () => void;
+  clearDraft: () => void;
+  setDraftSubject: (subject: string) => void;
+  setDraftBody: (body: string) => void;
   sendEmail: (draft: SendDraft) => string;
   markRead: (id: string) => void;
 }
@@ -43,6 +51,14 @@ export const useMailStore = create<MailStoreState>()(
     (set) => ({
       inbox: seedInbox(),
       sent: [],
+      composing: false,
+      draftSubject: "",
+      draftBody: "",
+      openComposer: () => set({ composing: true }),
+      closeComposer: () => set({ composing: false }),
+      clearDraft: () => set({ draftSubject: "", draftBody: "" }),
+      setDraftSubject: (draftSubject) => set({ draftSubject }),
+      setDraftBody: (draftBody) => set({ draftBody }),
       sendEmail: (draft) => {
         const email: Email = {
           id: Date.now().toString(),
