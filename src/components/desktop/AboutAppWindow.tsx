@@ -35,6 +35,8 @@ export function AboutAppWindow({ window }: { window: { title: string } }) {
         alt={appName} 
         width={80}
         height={80}
+        unoptimized
+        loading="eager"
         className="w-20 h-20 drop-shadow-2xl mb-3 pointer-events-none"
       />
       <h1 className="text-xl font-bold text-white mb-1 tracking-wide">{appName}</h1>

@@ -49,6 +49,8 @@ export function DesktopIcon({ label, variant, glyph, accent = "#4c8dff", onOpen,
           alt="Folder" 
           width={56}
           height={56}
+          unoptimized
+          loading="eager"
           className="pointer-events-none select-none drop-shadow-md"
           style={{ width: "56px", height: "56px", objectFit: "contain" }}
         />

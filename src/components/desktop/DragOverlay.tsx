@@ -92,6 +92,8 @@ export function DragOverlay() {
             alt=""
             width={56}
             height={56}
+            unoptimized
+            loading="eager"
             className="pointer-events-none select-none"
             style={{ width: "56px", height: "56px", objectFit: "contain" }}
           />

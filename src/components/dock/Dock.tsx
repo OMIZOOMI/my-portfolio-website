@@ -82,7 +82,7 @@ export default function Dock() {
         
         {dockApps.map((app) => (
           <motion.div key={app.id} data-dock-app={app.id} whileHover={magnify} transition={{ type: "spring", stiffness: 300, damping: 20 }} className="relative group cursor-pointer flex items-center justify-center" onClick={() => handleAppClick(app.id)}>
-            <Image src={app.icon} alt={app.name} width={iconPx} height={iconPx} draggable={false} style={iconStyle} className="drop-shadow-md pointer-events-none select-none object-contain" />
+            <Image src={app.icon} alt={app.name} width={iconPx} height={iconPx} unoptimized loading="eager" draggable={false} style={iconStyle} className="drop-shadow-md pointer-events-none select-none object-contain" />
             <span className="absolute -top-10 left-1/2 -translate-x-1/2 px-3 py-1 bg-gray-900/80 text-white text-xs rounded-md opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-50">
               {app.name}
             </span>
@@ -117,7 +117,7 @@ export default function Dock() {
           className={`relative group cursor-pointer rounded-xl ${isTrashHover ? "bg-white/20 ring-2 ring-red-400/70" : ""}`}
           onClick={handleBinClick}
         >
-           <Image src={getBinIcon()} alt="Bin" width={iconPx} height={iconPx} draggable={false} style={iconStyle} className="drop-shadow-md pointer-events-none select-none object-contain" />
+            <Image src={getBinIcon()} alt="Bin" width={iconPx} height={iconPx} unoptimized loading="eager" draggable={false} style={iconStyle} className="drop-shadow-md pointer-events-none select-none object-contain" />
           <span className="absolute -top-10 left-1/2 -translate-x-1/2 px-3 py-1 bg-gray-900/80 text-white text-xs rounded-md opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-50">
             Bin
           </span>
