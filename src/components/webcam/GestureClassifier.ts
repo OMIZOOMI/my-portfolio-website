@@ -12,29 +12,36 @@ export interface Landmark {
     y: number;
     z: number;
   }
-  
+
   export type Gesture = "peace" | "thumbsup" | "none";
-  
+
   const WRIST = 0;
   const TIP = { thumb: 4, index: 8, middle: 12, ring: 16, pinky: 20 };
   const PIP = { thumb: 3, index: 6, middle: 10, ring: 14, pinky: 18 };
   const MIDDLE_MCP = 9;
-  
+
   // Margin above 1.0 avoids flicker right at the extended/curled boundary.
   const EXTENDED_MARGIN = 1.15;
-  
+
   function dist(a: Landmark, b: Landmark) {
     return Math.hypot(a.x - b.x, a.y - b.y);
   }
-  
+
   function isExtended(landmarks: Landmark[], tipIndex: number, pipIndex: number) {
     const wrist = landmarks[WRIST];
     return dist(landmarks[tipIndex], wrist) > dist(landmarks[pipIndex], wrist) * EXTENDED_MARGIN;
   }
-  
+
   export function classifyGesture(landmarks: Landmark[]): Gesture {
     if (!landmarks || landmarks.length < 21) return "none";
-  
+    // Reject incomplete/non-finite frames instead of throwing in inference or
+    // accepting a pose from only the remaining usable fingers. Do not clamp:
+    // MediaPipe may legitimately estimate a point just outside the image.
+    for (let index = 0; index < 21; index += 1) {
+      const point = landmarks[index];
+      if (!point || !Number.isFinite(point.x) || !Number.isFinite(point.y)) return "none";
+    }
+
     const thumb = isExtended(landmarks, TIP.thumb, PIP.thumb);
     const index = isExtended(landmarks, TIP.index, PIP.index);
     const middle = isExtended(landmarks, TIP.middle, PIP.middle);
@@ -49,12 +56,11 @@ export interface Landmark {
       landmarks[TIP.thumb].y < landmarks[PIP.thumb].y &&
       landmarks[TIP.thumb].y < landmarks[MIDDLE_MCP].y;
     if (thumb && thumbPointsUp && !index && !middle && !ring && !pinky) return "thumbsup";
-  
+
     // Peace sign: index + middle extended, ring + pinky curled. Thumb is
     // deliberately not checked — its resting position varies too much
     // between people to be a reliable signal.
     if (index && middle && !ring && !pinky) return "peace";
-  
+
     return "none";
   }
-  

@@ -1,0 +1,48 @@
+{
+  "phase": "after",
+  "browser": "Chrome/156.0.8078.48",
+  "viewport": {
+    "width": 1440,
+    "height": 1000
+  },
+  "autoplayPolicyOverride": false,
+  "scenarios": [
+    {
+      "name": "pause-minimize-close-and-reopen-lifecycle",
+      "immediateClose": {
+        "paused": true,
+        "source": null
+      },
+      "closed": {
+        "paused": true,
+        "source": null,
+        "connected": false,
+        "time": 0
+      },
+      "minimized": {
+        "src": "http://127.0.0.1:3001/music/kids.mp3",
+        "source": "/music/kids.mp3",
+        "paused": false,
+        "time": 2.956173,
+        "duration": 194.616984,
+        "volume": 0.68,
+        "ended": false,
+        "readyState": 4,
+        "networkState": 1
+      },
+      "reopened": {
+        "src": "",
+        "source": null,
+        "paused": true,
+        "time": 0,
+        "duration": null,
+        "volume": 0.68,
+        "ended": false,
+        "readyState": 0,
+        "networkState": 0
+      },
+      "status": "PASS",
+      "elapsedMs": 19976
+    }
+  ]
+}

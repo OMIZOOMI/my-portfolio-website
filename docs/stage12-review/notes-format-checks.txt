@@ -1,0 +1,6 @@
+PASS opening-layout-seed-and-switching 5056ms
+PASS clear-updates-editor-and-never-resurrects-stale-html 5191ms
+PASS typing-caret-native-formatting-and-undo 4803ms
+PASS search-filter-clear-and-escape 4651ms
+PASS edited-seed-and-visitor-notes-survive-reopening-but-remain-memory-only 9163ms
+PASS new-note-heading-body-changes 7729ms

@@ -1,0 +1,917 @@
+{
+  "phase": "before",
+  "browser": "Chrome/156.0.8078.48",
+  "viewport": {
+    "width": 1440,
+    "height": 1000
+  },
+  "checks": [
+    "Repeated physical sidebar hover/navigation"
+  ],
+  "geometry": {
+    "content": {
+      "width": 640,
+      "height": 440
+    },
+    "projected": {
+      "x": 418.0964660644531,
+      "y": 146.6706085205078,
+      "width": 431.5445861816406,
+      "height": 320.0867919921875
+    }
+  },
+  "sidebar": [
+    {
+      "label": "Desktop",
+      "transitionDuration": "1s",
+      "transitionProperty": "color, background-color, border-color, outline-color, text-decoration-color, fill, stroke, --tw-gradient-from, --tw-gradient-via, --tw-gradient-to"
+    },
+    {
+      "label": "Documents",
+      "transitionDuration": "1s",
+      "transitionProperty": "color, background-color, border-color, outline-color, text-decoration-color, fill, stroke, --tw-gradient-from, --tw-gradient-via, --tw-gradient-to"
+    },
+    {
+      "label": "Bin",
+      "transitionDuration": "1s",
+      "transitionProperty": "color, background-color, border-color, outline-color, text-decoration-color, fill, stroke, --tw-gradient-from, --tw-gradient-via, --tw-gradient-to"
+    }
+  ],
+  "profileBeforeHover": {
+    "commits": 28,
+    "finder": 2,
+    "icon": 12
+  },
+  "profileAfterHover": {
+    "commits": 28,
+    "finder": 2,
+    "icon": 12
+  },
+  "navigationWallTimesMs": [
+    211,
+    206,
+    198,
+    200,
+    200,
+    201
+  ],
+  "profileAfterNavigation": {
+    "commits": 46,
+    "finder": 20,
+    "icon": 39
+  },
+  "dragPositionProfile": {
+    "updates": 12,
+    "before": {
+      "commits": 49,
+      "finder": 22,
+      "icon": 45
+    },
+    "after": {
+      "commits": 60,
+      "finder": 22,
+      "icon": 45
+    }
+  },
+  "hoverTiming": {
+    "durationMs": 1000,
+    "firstChangeMs": 15.599999994039536,
+    "settledMs": 1000.5,
+    "trace": [
+      {
+        "t": 0.09999999403953552,
+        "background": "oklab(0 0 0 / 0)",
+        "opacity": "1",
+        "animations": [
+          {
+            "property": "background-color",
+            "duration": 1000,
+            "progress": 0
+          }
+        ]
+      },
+      {
+        "t": 2.7999999821186066,
+        "background": "oklab(0 0 0 / 0)",
+        "opacity": "1",
+        "animations": [
+          {
+            "property": "background-color",
+            "duration": 1000,
+            "progress": 0
+          }
+        ]
+      },
+      {
+        "t": 15.599999994039536,
+        "background": "oklab(0.999994 0.0000455678 0.0000200868 / 0.000059944)",
+        "opacity": "1",
+        "animations": [
+          {
+            "property": "background-color",
+            "duration": 1000,
+            "progress": 0.0005994396602106258
+          }
+        ]
+      },
+      {
+        "t": 32.099999994039536,
+        "background": "oklab(0.999994 0.0000455678 0.0000200868 / 0.000246805)",
+        "opacity": "1",
+        "animations": [
+          {
+            "property": "background-color",
+            "duration": 1000,
+            "progress": 0.0024680460807638928
+          }
+        ]
+      },
+      {
+        "t": 49.400000005960464,
+        "background": "oklab(0.999994 0.0000455678 0.0000200868 / 0.000576656)",
+        "opacity": "1",
+        "animations": [
+          {
+            "property": "background-color",
+            "duration": 1000,
+            "progress": 0.005766563740800971
+          }
+        ]
+      },
+      {
+        "t": 66.40000000596046,
+        "background": "oklab(0.999994 0.0000455678 0.0000200868 / 0.0010647)",
+        "opacity": "1",
+        "animations": [
+          {
+            "property": "background-color",
+            "duration": 1000,
+            "progress": 0.010647044360220886
+          }
+        ]
+      },
+      {
+        "t": 83.90000000596046,
+        "background": "oklab(0.999994 0.0000455678 0.0000200868 / 0.0017247)",
+        "opacity": "1",
+        "animations": [
+          {
+            "property": "background-color",
+            "duration": 1000,
+            "progress": 0.01724695020051553
+          }
+        ]
+      },
+      {
+        "t": 98.69999998807907,
+        "background": "oklab(0.999994 0.0000455678 0.0000200868 / 0.00258543)",
+        "opacity": "1",
+        "animations": [
+          {
+            "property": "background-color",
+            "duration": 1000,
+            "progress": 0.025854327397654506
+          }
+        ]
+      },
+      {
+        "t": 115.59999999403954,
+        "background": "oklab(0.999994 0.0000455678 0.0000200868 / 0.0036674)",
+        "opacity": "1",
+        "animations": [
+          {
+            "property": "background-color",
+            "duration": 1000,
+            "progress": 0.03667395120814364
+          }
+        ]
+      },
+      {
+        "t": 132.90000000596046,
+        "background": "oklab(0.999994 0.0000455678 0.0000200868 / 0.00498885)",
+        "opacity": "1",
+        "animations": [
+          {
+            "property": "background-color",
+            "duration": 1000,
+            "progress": 0.04988846846657982
+          }
+        ]
+      },
+      {
+        "t": 149.5,
+        "background": "oklab(0.999994 0.0000455678 0.0000200868 / 0.00659559)",
+        "opacity": "1",
+        "animations": [
+          {
+            "property": "background-color",
+            "duration": 1000,
+            "progress": 0.06595591397355152
+          }
+        ]
+      },
+      {
+        "t": 166.2999999821186,
+        "background": "oklab(0.999994 0.0000455678 0.0000200868 / 0.00851284)",
+        "opacity": "1",
+        "animations": [
+          {
+            "property": "background-color",
+            "duration": 1000,
+            "progress": 0.08512835344271022
+          }
+        ]
+      },
+      {
+        "t": 182.2999999821186,
+        "background": "oklab(0.999994 0.0000455678 0.0000200868 / 0.0107591)",
+        "opacity": "1",
+        "animations": [
+          {
+            "property": "background-color",
+            "duration": 1000,
+            "progress": 0.10759118496121217
+          }
+        ]
+      },
+      {
+        "t": 199.59999999403954,
+        "background": "oklab(0.999994 0.0000455678 0.0000200868 / 0.0133921)",
+        "opacity": "1",
+        "animations": [
+          {
+            "property": "background-color",
+            "duration": 1000,
+            "progress": 0.13392136474075414
+          }
+        ]
+      },
+      {
+        "t": 215.69999998807907,
+        "background": "oklab(0.999994 0.0000455678 0.0000200868 / 0.0164225)",
+        "opacity": "1",
+        "animations": [
+          {
+            "property": "background-color",
+            "duration": 1000,
+            "progress": 0.16422462924493572
+          }
+        ]
+      },
+      {
+        "t": 232.19999998807907,
+        "background": "oklab(0.999994 0.0000455678 0.0000200868 / 0.0198575)",
+        "opacity": "1",
+        "animations": [
+          {
+            "property": "background-color",
+            "duration": 1000,
+            "progress": 0.1985744671299135
+          }
+        ]
+      },
+      {
+        "t": 249,
+        "background": "oklab(0.999994 0.0000455678 0.0000200868 / 0.0236551)",
+        "opacity": "1",
+        "animations": [
+          {
+            "property": "background-color",
+            "duration": 1000,
+            "progress": 0.2365513100418266
+          }
+        ]
+      },
+      {
+        "t": 266,
+        "background": "oklab(0.999994 0.0000455678 0.0000200868 / 0.0278101)",
+        "opacity": "1",
+        "animations": [
+          {
+            "property": "background-color",
+            "duration": 1000,
+            "progress": 0.27810058784567143
+          }
+        ]
+      },
+      {
+        "t": 281.90000000596046,
+        "background": "oklab(0.999994 0.0000455678 0.0000200868 / 0.0321868)",
+        "opacity": "1",
+        "animations": [
+          {
+            "property": "background-color",
+            "duration": 1000,
+            "progress": 0.32186804720452605
+          }
+        ]
+      },
+      {
+        "t": 298.69999998807907,
+        "background": "oklab(0.999994 0.0000455678 0.0000200868 / 0.0367255)",
+        "opacity": "1",
+        "animations": [
+          {
+            "property": "background-color",
+            "duration": 1000,
+            "progress": 0.3672548139589015
+          }
+        ]
+      },
+      {
+        "t": 315.40000000596046,
+        "background": "oklab(0.999994 0.0000455678 0.0000200868 / 0.0412791)",
+        "opacity": "1",
+        "animations": [
+          {
+            "property": "background-color",
+            "duration": 1000,
+            "progress": 0.41279116743653216
+          }
+        ]
+      },
+      {
+        "t": 332.7999999821186,
+        "background": "oklab(0.999994 0.0000455678 0.0000200868 / 0.0457125)",
+        "opacity": "1",
+        "animations": [
+          {
+            "property": "background-color",
+            "duration": 1000,
+            "progress": 0.45712488025034465
+          }
+        ]
+      },
+      {
+        "t": 349.59999999403954,
+        "background": "oklab(0.999994 0.0000455678 0.0000200868 / 0.0499963)",
+        "opacity": "1",
+        "animations": [
+          {
+            "property": "background-color",
+            "duration": 1000,
+            "progress": 0.4999624990549307
+          }
+        ]
+      },
+      {
+        "t": 366.19999998807907,
+        "background": "oklab(0.999994 0.0000455678 0.0000200868 / 0.0540499)",
+        "opacity": "1",
+        "animations": [
+          {
+            "property": "background-color",
+            "duration": 1000,
+            "progress": 0.5404985167583327
+          }
+        ]
+      },
+      {
+        "t": 383,
+        "background": "oklab(0.999994 0.0000455678 0.0000200868 / 0.0578241)",
+        "opacity": "1",
+        "animations": [
+          {
+            "property": "background-color",
+            "duration": 1000,
+            "progress": 0.5782405702391561
+          }
+        ]
+      },
+      {
+        "t": 399.5,
+        "background": "oklab(0.999994 0.0000455678 0.0000200868 / 0.0613564)",
+        "opacity": "1",
+        "animations": [
+          {
+            "property": "background-color",
+            "duration": 1000,
+            "progress": 0.6135642045161216
+          }
+        ]
+      },
+      {
+        "t": 416.09999999403954,
+        "background": "oklab(0.999994 0.0000455678 0.0000200868 / 0.0646093)",
+        "opacity": "1",
+        "animations": [
+          {
+            "property": "background-color",
+            "duration": 1000,
+            "progress": 0.6460923481722
+          }
+        ]
+      },
+      {
+        "t": 432.90000000596046,
+        "background": "oklab(0.999994 0.0000455678 0.0000200868 / 0.0676336)",
+        "opacity": "1",
+        "animations": [
+          {
+            "property": "background-color",
+            "duration": 1000,
+            "progress": 0.6763356691285018
+          }
+        ]
+      },
+      {
+        "t": 449.69999998807907,
+        "background": "oklab(0.999994 0.0000455678 0.0000200868 / 0.0704086)",
+        "opacity": "1",
+        "animations": [
+          {
+            "property": "background-color",
+            "duration": 1000,
+            "progress": 0.7040861418622908
+          }
+        ]
+      },
+      {
+        "t": 466,
+        "background": "oklab(0.999994 0.0000455678 0.0000200868 / 0.0729847)",
+        "opacity": "1",
+        "animations": [
+          {
+            "property": "background-color",
+            "duration": 1000,
+            "progress": 0.7298464578772796
+          }
+        ]
+      },
+      {
+        "t": 483.5,
+        "background": "oklab(0.999994 0.0000455678 0.0000200868 / 0.0753612)",
+        "opacity": "1",
+        "animations": [
+          {
+            "property": "background-color",
+            "duration": 1000,
+            "progress": 0.7536115142842895
+          }
+        ]
+      },
+      {
+        "t": 499.69999998807907,
+        "background": "oklab(0.999994 0.0000455678 0.0000200868 / 0.0775543)",
+        "opacity": "1",
+        "animations": [
+          {
+            "property": "background-color",
+            "duration": 1000,
+            "progress": 0.7755423913838618
+          }
+        ]
+      },
+      {
+        "t": 516.2999999821186,
+        "background": "oklab(0.999994 0.0000455678 0.0000200868 / 0.0795672)",
+        "opacity": "1",
+        "animations": [
+          {
+            "property": "background-color",
+            "duration": 1000,
+            "progress": 0.7956722594069633
+          }
+        ]
+      },
+      {
+        "t": 533.5999999940395,
+        "background": "oklab(0.999994 0.0000455678 0.0000200868 / 0.081438)",
+        "opacity": "1",
+        "animations": [
+          {
+            "property": "background-color",
+            "duration": 1000,
+            "progress": 0.8143799360008558
+          }
+        ]
+      },
+      {
+        "t": 550.5999999940395,
+        "background": "oklab(0.999994 0.0000455678 0.0000200868 / 0.0831664)",
+        "opacity": "1",
+        "animations": [
+          {
+            "property": "background-color",
+            "duration": 1000,
+            "progress": 0.8316634751646769
+          }
+        ]
+      },
+      {
+        "t": 567,
+        "background": "oklab(0.999994 0.0000455678 0.0000200868 / 0.0847543)",
+        "opacity": "1",
+        "animations": [
+          {
+            "property": "background-color",
+            "duration": 1000,
+            "progress": 0.8475429879673315
+          }
+        ]
+      },
+      {
+        "t": 582.7999999821186,
+        "background": "oklab(0.999994 0.0000455678 0.0000200868 / 0.086231)",
+        "opacity": "1",
+        "animations": [
+          {
+            "property": "background-color",
+            "duration": 1000,
+            "progress": 0.8623101374098056
+          }
+        ]
+      },
+      {
+        "t": 599.6999999880791,
+        "background": "oklab(0.999994 0.0000455678 0.0000200868 / 0.0875956)",
+        "opacity": "1",
+        "animations": [
+          {
+            "property": "background-color",
+            "duration": 1000,
+            "progress": 0.8759561315681006
+          }
+        ]
+      },
+      {
+        "t": 616.6999999880791,
+        "background": "oklab(0.999994 0.0000455678 0.0000200868 / 0.088849)",
+        "opacity": "1",
+        "animations": [
+          {
+            "property": "background-color",
+            "duration": 1000,
+            "progress": 0.8884899861658171
+          }
+        ]
+      },
+      {
+        "t": 633.1999999880791,
+        "background": "oklab(0.999994 0.0000455678 0.0000200868 / 0.0900136)",
+        "opacity": "1",
+        "animations": [
+          {
+            "property": "background-color",
+            "duration": 1000,
+            "progress": 0.9001357915461471
+          }
+        ]
+      },
+      {
+        "t": 649.1999999880791,
+        "background": "oklab(0.999994 0.0000455678 0.0000200868 / 0.0910881)",
+        "opacity": "1",
+        "animations": [
+          {
+            "property": "background-color",
+            "duration": 1000,
+            "progress": 0.9108812525630496
+          }
+        ]
+      },
+      {
+        "t": 667.4000000059605,
+        "background": "oklab(0.999994 0.0000455678 0.0000200868 / 0.0920729)",
+        "opacity": "1",
+        "animations": [
+          {
+            "property": "background-color",
+            "duration": 1000,
+            "progress": 0.9207292971520299
+          }
+        ]
+      },
+      {
+        "t": 683.0999999940395,
+        "background": "oklab(0.999994 0.0000455678 0.0000200868 / 0.0929905)",
+        "opacity": "1",
+        "animations": [
+          {
+            "property": "background-color",
+            "duration": 1000,
+            "progress": 0.9299048650443457
+          }
+        ]
+      },
+      {
+        "t": 699.4000000059605,
+        "background": "oklab(0.999994 0.0000455678 0.0000200868 / 0.093819)",
+        "opacity": "1",
+        "animations": [
+          {
+            "property": "background-color",
+            "duration": 1000,
+            "progress": 0.9381901630374755
+          }
+        ]
+      },
+      {
+        "t": 715.9000000059605,
+        "background": "oklab(0.999994 0.0000455678 0.0000200868 / 0.0945887)",
+        "opacity": "1",
+        "animations": [
+          {
+            "property": "background-color",
+            "duration": 1000,
+            "progress": 0.9458872538115422
+          }
+        ]
+      },
+      {
+        "t": 732.0999999940395,
+        "background": "oklab(0.999994 0.0000455678 0.0000200868 / 0.0952932)",
+        "opacity": "1",
+        "animations": [
+          {
+            "property": "background-color",
+            "duration": 1000,
+            "progress": 0.9529321843349723
+          }
+        ]
+      },
+      {
+        "t": 749.4000000059605,
+        "background": "oklab(0.999994 0.0000455678 0.0000200868 / 0.0959362)",
+        "opacity": "1",
+        "animations": [
+          {
+            "property": "background-color",
+            "duration": 1000,
+            "progress": 0.9593622272527411
+          }
+        ]
+      },
+      {
+        "t": 768.4000000059605,
+        "background": "oklab(0.999994 0.0000455678 0.0000200868 / 0.0965212)",
+        "opacity": "1",
+        "animations": [
+          {
+            "property": "background-color",
+            "duration": 1000,
+            "progress": 0.9652115118003494
+          }
+        ]
+      },
+      {
+        "t": 782.4000000059605,
+        "background": "oklab(0.999994 0.0000455678 0.0000200868 / 0.0970481)",
+        "opacity": "1",
+        "animations": [
+          {
+            "property": "background-color",
+            "duration": 1000,
+            "progress": 0.9704811994945132
+          }
+        ]
+      },
+      {
+        "t": 801.2999999821186,
+        "background": "oklab(0.999994 0.0000455678 0.0000200868 / 0.0975264)",
+        "opacity": "1",
+        "animations": [
+          {
+            "property": "background-color",
+            "duration": 1000,
+            "progress": 0.9752634481129486
+          }
+        ]
+      },
+      {
+        "t": 816.1999999880791,
+        "background": "oklab(0.999994 0.0000455678 0.0000200868 / 0.0979527)",
+        "opacity": "1",
+        "animations": [
+          {
+            "property": "background-color",
+            "duration": 1000,
+            "progress": 0.9795272005329356
+          }
+        ]
+      },
+      {
+        "t": 834.6999999880791,
+        "background": "oklab(0.999994 0.0000455678 0.0000200868 / 0.0983348)",
+        "opacity": "1",
+        "animations": [
+          {
+            "property": "background-color",
+            "duration": 1000,
+            "progress": 0.9833482362870595
+          }
+        ]
+      },
+      {
+        "t": 849.0999999940395,
+        "background": "oklab(0.999994 0.0000455678 0.0000200868 / 0.0986722)",
+        "opacity": "1",
+        "animations": [
+          {
+            "property": "background-color",
+            "duration": 1000,
+            "progress": 0.9867221184477393
+          }
+        ]
+      },
+      {
+        "t": 868.1999999880791,
+        "background": "oklab(0.999994 0.0000455678 0.0000200868 / 0.098967)",
+        "opacity": "1",
+        "animations": [
+          {
+            "property": "background-color",
+            "duration": 1000,
+            "progress": 0.9896698924781439
+          }
+        ]
+      },
+      {
+        "t": 883.2999999821186,
+        "background": "oklab(0.999994 0.0000455678 0.0000200868 / 0.0992211)",
+        "opacity": "1",
+        "animations": [
+          {
+            "property": "background-color",
+            "duration": 1000,
+            "progress": 0.9922111028662305
+          }
+        ]
+      },
+      {
+        "t": 899.5,
+        "background": "oklab(0.999994 0.0000455678 0.0000200868 / 0.0994352)",
+        "opacity": "1",
+        "animations": [
+          {
+            "property": "background-color",
+            "duration": 1000,
+            "progress": 0.9943521625325353
+          }
+        ]
+      },
+      {
+        "t": 916,
+        "background": "oklab(0.999994 0.0000455678 0.0000200868 / 0.0996126)",
+        "opacity": "1",
+        "animations": [
+          {
+            "property": "background-color",
+            "duration": 1000,
+            "progress": 0.996126123901434
+          }
+        ]
+      },
+      {
+        "t": 933,
+        "background": "oklab(0.999994 0.0000455678 0.0000200868 / 0.0997556)",
+        "opacity": "1",
+        "animations": [
+          {
+            "property": "background-color",
+            "duration": 1000,
+            "progress": 0.9975560622657381
+          }
+        ]
+      },
+      {
+        "t": 950,
+        "background": "oklab(0.999994 0.0000455678 0.0000200868 / 0.0998645)",
+        "opacity": "1",
+        "animations": [
+          {
+            "property": "background-color",
+            "duration": 1000,
+            "progress": 0.9986449911779465
+          }
+        ]
+      },
+      {
+        "t": 965.5999999940395,
+        "background": "oklab(0.999994 0.0000455678 0.0000200868 / 0.0999407)",
+        "opacity": "1",
+        "animations": [
+          {
+            "property": "background-color",
+            "duration": 1000,
+            "progress": 0.999406763373673
+          }
+        ]
+      },
+      {
+        "t": 982.7999999821186,
+        "background": "oklab(0.999994 0.0000455678 0.0000200868 / 0.0999853)",
+        "opacity": "1",
+        "animations": [
+          {
+            "property": "background-color",
+            "duration": 1000,
+            "progress": 0.9998525971752923
+          }
+        ]
+      },
+      {
+        "t": 1000.5,
+        "background": "oklab(0.999994 0.0000455678 0.0000200868 / 0.1)",
+        "opacity": "1",
+        "animations": [
+          {
+            "property": "background-color",
+            "duration": 1000,
+            "progress": 0.9999999931113882
+          }
+        ]
+      },
+      {
+        "t": 1017.5,
+        "background": "oklab(0.999994 0.0000455678 0.0000200868 / 0.1)",
+        "opacity": "1",
+        "animations": []
+      },
+      {
+        "t": 1034,
+        "background": "oklab(0.999994 0.0000455678 0.0000200868 / 0.1)",
+        "opacity": "1",
+        "animations": []
+      },
+      {
+        "t": 1050,
+        "background": "oklab(0.999994 0.0000455678 0.0000200868 / 0.1)",
+        "opacity": "1",
+        "animations": []
+      },
+      {
+        "t": 1067.0999999940395,
+        "background": "oklab(0.999994 0.0000455678 0.0000200868 / 0.1)",
+        "opacity": "1",
+        "animations": []
+      },
+      {
+        "t": 1083.5,
+        "background": "oklab(0.999994 0.0000455678 0.0000200868 / 0.1)",
+        "opacity": "1",
+        "animations": []
+      },
+      {
+        "t": 1101.0999999940395,
+        "background": "oklab(0.999994 0.0000455678 0.0000200868 / 0.1)",
+        "opacity": "1",
+        "animations": []
+      },
+      {
+        "t": 1116.699999988079,
+        "background": "oklab(0.999994 0.0000455678 0.0000200868 / 0.1)",
+        "opacity": "1",
+        "animations": []
+      },
+      {
+        "t": 1132.699999988079,
+        "background": "oklab(0.999994 0.0000455678 0.0000200868 / 0.1)",
+        "opacity": "1",
+        "animations": []
+      },
+      {
+        "t": 1149.5,
+        "background": "oklab(0.999994 0.0000455678 0.0000200868 / 0.1)",
+        "opacity": "1",
+        "animations": []
+      },
+      {
+        "t": 1166.0999999940395,
+        "background": "oklab(0.999994 0.0000455678 0.0000200868 / 0.1)",
+        "opacity": "1",
+        "animations": []
+      },
+      {
+        "t": 1182.699999988079,
+        "background": "oklab(0.999994 0.0000455678 0.0000200868 / 0.1)",
+        "opacity": "1",
+        "animations": []
+      },
+      {
+        "t": 1199.5,
+        "background": "oklab(0.999994 0.0000455678 0.0000200868 / 0.1)",
+        "opacity": "1",
+        "animations": []
+      },
+      {
+        "t": 1215.4000000059605,
+        "background": "oklab(0.999994 0.0000455678 0.0000200868 / 0.1)",
+        "opacity": "1",
+        "animations": []
+      },
+      {
+        "t": 1231.9000000059605,
+        "background": "oklab(0.999994 0.0000455678 0.0000200868 / 0.1)",
+        "opacity": "1",
+        "animations": []
+      },
+      {
+        "t": 1250.199999988079,
+        "background": "oklab(0.999994 0.0000455678 0.0000200868 / 0.1)",
+        "opacity": "1",
+        "animations": []
+      }
+    ]
+  }
+}

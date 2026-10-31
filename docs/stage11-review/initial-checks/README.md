@@ -1,0 +1,1 @@
+Retained initial-check screenshots. The launcher check initially used the wrong Finder window ID and selected a title-bar button rather than the Appearance section. A real all-disabled-menu Tab dismissal defect was found and fixed. Final checks use the actual launcher IDs and explicit section targets; all results in ../browser-results.json pass.

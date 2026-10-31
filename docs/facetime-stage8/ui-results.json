@@ -1,0 +1,4508 @@
+{
+  "testedAt": "2026-10-29T10:36:44.213Z",
+  "site": "http://127.0.0.1:3001",
+  "buildId": "7P8-4GEd2kjkGIxVQrvK7",
+  "browser": "Chrome/156.0.8078.48",
+  "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36",
+  "os": "darwin 25.6.0 arm64",
+  "macOS": "26.6.1",
+  "device": "MacBookAir10,1\nApple M1",
+  "environment": "Isolated headless Chromium on the OS above. Canvas MediaStream and synthetic permission/playback failures. No physical camera or native permission-prompt evidence; this run does not establish parity with an untested OS/browser.",
+  "scenarios": [
+    {
+      "name": "discoverable-controls-narrow-touch-keyboard-and-reduced-motion",
+      "fixture": {},
+      "layouts": [
+        {
+          "width": 640,
+          "height": 440,
+          "overflow": false,
+          "previewHeight": 190.4915771484375,
+          "buttons": [
+            {
+              "label": "Turn camera off",
+              "width": 146,
+              "height": 44,
+              "visible": true
+            },
+            {
+              "label": "Turn effects off",
+              "width": 146,
+              "height": 44,
+              "visible": true
+            },
+            {
+              "label": "Reduced motion",
+              "width": 146,
+              "height": 44,
+              "visible": true
+            },
+            {
+              "label": "Gesture help",
+              "width": 146,
+              "height": 44,
+              "visible": true
+            }
+          ]
+        },
+        {
+          "width": 420,
+          "height": 440,
+          "overflow": false,
+          "previewHeight": 137.69564819335938,
+          "buttons": [
+            {
+              "label": "Turn camera off",
+              "width": 194,
+              "height": 44,
+              "visible": true
+            },
+            {
+              "label": "Turn effects off",
+              "width": 194,
+              "height": 44,
+              "visible": true
+            },
+            {
+              "label": "Reduced motion",
+              "width": 194,
+              "height": 44,
+              "visible": true
+            },
+            {
+              "label": "Gesture help",
+              "width": 194,
+              "height": 44,
+              "visible": true
+            }
+          ]
+        },
+        {
+          "width": 320,
+          "height": 380,
+          "overflow": false,
+          "previewHeight": 99.75405883789062,
+          "buttons": [
+            {
+              "label": "Turn camera off",
+              "width": 144,
+              "height": 44,
+              "visible": true
+            },
+            {
+              "label": "Turn effects off",
+              "width": 144,
+              "height": 44,
+              "visible": true
+            },
+            {
+              "label": "Reduced motion",
+              "width": 144,
+              "height": 44,
+              "visible": true
+            },
+            {
+              "label": "Gesture help",
+              "width": 144,
+              "height": 44,
+              "visible": true
+            }
+          ]
+        },
+        {
+          "width": 360,
+          "height": 300,
+          "overflow": false,
+          "previewHeight": 82.1978759765625,
+          "buttons": [
+            {
+              "label": "Turn camera off",
+              "width": 164,
+              "height": 40,
+              "visible": true
+            },
+            {
+              "label": "Turn effects off",
+              "width": 164,
+              "height": 40,
+              "visible": true
+            },
+            {
+              "label": "Reduced motion",
+              "width": 164,
+              "height": 40,
+              "visible": true
+            },
+            {
+              "label": "Gesture help",
+              "width": 164,
+              "height": 40,
+              "visible": true
+            }
+          ]
+        }
+      ],
+      "focusOutline": "2px",
+      "status": "PASS",
+      "runtimeErrors": [],
+      "elapsedMs": 12202
+    },
+    {
+      "name": "repeated-effects-reopen-and-retained-resources",
+      "fixture": {},
+      "resources": [
+        {
+          "cycle": 0,
+          "documents": 1,
+          "nodes": 437,
+          "jsEventListeners": 579,
+          "nativeListeners": {
+            "window": [
+              {
+                "type": "scroll",
+                "script": "14",
+                "line": 394
+              },
+              {
+                "type": "pointermove",
+                "script": "14",
+                "line": 545
+              },
+              {
+                "type": "pointerup",
+                "script": "14",
+                "line": 545
+              },
+              {
+                "type": "pointercancel",
+                "script": "14",
+                "line": 545
+              },
+              {
+                "type": "pagehide",
+                "script": "9",
+                "line": 0
+              },
+              {
+                "type": "pageshow",
+                "script": "9",
+                "line": 0
+              },
+              {
+                "type": "pageshow",
+                "script": "8",
+                "line": 0
+              },
+              {
+                "type": "error",
+                "script": "8",
+                "line": 0
+              },
+              {
+                "type": "unhandledrejection",
+                "script": "8",
+                "line": 0
+              },
+              {
+                "type": "popstate",
+                "script": "8",
+                "line": 0
+              },
+              {
+                "type": "resize",
+                "script": "14",
+                "line": 394
+              },
+              {
+                "type": "resize",
+                "script": "14",
+                "line": 513
+              },
+              {
+                "type": "keydown",
+                "script": "14",
+                "line": 582
+              },
+              {
+                "type": "keydown",
+                "script": "14",
+                "line": 513
+              },
+              {
+                "type": "keydown",
+                "script": "14",
+                "line": 545
+              },
+              {
+                "type": "keyup",
+                "script": "14",
+                "line": 582
+              },
+              {
+                "type": "mousedown",
+                "script": "14",
+                "line": 582
+              },
+              {
+                "type": "mouseup",
+                "script": "14",
+                "line": 582
+              },
+              {
+                "type": "blur",
+                "script": "14",
+                "line": 582
+              },
+              {
+                "type": "blur",
+                "script": "14",
+                "line": 545
+              },
+              {
+                "type": "drop",
+                "script": "14",
+                "line": 545
+              }
+            ],
+            "document": [
+              {
+                "type": "playing",
+                "script": "3",
+                "line": 61
+              },
+              {
+                "type": "playing",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "pause",
+                "script": "3",
+                "line": 61
+              },
+              {
+                "type": "pause",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "loadedmetadata",
+                "script": "3",
+                "line": 61
+              },
+              {
+                "type": "loadedmetadata",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "error",
+                "script": "3",
+                "line": 61
+              },
+              {
+                "type": "error",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "waiting",
+                "script": "3",
+                "line": 61
+              },
+              {
+                "type": "waiting",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "input",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "compositionstart",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "compositionupdate",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "compositionend",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "drop",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "paste",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "keydown",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "keyup",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "keypress",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "abort",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "auxclick",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "beforetoggle",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "cancel",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "canplay",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "canplaythrough",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "click",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "close",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "contextmenu",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "copy",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "cut",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "drag",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "dragend",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "dragenter",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "dragexit",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "dragleave",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "dragover",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "dragstart",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "durationchange",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "emptied",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "encrypted",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "ended",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "fullscreenchange",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "fullscreenerror",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "gotpointercapture",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "invalid",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "load",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "loadeddata",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "loadstart",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "lostpointercapture",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "mousedown",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "mousemove",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "mouseout",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "mouseover",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "mouseup",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "play",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "pointercancel",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "pointerdown",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "pointermove",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "pointerout",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "pointerover",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "pointerup",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "progress",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "ratechange",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "reset",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "resize",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "seeked",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "seeking",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "stalled",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "submit",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "suspend",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "timeupdate",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "touchcancel",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "touchend",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "touchstart",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "volumechange",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "scroll",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "toggle",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "touchmove",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "wheel",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "scrollend",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "animationend",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "animationiteration",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "animationstart",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "dblclick",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "focusin",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "focusout",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "transitionrun",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "transitionstart",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "transitioncancel",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "transitionend",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "change",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "textInput",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "input",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "compositionstart",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "compositionupdate",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "compositionend",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "drop",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "paste",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "keydown",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "keyup",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "keypress",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "auxclick",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "click",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "contextmenu",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "copy",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "cut",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "drag",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "dragend",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "dragenter",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "dragexit",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "dragleave",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "dragover",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "dragstart",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "fullscreenchange",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "fullscreenerror",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "gotpointercapture",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "lostpointercapture",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "mousedown",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "mousemove",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "mouseout",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "mouseover",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "mouseup",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "pointercancel",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "pointerdown",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "pointermove",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "pointerout",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "pointerover",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "pointerup",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "reset",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "submit",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "touchcancel",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "touchend",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "touchstart",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "touchmove",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "wheel",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "animationend",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "animationiteration",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "animationstart",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "dblclick",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "focusin",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "focusout",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "transitionrun",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "transitionstart",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "transitioncancel",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "transitionend",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "change",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "textInput",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "visibilitychange",
+                "script": "14",
+                "line": 545
+              }
+            ]
+          },
+          "heapUsed": 13046676,
+          "apps": 0,
+          "effects": 0,
+          "liveTracks": 0,
+          "nonzeroGestureCanvases": 0
+        },
+        {
+          "cycle": 5,
+          "documents": 1,
+          "nodes": 404,
+          "jsEventListeners": 576,
+          "nativeListeners": {
+            "window": [
+              {
+                "type": "scroll",
+                "script": "14",
+                "line": 394
+              },
+              {
+                "type": "pointermove",
+                "script": "14",
+                "line": 545
+              },
+              {
+                "type": "pointerup",
+                "script": "14",
+                "line": 545
+              },
+              {
+                "type": "pointercancel",
+                "script": "14",
+                "line": 545
+              },
+              {
+                "type": "pagehide",
+                "script": "9",
+                "line": 0
+              },
+              {
+                "type": "pageshow",
+                "script": "9",
+                "line": 0
+              },
+              {
+                "type": "pageshow",
+                "script": "8",
+                "line": 0
+              },
+              {
+                "type": "error",
+                "script": "8",
+                "line": 0
+              },
+              {
+                "type": "unhandledrejection",
+                "script": "8",
+                "line": 0
+              },
+              {
+                "type": "popstate",
+                "script": "8",
+                "line": 0
+              },
+              {
+                "type": "resize",
+                "script": "14",
+                "line": 394
+              },
+              {
+                "type": "resize",
+                "script": "14",
+                "line": 513
+              },
+              {
+                "type": "keydown",
+                "script": "14",
+                "line": 582
+              },
+              {
+                "type": "keydown",
+                "script": "14",
+                "line": 513
+              },
+              {
+                "type": "keydown",
+                "script": "14",
+                "line": 545
+              },
+              {
+                "type": "keyup",
+                "script": "14",
+                "line": 582
+              },
+              {
+                "type": "mousedown",
+                "script": "14",
+                "line": 582
+              },
+              {
+                "type": "mouseup",
+                "script": "14",
+                "line": 582
+              },
+              {
+                "type": "blur",
+                "script": "14",
+                "line": 582
+              },
+              {
+                "type": "blur",
+                "script": "14",
+                "line": 545
+              },
+              {
+                "type": "drop",
+                "script": "14",
+                "line": 545
+              }
+            ],
+            "document": [
+              {
+                "type": "playing",
+                "script": "3",
+                "line": 61
+              },
+              {
+                "type": "playing",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "pause",
+                "script": "3",
+                "line": 61
+              },
+              {
+                "type": "pause",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "loadedmetadata",
+                "script": "3",
+                "line": 61
+              },
+              {
+                "type": "loadedmetadata",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "error",
+                "script": "3",
+                "line": 61
+              },
+              {
+                "type": "error",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "waiting",
+                "script": "3",
+                "line": 61
+              },
+              {
+                "type": "waiting",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "input",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "compositionstart",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "compositionupdate",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "compositionend",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "drop",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "paste",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "keydown",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "keyup",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "keypress",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "abort",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "auxclick",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "beforetoggle",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "cancel",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "canplay",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "canplaythrough",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "click",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "close",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "contextmenu",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "copy",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "cut",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "drag",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "dragend",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "dragenter",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "dragexit",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "dragleave",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "dragover",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "dragstart",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "durationchange",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "emptied",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "encrypted",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "ended",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "fullscreenchange",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "fullscreenerror",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "gotpointercapture",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "invalid",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "load",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "loadeddata",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "loadstart",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "lostpointercapture",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "mousedown",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "mousemove",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "mouseout",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "mouseover",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "mouseup",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "play",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "pointercancel",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "pointerdown",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "pointermove",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "pointerout",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "pointerover",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "pointerup",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "progress",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "ratechange",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "reset",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "resize",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "seeked",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "seeking",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "stalled",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "submit",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "suspend",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "timeupdate",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "touchcancel",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "touchend",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "touchstart",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "volumechange",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "scroll",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "toggle",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "touchmove",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "wheel",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "scrollend",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "animationend",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "animationiteration",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "animationstart",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "dblclick",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "focusin",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "focusout",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "transitionrun",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "transitionstart",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "transitioncancel",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "transitionend",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "change",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "textInput",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "input",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "compositionstart",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "compositionupdate",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "compositionend",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "drop",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "paste",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "keydown",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "keyup",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "keypress",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "auxclick",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "click",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "contextmenu",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "copy",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "cut",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "drag",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "dragend",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "dragenter",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "dragexit",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "dragleave",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "dragover",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "dragstart",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "fullscreenchange",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "fullscreenerror",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "gotpointercapture",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "lostpointercapture",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "mousedown",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "mousemove",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "mouseout",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "mouseover",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "mouseup",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "pointercancel",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "pointerdown",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "pointermove",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "pointerout",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "pointerover",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "pointerup",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "reset",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "submit",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "touchcancel",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "touchend",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "touchstart",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "touchmove",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "wheel",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "animationend",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "animationiteration",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "animationstart",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "dblclick",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "focusin",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "focusout",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "transitionrun",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "transitionstart",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "transitioncancel",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "transitionend",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "change",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "textInput",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "visibilitychange",
+                "script": "14",
+                "line": 545
+              }
+            ]
+          },
+          "heapUsed": 13496408,
+          "apps": 0,
+          "effects": 0,
+          "liveTracks": 0,
+          "nonzeroGestureCanvases": 0
+        },
+        {
+          "cycle": 10,
+          "documents": 1,
+          "nodes": 404,
+          "jsEventListeners": 576,
+          "nativeListeners": {
+            "window": [
+              {
+                "type": "scroll",
+                "script": "14",
+                "line": 394
+              },
+              {
+                "type": "pointermove",
+                "script": "14",
+                "line": 545
+              },
+              {
+                "type": "pointerup",
+                "script": "14",
+                "line": 545
+              },
+              {
+                "type": "pointercancel",
+                "script": "14",
+                "line": 545
+              },
+              {
+                "type": "pagehide",
+                "script": "9",
+                "line": 0
+              },
+              {
+                "type": "pageshow",
+                "script": "9",
+                "line": 0
+              },
+              {
+                "type": "pageshow",
+                "script": "8",
+                "line": 0
+              },
+              {
+                "type": "error",
+                "script": "8",
+                "line": 0
+              },
+              {
+                "type": "unhandledrejection",
+                "script": "8",
+                "line": 0
+              },
+              {
+                "type": "popstate",
+                "script": "8",
+                "line": 0
+              },
+              {
+                "type": "resize",
+                "script": "14",
+                "line": 394
+              },
+              {
+                "type": "resize",
+                "script": "14",
+                "line": 513
+              },
+              {
+                "type": "keydown",
+                "script": "14",
+                "line": 582
+              },
+              {
+                "type": "keydown",
+                "script": "14",
+                "line": 513
+              },
+              {
+                "type": "keydown",
+                "script": "14",
+                "line": 545
+              },
+              {
+                "type": "keyup",
+                "script": "14",
+                "line": 582
+              },
+              {
+                "type": "mousedown",
+                "script": "14",
+                "line": 582
+              },
+              {
+                "type": "mouseup",
+                "script": "14",
+                "line": 582
+              },
+              {
+                "type": "blur",
+                "script": "14",
+                "line": 582
+              },
+              {
+                "type": "blur",
+                "script": "14",
+                "line": 545
+              },
+              {
+                "type": "drop",
+                "script": "14",
+                "line": 545
+              }
+            ],
+            "document": [
+              {
+                "type": "playing",
+                "script": "3",
+                "line": 61
+              },
+              {
+                "type": "playing",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "pause",
+                "script": "3",
+                "line": 61
+              },
+              {
+                "type": "pause",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "loadedmetadata",
+                "script": "3",
+                "line": 61
+              },
+              {
+                "type": "loadedmetadata",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "error",
+                "script": "3",
+                "line": 61
+              },
+              {
+                "type": "error",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "waiting",
+                "script": "3",
+                "line": 61
+              },
+              {
+                "type": "waiting",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "input",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "compositionstart",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "compositionupdate",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "compositionend",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "drop",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "paste",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "keydown",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "keyup",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "keypress",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "abort",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "auxclick",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "beforetoggle",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "cancel",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "canplay",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "canplaythrough",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "click",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "close",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "contextmenu",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "copy",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "cut",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "drag",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "dragend",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "dragenter",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "dragexit",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "dragleave",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "dragover",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "dragstart",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "durationchange",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "emptied",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "encrypted",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "ended",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "fullscreenchange",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "fullscreenerror",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "gotpointercapture",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "invalid",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "load",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "loadeddata",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "loadstart",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "lostpointercapture",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "mousedown",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "mousemove",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "mouseout",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "mouseover",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "mouseup",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "play",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "pointercancel",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "pointerdown",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "pointermove",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "pointerout",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "pointerover",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "pointerup",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "progress",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "ratechange",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "reset",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "resize",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "seeked",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "seeking",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "stalled",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "submit",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "suspend",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "timeupdate",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "touchcancel",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "touchend",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "touchstart",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "volumechange",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "scroll",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "toggle",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "touchmove",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "wheel",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "scrollend",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "animationend",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "animationiteration",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "animationstart",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "dblclick",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "focusin",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "focusout",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "transitionrun",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "transitionstart",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "transitioncancel",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "transitionend",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "change",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "textInput",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "input",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "compositionstart",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "compositionupdate",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "compositionend",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "drop",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "paste",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "keydown",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "keyup",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "keypress",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "auxclick",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "click",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "contextmenu",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "copy",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "cut",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "drag",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "dragend",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "dragenter",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "dragexit",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "dragleave",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "dragover",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "dragstart",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "fullscreenchange",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "fullscreenerror",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "gotpointercapture",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "lostpointercapture",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "mousedown",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "mousemove",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "mouseout",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "mouseover",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "mouseup",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "pointercancel",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "pointerdown",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "pointermove",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "pointerout",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "pointerover",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "pointerup",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "reset",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "submit",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "touchcancel",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "touchend",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "touchstart",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "touchmove",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "wheel",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "animationend",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "animationiteration",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "animationstart",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "dblclick",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "focusin",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "focusout",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "transitionrun",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "transitionstart",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "transitioncancel",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "transitionend",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "change",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "textInput",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "visibilitychange",
+                "script": "14",
+                "line": 545
+              }
+            ]
+          },
+          "heapUsed": 13694836,
+          "apps": 0,
+          "effects": 0,
+          "liveTracks": 0,
+          "nonzeroGestureCanvases": 0
+        },
+        {
+          "cycle": 15,
+          "documents": 1,
+          "nodes": 404,
+          "jsEventListeners": 576,
+          "nativeListeners": {
+            "window": [
+              {
+                "type": "scroll",
+                "script": "14",
+                "line": 394
+              },
+              {
+                "type": "pointermove",
+                "script": "14",
+                "line": 545
+              },
+              {
+                "type": "pointerup",
+                "script": "14",
+                "line": 545
+              },
+              {
+                "type": "pointercancel",
+                "script": "14",
+                "line": 545
+              },
+              {
+                "type": "pagehide",
+                "script": "9",
+                "line": 0
+              },
+              {
+                "type": "pageshow",
+                "script": "9",
+                "line": 0
+              },
+              {
+                "type": "pageshow",
+                "script": "8",
+                "line": 0
+              },
+              {
+                "type": "error",
+                "script": "8",
+                "line": 0
+              },
+              {
+                "type": "unhandledrejection",
+                "script": "8",
+                "line": 0
+              },
+              {
+                "type": "popstate",
+                "script": "8",
+                "line": 0
+              },
+              {
+                "type": "resize",
+                "script": "14",
+                "line": 394
+              },
+              {
+                "type": "resize",
+                "script": "14",
+                "line": 513
+              },
+              {
+                "type": "keydown",
+                "script": "14",
+                "line": 582
+              },
+              {
+                "type": "keydown",
+                "script": "14",
+                "line": 513
+              },
+              {
+                "type": "keydown",
+                "script": "14",
+                "line": 545
+              },
+              {
+                "type": "keyup",
+                "script": "14",
+                "line": 582
+              },
+              {
+                "type": "mousedown",
+                "script": "14",
+                "line": 582
+              },
+              {
+                "type": "mouseup",
+                "script": "14",
+                "line": 582
+              },
+              {
+                "type": "blur",
+                "script": "14",
+                "line": 582
+              },
+              {
+                "type": "blur",
+                "script": "14",
+                "line": 545
+              },
+              {
+                "type": "drop",
+                "script": "14",
+                "line": 545
+              }
+            ],
+            "document": [
+              {
+                "type": "playing",
+                "script": "3",
+                "line": 61
+              },
+              {
+                "type": "playing",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "pause",
+                "script": "3",
+                "line": 61
+              },
+              {
+                "type": "pause",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "loadedmetadata",
+                "script": "3",
+                "line": 61
+              },
+              {
+                "type": "loadedmetadata",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "error",
+                "script": "3",
+                "line": 61
+              },
+              {
+                "type": "error",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "waiting",
+                "script": "3",
+                "line": 61
+              },
+              {
+                "type": "waiting",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "input",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "compositionstart",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "compositionupdate",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "compositionend",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "drop",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "paste",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "keydown",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "keyup",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "keypress",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "abort",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "auxclick",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "beforetoggle",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "cancel",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "canplay",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "canplaythrough",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "click",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "close",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "contextmenu",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "copy",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "cut",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "drag",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "dragend",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "dragenter",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "dragexit",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "dragleave",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "dragover",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "dragstart",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "durationchange",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "emptied",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "encrypted",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "ended",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "fullscreenchange",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "fullscreenerror",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "gotpointercapture",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "invalid",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "load",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "loadeddata",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "loadstart",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "lostpointercapture",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "mousedown",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "mousemove",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "mouseout",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "mouseover",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "mouseup",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "play",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "pointercancel",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "pointerdown",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "pointermove",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "pointerout",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "pointerover",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "pointerup",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "progress",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "ratechange",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "reset",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "resize",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "seeked",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "seeking",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "stalled",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "submit",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "suspend",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "timeupdate",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "touchcancel",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "touchend",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "touchstart",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "volumechange",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "scroll",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "toggle",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "touchmove",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "wheel",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "scrollend",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "animationend",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "animationiteration",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "animationstart",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "dblclick",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "focusin",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "focusout",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "transitionrun",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "transitionstart",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "transitioncancel",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "transitionend",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "change",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "textInput",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "input",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "compositionstart",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "compositionupdate",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "compositionend",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "drop",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "paste",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "keydown",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "keyup",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "keypress",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "auxclick",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "click",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "contextmenu",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "copy",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "cut",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "drag",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "dragend",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "dragenter",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "dragexit",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "dragleave",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "dragover",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "dragstart",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "fullscreenchange",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "fullscreenerror",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "gotpointercapture",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "lostpointercapture",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "mousedown",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "mousemove",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "mouseout",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "mouseover",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "mouseup",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "pointercancel",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "pointerdown",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "pointermove",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "pointerout",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "pointerover",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "pointerup",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "reset",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "submit",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "touchcancel",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "touchend",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "touchstart",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "touchmove",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "wheel",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "animationend",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "animationiteration",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "animationstart",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "dblclick",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "focusin",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "focusout",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "transitionrun",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "transitionstart",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "transitioncancel",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "transitionend",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "change",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "textInput",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "visibilitychange",
+                "script": "14",
+                "line": 545
+              }
+            ]
+          },
+          "heapUsed": 13750408,
+          "apps": 0,
+          "effects": 0,
+          "liveTracks": 0,
+          "nonzeroGestureCanvases": 0
+        },
+        {
+          "cycle": 20,
+          "documents": 1,
+          "nodes": 404,
+          "jsEventListeners": 576,
+          "nativeListeners": {
+            "window": [
+              {
+                "type": "scroll",
+                "script": "14",
+                "line": 394
+              },
+              {
+                "type": "pointermove",
+                "script": "14",
+                "line": 545
+              },
+              {
+                "type": "pointerup",
+                "script": "14",
+                "line": 545
+              },
+              {
+                "type": "pointercancel",
+                "script": "14",
+                "line": 545
+              },
+              {
+                "type": "pagehide",
+                "script": "9",
+                "line": 0
+              },
+              {
+                "type": "pageshow",
+                "script": "9",
+                "line": 0
+              },
+              {
+                "type": "pageshow",
+                "script": "8",
+                "line": 0
+              },
+              {
+                "type": "error",
+                "script": "8",
+                "line": 0
+              },
+              {
+                "type": "unhandledrejection",
+                "script": "8",
+                "line": 0
+              },
+              {
+                "type": "popstate",
+                "script": "8",
+                "line": 0
+              },
+              {
+                "type": "resize",
+                "script": "14",
+                "line": 394
+              },
+              {
+                "type": "resize",
+                "script": "14",
+                "line": 513
+              },
+              {
+                "type": "keydown",
+                "script": "14",
+                "line": 582
+              },
+              {
+                "type": "keydown",
+                "script": "14",
+                "line": 513
+              },
+              {
+                "type": "keydown",
+                "script": "14",
+                "line": 545
+              },
+              {
+                "type": "keyup",
+                "script": "14",
+                "line": 582
+              },
+              {
+                "type": "mousedown",
+                "script": "14",
+                "line": 582
+              },
+              {
+                "type": "mouseup",
+                "script": "14",
+                "line": 582
+              },
+              {
+                "type": "blur",
+                "script": "14",
+                "line": 582
+              },
+              {
+                "type": "blur",
+                "script": "14",
+                "line": 545
+              },
+              {
+                "type": "drop",
+                "script": "14",
+                "line": 545
+              }
+            ],
+            "document": [
+              {
+                "type": "playing",
+                "script": "3",
+                "line": 61
+              },
+              {
+                "type": "playing",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "pause",
+                "script": "3",
+                "line": 61
+              },
+              {
+                "type": "pause",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "loadedmetadata",
+                "script": "3",
+                "line": 61
+              },
+              {
+                "type": "loadedmetadata",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "error",
+                "script": "3",
+                "line": 61
+              },
+              {
+                "type": "error",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "waiting",
+                "script": "3",
+                "line": 61
+              },
+              {
+                "type": "waiting",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "input",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "compositionstart",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "compositionupdate",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "compositionend",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "drop",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "paste",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "keydown",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "keyup",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "keypress",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "abort",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "auxclick",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "beforetoggle",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "cancel",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "canplay",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "canplaythrough",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "click",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "close",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "contextmenu",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "copy",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "cut",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "drag",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "dragend",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "dragenter",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "dragexit",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "dragleave",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "dragover",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "dragstart",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "durationchange",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "emptied",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "encrypted",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "ended",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "fullscreenchange",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "fullscreenerror",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "gotpointercapture",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "invalid",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "load",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "loadeddata",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "loadstart",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "lostpointercapture",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "mousedown",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "mousemove",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "mouseout",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "mouseover",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "mouseup",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "play",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "pointercancel",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "pointerdown",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "pointermove",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "pointerout",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "pointerover",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "pointerup",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "progress",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "ratechange",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "reset",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "resize",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "seeked",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "seeking",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "stalled",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "submit",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "suspend",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "timeupdate",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "touchcancel",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "touchend",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "touchstart",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "volumechange",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "scroll",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "toggle",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "touchmove",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "wheel",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "scrollend",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "animationend",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "animationiteration",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "animationstart",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "dblclick",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "focusin",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "focusout",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "transitionrun",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "transitionstart",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "transitioncancel",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "transitionend",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "change",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "textInput",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "input",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "compositionstart",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "compositionupdate",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "compositionend",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "drop",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "paste",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "keydown",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "keyup",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "keypress",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "auxclick",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "click",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "contextmenu",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "copy",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "cut",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "drag",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "dragend",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "dragenter",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "dragexit",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "dragleave",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "dragover",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "dragstart",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "fullscreenchange",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "fullscreenerror",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "gotpointercapture",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "lostpointercapture",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "mousedown",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "mousemove",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "mouseout",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "mouseover",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "mouseup",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "pointercancel",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "pointerdown",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "pointermove",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "pointerout",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "pointerover",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "pointerup",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "reset",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "submit",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "touchcancel",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "touchend",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "touchstart",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "touchmove",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "wheel",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "animationend",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "animationiteration",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "animationstart",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "dblclick",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "focusin",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "focusout",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "transitionrun",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "transitionstart",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "transitioncancel",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "transitionend",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "change",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "textInput",
+                "script": "11",
+                "line": 0
+              },
+              {
+                "type": "visibilitychange",
+                "script": "14",
+                "line": 545
+              }
+            ]
+          },
+          "heapUsed": 13879280,
+          "apps": 0,
+          "effects": 0,
+          "liveTracks": 0,
+          "nonzeroGestureCanvases": 0
+        }
+      ],
+      "status": "PASS",
+      "runtimeErrors": [],
+      "elapsedMs": 44437
+    },
+    {
+      "name": "video-frame-callback-unavailable-still-recognizes-with-cleanup",
+      "fixture": {},
+      "fallback": "New-currentTime RAF fallback, actual model and thumb-up photo fixture",
+      "status": "PASS",
+      "runtimeErrors": [],
+      "elapsedMs": 5327
+    }
+  ],
+  "gpu": {
+    "devices": [
+      {
+        "vendorId": 4203,
+        "deviceId": 0,
+        "vendorString": "Google Inc. (Apple)",
+        "deviceString": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Version 26.6.1 (Build 25G76))",
+        "driverVendor": "Apple",
+        "driverVersion": "26.6.1"
+      }
+    ],
+    "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Version 26.6.1 (Build 25G76))",
+    "vendor": "Google Inc. (Apple)",
+    "featureStatus": {
+      "2d_canvas": "enabled",
+      "direct_rendering_display_compositor": "disabled_off_ok",
+      "gpu_compositing": "enabled",
+      "multiple_raster_threads": "enabled_on",
+      "opengl": "enabled_on",
+      "rasterization": "enabled",
+      "raw_draw": "disabled_off_ok",
+      "skia_graphite": "enabled_on",
+      "trees_in_viz": "disabled_off",
+      "video_decode": "enabled",
+      "video_encode": "enabled",
+      "webgl": "enabled",
+      "webgpu": "enabled",
+      "webnn": "disabled_off"
+    }
+  }
+}

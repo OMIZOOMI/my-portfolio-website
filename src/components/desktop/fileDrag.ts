@@ -1,3 +1,5 @@
+import { getDesktopCoordinateSpace } from "../window-manager/desktopCoordinates";
+
 export const DRAG_THRESHOLD_PX = 6;
 export const TRASH_PAD_PX = 40;
 export const DESKTOP_ICON_W = 84;
@@ -54,13 +56,7 @@ export function clientToDesktopLocal(clientX: number, clientY: number): { x: num
   if (typeof document === "undefined") return null;
   const root = document.getElementById("desktop-root");
   if (!root) return { x: clientX, y: clientY };
-  const rect = root.getBoundingClientRect();
-  const scaleX = rect.width / (root.offsetWidth || 1) || 1;
-  const scaleY = rect.height / (root.offsetHeight || 1) || 1;
-  return {
-    x: (clientX - rect.left) / scaleX,
-    y: (clientY - rect.top) / scaleY,
-  };
+  return getDesktopCoordinateSpace(root)?.toLocal({ x: clientX, y: clientY }) ?? null;
 }
 
 export function clampDesktopPosition(x: number, y: number): { x: number; y: number } {
@@ -85,6 +81,13 @@ export function hitTestDrop(x: number, y: number, draggedId?: string | null): Dr
   const bin = document.getElementById("trash-bin");
   if (bin && rectContains(bin.getBoundingClientRect(), x, y, TRASH_PAD_PX)) {
     return { target: "trash", folderId: null };
+  }
+
+  // The visible dock sits above windows that can now move behind it. Its
+  // full-width positioning wrapper is transparent to input outside the panel.
+  const dock = document.querySelector<HTMLElement>("[data-dock-surface]") ?? document.querySelector<HTMLElement>("[data-dock]");
+  if (dock && rectContains(dock.getBoundingClientRect(), x, y)) {
+    return { target: null, folderId: null };
   }
 
   const framesAtPoint = Array.from(document.querySelectorAll<HTMLElement>("[data-window-frame]")).filter((el) =>
@@ -118,11 +121,6 @@ export function hitTestDrop(x: number, y: number, draggedId?: string | null): Dr
   const desktopFolder = folderHits.find((el) => !el.closest("[data-window-frame]"));
   if (desktopFolder?.dataset.dropFolderId) {
     return { target: "finder", folderId: desktopFolder.dataset.dropFolderId };
-  }
-
-  const dock = document.querySelector<HTMLElement>("[data-dock]");
-  if (dock && rectContains(dock.getBoundingClientRect(), x, y)) {
-    return { target: null, folderId: null };
   }
 
   const desktop = document.getElementById("desktop-root");

@@ -1,0 +1,16 @@
+{
+  "phase": "after",
+  "browser": "Chrome/156.0.8078.48",
+  "viewport": {
+    "width": 1440,
+    "height": 1000
+  },
+  "checks": [
+    "Physical Settings app Reduce motion on/off, separate from system preference"
+  ],
+  "appReducedMotion": {
+    "systemReducedMotion": false,
+    "enabledTransition": "0s",
+    "disabledTransition": "0.1s"
+  }
+}

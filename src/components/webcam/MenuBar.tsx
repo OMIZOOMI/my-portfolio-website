@@ -1,20 +1,20 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { BatteryFull, BatteryLow, BatteryMedium, Wifi } from "lucide-react";
 import { useMailStore } from "../window-manager/useMailStore";
 import { useNotesStore } from "../desktop/NotesApp";
 import { useMusicStore } from "../desktop/useMusicStore";
-import { useSafariStore } from "../desktop/useSafariStore";
+import { selectSafariSession, useSafariStore } from "../desktop/useSafariStore";
 import { useSystemStore } from "../window-manager/useSystemStore";
 import { useWindowStore } from "../window-manager/useWindowStore";
+import { createFolderAndRename, useFileInteractionStore } from "../desktop/useFileInteractionStore";
+import { DesktopMenus, type DesktopMenuItem } from "./DesktopMenus";
+import { captureEditorMenuTarget, restoreEditorMenuTarget, fileHistoryShortcut, type EditorMenuTarget } from "./editorMenuCommands";
+import { openPortfolioAbout, openSettings } from "../desktop/visitorLaunchers";
+import { isTextEditingTarget } from "../desktop/fileSurfaceEvents";
 
-interface MenuItem {
-  label: string;
-  shortcut?: string;
-  disabled?: boolean;
-  onSelect: () => void;
-}
+type MenuItem = DesktopMenuItem;
 
 const APP_NAMES: Record<string, string> = {
   finder: "Finder",
@@ -37,10 +37,6 @@ let windowIdCounter = 0;
 function generateWindowId(prefix: string): string {
   windowIdCounter += 1;
   return `${prefix}-${windowIdCounter}-${Date.now()}`;
-}
-
-function folderIdFromTitle(title: string | undefined): string {
-  return title?.trim().toLowerCase().replace(/\s+/g, "-") || "desktop";
 }
 
 function useAccurateClock() {
@@ -105,15 +101,12 @@ function useBattery() {
   return level;
 }
 
-function openSettings() {
-  useWindowStore.getState().openWindow({ id: "app-settings", kind: "settings", title: "Settings" });
-}
-
-function openFinder(title: string) {
+function openFinder(folderId: string, title: string) {
   useWindowStore.getState().openWindow({
     id: generateWindowId("finder"),
     kind: "finder",
     title,
+    folderId,
   });
 }
 
@@ -124,7 +117,9 @@ function openExternal(url: string) {
 export function MenuBar() {
   const time = useAccurateClock();
   const batteryLevel = useBattery();
-  const [activeMenu, setActiveMenu] = useState<string | null>(null);
+  const savedEditor = useRef<EditorMenuTarget | null>(null);
+  const [editorTarget, setEditorTarget] = useState<EditorMenuTarget | null>(null);
+  const [actionFeedback, setActionFeedback] = useState<string | null>(null);
 
   const activeWindow = useWindowStore((state) => {
     const focusedId = state.focusedWindowId;
@@ -132,43 +127,93 @@ export function MenuBar() {
   });
   const activeAppKind = activeWindow?.kind ?? "finder";
   const activeAppName = APP_NAMES[activeAppKind] ?? "Finder";
+  const canEmptyBin = useSystemStore((state) => state.trashItems.length > 0);
+  const canDeleteNote = useNotesStore((state) => !!state.activeNoteId);
+  const canClearNote = useNotesStore((state) => !!state.notes.find((note) => note.id === state.activeNoteId)?.contentHtml);
   const canUndo = useSystemStore((state) => state.past.length > 0);
   const canRedo = useSystemStore((state) => state.future.length > 0);
   const finderSidebarVisible = useSystemStore((state) => state.finderSidebarVisible);
   const finderPathBarVisible = useSystemStore((state) => state.finderPathBarVisible);
   const finderStatusBarVisible = useSystemStore((state) => state.finderStatusBarVisible);
+  const mailCanHandoff = useMailStore((state) => state.composing && !!state.draftSubject.trim() && !!state.draftBody.trim());
   const bookmarksBarVisible = useSafariStore((state) => state.bookmarksBarVisible);
 
   useEffect(() => {
-    const onKeyDown = (event: KeyboardEvent) => {
-      const modifier = event.metaKey || event.ctrlKey;
-      if (!modifier || event.key.toLowerCase() !== "z") return;
-      const target = event.target as HTMLElement | null;
-      if (target?.tagName === "INPUT" || target?.tagName === "TEXTAREA" || target?.isContentEditable) return;
-      event.preventDefault();
-      if (event.shiftKey) useSystemStore.getState().redo();
-      else useSystemStore.getState().undo();
+    const remember = (event: Event) => {
+      const snapshot = captureEditorMenuTarget(event.target);
+      if (snapshot) savedEditor.current = snapshot;
     };
-
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Tab" && isTextEditingTarget(event.target)) remember(event);
+      const windows = useWindowStore.getState();
+      const kind = windows.focusedWindowId ? windows.windows[windows.focusedWindowId]?.kind ?? "finder" : "finder";
+      const target = event.target instanceof HTMLElement ? event.target : null;
+      if (!target?.closest('#desktop-root') || target.closest('[role="menubar"]')) return;
+      const command = fileHistoryShortcut(event, isTextEditingTarget(event.target), kind);
+      if (!command) return;
+      const files = useSystemStore.getState();
+      if (!(command === "undo" ? files.past.length : files.future.length)) return;
+      event.preventDefault(); files[command]();
+    };
+    document.addEventListener("focusin", remember);
+    document.addEventListener("input", remember);
     window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
+    return () => { document.removeEventListener("focusin", remember); document.removeEventListener("input", remember); window.removeEventListener("keydown", onKeyDown); };
   }, []);
+
+  const prepareMenu = () => {
+    const captured = captureEditorMenuTarget(document.activeElement);
+    if (captured) savedEditor.current = captured;
+    const candidate = captured ?? savedEditor.current;
+    setEditorTarget(candidate?.element.isConnected && candidate.windowId === (activeWindow?.id ?? null) ? candidate : null);
+    setActionFeedback(null);
+  };
+  const nativeEdit = (command: "undo" | "redo" | "cut" | "copy") => {
+    if (!restoreEditorMenuTarget(editorTarget, useWindowStore.getState().focusedWindowId)) return;
+    let receivedInput = false;
+    const recordInput = () => { receivedInput = true; };
+    editorTarget!.element.addEventListener("input", recordInput);
+    try {
+      const applied = document.execCommand(command);
+      if (applied && !receivedInput && editorTarget!.element.isContentEditable) editorTarget!.element.dispatchEvent(new Event("input", { bubbles: true }));
+      if (!applied) setActionFeedback(`Use your editor’s keyboard ${command} command; this browser did not allow the menu action.`);
+    } catch { setActionFeedback(`Use your editor’s keyboard ${command} command; this browser did not allow the menu action.`); }
+    finally { editorTarget!.element.removeEventListener("input", recordInput); }
+  };
+  const pasteIntoEditor = async () => {
+    const target = editorTarget;
+    if (!target) return;
+    try {
+      const text = await navigator.clipboard.readText();
+      if (restoreEditorMenuTarget(target, useWindowStore.getState().focusedWindowId)) document.execCommand("insertText", false, text);
+    } catch { setActionFeedback("Clipboard access was unavailable. Use Paste from your browser or keyboard in the editor."); }
+  };
+  const editorOwnsEdit = !!editorTarget && editorTarget.windowId === (activeWindow?.id ?? null) && editorTarget.element.isConnected;
+  const filesOwnEdit = !editorOwnsEdit && (activeAppKind === "finder" || activeAppKind === "bin");
 
   const closeActiveWindow = () => {
     const { focusedWindowId, closeWindow } = useWindowStore.getState();
     if (focusedWindowId) closeWindow(focusedWindowId);
   };
 
-  const activeFinderParent = folderIdFromTitle(activeWindow?.title);
+  const activeFileWindow = activeWindow?.kind === "finder" || activeWindow?.kind === "bin" ? activeWindow : null;
+  const activeFinderParent = activeFileWindow?.folderId ?? (activeFileWindow?.kind === "bin" ? "bin" : "desktop");
+  const activeSurface = activeFileWindow?.id ?? "desktop";
+  const selectedId = useFileInteractionStore((state) => state.selections[activeSurface] ?? null);
+  const canCreateFolder = useSystemStore((state) => activeFinderParent !== "bin" && !!state.fileSystem[activeFinderParent] && !state.isHidden(activeFinderParent));
+  const canRenameFolder = useSystemStore((state) => {
+    if (!selectedId || activeFinderParent === "bin" || state.isHidden(selectedId)) return false;
+    const children = activeFinderParent === "desktop" ? state.desktopIds : (state.fileSystem[activeFinderParent] ?? []).map((item) => item.id);
+    return children.includes(selectedId) && state.getFileItem(selectedId)?.type === "folder";
+  });
   const toggleFinderSidebar = useSystemStore((state) => state.toggleFinderSidebar);
   const toggleFinderPathBar = useSystemStore((state) => state.toggleFinderPathBar);
   const toggleFinderStatusBar = useSystemStore((state) => state.toggleFinderStatusBar);
-  const createFolder = useSystemStore((state) => state.createFolder);
 
   const menuItems: Record<string, MenuItem[]> = {
     "": [
-      { label: "About This Mac", onSelect: () => { openSettings(); } },
-      { label: "System Settings…", onSelect: openSettings },
+      { label: "About This Mac", onSelect: () => openSettings("about") },
+      { label: "System Settings…", onSelect: () => openSettings() },
       { label: "Restart Portfolio", onSelect: () => globalThis.location.reload() },
       {
         label: "Close All Windows",
@@ -179,10 +224,12 @@ export function MenuBar() {
       },
     ],
     [activeAppName]: [
-      { label: `About ${activeAppName}`, onSelect: () => useWindowStore.getState().openWindow({ id: `about-${activeAppKind}`, kind: "about-app", title: `About ${activeAppName}`, size: { width: 320, height: 340 } }) },
-      { label: "Preferences…", onSelect: openSettings },
+      activeAppKind === "about-app" || activeAppKind === "about-me"
+        ? { label: "About This Portfolio", onSelect: openPortfolioAbout }
+        : { label: `About ${activeAppName}`, onSelect: () => useWindowStore.getState().openWindow({ id: `about-${activeAppKind}`, kind: "about-app", title: `About ${activeAppName}`, size: { width: 320, height: 340 } }) },
+      { label: "Preferences…", onSelect: () => openSettings() },
       ...(activeAppKind === "finder" || activeAppKind === "bin"
-        ? [{ label: "Empty Bin", onSelect: () => useSystemStore.getState().emptyTrash() }]
+        ? [{ label: "Empty Bin", disabled: !canEmptyBin, onSelect: () => useSystemStore.getState().emptyTrash() }]
         : []),
       ...(activeAppKind === "safari"
         ? [
@@ -204,8 +251,8 @@ export function MenuBar() {
       ...(activeAppKind === "notes"
         ? [
             { label: "New Note", onSelect: () => useNotesStore.getState().addNote() },
-            { label: "Clear Note", onSelect: () => useNotesStore.getState().clearActiveNote() },
-            { label: "Delete Note", onSelect: () => useNotesStore.getState().deleteActiveNote() },
+            { label: "Clear Note", disabled: !canClearNote, onSelect: () => useNotesStore.getState().clearActiveNote() },
+            { label: "Delete Note", disabled: !canDeleteNote, onSelect: () => useNotesStore.getState().deleteActiveNote() },
           ]
         : []),
       ...(activeAppKind === "mail"
@@ -213,15 +260,9 @@ export function MenuBar() {
             { label: "New Message", onSelect: () => useMailStore.getState().openComposer() },
             { label: "Clear Draft", onSelect: () => useMailStore.getState().clearDraft() },
             {
-              label: "Send",
-              onSelect: () => {
-                const state = useMailStore.getState();
-                if (!state.draftSubject || !state.draftBody) return;
-                globalThis.open(`mailto:sawkare.om@gmail.com?subject=${encodeURIComponent(state.draftSubject)}&body=${encodeURIComponent(state.draftBody)}`, "_self");
-                state.sendEmail({ to: "Om Sawkare", subject: state.draftSubject, body: state.draftBody });
-                state.clearDraft();
-                state.closeComposer();
-              },
+              label: "Open in your email app",
+              disabled: !mailCanHandoff,
+              onSelect: () => { useMailStore.getState().openDraftInEmailApp(); },
             },
           ]
         : []),
@@ -229,40 +270,39 @@ export function MenuBar() {
     File:
       activeAppKind === "finder" || activeAppKind === "bin"
         ? [
-            { label: "New Finder Window", onSelect: () => openFinder("Desktop") },
-            { label: "New Folder", onSelect: () => { createFolder(activeFinderParent); } },
-            { label: "Empty Bin", onSelect: () => useSystemStore.getState().emptyTrash() },
-            { label: "Close Window", shortcut: "⌘W", onSelect: closeActiveWindow },
+            { label: "New Finder Window", onSelect: () => openFinder("desktop", "Desktop") },
+            { label: "New Folder", disabled: !canCreateFolder, onSelect: () => { createFolderAndRename(activeSurface, activeFinderParent); } },
+            { label: "Rename Selected Folder", shortcut: "F2", disabled: !canRenameFolder, onSelect: () => { if (selectedId) useFileInteractionStore.getState().beginRename(activeSurface, selectedId); } },
+            { label: "Empty Bin", disabled: !canEmptyBin, onSelect: () => useSystemStore.getState().emptyTrash() },
+            { label: "Close Window", disabled: !activeWindow, shortcut: "⌘W", onSelect: closeActiveWindow },
           ]
         : activeAppKind === "safari"
           ? [
               { label: "New Tab", shortcut: "⌘T", onSelect: () => useSafariStore.getState().newTab() },
-              { label: "Close Tab", shortcut: "⌘W", onSelect: () => { const state = useSafariStore.getState(); const tab = state.tabs.find((item) => item.id === state.activeTabId); if (tab) state.closeTab(tab.id); } },
-              { label: "Close Window", onSelect: closeActiveWindow },
+              { label: "Close Tab", shortcut: "⌘W", onSelect: () => { const state = useSafariStore.getState(); state.closeTab(selectSafariSession(state).activeTabId); } },
+              { label: "Close Window", disabled: !activeWindow, onSelect: closeActiveWindow },
             ]
           : activeAppKind === "notes"
             ? [
                 { label: "New Note", onSelect: () => useNotesStore.getState().addNote() },
-                { label: "Delete Note", onSelect: () => useNotesStore.getState().deleteActiveNote() },
-                { label: "Close Window", onSelect: closeActiveWindow },
+                { label: "Delete Note", disabled: !canDeleteNote, onSelect: () => useNotesStore.getState().deleteActiveNote() },
+                { label: "Close Window", disabled: !activeWindow, onSelect: closeActiveWindow },
               ]
             : activeAppKind === "mail"
               ? [
                   { label: "New Message", onSelect: () => useMailStore.getState().openComposer() },
-                  { label: "Close Window", onSelect: closeActiveWindow },
+                  { label: "Close Window", disabled: !activeWindow, onSelect: closeActiveWindow },
                 ]
-              : [{ label: "Close Window", onSelect: closeActiveWindow }],
+              : [{ label: "Close Window", disabled: !activeWindow, onSelect: closeActiveWindow }],
     Edit: [
-      { label: "Undo", shortcut: "⌘Z", disabled: !canUndo, onSelect: () => useSystemStore.getState().undo() },
-      { label: "Redo", shortcut: "⇧⌘Z", disabled: !canRedo, onSelect: () => useSystemStore.getState().redo() },
-      { label: "Cut", shortcut: "⌘X", onSelect: () => document.execCommand("cut") },
-      { label: "Copy", shortcut: "⌘C", onSelect: () => document.execCommand("copy") },
+      { label: "Undo", shortcut: "⌘Z", disabled: editorOwnsEdit ? !editorTarget.canUndo : !filesOwnEdit || !canUndo, onSelect: () => { if (editorOwnsEdit) nativeEdit("undo"); else if (filesOwnEdit) useSystemStore.getState().undo(); } },
+      { label: "Redo", shortcut: "⇧⌘Z", disabled: editorOwnsEdit ? !editorTarget.canRedo : !filesOwnEdit || !canRedo, onSelect: () => { if (editorOwnsEdit) nativeEdit("redo"); else if (filesOwnEdit) useSystemStore.getState().redo(); } },
+      { label: "Cut", shortcut: "⌘X", disabled: !editorOwnsEdit || !editorTarget.hasSelection, onSelect: () => nativeEdit("cut") },
+      { label: "Copy", shortcut: "⌘C", disabled: !editorOwnsEdit || !editorTarget.hasSelection, onSelect: () => nativeEdit("copy") },
       {
-        label: "Paste",
-        shortcut: "⌘V",
-        onSelect: () => {
-          void navigator.clipboard?.readText().then((text) => document.execCommand("insertText", false, text));
-        },
+        label: "Paste", shortcut: "⌘V",
+        disabled: !editorOwnsEdit || typeof navigator === "undefined" || !navigator.clipboard?.readText,
+        onSelect: () => { void pasteIntoEditor(); },
       },
     ],
     View:
@@ -273,13 +313,13 @@ export function MenuBar() {
             { label: finderStatusBarVisible ? "Hide Status Bar" : "Show Status Bar", onSelect: toggleFinderStatusBar },
           ]
         : activeAppKind === "safari"
-          ? [{ label: bookmarksBarVisible ? "Hide Bookmarks Bar" : "Show Bookmarks Bar", onSelect: () => useSafariStore.getState().toggleBookmarksBar() }]
+          ? [{ label: "Reload Page", onSelect: () => useSafariStore.getState().reload() }, { label: bookmarksBarVisible ? "Hide Bookmarks Bar" : "Show Bookmarks Bar", onSelect: () => useSafariStore.getState().toggleBookmarksBar() }]
           : activeAppKind === "music"
             ? [{ label: "Toggle Sidebar", onSelect: () => useMusicStore.getState().toggleSidebar() }]
-            : [{ label: "Refresh App", onSelect: () => useWindowStore.getState().focusWindow(activeWindow?.id ?? "") }],
+            : [{ label: "Refresh App", disabled: true, onSelect: () => {} }],
     Go: [
-      { label: "Desktop", onSelect: () => openFinder("Desktop") },
-      { label: "Documents", onSelect: () => openFinder("Documents") },
+      { label: "Desktop", onSelect: () => openFinder("desktop", "Desktop") },
+      { label: "Documents", onSelect: () => openFinder("documents", "Documents") },
       { label: "Bin", onSelect: () => useWindowStore.getState().openWindow({ id: "bin-window", kind: "bin", title: "Bin" }) },
       ...(activeAppKind === "safari"
         ? [
@@ -290,13 +330,13 @@ export function MenuBar() {
         : []),
     ],
     Window: [
-      { label: "Minimize", onSelect: () => { const id = useWindowStore.getState().focusedWindowId; if (id) useWindowStore.getState().toggleMinimize(id); } },
-      { label: "Zoom / Maximize", onSelect: () => { const id = useWindowStore.getState().focusedWindowId; if (id) useWindowStore.getState().toggleMaximize(id); } },
-      { label: "Close Active Window", shortcut: "⌘W", onSelect: closeActiveWindow },
+      { label: "Minimize", disabled: !activeWindow, onSelect: () => { const id = useWindowStore.getState().focusedWindowId; if (id) useWindowStore.getState().toggleMinimize(id); } },
+      { label: "Zoom / Maximize", disabled: !activeWindow, onSelect: () => { const id = useWindowStore.getState().focusedWindowId; if (id) useWindowStore.getState().toggleMaximize(id); } },
+      { label: "Close Active Window", disabled: !activeWindow, shortcut: "⌘W", onSelect: closeActiveWindow },
       { label: "Bring All to Front", onSelect: () => useWindowStore.getState().bringAllToFront() },
     ],
     Help: [
-      { label: "About This Portfolio", onSelect: () => useWindowStore.getState().openWindow({ id: "about-portfolio", kind: "about-app", title: "About This Portfolio", size: { width: 400, height: 400 } }) },
+      { label: "About This Portfolio", onSelect: openPortfolioAbout },
       { label: "GitHub Repository", onSelect: () => openExternal("https://github.com/OMIZOOMI/my-portfolio-website") },
       { label: "LinkedIn", onSelect: () => openExternal("https://www.linkedin.com/in/om-sawkare") },
     ],
@@ -309,7 +349,6 @@ export function MenuBar() {
 
   return (
     <>
-      {activeMenu && <div onClick={() => setActiveMenu(null)} style={{ position: "fixed", inset: 0, zIndex: 9998 }} />}
       <nav
         aria-label="macOS Menu Bar"
         style={{
@@ -334,85 +373,8 @@ export function MenuBar() {
           userSelect: "none",
         }}
       >
-        <div style={{ display: "flex", alignItems: "center", height: "100%" }}>
-          {topLevelMenus.map((menu) => {
-            const items = menuItems[menu] ?? [];
-            return (
-              <div
-                key={menu}
-                onClick={() => setActiveMenu(activeMenu === menu ? null : menu)}
-                onMouseEnter={() => { if (activeMenu !== null) setActiveMenu(menu); }}
-                style={{
-                  position: "relative",
-                  height: "100%",
-                  display: "flex",
-                  alignItems: "center",
-                  padding: "0 10px",
-                  cursor: "pointer",
-                  background: activeMenu === menu ? "rgba(255, 255, 255, 0.2)" : "transparent",
-                  borderRadius: "4px",
-                  fontWeight: menu === activeAppName ? 700 : 500,
-                  fontSize: menu === "" ? "15px" : "13px",
-                }}
-              >
-                {menu}
-                {activeMenu === menu && items.length > 0 && (
-                  <div
-                    style={{
-                      position: "absolute",
-                      top: "28px",
-                      left: 0,
-                      minWidth: "220px",
-                      background: "rgba(40, 40, 45, 0.9)",
-                      backdropFilter: "blur(25px)",
-                      WebkitBackdropFilter: "blur(25px)",
-                      border: "1px solid rgba(255,255,255,0.15)",
-                      borderRadius: "6px",
-                      padding: "4px",
-                      boxShadow: "0 10px 30px rgba(0,0,0,0.5)",
-                      display: "flex",
-                      flexDirection: "column",
-                    }}
-                  >
-                    {items.map((item) => (
-                      <button
-                        type="button"
-                        key={item.label}
-                        disabled={item.disabled}
-                        onClick={(event) => {
-                          event.stopPropagation();
-                          if (item.disabled) return;
-                          setActiveMenu(null);
-                          item.onSelect();
-                        }}
-                        style={{
-                          padding: "5px 12px",
-                          borderRadius: "4px",
-                          border: 0,
-                          color: "inherit",
-                          background: "transparent",
-                          cursor: item.disabled ? "default" : "pointer",
-                          opacity: item.disabled ? 0.4 : 1,
-                          display: "flex",
-                          justifyContent: "space-between",
-                          alignItems: "center",
-                          gap: "24px",
-                          textAlign: "left",
-                          font: "inherit",
-                        }}
-                        onMouseEnter={(event) => { if (!item.disabled) event.currentTarget.style.background = "#0A60FF"; }}
-                        onMouseLeave={(event) => { event.currentTarget.style.background = "transparent"; }}
-                      >
-                        <span>{item.label}</span>
-                        {item.shortcut && <span style={{ opacity: 0.6, fontSize: "12px" }}>{item.shortcut}</span>}
-                      </button>
-                    ))}
-                  </div>
-                )}
-              </div>
-            );
-          })}
-        </div>
+        <DesktopMenus key={`${activeWindow?.id ?? "desktop"}-${activeAppKind}`} menus={topLevelMenus.map((label) => ({ label, items: menuItems[label] ?? [] }))} appName={activeAppName} onPrepare={prepareMenu} />
+        {actionFeedback && <p role="status" style={{ position: "absolute", top: 32, right: 16, maxWidth: 360, padding: 10, borderRadius: 6, background: "#28282d", fontSize: 12 }}>{actionFeedback}</p>}
 
         <div aria-hidden="true" style={{ position: "absolute", left: "50%", transform: "translateX(-50%)", top: 0, width: "160px", height: "28px", background: "#000", borderBottomLeftRadius: "12px", borderBottomRightRadius: "12px", boxShadow: "inset 0 -1px 1px rgba(255,255,255,0.1)" }} />
 

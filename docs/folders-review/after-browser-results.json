@@ -1,0 +1,175 @@
+{
+  "phase": "after",
+  "browser": "Chrome/156.0.8078.48",
+  "viewport": {
+    "width": 1440,
+    "height": 1000
+  },
+  "scenarios": [
+    {
+      "name": "desktop-context-create-inline-text-selection-and-open",
+      "identity": "folder-1793182675032-1",
+      "checks": [
+        "Desktop secondary click handles normal contextmenu event",
+        "Create immediately selects generated name",
+        "Mouse text selection works without dragging",
+        "Desktop folder opens its real ID after rename"
+      ],
+      "status": "PASS",
+      "elapsedMs": 4988
+    },
+    {
+      "name": "create-rename-nested-move-trash-restore-and-two-windows",
+      "identities": {
+        "parent": "folder-1793182680245-1",
+        "child": "folder-1793182680878-2",
+        "mirrorId": "finder-folder-1793182680245-1-9b607256-641d-45b0-b47a-5d0a1e963d91"
+      },
+      "checks": [
+        "Real-ID nested creation through File menu",
+        "Parent ID stable through rename, move, trash, restore",
+        "Nested child restored with parent",
+        "Bin create/rename disabled",
+        "Folder content remains a grid"
+      ],
+      "status": "PASS",
+      "elapsedMs": 10471
+    },
+    {
+      "name": "rename-cancel-validation-numbering-and-rapid-creation",
+      "folders": [
+        {
+          "id": "folder-1793182690999-1",
+          "label": "Committed on blur"
+        },
+        {
+          "id": "folder-1793182691213-2",
+          "label": "Untitled Folder 2"
+        },
+        {
+          "id": "folder-1793182692995-3",
+          "label": "Untitled Folder"
+        },
+        {
+          "id": "folder-1793182693014-4",
+          "label": "Untitled Folder 3"
+        }
+      ],
+      "latestEditorId": "folder-1793182693014-4",
+      "status": "PASS",
+      "elapsedMs": 5917
+    },
+    {
+      "name": "secondary-click-keyboard-menu-and-bounds",
+      "bounds": [
+        {
+          "corner": "top-left",
+          "pointer": {
+            "x": 252.795654296875,
+            "y": 73.12672729492188,
+            "inset": 6
+          },
+          "desktop": {
+            "left": 246.793701171875,
+            "top": 43.11639404296875,
+            "right": 1194.3763427734375,
+            "bottom": 643.2642822265625
+          },
+          "menu": {
+            "left": 252.87754821777344,
+            "top": 74.07179260253906,
+            "right": 407.44586181640625,
+            "bottom": 102.29174041748047
+          }
+        },
+        {
+          "corner": "top-right",
+          "pointer": {
+            "x": 1188.3763427734375,
+            "y": 73.12378845214843,
+            "inset": 6
+          },
+          "desktop": {
+            "left": 246.79190063476562,
+            "top": 43.11362075805664,
+            "right": 1194.3780822753906,
+            "bottom": 643.2635231018066
+          },
+          "menu": {
+            "left": 1040.2545166015625,
+            "top": 74.06915283203125,
+            "right": 1194.836669921875,
+            "bottom": 102.28921508789062
+          }
+        },
+        {
+          "corner": "bottom-left",
+          "pointer": {
+            "x": 264.7919006347656,
+            "y": 637.2635231018066,
+            "inset": 18
+          },
+          "desktop": {
+            "left": 246.7899169921875,
+            "top": 43.11054992675781,
+            "right": 1194.380126953125,
+            "bottom": 643.2628326416016
+          },
+          "menu": {
+            "left": 279.7939758300781,
+            "top": 613.0072631835938,
+            "right": 429.2537841796875,
+            "bottom": 639.4067993164062
+          }
+        },
+        {
+          "corner": "bottom-right",
+          "pointer": {
+            "x": 1173.380126953125,
+            "y": 637.2628326416016,
+            "inset": 21
+          },
+          "desktop": {
+            "left": 246.78811645507812,
+            "top": 43.107818603515625,
+            "right": 1194.3819885253906,
+            "bottom": 643.2621154785156
+          },
+          "menu": {
+            "left": 1029.762451171875,
+            "top": 613.0065307617188,
+            "right": 1179.25439453125,
+            "bottom": 639.4061279296875
+          }
+        }
+      ],
+      "outsideContext": {
+        "prevented": false,
+        "target": "CANVAS",
+        "inside": false
+      },
+      "status": "PASS",
+      "elapsedMs": 5902
+    },
+    {
+      "name": "undo-redo-keyboard-and-native-text-editing",
+      "nativeTextUndo": {
+        "key": "z",
+        "ctrl": false,
+        "meta": true,
+        "prevented": false,
+        "input": true
+      },
+      "platformModifierPaths": [
+        "Ctrl+Z",
+        "Ctrl+Y",
+        "Meta+Z",
+        "Meta+Shift+Z",
+        "Ctrl+Shift+N",
+        "Meta+Shift+N"
+      ],
+      "status": "PASS",
+      "elapsedMs": 4775
+    }
+  ]
+}

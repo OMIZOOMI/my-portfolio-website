@@ -1,0 +1,110 @@
+{
+  "phase": "design",
+  "browser": "Chrome/156.0.8078.48",
+  "viewport": {
+    "width": 1440,
+    "height": 1000
+  },
+  "scenarios": [
+    {
+      "name": "opening-layout-seed-and-switching",
+      "prose": "Developer Log\n\nLong before code, I built Lego robots and marvelled at Halo’s Spartan armor. That curiosity grew into a fascination with technology that extends what people can do.\n\nI’m Om Sawkare, a final-year student at VIT, working across computer vision, AI workflows, and backend development.\n\nMy main focus is Veyra, a website investigation tool I’m building to turn page evidence into clear, useful reports. I want people to understand what needs attention, why it matters, and what the tool could actually verify.\n\nMy Adobe hackathon brand-audit project explores how websites communicate with people and AI systems. Four analyzers share a crawl to produce a report with evidence and practical recommendations. Our team reached the top 45 among roughly 100,000 teams.\n\nWhite Box Detection gave me experience with YOLOv8 and OpenCV; my TigerGraph and FastAPI work strengthened my approach to evidence, data, and backend design.\n\nThe building blocks have changed, but the goal hasn’t: make technology useful in someone’s everyday life.",
+      "geometry": {
+        "width": 642,
+        "height": 478
+      },
+      "status": "PASS",
+      "elapsedMs": 5569
+    },
+    {
+      "name": "clear-updates-editor-and-never-resurrects-stale-html",
+      "afterClear": "",
+      "afterTyping": "Fresh words only",
+      "status": "PASS",
+      "elapsedMs": 5540
+    },
+    {
+      "name": "typing-caret-native-formatting-and-undo",
+      "caret": {
+        "offset": 11,
+        "node": "Alpha warm omega"
+      },
+      "formatted": "Alpha <b>warm</b> omega",
+      "afterUndo": "Alpha warm omega",
+      "status": "PASS",
+      "elapsedMs": 5229
+    },
+    {
+      "name": "search-filter-clear-and-escape",
+      "search": "Case-insensitive matching, no-match state, clear, and Escape",
+      "status": "PASS",
+      "elapsedMs": 4667
+    },
+    {
+      "name": "edited-seed-and-visitor-notes-survive-reopening-but-remain-memory-only",
+      "storage": {
+        "local": {
+          "portfolio-appearance": "{\"version\":1,\"state\":{\"theme\":\"dark\",\"wallpaper\":\"coast\",\"wallpaperMode\":\"auto\"}}"
+        },
+        "session": {}
+      },
+      "status": "PASS",
+      "elapsedMs": 9049
+    },
+    {
+      "name": "maximized-alignment-width-and-unchanged-prose",
+      "normal": {
+        "size": "16px",
+        "width": 360,
+        "left": 32
+      },
+      "maximized": {
+        "width": 1024,
+        "left": 40,
+        "available": 1104,
+        "size": "18px",
+        "overflow": false,
+        "titleFont": "Georgia, \"Times New Roman\", serif",
+        "highlights": [
+          "Veyra",
+          "Adobe hackathon"
+        ],
+        "mark": "top 45"
+      },
+      "small": [
+        {
+          "width": 520,
+          "overflow": false,
+          "editorWidth": 308,
+          "toolbarFits": true
+        },
+        {
+          "width": 420,
+          "overflow": false,
+          "editorWidth": 258,
+          "toolbarFits": true
+        }
+      ],
+      "status": "PASS",
+      "elapsedMs": 4895
+    },
+    {
+      "name": "light-dark-themes-and-reduced-motion",
+      "light": {
+        "text": "rgb(55, 52, 47)",
+        "paper": "#fffdf8"
+      },
+      "dark": {
+        "text": "rgb(215, 211, 203)",
+        "paper": "#201f1d"
+      },
+      "motion": {
+        "reduced": true,
+        "pageAnimation": "none",
+        "titleAnimation": "none"
+      },
+      "status": "PASS",
+      "elapsedMs": 7035
+    }
+  ]
+}

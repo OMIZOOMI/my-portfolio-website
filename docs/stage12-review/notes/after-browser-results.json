@@ -1,0 +1,55 @@
+{
+  "phase": "after",
+  "browser": "Chrome/156.0.8078.76",
+  "viewport": {
+    "width": 1440,
+    "height": 1000
+  },
+  "scenarios": [
+    {
+      "name": "opening-layout-seed-and-switching",
+      "prose": "Developer Log\n\nLong before code, I built Lego robots and marvelled at Halo’s Spartan armor. That curiosity grew into a fascination with technology that extends what people can do.\n\nI’m Om Sawkare, a final-year student at VIT, working across computer vision, AI workflows, and backend development.\n\nMy main focus is Veyra, a website investigation tool I’m building to turn page evidence into clear, useful reports. I want people to understand what needs attention, why it matters, and what the tool could actually verify.\n\nMy Adobe hackathon brand-audit project explores how websites communicate with people and AI systems. Four analyzers share a crawl to produce a report with evidence and practical recommendations. Our team reached the top 45 among roughly 100,000 teams.\n\nWhite Box Detection gave me experience with YOLOv8 and OpenCV; my TigerGraph and FastAPI work strengthened my approach to evidence, data, and backend design.\n\nTechnology is only as powerful as the impact on a person's day to day",
+      "geometry": {
+        "width": 642,
+        "height": 478
+      },
+      "status": "PASS",
+      "elapsedMs": 5276
+    },
+    {
+      "name": "clear-updates-editor-and-never-resurrects-stale-html",
+      "afterClear": "",
+      "afterTyping": "Fresh words only",
+      "status": "PASS",
+      "elapsedMs": 5305
+    },
+    {
+      "name": "typing-caret-native-formatting-and-undo",
+      "caret": {
+        "offset": 11,
+        "node": "Alpha warm omega"
+      },
+      "formatted": "Alpha <b>warm</b> omega",
+      "afterUndo": "Alpha warm omega",
+      "status": "PASS",
+      "elapsedMs": 4846
+    },
+    {
+      "name": "search-filter-clear-and-escape",
+      "search": "Case-insensitive matching, no-match state, clear, and Escape",
+      "status": "PASS",
+      "elapsedMs": 4991
+    },
+    {
+      "name": "edited-seed-and-visitor-notes-survive-reopening-but-remain-memory-only",
+      "storage": {
+        "local": {
+          "portfolio-appearance": "{\"version\":1,\"state\":{\"theme\":\"dark\",\"wallpaper\":\"coast\",\"wallpaperMode\":\"auto\"}}"
+        },
+        "session": {}
+      },
+      "status": "PASS",
+      "elapsedMs": 9027
+    }
+  ]
+}

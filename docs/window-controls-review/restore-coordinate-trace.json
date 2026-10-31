@@ -1,0 +1,252 @@
+{
+  "browser": "Chrome/156.0.8078.48",
+  "viewport": {
+    "width": 1440,
+    "height": 1000
+  },
+  "scenarios": [
+    {
+      "name": "larger-targets-respond-outside-visible-dots",
+      "targets": [
+        {
+          "action": "close",
+          "width": 28,
+          "height": 28,
+          "projectedWidth": 18.361480712890625,
+          "projectedHeight": 18.321884155273438,
+          "label": "Close"
+        },
+        {
+          "action": "minimize",
+          "width": 28,
+          "height": 28,
+          "projectedWidth": 18.34124755859375,
+          "projectedHeight": 18.321884155273438,
+          "label": "Minimize"
+        },
+        {
+          "action": "maximize",
+          "width": 28,
+          "height": 28,
+          "projectedWidth": 18.321044921875,
+          "projectedHeight": 18.321884155273438,
+          "label": "Maximize"
+        }
+      ],
+      "minimizePoint": {
+        "x": 449.3376098632813,
+        "y": 158.84149169921875
+      },
+      "maximizePoint": {
+        "x": 474.250390625,
+        "y": 171.46572875976562
+      },
+      "maximized": {
+        "width": 1322,
+        "height": 822,
+        "left": "40px",
+        "top": "40px",
+        "transform": "translateY(10.6699px) scale(0.964434)",
+        "pointerEvents": "auto",
+        "rect": {
+          "left": 290.9135437011719,
+          "top": 88.10517883300781,
+          "right": 1151.6034851074219,
+          "bottom": 616.2452545166016,
+          "width": 860.68994140625,
+          "height": 528.1400756835938
+        },
+        "desktop": {
+          "width": 1400,
+          "height": 900,
+          "left": 246.7438201904297,
+          "top": 43.03950881958008,
+          "right": 1194.426254272461,
+          "bottom": 643.2448310852051
+        }
+      },
+      "status": "FAIL",
+      "error": "Error: Timed out: Restore responds: false\n    at until (file:///Users/Om/Om%20Main%20Portfolio/tests/window-controls.browser.mjs:22:213)\n    at async file:///Users/Om/Om%20Main%20Portfolio/tests/window-controls.browser.mjs:56:36\n    at async scenario (file:///Users/Om/Om%20Main%20Portfolio/tests/window-controls.browser.mjs:51:176)\n    at async file:///Users/Om/Om%20Main%20Portfolio/tests/window-controls.browser.mjs:52:1",
+      "state": {
+        "width": 1322,
+        "height": 822,
+        "left": "40px",
+        "top": "40px",
+        "transform": "none",
+        "pointerEvents": "auto",
+        "rect": {
+          "left": 274.5704650878906,
+          "top": 70.67937469482422,
+          "right": 1167.9492492675781,
+          "bottom": 618.790153503418,
+          "width": 893.3787841796875,
+          "height": 548.1107788085938
+        },
+        "desktop": {
+          "width": 1400,
+          "height": 900,
+          "left": 246.7438201904297,
+          "top": 43.03950881958008,
+          "right": 1194.426254272461,
+          "bottom": 643.2448310852051
+        }
+      },
+      "events": [
+        {
+          "type": "pointerdown",
+          "target": "DIV",
+          "x": 631.4586791992188,
+          "y": 609.486083984375,
+          "active": null,
+          "at": 9107.699999988079
+        },
+        {
+          "type": "pointerup",
+          "target": "DIV",
+          "x": 631.4586791992188,
+          "y": 609.486083984375,
+          "active": "Portfolio desktop",
+          "at": 9111.800000011921
+        },
+        {
+          "type": "click",
+          "target": "DIV",
+          "x": 631,
+          "y": 609,
+          "active": "Portfolio desktop",
+          "at": 9112.100000023842
+        },
+        {
+          "type": "pointerdown",
+          "target": "BUTTON",
+          "action": "minimize",
+          "label": "Minimize",
+          "x": 449.3376159667969,
+          "y": 158.84149169921875,
+          "active": "Portfolio desktop",
+          "at": 20146.30000001192
+        },
+        {
+          "type": "pointerup",
+          "target": "BUTTON",
+          "action": "minimize",
+          "label": "Minimize",
+          "x": 449.3376159667969,
+          "y": 158.84149169921875,
+          "active": "Minimize",
+          "at": 20149
+        },
+        {
+          "type": "click",
+          "target": "BUTTON",
+          "action": "minimize",
+          "label": "Minimize",
+          "x": 449,
+          "y": 158,
+          "active": "Minimize",
+          "at": 20149.400000035763
+        },
+        {
+          "type": "padded-point-after",
+          "action": "minimize",
+          "x": 449.3376098632813,
+          "y": 158.84149169921875,
+          "hit": "<div id=\"desktop-root\" data-file-surface=\"desktop\" tabindex=\"0\" aria-label=\"Portfolio desktop\" class=\"w-full h-full relative isolate overflow-hidden select-none bg-cover bg-center\" style=\"background-c"
+        },
+        {
+          "type": "pointerdown",
+          "target": "DIV",
+          "x": 604.7876586914062,
+          "y": 602.6209716796875,
+          "active": null,
+          "at": 20769
+        },
+        {
+          "type": "pointerup",
+          "target": "DIV",
+          "x": 604.7876586914062,
+          "y": 602.6209716796875,
+          "active": "Portfolio desktop",
+          "at": 20770.30000001192
+        },
+        {
+          "type": "click",
+          "target": "DIV",
+          "x": 604,
+          "y": 602,
+          "active": "Portfolio desktop",
+          "at": 20770.400000035763
+        },
+        {
+          "type": "pointerdown",
+          "target": "BUTTON",
+          "action": "maximize",
+          "label": "Maximize",
+          "x": 474.2503967285156,
+          "y": 171.46572875976562,
+          "active": "Portfolio desktop",
+          "at": 21398.100000023842
+        },
+        {
+          "type": "pointerup",
+          "target": "BUTTON",
+          "action": "maximize",
+          "label": "Maximize",
+          "x": 474.2503967285156,
+          "y": 171.46572875976562,
+          "active": "Maximize",
+          "at": 21399.5
+        },
+        {
+          "type": "click",
+          "target": "BUTTON",
+          "action": "maximize",
+          "label": "Maximize",
+          "x": 474,
+          "y": 171,
+          "active": "Maximize",
+          "at": 21399.69999998808
+        },
+        {
+          "type": "padded-point-after",
+          "action": "maximize",
+          "x": 474.250390625,
+          "y": 171.46572875976562,
+          "hit": "<div class=\"flex-1 overflow-y-auto\" style=\"transform: translateZ(0px);\"><div class=\"max-w-2xl mx-auto px-10 py-10 min-h-full\"><div contenteditable=\"true\" data-placeholder=\"Start writing…\" aria-label=\""
+        },
+        {
+          "type": "pointerdown",
+          "target": "DIV",
+          "x": 339.6341247558594,
+          "y": 100.37266540527344,
+          "active": "Restore",
+          "at": 22031.80000001192
+        },
+        {
+          "type": "pointerup",
+          "target": "DIV",
+          "x": 339.6341247558594,
+          "y": 100.37266540527344,
+          "active": "Portfolio desktop",
+          "at": 22037.600000023842
+        },
+        {
+          "type": "click",
+          "target": "DIV",
+          "x": 339,
+          "y": 100,
+          "active": "Portfolio desktop",
+          "at": 22037.80000001192
+        },
+        {
+          "type": "padded-point-after",
+          "action": "maximize",
+          "x": 339.63413696289064,
+          "y": 100.37266540527344,
+          "hit": "<div class=\"h-12 flex items-center px-4 border-b border-gray-300 dark:border-white/10 text-gray-500 dark:text-gray-400 shrink-0\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox="
+        }
+      ],
+      "elapsedMs": 47350
+    }
+  ]
+}

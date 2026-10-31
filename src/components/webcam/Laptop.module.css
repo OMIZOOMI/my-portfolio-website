@@ -1,0 +1,7 @@
+/* Drei's Html projection wrapper sets overflow:hidden inline. That creates
+   a scroll container for the large intermediate perspective transforms:
+   focus/scroll-into-view can scroll the wrapper and move the entire screen.
+   This layer clips the projection; only the app's own scroll regions scroll. */
+.screenPortal {
+  overflow: clip !important;
+}

@@ -1,10 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
-import { Send, Inbox, MailPlus } from "lucide-react";
+import { Archive, ExternalLink, Inbox, MailPlus } from "lucide-react";
 import { useMailStore, type Email } from "../window-manager/useMailStore";
-
-const MY_EMAIL = "sawkare.om@gmail.com";
 
 function formatDate(ts: number): string {
   return new Date(ts).toLocaleString([], {
@@ -31,10 +29,10 @@ export function MailApp({ window: win }: { window: { id: string; title: string }
     draftBody,
     openComposer,
     closeComposer,
-    clearDraft,
     setDraftSubject,
     setDraftBody,
-    sendEmail,
+    openDraftInEmailApp,
+    handoffMessage,
     markRead,
   } = useMailStore();
   const [mailbox, setMailbox] = useState<"inbox" | "sent">("inbox");
@@ -58,17 +56,6 @@ export function MailApp({ window: win }: { window: { id: string; title: string }
     if (first) markRead(first.id);
   };
 
-  const handleSend = () => {
-    if (!draftSubject || !draftBody) return;
-    // Text-only handoff to the visitor's native mail client.
-    globalThis.location.href = `mailto:${MY_EMAIL}?subject=${encodeURIComponent(draftSubject)}&body=${encodeURIComponent(draftBody)}`;
-    // Record a copy in Sent, then close compose and clear its state.
-    const id = sendEmail({ to: "Om Sawkare", subject: draftSubject, body: draftBody });
-    clearDraft();
-    setMailbox("sent");
-    setSelectedId(id);
-    closeComposer();
-  };
 
   return (
     <div className="w-full h-full flex bg-[#f5f5f5] text-gray-800 dark:bg-[#1e1e1e] dark:text-gray-200 font-sans overflow-hidden transition-colors duration-1000 ease-in-out">
@@ -101,13 +88,14 @@ export function MailApp({ window: win }: { window: { id: string; title: string }
           </button>
           <button
             onClick={() => switchMailbox("sent")}
+            aria-label="Previous copies, delivery unverified"
             className={`flex-1 flex items-center justify-center gap-1.5 text-sm rounded-md px-2 py-1.5 transition-colors duration-1000 ease-in-out ${
               mailbox === "sent" && !composing
                 ? "bg-gray-300 dark:bg-white/15 font-semibold"
                 : "hover:bg-gray-300/50 dark:hover:bg-white/10 text-gray-600 dark:text-gray-300"
             }`}
           >
-            <Send size={14} /> Sent
+            <Archive size={14} /> Previous copies
             {sent.length > 0 && (
               <span className="bg-gray-500 text-white text-[10px] font-bold rounded-full min-w-4 h-4 px-1 flex items-center justify-center">
                 {sent.length}
@@ -138,7 +126,7 @@ export function MailApp({ window: win }: { window: { id: string; title: string }
           ))}
           {list.length === 0 && (
             <p className="text-xs text-gray-400 text-center p-4">
-              {mailbox === "inbox" ? "Inbox zero. Enjoy it." : "Nothing sent yet."}
+              {mailbox === "inbox" ? "Inbox zero. Enjoy it." : "No previous copies."}
             </p>
           )}
         </div>
@@ -149,15 +137,18 @@ export function MailApp({ window: win }: { window: { id: string; title: string }
         <div className="flex-1 h-full flex flex-col bg-white dark:bg-[#1e1e1e] overflow-hidden transition-colors duration-1000 ease-in-out">
           <div className="h-12 bg-[#e8e8e8] dark:bg-white/5 border-b border-gray-300 dark:border-white/10 flex items-center justify-between px-4 shrink-0 transition-colors duration-1000 ease-in-out">
             <button
-              onClick={handleSend}
+              data-mail-handoff
+              onClick={openDraftInEmailApp}
               style={{ color: "var(--system-accent)" }}
               className="flex items-center gap-1.5 hover:brightness-125 text-sm font-medium disabled:opacity-50"
-               disabled={!draftSubject || !draftBody}
+               disabled={!draftSubject.trim() || !draftBody.trim()}
             >
-              <Send size={16} /> Send
+              <ExternalLink size={16} /> Open in your email app
             </button>
           </div>
 
+          <p className="shrink-0 px-4 py-2 text-xs leading-5 text-gray-500 dark:text-gray-400">You complete sending in your email app. Your draft stays here while this portfolio remains open.</p>
+          {handoffMessage && <p role="status" className="shrink-0 px-4 pb-2 text-xs leading-5 text-gray-600 dark:text-gray-300">{handoffMessage}</p>}
           <div className="flex flex-col border-b border-gray-200 dark:border-white/10 bg-white dark:bg-[#1e1e1e] shrink-0 transition-colors duration-1000 ease-in-out">
             <div className="flex px-4 py-2 border-b border-gray-100 dark:border-white/5 items-center">
               <span className="text-gray-400 w-16 text-sm">To:</span>
@@ -167,6 +158,7 @@ export function MailApp({ window: win }: { window: { id: string; title: string }
               <span className="text-gray-400 w-16 text-sm">Subject:</span>
               <input
                 type="text"
+                 aria-label="Mail subject"
                  value={draftSubject}
                  onChange={(e) => setDraftSubject(e.target.value)}
                 className="flex-1 outline-none text-sm bg-transparent placeholder-gray-400 dark:placeholder-gray-500"
@@ -176,6 +168,7 @@ export function MailApp({ window: win }: { window: { id: string; title: string }
           </div>
 
           <textarea
+             aria-label="Mail message"
              value={draftBody}
              onChange={(e) => setDraftBody(e.target.value)}
             className="flex-1 w-full p-4 outline-none resize-none bg-white dark:bg-[#1e1e1e] text-sm placeholder-gray-400 dark:placeholder-gray-500"
@@ -185,6 +178,7 @@ export function MailApp({ window: win }: { window: { id: string; title: string }
       ) : selected ? (
         <div className="flex-1 h-full flex flex-col bg-white dark:bg-[#1e1e1e] overflow-hidden transition-colors duration-1000 ease-in-out">
           <div className="px-5 pt-4 pb-3 border-b border-gray-200 dark:border-white/10 shrink-0 transition-colors duration-1000 ease-in-out">
+            {mailbox === "sent" && <p role="note" className="mb-3 rounded-lg bg-white/5 p-2 text-xs leading-5 text-gray-500 dark:text-gray-400">Unverified copy from an earlier version. An email-app launch was recorded here; this does not confirm that the message was sent. The original content has been kept.</p>}
             <h2 className="text-lg font-bold text-gray-900 dark:text-white leading-snug">{selected.subject}</h2>
             <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
               From: <span className="font-medium text-gray-700 dark:text-gray-200">{selected.from}</span>

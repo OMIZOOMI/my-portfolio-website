@@ -1,0 +1,426 @@
+{
+  "phase": "after",
+  "browser": "Chrome/156.0.8078.48",
+  "viewport": {
+    "width": 1440,
+    "height": 1000
+  },
+  "autoplayPolicyOverride": false,
+  "scenarios": [
+    {
+      "name": "preserved-layout-and-no-startup-library-download",
+      "geometry": {
+        "host": {
+          "x": 419.10736083984375,
+          "y": 171.6446075439453,
+          "width": 429.71649169921875,
+          "height": 294.3177490234375,
+          "localWidth": 640,
+          "localHeight": 440
+        },
+        "app": {
+          "x": 419.10736083984375,
+          "y": 171.6446075439453,
+          "width": 429.71649169921875,
+          "height": 294.3177490234375,
+          "localWidth": 640,
+          "localHeight": 440
+        },
+        "sidebar": {
+          "x": 419.10736083984375,
+          "y": 171.6446075439453,
+          "width": 132.01287841796875,
+          "height": 294.3177490234375,
+          "localWidth": 191,
+          "localHeight": 440
+        },
+        "header": {
+          "x": 548.0222778320312,
+          "y": 171.6446075439453,
+          "width": 300.80157470703125,
+          "height": 62.4285888671875,
+          "localWidth": 448,
+          "localHeight": 91
+        },
+        "content": {
+          "x": 548.6793823242188,
+          "y": 234.0731964111328,
+          "width": 299.6522216796875,
+          "height": 175.5308074951172,
+          "localWidth": 448,
+          "localHeight": 263
+        },
+        "footer": {
+          "x": 550.5269775390625,
+          "y": 409.60400390625,
+          "width": 296.420654296875,
+          "height": 56.358367919921875,
+          "localWidth": 448,
+          "localHeight": 85
+        },
+        "artwork": {
+          "x": 561.5665283203125,
+          "y": 183.55645751953125,
+          "width": 37.85406494140625,
+          "height": 38.00151062011719,
+          "localWidth": 56,
+          "localHeight": 56
+        },
+        "theme": "geist_a71539c9-module__T19VSG__variable geist_mono_8d43a2aa-module__8Li5zG__variable antialiased dark"
+      },
+      "tracks": [
+        {
+          "id": "kids",
+          "text": "1\nKids\nHoliznaCC0\n03:14"
+        },
+        {
+          "id": "cylinder-two",
+          "text": "2\nCylinder Two\nChris Zabriskie\n03:47"
+        },
+        {
+          "id": "gymnopedie-no-1",
+          "text": "3\nGymnopedie No. 1\nKevin MacLeod\n03:07"
+        },
+        {
+          "id": "floating-cities",
+          "text": "4\nFloating Cities\nKevin MacLeod\n03:04"
+        }
+      ],
+      "audio": {
+        "src": "",
+        "source": null,
+        "paused": true,
+        "time": 0,
+        "duration": null,
+        "volume": 0.68,
+        "ended": false,
+        "readyState": 0,
+        "networkState": 0
+      },
+      "artwork": {
+        "background": "linear-gradient(135deg, rgb(191, 90, 242), rgb(21, 21, 26))",
+        "radius": "12px"
+      },
+      "status": "PASS",
+      "elapsedMs": 4851
+    },
+    {
+      "name": "all-real-durations-and-seeking-beyond-two-minutes",
+      "measured": [
+        {
+          "id": "kids",
+          "src": "http://127.0.0.1:3001/music/kids.mp3",
+          "duration": 194.616984,
+          "seekSeconds": 148.687375,
+          "labels": {
+            "elapsed": "02:29",
+            "remaining": "-00:45"
+          }
+        },
+        {
+          "id": "cylinder-two",
+          "src": "http://127.0.0.1:3001/music/cylinder-two.mp3",
+          "duration": 227.832744,
+          "seekSeconds": 174.064216,
+          "labels": {
+            "elapsed": "02:54",
+            "remaining": "-00:53"
+          }
+        },
+        {
+          "id": "gymnopedie-no-1",
+          "src": "http://127.0.0.1:3001/music/gymnopedie-no-1.mp3",
+          "duration": 187.08898,
+          "seekSeconds": 142.93598,
+          "labels": {
+            "elapsed": "02:23",
+            "remaining": "-00:43"
+          }
+        },
+        {
+          "id": "floating-cities",
+          "src": "http://127.0.0.1:3001/music/floating-cities.mp3",
+          "duration": 184.058776,
+          "seekSeconds": 140.620904,
+          "labels": {
+            "elapsed": "02:20",
+            "remaining": "-00:43"
+          }
+        }
+      ],
+      "status": "PASS",
+      "elapsedMs": 7391
+    },
+    {
+      "name": "restrained-credits-name-real-creators-and-licenses",
+      "credits": {
+        "text": "Credits & licenses\nDone\n\n“Kids” by HoliznaCC0, from Spring at last (LOFI TAPE). CC0 1.0. Re-encoded and gain adjusted for web playback; the complete composition is unchanged. Source · CC0 1.0\n\n“Cylinder Two” by Chris Zabriskie, from Cylinders. © 2014 Chris Zabriskie. Published by You’ve Been a Wonderful Laugh Track (ASCAP). Licensed under Creative Commons Attribution 4.0. chriszabriskie.com. Re-encoded and gain adjusted for web playback; the complete composition is unchanged. Source · CC BY 4.0\n\n“Gymnopedie No. 1” Kevin MacLeod (incompetech.com). Composition by Erik Satie; recording/performance by Kevin MacLeod. Licensed under Creative Commons: By Attribution 4.0. Re-encoded and gain adjusted for web playback; the complete composition is unchanged. Source · CC BY 4.0\n\n“Floating Cities” Kevin MacLeod (incompetech.com). Licensed under Creative Commons: By Attribution 4.0. Re-encoded and gain adjusted for web playback; the complete composition is unchanged. Source · CC BY 4.0\n\nFull source and license manifest",
+        "links": [
+          {
+            "text": "Source",
+            "href": "https://freemusicarchive.org/music/holiznacc0/spring-at-last-lofi-tape/kids/"
+          },
+          {
+            "text": "CC0 1.0",
+            "href": "https://creativecommons.org/publicdomain/zero/1.0/"
+          },
+          {
+            "text": "Source",
+            "href": "https://chriszabriskie.com/cylinders/"
+          },
+          {
+            "text": "CC BY 4.0",
+            "href": "https://creativecommons.org/licenses/by/4.0/"
+          },
+          {
+            "text": "Source",
+            "href": "https://incompetech.com/music/royalty-free/index.html?Search=Search&isrc=USUAN1100787"
+          },
+          {
+            "text": "CC BY 4.0",
+            "href": "https://creativecommons.org/licenses/by/4.0/"
+          },
+          {
+            "text": "Source",
+            "href": "https://incompetech.com/music/royalty-free/index.html?Search=Search&isrc=USUAN1600018"
+          },
+          {
+            "text": "CC BY 4.0",
+            "href": "https://creativecommons.org/licenses/by/4.0/"
+          },
+          {
+            "text": "Full source and license manifest",
+            "href": "http://127.0.0.1:3001/music/manifest.json"
+          }
+        ],
+        "scrollWidth": 406,
+        "width": 406
+      },
+      "status": "PASS",
+      "elapsedMs": 4127
+    },
+    {
+      "name": "natural-ending-next-repeat-shuffle-and-volume",
+      "next": {
+        "src": "http://127.0.0.1:3001/music/cylinder-two.mp3",
+        "source": "/music/cylinder-two.mp3",
+        "paused": false,
+        "time": 0.14333,
+        "duration": 227.832744,
+        "volume": 0.68,
+        "ended": false,
+        "readyState": 4,
+        "networkState": 1
+      },
+      "volume": 0.25,
+      "events": [
+        {
+          "name": "ended",
+          "src": "http://127.0.0.1:3001/music/kids.mp3",
+          "time": 194.616984,
+          "duration": 194.616984,
+          "at": 5181.700000017881
+        },
+        {
+          "name": "ended",
+          "src": "http://127.0.0.1:3001/music/cylinder-two.mp3",
+          "time": 227.832744,
+          "duration": 227.832744,
+          "at": 7241
+        }
+      ],
+      "status": "PASS",
+      "elapsedMs": 8316
+    },
+    {
+      "name": "pause-minimize-close-and-reopen-lifecycle",
+      "immediateClose": {
+        "paused": true,
+        "source": null
+      },
+      "closed": {
+        "paused": true,
+        "source": null,
+        "connected": false,
+        "time": 0
+      },
+      "minimized": {
+        "src": "http://127.0.0.1:3001/music/kids.mp3",
+        "source": "/music/kids.mp3",
+        "paused": false,
+        "time": 1.30445,
+        "duration": 194.616984,
+        "volume": 0.68,
+        "ended": false,
+        "readyState": 4,
+        "networkState": 1
+      },
+      "reopened": {
+        "src": "",
+        "source": null,
+        "paused": true,
+        "time": 0,
+        "duration": null,
+        "volume": 0.68,
+        "ended": false,
+        "readyState": 0,
+        "networkState": 0
+      },
+      "status": "PASS",
+      "elapsedMs": 8840
+    },
+    {
+      "name": "pause-during-loading-cancels-pending-playback",
+      "paused": {
+        "src": "http://127.0.0.1:3001/music/kids.mp3",
+        "source": "/music/kids.mp3",
+        "paused": true,
+        "time": 0,
+        "duration": 194.616984,
+        "volume": 0.68,
+        "ended": false,
+        "readyState": 4,
+        "networkState": 1
+      },
+      "status": "PASS",
+      "elapsedMs": 5310
+    },
+    {
+      "name": "saved-position-survives-reopen-and-pre-metadata-timeout",
+      "savedTime": 148.799256,
+      "reopened": {
+        "src": "",
+        "source": null,
+        "paused": true,
+        "time": 0,
+        "duration": null,
+        "volume": 0.68,
+        "ended": false,
+        "readyState": 0,
+        "networkState": 0
+      },
+      "timeoutElapsed": "02:28",
+      "recovered": {
+        "src": "http://127.0.0.1:3001/music/kids.mp3",
+        "source": "/music/kids.mp3",
+        "paused": false,
+        "time": 148.800528,
+        "duration": 194.616984,
+        "volume": 0.68,
+        "ended": false,
+        "readyState": 4,
+        "networkState": 1
+      },
+      "status": "PASS",
+      "elapsedMs": 7866,
+      "verificationRun": "Focused rerun after adding no-store and disabling Chrome media caching; same final production build"
+    },
+    {
+      "name": "menu-bar-close-stops-playback-immediately",
+      "closed": {
+        "paused": true,
+        "source": null
+      },
+      "closeAll": {
+        "paused": true,
+        "source": null
+      },
+      "status": "PASS",
+      "elapsedMs": 7621
+    },
+    {
+      "name": "rapid-track-switches-keep-latest-choice",
+      "audio": {
+        "src": "http://127.0.0.1:3001/music/floating-cities.mp3",
+        "time": 0.142485,
+        "duration": 184.058776
+      },
+      "requests": [
+        {
+          "url": "http://127.0.0.1:3001/music/kids.mp3",
+          "type": "Media"
+        },
+        {
+          "url": "http://127.0.0.1:3001/music/cylinder-two.mp3",
+          "type": "Media"
+        },
+        {
+          "url": "http://127.0.0.1:3001/music/gymnopedie-no-1.mp3",
+          "type": "Media"
+        },
+        {
+          "url": "http://127.0.0.1:3001/music/floating-cities.mp3",
+          "type": "Media"
+        }
+      ],
+      "status": "PASS",
+      "elapsedMs": 5759
+    },
+    {
+      "name": "blocked-audio-reports-error-and-recovers",
+      "message": "This audio file is unavailable or unsupported. Try another track or retry playback. Try again",
+      "recovered": {
+        "src": "http://127.0.0.1:3001/music/kids.mp3",
+        "source": "/music/kids.mp3",
+        "paused": false,
+        "time": 0.145074,
+        "duration": 194.616984,
+        "volume": 0.68,
+        "ended": false,
+        "readyState": 4,
+        "networkState": 1
+      },
+      "status": "PASS",
+      "elapsedMs": 4397
+    },
+    {
+      "name": "unsupported-audio-fails-without-endless-loading",
+      "message": "This audio file is unavailable or unsupported. Try another track or retry playback. Try again",
+      "status": "PASS",
+      "elapsedMs": 4434
+    },
+    {
+      "name": "rejected-play-promise-needs-intent-and-recovers",
+      "message": "Your browser paused playback. Press Play to start the music. Try again",
+      "playAttempts": 2,
+      "status": "PASS",
+      "elapsedMs": 4234
+    },
+    {
+      "name": "browser-autoplay-policy-is-enforced",
+      "policy": {
+        "allowed": false,
+        "name": "NotAllowedError",
+        "message": "play() failed because the user didn't interact with the document first. https://goo.gl/xX8pDD"
+      },
+      "status": "PASS",
+      "elapsedMs": 4090
+    },
+    {
+      "name": "slow-network-buffering-recovers",
+      "buffered": [
+        {
+          "name": "waiting",
+          "src": "http://127.0.0.1:3001/music/kids.mp3",
+          "time": 148.687375,
+          "duration": 194.616984,
+          "at": 6566.9000000059605
+        }
+      ],
+      "recovered": {
+        "src": "http://127.0.0.1:3001/music/kids.mp3",
+        "source": "/music/kids.mp3",
+        "paused": false,
+        "time": 148.692142,
+        "duration": 194.616984,
+        "volume": 0.68,
+        "ended": false,
+        "readyState": 4,
+        "networkState": 1
+      },
+      "status": "PASS",
+      "elapsedMs": 6727
+    }
+  ],
+  "rerunReport": "resume-browser-results.json"
+}

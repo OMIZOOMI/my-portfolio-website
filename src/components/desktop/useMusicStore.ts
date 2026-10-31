@@ -1,142 +1,189 @@
 "use client";
 
 import { create } from "zustand";
+import { MUSIC_TRACKS } from "../../data/music";
+import {
+  createMusicPlaybackController,
+  type MusicController,
+  type MusicPlaybackUpdate,
+  type MusicPlaybackStatus,
+} from "./musicPlayback";
 
-export interface MusicTrack {
-  id: string;
-  title: string;
-  artist: string;
-  album: string;
-  durationSeconds: number;
-  accent: string;
-}
-
-export const MUSIC_TRACKS: MusicTrack[] = [
-  {
-    id: "coding-lo-fi",
-    title: "Coding Lo-Fi",
-    artist: "Portfolio Radio",
-    album: "Late Night Builds",
-    durationSeconds: 12,
-    accent: "#bf5af2",
-  },
-  {
-    id: "deep-focus",
-    title: "Deep Focus",
-    artist: "Portfolio Radio",
-    album: "Deep Focus",
-    durationSeconds: 14,
-    accent: "#0a84ff",
-  },
-  {
-    id: "midnight-merge",
-    title: "Midnight Merge",
-    artist: "Portfolio Radio",
-    album: "Late Night Builds",
-    durationSeconds: 16,
-    accent: "#30d158",
-  },
-  {
-    id: "ship-it-slow",
-    title: "Ship It Slow",
-    artist: "Portfolio Radio",
-    album: "Coding Lo-Fi",
-    durationSeconds: 13,
-    accent: "#ff9f0a",
-  },
-];
-
-interface MusicController {
-  togglePlay: () => void;
-  loadTrack: (index: number, autoplay: boolean) => void;
-  restart: () => void;
-  setVolume: (volume: number) => void;
-}
+export { MUSIC_TRACKS } from "../../data/music";
+export type { MusicTrack } from "../../data/music";
 
 interface MusicStoreState {
   currentTrackIndex: number;
   isPlaying: boolean;
+  playbackRequested: boolean;
   isShuffle: boolean;
   isRepeat: boolean;
   sidebarVisible: boolean;
   currentTime: number;
+  /** The browser's media metadata, never a fabricated playback duration. */
   duration: number;
+  durationLoaded: boolean;
+  trackDurations: Record<string, number>;
+  status: MusicPlaybackStatus;
+  error: string | null;
   volume: number;
   controller: MusicController | null;
+  history: number[];
+  queue: number[];
+  playQueue: (indices: number[], startIndex: number) => void;
   registerController: (controller: MusicController) => () => void;
-  setPlaying: (playing: boolean) => void;
-  setCurrentTime: (time: number) => void;
-  setDuration: (duration: number) => void;
   setVolume: (volume: number) => void;
   togglePlay: () => void;
   selectTrack: (index: number, autoplay?: boolean) => void;
   nextTrack: () => void;
   previousTrack: () => void;
+  handleEnded: () => void;
+  seek: (seconds: number) => void;
+  retry: () => void;
+  stop: () => void;
   toggleShuffle: () => void;
   toggleRepeat: () => void;
   toggleSidebar: () => void;
 }
 
 function normalizeTrackIndex(index: number): number {
-  return ((index % MUSIC_TRACKS.length) + MUSIC_TRACKS.length) % MUSIC_TRACKS.length;
+  if (!Number.isFinite(index)) return 0;
+  return ((Math.trunc(index) % MUSIC_TRACKS.length) + MUSIC_TRACKS.length) % MUSIC_TRACKS.length;
+}
+
+/** Exclude the current track, including when Math.random happens to return zero. */
+function nextIndex(index: number, shuffle: boolean, queue: number[]): number {
+  const pool = queue.length ? queue : MUSIC_TRACKS.map((_, i) => i);
+  const position = Math.max(0, pool.indexOf(index));
+  const offset = shuffle && pool.length > 1 ? 1 + Math.min(pool.length - 2, Math.floor(Math.random() * (pool.length - 1))) : 1;
+  return pool[(position + offset) % pool.length];
 }
 
 export const useMusicStore = create<MusicStoreState>((set, get) => ({
   currentTrackIndex: 0,
   isPlaying: false,
+  playbackRequested: false,
   isShuffle: false,
   isRepeat: false,
   sidebarVisible: true,
   currentTime: 0,
-  duration: MUSIC_TRACKS[0].durationSeconds,
+  duration: 0,
+  durationLoaded: false,
+  trackDurations: {},
+  status: "idle",
+  error: null,
   volume: 0.68,
   controller: null,
+  history: [],
+  queue: MUSIC_TRACKS.map((_, index) => index),
+  playQueue: (indices, startIndex) => {
+    const queue = [...new Set(indices.filter(index => Number.isInteger(index) && index >= 0 && index < MUSIC_TRACKS.length))];
+    if (!queue.length || !queue.includes(startIndex)) return;
+    const old = get().queue;
+    const changed = queue.length !== old.length || queue.some((index, i) => index !== old[i]);
+    set({ queue });
+    get().selectTrack(startIndex, true);
+    if (changed) set({ history: [] });
+  },
 
   registerController: (controller) => {
-    set({ controller });
+    // Strict Mode remounts and a second Music window must never leave two players.
+    get().controller?.dispose();
+    set({ controller, isPlaying: false, playbackRequested: false, status: "idle", error: null });
     return () => {
-      set((state) => (state.controller === controller ? { controller: null } : state));
+      if (get().controller !== controller) return;
+      controller.dispose();
+      set({ controller: null, isPlaying: false, playbackRequested: false, status: "idle", error: null });
     };
   },
 
-  setPlaying: (isPlaying) => set({ isPlaying }),
-  setCurrentTime: (currentTime) => set({ currentTime }),
-  setDuration: (duration) => set({ duration }),
   setVolume: (volume) => {
+    if (!Number.isFinite(volume)) return;
     const nextVolume = Math.max(0, Math.min(1, volume));
     set({ volume: nextVolume });
     get().controller?.setVolume(nextVolume);
   },
 
-  togglePlay: () => {
-    const controller = get().controller;
-    if (controller) controller.togglePlay();
-    else set((state) => ({ isPlaying: !state.isPlaying }));
-  },
+  togglePlay: () => get().controller?.togglePlay(),
 
   selectTrack: (index, autoplay = false) => {
-    const nextIndex = normalizeTrackIndex(index);
-    set({ currentTrackIndex: nextIndex, currentTime: 0, duration: MUSIC_TRACKS[nextIndex].durationSeconds });
-    get().controller?.loadTrack(nextIndex, autoplay);
+    const state = get();
+    const indexToLoad = normalizeTrackIndex(index);
+    set({
+      currentTrackIndex: indexToLoad,
+      currentTime: 0,
+      duration: 0,
+      durationLoaded: false,
+      isPlaying: false,
+      playbackRequested: false,
+      status: state.controller ? "loading" : "idle",
+      error: null,
+      queue: state.queue.includes(indexToLoad) ? state.queue : MUSIC_TRACKS.map((_, i) => i),
+      history: indexToLoad === state.currentTrackIndex ? state.history : [...state.history, state.currentTrackIndex].slice(-50),
+    });
+    state.controller?.loadTrack(indexToLoad, autoplay);
   },
 
   nextTrack: () => {
     const state = get();
-    const nextIndex = state.isShuffle
-      ? normalizeTrackIndex(Math.floor(Math.random() * MUSIC_TRACKS.length))
-      : normalizeTrackIndex(state.currentTrackIndex + 1);
-    set({ currentTrackIndex: nextIndex, currentTime: 0, duration: MUSIC_TRACKS[nextIndex].durationSeconds });
-    state.controller?.loadTrack(nextIndex, true);
+    // A paused playlist stays paused. A pending Play/Buffering request is intent.
+    const autoplay = state.controller?.wantsPlayback() ?? false;
+    state.selectTrack(nextIndex(state.currentTrackIndex, state.isShuffle, state.queue), autoplay);
   },
 
   previousTrack: () => {
     const state = get();
-    const previousIndex = normalizeTrackIndex(state.currentTrackIndex - 1);
-    set({ currentTrackIndex: previousIndex, currentTime: 0, duration: MUSIC_TRACKS[previousIndex].durationSeconds });
-    state.controller?.loadTrack(previousIndex, true);
+    const autoplay = state.controller?.wantsPlayback() ?? false;
+    const validHistory = state.history.filter(index => state.queue.includes(index));
+    const prior = validHistory.at(-1);
+    const indexToLoad = prior ?? state.queue[(state.queue.indexOf(state.currentTrackIndex) - 1 + state.queue.length) % state.queue.length];
+    state.selectTrack(indexToLoad, autoplay);
+    // Previous walks the actual shuffle/selection history rather than adding a loop.
+    set({ history: validHistory.slice(0, -1) });
   },
 
+  handleEnded: () => {
+    const state = get();
+    if (!state.controller) return;
+    if (state.isRepeat) state.controller.restart(true);
+    else state.selectTrack(nextIndex(state.currentTrackIndex, state.isShuffle, state.queue), true);
+  },
+
+  seek: (seconds) => get().controller?.seek(seconds),
+  retry: () => get().controller?.retry(),
+  stop: () => {
+    get().controller?.dispose();
+    set({ controller: null, isPlaying: false, playbackRequested: false, status: "idle", error: null });
+  },
   toggleShuffle: () => set((state) => ({ isShuffle: !state.isShuffle })),
   toggleRepeat: () => set((state) => ({ isRepeat: !state.isRepeat })),
   toggleSidebar: () => set((state) => ({ sidebarVisible: !state.sidebarVisible })),
 }));
+
+/**
+ * Called by MusicApp's mount effect. Merely opening Music does not assign a src
+ * or request audio. Minimize leaves the component mounted; close runs cleanup.
+ */
+export function mountMusicPlayer(audio: HTMLAudioElement): () => void {
+  const initial = useMusicStore.getState();
+  const controller: MusicController = createMusicPlaybackController({
+    audio,
+    tracks: MUSIC_TRACKS,
+    initialIndex: initial.currentTrackIndex,
+    initialTime: initial.currentTime,
+    initialVolume: initial.volume,
+    onState: (update: MusicPlaybackUpdate) => {
+      if (useMusicStore.getState().controller !== controller) return;
+      useMusicStore.setState((state) => {
+        const patch: Partial<MusicStoreState> = { ...update };
+        if (update.durationLoaded && update.duration && update.duration > 0) {
+          const track = MUSIC_TRACKS[state.currentTrackIndex];
+          patch.trackDurations = { ...state.trackDurations, [track.id]: update.duration };
+        }
+        return patch;
+      });
+    },
+    onEnded: () => useMusicStore.getState().handleEnded(),
+  });
+  return useMusicStore.getState().registerController(controller);
+}

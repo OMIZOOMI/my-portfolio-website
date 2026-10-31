@@ -51,13 +51,13 @@ export function ProjectDetailView({ window: win }: ProjectDetailViewProps) {
             <p className="mt-2 text-sm leading-6 text-gray-600 dark:text-gray-300">{summary}</p>
           </div>
           <div className="flex flex-wrap gap-2">
-            <button
+            {project && <button
               type="button"
               onClick={openInSafari}
               className="inline-flex items-center gap-1.5 rounded-lg bg-[var(--system-accent)] px-3 py-2 text-xs font-semibold text-white shadow-sm transition hover:brightness-110"
             >
               Open in Safari <ArrowUpRight size={14} />
-            </button>
+            </button>}
             {project && (
               <button
                 type="button"

@@ -1,0 +1,618 @@
+{
+  "browser": "Chrome/156.0.8078.48",
+  "host": {
+    "platform": "darwin",
+    "release": "25.6.0",
+    "arch": "arm64",
+    "cpu": "Apple M1"
+  },
+  "site": "http://127.0.0.1:3001",
+  "input": "Trusted synthetic CDP mouse/key input on macOS Chrome; not a physical mouse/trackpad hardware test",
+  "zoomCoverage": "CSS viewport resizing, emulated DPR, and CDP visual-viewport page-scale emulation; no claim of native browser toolbar zoom",
+  "remainingPhysicalChecks": [
+    "Mac two-finger trackpad secondary click and drag",
+    "Windows mouse/trackpad drag and secondary click",
+    "Native browser toolbar zoom at 80%, 100%, 125%",
+    "Safari hardware/browser interaction"
+  ],
+  "scenarios": [
+    {
+      "name": "virtual-maximize-restore-viewport-dpr-and-page-scale",
+      "samples": [
+        {
+          "config": {
+            "width": 1280,
+            "height": 800,
+            "dpr": 1,
+            "pageScale": 1
+          },
+          "browser": {
+            "innerWidth": 1280,
+            "innerHeight": 800,
+            "dpr": 1,
+            "visualScale": 1,
+            "visualWidth": 1280
+          },
+          "area": {
+            "x": 0,
+            "y": 28,
+            "width": 1400,
+            "height": 782,
+            "desktopWidth": 1400,
+            "desktopHeight": 900,
+            "dockTop": 810
+          },
+          "before": {
+            "x": 250,
+            "y": 150,
+            "width": 642,
+            "height": 478
+          },
+          "maximized": {
+            "x": 0,
+            "y": 28,
+            "width": 1400,
+            "height": 782
+          },
+          "restored": {
+            "x": 250,
+            "y": 150,
+            "width": 642,
+            "height": 478
+          }
+        },
+        {
+          "config": {
+            "width": 1440,
+            "height": 1000,
+            "dpr": 2,
+            "pageScale": 1
+          },
+          "browser": {
+            "innerWidth": 1440,
+            "innerHeight": 1000,
+            "dpr": 2,
+            "visualScale": 1,
+            "visualWidth": 1440
+          },
+          "area": {
+            "x": 0,
+            "y": 28,
+            "width": 1400,
+            "height": 782,
+            "desktopWidth": 1400,
+            "desktopHeight": 900,
+            "dockTop": 810
+          },
+          "before": {
+            "x": 250,
+            "y": 150,
+            "width": 642,
+            "height": 478
+          },
+          "maximized": {
+            "x": 0,
+            "y": 28,
+            "width": 1400,
+            "height": 782
+          },
+          "restored": {
+            "x": 250,
+            "y": 150,
+            "width": 642,
+            "height": 478
+          }
+        },
+        {
+          "config": {
+            "width": 1920,
+            "height": 1080,
+            "dpr": 1,
+            "pageScale": 1.25
+          },
+          "browser": {
+            "innerWidth": 1920,
+            "innerHeight": 1080,
+            "dpr": 1,
+            "visualScale": 1.25,
+            "visualWidth": 1536
+          },
+          "area": {
+            "x": 0,
+            "y": 28,
+            "width": 1400,
+            "height": 782,
+            "desktopWidth": 1400,
+            "desktopHeight": 900,
+            "dockTop": 810
+          },
+          "before": {
+            "x": 250,
+            "y": 150,
+            "width": 642,
+            "height": 478
+          },
+          "maximized": {
+            "x": 0,
+            "y": 28,
+            "width": 1400,
+            "height": 782
+          },
+          "restored": {
+            "x": 250,
+            "y": 150,
+            "width": 642,
+            "height": 478
+          }
+        }
+      ],
+      "status": "PASS",
+      "elapsedMs": 10831
+    },
+    {
+      "name": "overlap-minimize-thumbnail-restore-active-and-bounded-stack",
+      "samples": [
+        {
+          "cycle": 1,
+          "windows": [
+            {
+              "id": "app-notes",
+              "z": 12,
+              "active": true,
+              "minimized": false
+            },
+            {
+              "id": "finder-desktop",
+              "z": 10,
+              "active": false,
+              "minimized": false
+            },
+            {
+              "id": "app-settings",
+              "z": 11,
+              "active": false,
+              "minimized": false
+            }
+          ],
+          "menu": "Notes"
+        },
+        {
+          "cycle": 2,
+          "windows": [
+            {
+              "id": "app-notes",
+              "z": 12,
+              "active": true,
+              "minimized": false
+            },
+            {
+              "id": "finder-desktop",
+              "z": 10,
+              "active": false,
+              "minimized": false
+            },
+            {
+              "id": "app-settings",
+              "z": 11,
+              "active": false,
+              "minimized": false
+            }
+          ],
+          "menu": "Notes"
+        },
+        {
+          "cycle": 3,
+          "windows": [
+            {
+              "id": "app-notes",
+              "z": 12,
+              "active": true,
+              "minimized": false
+            },
+            {
+              "id": "finder-desktop",
+              "z": 10,
+              "active": false,
+              "minimized": false
+            },
+            {
+              "id": "app-settings",
+              "z": 11,
+              "active": false,
+              "minimized": false
+            }
+          ],
+          "menu": "Notes"
+        },
+        {
+          "cycle": 4,
+          "windows": [
+            {
+              "id": "app-notes",
+              "z": 12,
+              "active": true,
+              "minimized": false
+            },
+            {
+              "id": "finder-desktop",
+              "z": 10,
+              "active": false,
+              "minimized": false
+            },
+            {
+              "id": "app-settings",
+              "z": 11,
+              "active": false,
+              "minimized": false
+            }
+          ],
+          "menu": "Notes"
+        },
+        {
+          "cycle": 5,
+          "windows": [
+            {
+              "id": "app-notes",
+              "z": 12,
+              "active": true,
+              "minimized": false
+            },
+            {
+              "id": "finder-desktop",
+              "z": 10,
+              "active": false,
+              "minimized": false
+            },
+            {
+              "id": "app-settings",
+              "z": 11,
+              "active": false,
+              "minimized": false
+            }
+          ],
+          "menu": "Notes"
+        },
+        {
+          "cycle": 6,
+          "windows": [
+            {
+              "id": "app-notes",
+              "z": 12,
+              "active": true,
+              "minimized": false
+            },
+            {
+              "id": "finder-desktop",
+              "z": 10,
+              "active": false,
+              "minimized": false
+            },
+            {
+              "id": "app-settings",
+              "z": 11,
+              "active": false,
+              "minimized": false
+            }
+          ],
+          "menu": "Notes"
+        },
+        {
+          "cycle": 7,
+          "windows": [
+            {
+              "id": "app-notes",
+              "z": 12,
+              "active": true,
+              "minimized": false
+            },
+            {
+              "id": "finder-desktop",
+              "z": 10,
+              "active": false,
+              "minimized": false
+            },
+            {
+              "id": "app-settings",
+              "z": 11,
+              "active": false,
+              "minimized": false
+            }
+          ],
+          "menu": "Notes"
+        },
+        {
+          "cycle": 8,
+          "windows": [
+            {
+              "id": "app-notes",
+              "z": 12,
+              "active": true,
+              "minimized": false
+            },
+            {
+              "id": "finder-desktop",
+              "z": 10,
+              "active": false,
+              "minimized": false
+            },
+            {
+              "id": "app-settings",
+              "z": 11,
+              "active": false,
+              "minimized": false
+            }
+          ],
+          "menu": "Notes"
+        },
+        {
+          "cycle": 9,
+          "windows": [
+            {
+              "id": "app-notes",
+              "z": 12,
+              "active": true,
+              "minimized": false
+            },
+            {
+              "id": "finder-desktop",
+              "z": 10,
+              "active": false,
+              "minimized": false
+            },
+            {
+              "id": "app-settings",
+              "z": 11,
+              "active": false,
+              "minimized": false
+            }
+          ],
+          "menu": "Notes"
+        },
+        {
+          "cycle": 10,
+          "windows": [
+            {
+              "id": "app-notes",
+              "z": 12,
+              "active": true,
+              "minimized": false
+            },
+            {
+              "id": "finder-desktop",
+              "z": 10,
+              "active": false,
+              "minimized": false
+            },
+            {
+              "id": "app-settings",
+              "z": 11,
+              "active": false,
+              "minimized": false
+            }
+          ],
+          "menu": "Notes"
+        },
+        {
+          "cycle": 11,
+          "windows": [
+            {
+              "id": "app-notes",
+              "z": 12,
+              "active": true,
+              "minimized": false
+            },
+            {
+              "id": "finder-desktop",
+              "z": 10,
+              "active": false,
+              "minimized": false
+            },
+            {
+              "id": "app-settings",
+              "z": 11,
+              "active": false,
+              "minimized": false
+            }
+          ],
+          "menu": "Notes"
+        },
+        {
+          "cycle": 12,
+          "windows": [
+            {
+              "id": "app-notes",
+              "z": 12,
+              "active": true,
+              "minimized": false
+            },
+            {
+              "id": "finder-desktop",
+              "z": 10,
+              "active": false,
+              "minimized": false
+            },
+            {
+              "id": "app-settings",
+              "z": 11,
+              "active": false,
+              "minimized": false
+            }
+          ],
+          "menu": "Notes"
+        }
+      ],
+      "status": "PASS",
+      "elapsedMs": 15576
+    },
+    {
+      "name": "maximized-frame-follows-real-dock-size-preference",
+      "status": "FAIL",
+      "error": "Error: Timed out: Maximized background window follows measured dock layout: false\n    at until (file:///Users/Om/Om%20Main%20Portfolio/tests/stage9-interactions.browser.mjs:39:9)\n    at async file:///Users/Om/Om%20Main%20Portfolio/tests/stage9-interactions.browser.mjs:242:5\n    at async scenario (file:///Users/Om/Om%20Main%20Portfolio/tests/stage9-interactions.browser.mjs:175:28)\n    at async file:///Users/Om/Om%20Main%20Portfolio/tests/stage9-interactions.browser.mjs:229:1",
+      "state": {
+        "windows": [
+          {
+            "id": "app-notes",
+            "z": 10,
+            "active": false,
+            "minimized": false
+          },
+          {
+            "id": "app-settings",
+            "z": 11,
+            "active": true,
+            "minimized": false
+          }
+        ],
+        "menu": "Settings"
+      },
+      "events": [
+        {
+          "type": "click",
+          "detail": 1,
+          "trusted": true,
+          "x": 631,
+          "y": 610,
+          "prevented": false
+        },
+        {
+          "type": "click",
+          "detail": 1,
+          "trusted": true,
+          "x": 474,
+          "y": 160,
+          "frame": "app-notes",
+          "prevented": false
+        },
+        {
+          "type": "click",
+          "detail": 1,
+          "trusted": true,
+          "x": 840,
+          "y": 609,
+          "prevented": false
+        },
+        {
+          "type": "click",
+          "detail": 1,
+          "trusted": true,
+          "x": 500,
+          "y": 286,
+          "frame": "app-settings",
+          "prevented": false
+        },
+        {
+          "type": "click",
+          "detail": 1,
+          "trusted": true,
+          "x": 714,
+          "y": 346,
+          "frame": "app-settings",
+          "prevented": false
+        },
+        {
+          "type": "keydown",
+          "key": "Home",
+          "repeat": false,
+          "detail": 0,
+          "trusted": true,
+          "frame": "app-settings",
+          "prevented": false
+        },
+        {
+          "type": "keyup",
+          "key": "Home",
+          "repeat": false,
+          "detail": 0,
+          "trusted": true,
+          "frame": "app-settings",
+          "prevented": false
+        }
+      ],
+      "elapsedMs": 30875
+    },
+    {
+      "name": "title-drag-all-virtual-edges-and-restore-after-drag",
+      "status": "FAIL",
+      "error": "AssertionError [ERR_ASSERTION]: Interior drag preserves the exact local delta through perspective y: 230.035 vs 229\n    at closeEnough (file:///Users/Om/Om%20Main%20Portfolio/tests/stage9-interactions.browser.mjs:124:57)\n    at file:///Users/Om/Om%20Main%20Portfolio/tests/stage9-interactions.browser.mjs:273:3\n    at async scenario (file:///Users/Om/Om%20Main%20Portfolio/tests/stage9-interactions.browser.mjs:175:28)\n    at async file:///Users/Om/Om%20Main%20Portfolio/tests/stage9-interactions.browser.mjs:262:1",
+      "state": {
+        "windows": [
+          {
+            "id": "app-notes",
+            "z": 10,
+            "active": true,
+            "minimized": false
+          }
+        ],
+        "menu": "Notes"
+      },
+      "events": [
+        {
+          "type": "click",
+          "detail": 1,
+          "trusted": true,
+          "x": 631,
+          "y": 610,
+          "prevented": false
+        },
+        {
+          "type": "click",
+          "detail": 1,
+          "trusted": true,
+          "x": 765,
+          "y": 213,
+          "frame": "app-notes",
+          "prevented": false
+        }
+      ],
+      "elapsedMs": 4589
+    },
+    {
+      "name": "desktop-icon-selection-double-click-keyboard-repeat-and-drag",
+      "keyboard": [
+        {
+          "key": "Enter",
+          "repeatedKeydowns": 5
+        },
+        {
+          "key": " ",
+          "repeatedKeydowns": 5
+        }
+      ],
+      "focus": {
+        "focused": true,
+        "selected": "true",
+        "outlineWidth": "2px",
+        "outlineStyle": "solid"
+      },
+      "drag": {
+        "before": {
+          "left": "1300px",
+          "top": "48px"
+        },
+        "after": {
+          "left": "135.442px",
+          "top": "183.033px"
+        }
+      },
+      "status": "PASS",
+      "elapsedMs": 8496
+    },
+    {
+      "name": "finder-create-f2-context-menu-and-rename-stable-identity",
+      "identity": "folder-1793293570235-1",
+      "nestedIdentity": "folder-1793293570932-2",
+      "secondaryClick": {
+        "type": "contextmenu",
+        "detail": 0,
+        "trusted": true,
+        "x": 788,
+        "y": 269,
+        "item": "folder-1793293570235-1",
+        "frame": "finder-desktop",
+        "prevented": true
+      },
+      "status": "PASS",
+      "elapsedMs": 4813
+    }
+  ]
+}

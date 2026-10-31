@@ -1,0 +1,1083 @@
+{
+  "testedAt": "2026-10-29T10:29:06.586Z",
+  "site": "http://127.0.0.1:3001",
+  "buildId": "4j8pmUttSV0UBeCCZJ5LU",
+  "browser": "Chrome/156.0.8078.48",
+  "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36",
+  "os": "darwin 25.6.0 arm64",
+  "macOS": "26.6.1",
+  "device": "MacBookAir10,1\nApple M1",
+  "environment": "Isolated headless Chromium on the OS above. Canvas MediaStream and synthetic permission/playback failures. No physical camera or native permission-prompt evidence; this run does not establish parity with an untested OS/browser.",
+  "scenarios": [
+    {
+      "name": "native-video-model-no-hand-camera-toggle-and-single-instance",
+      "fixture": {},
+      "requestsBeforeOpen": [],
+      "live": {
+        "camera": "live",
+        "delegate": "GPU",
+        "readyState": 4,
+        "paused": false,
+        "width": 320,
+        "height": 240,
+        "transform": "matrix(-1, 0, 0, 1, 0, 0)",
+        "scale": "none"
+      },
+      "noHand": "Camera & gestures\n\nA little interaction, entirely on your device.\n\nCamera live\nGestures ready\nLive preview\nCamera on\nEffects on\nReduce motion\nGesture help\n\nCamera demo · video stays on this device",
+      "media": {
+        "calls": [
+          {
+            "constraints": {
+              "video": {
+                "width": {
+                  "ideal": 1280
+                },
+                "height": {
+                  "ideal": 720
+                },
+                "facingMode": {
+                  "ideal": "user"
+                }
+              },
+              "audio": false
+            },
+            "at": 4237.399999976158
+          },
+          {
+            "constraints": {
+              "video": {
+                "width": {
+                  "ideal": 1280
+                },
+                "height": {
+                  "ideal": 720
+                },
+                "facingMode": {
+                  "ideal": "user"
+                }
+              },
+              "audio": false
+            },
+            "at": 9333.100000023842
+          }
+        ],
+        "stops": 1,
+        "pending": 0,
+        "liveTracks": 1,
+        "trackStates": [
+          {
+            "readyState": "ended",
+            "enabled": true,
+            "kind": "video"
+          },
+          {
+            "readyState": "live",
+            "enabled": true,
+            "kind": "video"
+          }
+        ],
+        "events": [
+          {
+            "name": "waiting",
+            "at": 4306.600000023842,
+            "readyState": 0
+          },
+          {
+            "name": "loadedmetadata",
+            "at": 4321.300000011921,
+            "readyState": 4
+          },
+          {
+            "name": "playing",
+            "at": 4322.600000023842,
+            "readyState": 4
+          },
+          {
+            "name": "waiting",
+            "at": 9348.600000023842,
+            "readyState": 0
+          },
+          {
+            "name": "loadedmetadata",
+            "at": 9348.899999976158,
+            "readyState": 4
+          },
+          {
+            "name": "playing",
+            "at": 9350.100000023842,
+            "readyState": 4
+          }
+        ]
+      },
+      "status": "PASS",
+      "runtimeErrors": [],
+      "elapsedMs": 10816
+    },
+    {
+      "name": "denied-camera-retry",
+      "fixture": {
+        "behaviors": [
+          "NotAllowedError",
+          "ok"
+        ]
+      },
+      "failure": "Camera & gestures\n\nA little interaction, entirely on your device.\n\nCamera unavailable\nGestures paused\nLive preview\nCamera unavailable\n\nCamera permission was denied or dismissed. Allow camera access in your browser’s site settings, then retry.\n\nRetry camera\nRetry camera\nEffects on\nReduce motion\nGesture help\n\nCamera demo · video stays on this device",
+      "media": {
+        "calls": [
+          {
+            "constraints": {
+              "video": {
+                "width": {
+                  "ideal": 1280
+                },
+                "height": {
+                  "ideal": 720
+                },
+                "facingMode": {
+                  "ideal": "user"
+                }
+              },
+              "audio": false
+            },
+            "at": 3748.5
+          },
+          {
+            "constraints": {
+              "video": {
+                "width": {
+                  "ideal": 1280
+                },
+                "height": {
+                  "ideal": 720
+                },
+                "facingMode": {
+                  "ideal": "user"
+                }
+              },
+              "audio": false
+            },
+            "at": 4194.5
+          }
+        ],
+        "stops": 0,
+        "pending": 0,
+        "liveTracks": 1,
+        "trackStates": [
+          {
+            "readyState": "live",
+            "enabled": true,
+            "kind": "video"
+          }
+        ],
+        "events": [
+          {
+            "name": "waiting",
+            "at": 4249.600000023842,
+            "readyState": 0
+          },
+          {
+            "name": "loadedmetadata",
+            "at": 4251.199999988079,
+            "readyState": 4
+          },
+          {
+            "name": "playing",
+            "at": 4252.600000023842,
+            "readyState": 4
+          }
+        ]
+      },
+      "status": "PASS",
+      "runtimeErrors": [],
+      "elapsedMs": 5048
+    },
+    {
+      "name": "busy-camera-retry",
+      "fixture": {
+        "behaviors": [
+          "NotReadableError",
+          "ok"
+        ]
+      },
+      "failure": "Camera & gestures\n\nA little interaction, entirely on your device.\n\nCamera unavailable\nGestures paused\nLive preview\nCamera unavailable\n\nThe camera is busy or unavailable. Close other camera apps and check your system camera settings, then retry.\n\nRetry camera\nRetry camera\nEffects on\nReduce motion\nGesture help\n\nCamera demo · video stays on this device",
+      "media": {
+        "calls": [
+          {
+            "constraints": {
+              "video": {
+                "width": {
+                  "ideal": 1280
+                },
+                "height": {
+                  "ideal": 720
+                },
+                "facingMode": {
+                  "ideal": "user"
+                }
+              },
+              "audio": false
+            },
+            "at": 3545.899999976158
+          },
+          {
+            "constraints": {
+              "video": {
+                "width": {
+                  "ideal": 1280
+                },
+                "height": {
+                  "ideal": 720
+                },
+                "facingMode": {
+                  "ideal": "user"
+                }
+              },
+              "audio": false
+            },
+            "at": 3980.100000023842
+          }
+        ],
+        "stops": 0,
+        "pending": 0,
+        "liveTracks": 1,
+        "trackStates": [
+          {
+            "readyState": "live",
+            "enabled": true,
+            "kind": "video"
+          }
+        ],
+        "events": [
+          {
+            "name": "waiting",
+            "at": 4045.800000011921,
+            "readyState": 0
+          },
+          {
+            "name": "loadedmetadata",
+            "at": 4047.600000023842,
+            "readyState": 4
+          },
+          {
+            "name": "playing",
+            "at": 4049,
+            "readyState": 4
+          }
+        ]
+      },
+      "status": "PASS",
+      "runtimeErrors": [],
+      "elapsedMs": 4814
+    },
+    {
+      "name": "missing-camera-retry",
+      "fixture": {
+        "behaviors": [
+          "NotFoundError",
+          "ok"
+        ]
+      },
+      "failure": "Camera & gestures\n\nA little interaction, entirely on your device.\n\nCamera unavailable\nGestures paused\nLive preview\nCamera unavailable\n\nNo camera was found. Connect or enable a camera, then retry.\n\nRetry camera\nRetry camera\nEffects on\nReduce motion\nGesture help\n\nCamera demo · video stays on this device",
+      "media": {
+        "calls": [
+          {
+            "constraints": {
+              "video": {
+                "width": {
+                  "ideal": 1280
+                },
+                "height": {
+                  "ideal": 720
+                },
+                "facingMode": {
+                  "ideal": "user"
+                }
+              },
+              "audio": false
+            },
+            "at": 3618.199999988079
+          },
+          {
+            "constraints": {
+              "video": {
+                "width": {
+                  "ideal": 1280
+                },
+                "height": {
+                  "ideal": 720
+                },
+                "facingMode": {
+                  "ideal": "user"
+                }
+              },
+              "audio": false
+            },
+            "at": 3988.100000023842
+          }
+        ],
+        "stops": 0,
+        "pending": 0,
+        "liveTracks": 1,
+        "trackStates": [
+          {
+            "readyState": "live",
+            "enabled": true,
+            "kind": "video"
+          }
+        ],
+        "events": [
+          {
+            "name": "waiting",
+            "at": 4043.100000023842,
+            "readyState": 0
+          },
+          {
+            "name": "loadedmetadata",
+            "at": 4044,
+            "readyState": 4
+          },
+          {
+            "name": "playing",
+            "at": 4045.300000011921,
+            "readyState": 4
+          }
+        ]
+      },
+      "status": "PASS",
+      "runtimeErrors": [],
+      "elapsedMs": 4807
+    },
+    {
+      "name": "delayed-stream-attaches-without-permission-render-deadlock",
+      "fixture": {
+        "behaviors": [
+          "pending"
+        ]
+      },
+      "media": {
+        "calls": [
+          {
+            "constraints": {
+              "video": {
+                "width": {
+                  "ideal": 1280
+                },
+                "height": {
+                  "ideal": 720
+                },
+                "facingMode": {
+                  "ideal": "user"
+                }
+              },
+              "audio": false
+            },
+            "at": 3539.099999964237
+          }
+        ],
+        "stops": 0,
+        "pending": 0,
+        "liveTracks": 1,
+        "trackStates": [
+          {
+            "readyState": "live",
+            "enabled": true,
+            "kind": "video"
+          }
+        ],
+        "events": [
+          {
+            "name": "waiting",
+            "at": 4084.800000011921,
+            "readyState": 0
+          },
+          {
+            "name": "loadedmetadata",
+            "at": 4087.599999964237,
+            "readyState": 4
+          },
+          {
+            "name": "playing",
+            "at": 4088.899999976158,
+            "readyState": 4
+          }
+        ]
+      },
+      "status": "PASS",
+      "runtimeErrors": [],
+      "elapsedMs": 4850
+    },
+    {
+      "name": "unanswered-permission-times-out-and-retry-does-not-duplicate-prompts",
+      "fixture": {
+        "behaviors": [
+          "pending"
+        ]
+      },
+      "timeout": "Camera & gestures\n\nA little interaction, entirely on your device.\n\nCamera unavailable\nGestures paused\nLive preview\nCamera unavailable\n\nThe camera request is still waiting. Answer or dismiss the browser prompt, then retry.\n\nRetry camera\nRetry camera\nEffects on\nReduce motion\nGesture help\n\nCamera demo · video stays on this device",
+      "media": {
+        "calls": [
+          {
+            "constraints": {
+              "video": {
+                "width": {
+                  "ideal": 1280
+                },
+                "height": {
+                  "ideal": 720
+                },
+                "facingMode": {
+                  "ideal": "user"
+                }
+              },
+              "audio": false
+            },
+            "at": 3672.199999988079
+          },
+          {
+            "constraints": {
+              "video": {
+                "width": {
+                  "ideal": 1280
+                },
+                "height": {
+                  "ideal": 720
+                },
+                "facingMode": {
+                  "ideal": "user"
+                }
+              },
+              "audio": false
+            },
+            "at": 19266.899999976158
+          }
+        ],
+        "stops": 1,
+        "pending": 0,
+        "liveTracks": 1,
+        "trackStates": [
+          {
+            "readyState": "ended",
+            "enabled": true,
+            "kind": "video"
+          },
+          {
+            "readyState": "live",
+            "enabled": true,
+            "kind": "video"
+          }
+        ],
+        "events": [
+          {
+            "name": "waiting",
+            "at": 19317.19999998808,
+            "readyState": 0
+          },
+          {
+            "name": "loadedmetadata",
+            "at": 19324,
+            "readyState": 4
+          },
+          {
+            "name": "playing",
+            "at": 19326.30000001192,
+            "readyState": 4
+          }
+        ]
+      },
+      "status": "PASS",
+      "runtimeErrors": [],
+      "elapsedMs": 20067
+    },
+    {
+      "name": "close-before-permission-completes-stops-late-stream",
+      "fixture": {
+        "behaviors": [
+          "pending",
+          "ok"
+        ]
+      },
+      "media": {
+        "calls": [
+          {
+            "constraints": {
+              "video": {
+                "width": {
+                  "ideal": 1280
+                },
+                "height": {
+                  "ideal": 720
+                },
+                "facingMode": {
+                  "ideal": "user"
+                }
+              },
+              "audio": false
+            },
+            "at": 3358
+          }
+        ],
+        "stops": 1,
+        "pending": 0,
+        "liveTracks": 0,
+        "trackStates": [
+          {
+            "readyState": "ended",
+            "enabled": true,
+            "kind": "video"
+          }
+        ],
+        "events": []
+      },
+      "status": "PASS",
+      "runtimeErrors": [],
+      "elapsedMs": 5479
+    },
+    {
+      "name": "playback-rejected-resume-is-a-real-user-action",
+      "fixture": {
+        "playbackFailures": 1
+      },
+      "blocked": "Camera & gestures\n\nA little interaction, entirely on your device.\n\nPreview paused\nGestures paused\nLive preview\nPreview paused\n\nCamera allowed, but preview playback was blocked. Select Resume camera to continue.\n\nResume camera\nResume camera\nEffects on\nReduce motion\nGesture help\n\nCamera demo · video stays on this device",
+      "media": {
+        "calls": [
+          {
+            "constraints": {
+              "video": {
+                "width": {
+                  "ideal": 1280
+                },
+                "height": {
+                  "ideal": 720
+                },
+                "facingMode": {
+                  "ideal": "user"
+                }
+              },
+              "audio": false
+            },
+            "at": 3354.7999999523163
+          }
+        ],
+        "stops": 0,
+        "pending": 0,
+        "liveTracks": 1,
+        "trackStates": [
+          {
+            "readyState": "live",
+            "enabled": true,
+            "kind": "video"
+          }
+        ],
+        "events": [
+          {
+            "name": "loadedmetadata",
+            "at": 3399.899999976158,
+            "readyState": 4
+          },
+          {
+            "name": "playing",
+            "at": 3754.399999976158,
+            "readyState": 4
+          }
+        ]
+      },
+      "status": "PASS",
+      "runtimeErrors": [],
+      "elapsedMs": 4502
+    },
+    {
+      "name": "externally-ended-track-is-not-reported-live",
+      "fixture": {},
+      "text": "Camera & gestures\n\nA little interaction, entirely on your device.\n\nCamera unavailable\nGestures paused\nLive preview\nCamera unavailable\n\nThe camera disconnected or permission was removed. Check access, then retry.\n\nRetry camera\nRetry camera\nEffects on\nReduce motion\nGesture help\n\nCamera demo · video stays on this device",
+      "media": {
+        "calls": [
+          {
+            "constraints": {
+              "video": {
+                "width": {
+                  "ideal": 1280
+                },
+                "height": {
+                  "ideal": 720
+                },
+                "facingMode": {
+                  "ideal": "user"
+                }
+              },
+              "audio": false
+            },
+            "at": 3673.5
+          },
+          {
+            "constraints": {
+              "video": {
+                "width": {
+                  "ideal": 1280
+                },
+                "height": {
+                  "ideal": 720
+                },
+                "facingMode": {
+                  "ideal": "user"
+                }
+              },
+              "audio": false
+            },
+            "at": 4062.699999988079
+          }
+        ],
+        "stops": 2,
+        "pending": 0,
+        "liveTracks": 1,
+        "trackStates": [
+          {
+            "readyState": "ended",
+            "enabled": true,
+            "kind": "video"
+          },
+          {
+            "readyState": "live",
+            "enabled": true,
+            "kind": "video"
+          }
+        ],
+        "events": [
+          {
+            "name": "waiting",
+            "at": 3715.300000011921,
+            "readyState": 0
+          },
+          {
+            "name": "loadedmetadata",
+            "at": 3721.699999988079,
+            "readyState": 4
+          },
+          {
+            "name": "playing",
+            "at": 3722.899999976158,
+            "readyState": 4
+          },
+          {
+            "name": "waiting",
+            "at": 4077.800000011921,
+            "readyState": 0
+          },
+          {
+            "name": "loadedmetadata",
+            "at": 4078,
+            "readyState": 4
+          },
+          {
+            "name": "playing",
+            "at": 4079,
+            "readyState": 4
+          }
+        ]
+      },
+      "status": "PASS",
+      "runtimeErrors": [],
+      "elapsedMs": 4817
+    },
+    {
+      "name": "minimize-hidden-restore-and-explicit-off-lifecycle",
+      "fixture": {},
+      "pageHideImmediate": {
+        "calls": [
+          {
+            "constraints": {
+              "video": {
+                "width": {
+                  "ideal": 1280
+                },
+                "height": {
+                  "ideal": 720
+                },
+                "facingMode": {
+                  "ideal": "user"
+                }
+              },
+              "audio": false
+            },
+            "at": 3557.900000035763
+          },
+          {
+            "constraints": {
+              "video": {
+                "width": {
+                  "ideal": 1280
+                },
+                "height": {
+                  "ideal": 720
+                },
+                "facingMode": {
+                  "ideal": "user"
+                }
+              },
+              "audio": false
+            },
+            "at": 4980.300000011921
+          },
+          {
+            "constraints": {
+              "video": {
+                "width": {
+                  "ideal": 1280
+                },
+                "height": {
+                  "ideal": 720
+                },
+                "facingMode": {
+                  "ideal": "user"
+                }
+              },
+              "audio": false
+            },
+            "at": 5252.600000023842
+          }
+        ],
+        "stops": 3,
+        "pending": 0,
+        "liveTracks": 0,
+        "trackStates": [
+          {
+            "readyState": "ended",
+            "enabled": true,
+            "kind": "video"
+          },
+          {
+            "readyState": "ended",
+            "enabled": true,
+            "kind": "video"
+          },
+          {
+            "readyState": "ended",
+            "enabled": true,
+            "kind": "video"
+          }
+        ],
+        "events": [
+          {
+            "name": "waiting",
+            "at": 3596.800000011921,
+            "readyState": 0
+          },
+          {
+            "name": "loadedmetadata",
+            "at": 3597.300000011921,
+            "readyState": 4
+          },
+          {
+            "name": "playing",
+            "at": 3598.600000023842,
+            "readyState": 4
+          },
+          {
+            "name": "waiting",
+            "at": 4982.199999988079,
+            "readyState": 0
+          },
+          {
+            "name": "loadedmetadata",
+            "at": 4987.699999988079,
+            "readyState": 4
+          },
+          {
+            "name": "playing",
+            "at": 4988.5,
+            "readyState": 4
+          },
+          {
+            "name": "waiting",
+            "at": 5254.300000011921,
+            "readyState": 0
+          },
+          {
+            "name": "loadedmetadata",
+            "at": 5259.400000035763,
+            "readyState": 4
+          },
+          {
+            "name": "playing",
+            "at": 5260.300000011921,
+            "readyState": 4
+          }
+        ]
+      },
+      "media": {
+        "calls": [
+          {
+            "constraints": {
+              "video": {
+                "width": {
+                  "ideal": 1280
+                },
+                "height": {
+                  "ideal": 720
+                },
+                "facingMode": {
+                  "ideal": "user"
+                }
+              },
+              "audio": false
+            },
+            "at": 3557.900000035763
+          },
+          {
+            "constraints": {
+              "video": {
+                "width": {
+                  "ideal": 1280
+                },
+                "height": {
+                  "ideal": 720
+                },
+                "facingMode": {
+                  "ideal": "user"
+                }
+              },
+              "audio": false
+            },
+            "at": 4980.300000011921
+          },
+          {
+            "constraints": {
+              "video": {
+                "width": {
+                  "ideal": 1280
+                },
+                "height": {
+                  "ideal": 720
+                },
+                "facingMode": {
+                  "ideal": "user"
+                }
+              },
+              "audio": false
+            },
+            "at": 5252.600000023842
+          },
+          {
+            "constraints": {
+              "video": {
+                "width": {
+                  "ideal": 1280
+                },
+                "height": {
+                  "ideal": 720
+                },
+                "facingMode": {
+                  "ideal": "user"
+                }
+              },
+              "audio": false
+            },
+            "at": 5507.5
+          }
+        ],
+        "stops": 4,
+        "pending": 0,
+        "liveTracks": 0,
+        "trackStates": [
+          {
+            "readyState": "ended",
+            "enabled": true,
+            "kind": "video"
+          },
+          {
+            "readyState": "ended",
+            "enabled": true,
+            "kind": "video"
+          },
+          {
+            "readyState": "ended",
+            "enabled": true,
+            "kind": "video"
+          },
+          {
+            "readyState": "ended",
+            "enabled": true,
+            "kind": "video"
+          }
+        ],
+        "events": [
+          {
+            "name": "waiting",
+            "at": 3596.800000011921,
+            "readyState": 0
+          },
+          {
+            "name": "loadedmetadata",
+            "at": 3597.300000011921,
+            "readyState": 4
+          },
+          {
+            "name": "playing",
+            "at": 3598.600000023842,
+            "readyState": 4
+          },
+          {
+            "name": "waiting",
+            "at": 4982.199999988079,
+            "readyState": 0
+          },
+          {
+            "name": "loadedmetadata",
+            "at": 4987.699999988079,
+            "readyState": 4
+          },
+          {
+            "name": "playing",
+            "at": 4988.5,
+            "readyState": 4
+          },
+          {
+            "name": "waiting",
+            "at": 5254.300000011921,
+            "readyState": 0
+          },
+          {
+            "name": "loadedmetadata",
+            "at": 5259.400000035763,
+            "readyState": 4
+          },
+          {
+            "name": "playing",
+            "at": 5260.300000011921,
+            "readyState": 4
+          },
+          {
+            "name": "waiting",
+            "at": 5511.5,
+            "readyState": 0
+          },
+          {
+            "name": "loadedmetadata",
+            "at": 5514.699999988079,
+            "readyState": 4
+          },
+          {
+            "name": "playing",
+            "at": 5515.600000023842,
+            "readyState": 4
+          }
+        ]
+      },
+      "status": "PASS",
+      "runtimeErrors": [],
+      "elapsedMs": 7151
+    },
+    {
+      "name": "real-gpu-initialization-refusal-falls-back-to-cpu",
+      "fixture": {},
+      "delegate": "CPU",
+      "refusedContexts": 6,
+      "confetti": {
+        "particles": 70,
+        "canvases": 0,
+        "camera": "live"
+      },
+      "status": "PASS",
+      "runtimeErrors": [],
+      "elapsedMs": 9109
+    },
+    {
+      "name": "gpu-context-loss-after-inference-rebuilds-one-cpu-detector",
+      "fixture": {},
+      "initialDelegate": "GPU",
+      "loss": {
+        "method": "WEBGL_lose_context",
+        "contexts": 3
+      },
+      "final": {
+        "delegate": "CPU",
+        "status": "ready"
+      },
+      "status": "PASS",
+      "runtimeErrors": [],
+      "elapsedMs": 5779
+    },
+    {
+      "name": "model-asset-failure-keeps-camera-usable-and-retries",
+      "fixture": {
+        "block": [
+          "*hand_landmarker.task*"
+        ]
+      },
+      "failure": "Camera & gestures\n\nA little interaction, entirely on your device.\n\nCamera live\nGestures unavailable\nLive preview\nFailed to fetch\nRetry gestures\nCamera on\nEffects on\nReduce motion\nGesture help\n\nCamera demo · video stays on this device",
+      "delegate": "GPU",
+      "assetRequests": [
+        "http://127.0.0.1:3001/mediapipe/tasks-vision-1.0.1/wasm/vision_wasm_internal.js",
+        "http://127.0.0.1:3001/mediapipe/tasks-vision-1.0.1/wasm/vision_wasm_internal.wasm",
+        "http://127.0.0.1:3001/mediapipe/hand_landmarker.task",
+        "http://127.0.0.1:3001/mediapipe/hand_landmarker.task",
+        "http://127.0.0.1:3001/mediapipe/tasks-vision-1.0.1/wasm/vision_wasm_internal.js",
+        "http://127.0.0.1:3001/mediapipe/tasks-vision-1.0.1/wasm/vision_wasm_internal.wasm"
+      ],
+      "status": "PASS",
+      "runtimeErrors": [],
+      "elapsedMs": 5197
+    },
+    {
+      "name": "wasm-asset-failure-keeps-camera-usable-and-retries",
+      "fixture": {
+        "block": [
+          "*vision_wasm*"
+        ]
+      },
+      "failure": "Camera & gestures\n\nA little interaction, entirely on your device.\n\nCamera live\nGestures unavailable\nLive preview\nFailed to fetch\nRetry gestures\nCamera on\nEffects on\nReduce motion\nGesture help\n\nCamera demo · video stays on this device",
+      "delegate": "GPU",
+      "assetRequests": [
+        "http://127.0.0.1:3001/mediapipe/tasks-vision-1.0.1/wasm/vision_wasm_internal.js",
+        "http://127.0.0.1:3001/mediapipe/tasks-vision-1.0.1/wasm/vision_wasm_internal.wasm",
+        "http://127.0.0.1:3001/mediapipe/tasks-vision-1.0.1/wasm/vision_wasm_internal.js",
+        "http://127.0.0.1:3001/mediapipe/tasks-vision-1.0.1/wasm/vision_wasm_internal.wasm",
+        "http://127.0.0.1:3001/mediapipe/hand_landmarker.task",
+        "http://127.0.0.1:3001/mediapipe/tasks-vision-1.0.1/wasm/vision_wasm_internal.js",
+        "http://127.0.0.1:3001/mediapipe/tasks-vision-1.0.1/wasm/vision_wasm_internal.wasm"
+      ],
+      "status": "PASS",
+      "runtimeErrors": [],
+      "elapsedMs": 5796
+    },
+    {
+      "name": "insecure-context-fixture-has-actionable-status-and-no-request",
+      "fixture": {
+        "insecure": true
+      },
+      "text": "Camera & gestures\n\nA little interaction, entirely on your device.\n\nCamera unavailable\nGestures paused\nLive preview\nCamera unavailable\n\nCamera access needs HTTPS or localhost. Open the secure version of this site.\n\nRetry camera\nRetry camera\nEffects on\nReduce motion\nGesture help\n\nCamera demo · video stays on this device",
+      "status": "PASS",
+      "runtimeErrors": [],
+      "elapsedMs": 3315
+    }
+  ],
+  "gpu": {
+    "devices": [
+      {
+        "vendorId": 4203,
+        "deviceId": 0,
+        "vendorString": "Google Inc. (Apple)",
+        "deviceString": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Version 26.6.1 (Build 25G76))",
+        "driverVendor": "Apple",
+        "driverVersion": "26.6.1"
+      }
+    ],
+    "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Version 26.6.1 (Build 25G76))",
+    "vendor": "Google Inc. (Apple)",
+    "featureStatus": {
+      "2d_canvas": "enabled",
+      "direct_rendering_display_compositor": "disabled_off_ok",
+      "gpu_compositing": "enabled",
+      "multiple_raster_threads": "enabled_on",
+      "opengl": "enabled_on",
+      "rasterization": "enabled",
+      "raw_draw": "disabled_off_ok",
+      "skia_graphite": "enabled_on",
+      "trees_in_viz": "disabled_off",
+      "video_decode": "enabled",
+      "video_encode": "enabled",
+      "webgl": "enabled",
+      "webgpu": "enabled",
+      "webnn": "disabled_off"
+    }
+  }
+}

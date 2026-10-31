@@ -1,0 +1,2 @@
+PASS combined-scene-camera-recognition-effects-music-and-window-drag 49010ms
+PASS camera-denial-retry-hidden-restore-and-repeated-cleanup 27884ms

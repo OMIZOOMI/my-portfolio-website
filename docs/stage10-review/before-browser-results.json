@@ -1,0 +1,41 @@
+{
+  "browser": "Chrome/156.0.8078.48",
+  "host": {
+    "platform": "darwin",
+    "release": "25.6.0",
+    "arch": "arm64"
+  },
+  "site": "http://127.0.0.1:3001",
+  "before": true,
+  "scenarios": [],
+  "beforeSwitch": {
+    "address": "portfolio://project/cloud-native-asset-management-api",
+    "tabs": [
+      {
+        "title": "Portfolio",
+        "active": false
+      },
+      {
+        "title": "Portfolio",
+        "active": true
+      }
+    ],
+    "text": " Back to favoritesProject detailCloud-Native Asset Management APIA cloud-ready backend architecture built around FastAPI, PostgreSQL, Docker, and AWS primitives, with clear separation between API, persistence, configuration, and deployment concerns.FastAPIPostgreSQLDockerAWSPython Open GitHub repository Architecture1FastAPI exposes typed HTTP endpoints and validation boundaries.2PostgreSQL stores durable asset metadata and workflow state.3Docker packages the service for reproducible local and cloud runs.4AWS architecture provides the deployment, networking, and storage path.HighlightsTyped REST API boundariesPersistent relational storageReproducible container deployment"
+  },
+  "afterSwitch": {
+    "address": "portfolio://project/edge-ai-hardware-state-detection",
+    "tabs": [
+      {
+        "title": "Portfolio",
+        "active": false
+      },
+      {
+        "title": "Portfolio",
+        "active": true
+      }
+    ],
+    "text": " Back to favoritesProject detailEdge AI Hardware State Detection SystemA computer-vision pipeline that detects hardware states from live camera frames, combining a YOLOv8 model, Roboflow dataset tooling, LiteRT/TFLite deployment, and OpenCV stream processing.YOLOv8RoboflowLiteRT / TFLiteOpenCVPython Open GitHub repository Architecture1OpenCV captures and normalizes webcam frames.2YOLOv8 performs object and state detection with confidence filtering.3The LiteRT/TFLite runtime keeps inference portable on edge hardware.4A lightweight result loop exposes labels, confidence, and timing to the UI.HighlightsReal-time webcam inferenceEdge-optimized model runtimeFalse-positive handling and confidence thresholds"
+  },
+  "reproduced": "Clicking tab A left B active and navigated B to A's address.",
+  "errors": []
+}

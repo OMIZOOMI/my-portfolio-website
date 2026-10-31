@@ -1,0 +1,51 @@
+{
+  "before": true,
+  "browser": "Chrome/156.0.8078.76",
+  "host": {
+    "platform": "darwin",
+    "release": "25.6.0",
+    "arch": "arm64"
+  },
+  "localBuildId": "Yx_fn2D0rHhnJVHL7JnOA",
+  "scenarios": [],
+  "aboutMe": "About MeFavouritesDesktopDocumentsProjectsLocationsBinAbout MeThis folder is emptyThere are no items here yet.PortfolioDesktopAbout Me0 items",
+  "aboutMac": "SettingsAppearanceAboutAccessibilityDockAdvancedAppearanceModeLightDarkAccent ColorWallpaper ThemeSix landscapes. The same view, from daylight to blue hour.CoastMountain LakeForestDunesAlpineDriftWallpaper ModeAutoLightDarkAuto follows Appearance. Light and Dark keep their own lighting.",
+  "aboutPortfolio": "About This PortfolioThis PortfolioVersion 26.4™ by omisan & © 2026 Om Sawkare.All rights reserved.",
+  "mail": {
+    "handoffs": [
+      [
+        "mailto:sawkare.om@gmail.com?subject=Cancelled%20handoff%20fixture&body=Not%20sent%3B%20isolated%20test%20only.",
+        "_self"
+      ]
+    ],
+    "cache": {
+      "state": {
+        "inbox": [
+          {
+            "id": "welcome-1",
+            "from": "You",
+            "to": "Om Sawkare",
+            "subject": "Welcome to my portfolio!",
+            "body": "Hi there! Welcome to my portfolio's mail client.\n\nIf you'd like to get in touch, simply hit 'Compose' and drop me a message. Clicking send will open your device's native email app so you can reach me directly.\n\nLooking forward to hearing from you!",
+            "sentAt": 1793242051455,
+            "read": false
+          }
+        ],
+        "sent": [
+          {
+            "id": "1793328458557",
+            "from": "Me",
+            "to": "Om Sawkare",
+            "subject": "Cancelled handoff fixture",
+            "body": "Not sent; isolated test only.",
+            "sentAt": 1793328458557,
+            "read": true
+          }
+        ]
+      },
+      "version": 3
+    },
+    "compose": false
+  },
+  "errors": []
+}

@@ -1,0 +1,23 @@
+(node:19191) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/Om/Om%20Main%20Portfolio/src/data/workspaces.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /Users/Om/Om Main Portfolio/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ three real locations have dedicated posters/thumbnails and two silent-video sources (51.397959ms)
+✔ corrupt/unknown preferences use Beach; a saved location is independent of theme (0.449125ms)
+✔ serialization saves only a version and environment, never drag/media/window/pause state (0.173792ms)
+✔ the first usable destination arrives without a travel animation (0.224583ms)
+✔ the outgoing location remains active until the new media and travel finish (0.112917ms)
+✔ late readiness and failures from superseded requests cannot change the latest selection (0.084833ms)
+✔ rapid choices during travel form a bounded latest-only queue (0.089584ms)
+✔ failure preserves the old scene and an actionable failed destination (0.083583ms)
+✔ selecting the current location cancels a pending destination (0.07025ms)
+✔ reduced motion settles immediately and stale completion cannot disturb it (0.098125ms)
+✔ repeated changes and stale motion callbacks retain no retired layers (0.116042ms)
+ℹ tests 11
+ℹ suites 0
+ℹ pass 11
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 329.566333

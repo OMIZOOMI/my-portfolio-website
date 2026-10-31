@@ -1,0 +1,55 @@
+{
+  "phase": "after",
+  "browser": "Chrome/156.0.8078.48",
+  "viewport": {
+    "width": 1440,
+    "height": 1000
+  },
+  "scenarios": [
+    {
+      "name": "opening-layout-seed-and-switching",
+      "prose": "Developer Log\n\nLong before my first line of code, I was building Lego robots and marveling at the Spartan armor in Halo. Lego taught me the satisfaction of making separate parts work together. Halo made me imagine how technology could extend human capability. Both left me with an instinct I still trust: curiosity becomes more meaningful when I can build something with it.\n\nI'm Om Sawkare, a final-year student at VIT. The building blocks have changed from plastic bricks to code, cameras, and connected systems, but I still enjoy the moment when an idea starts working outside my head. Increasingly, I care about what happens afterwards, when someone has to understand, use, and rely on it.\n\nWhite Box Detection brought that question into computer vision. I worked with YOLOv8, a Roboflow dataset, and a TFLite model running against an OpenCV camera feed. Drawing a box around an object is only part of the problem. False detections, confidence thresholds, and the time between a frame and a result matter too. The project made me pay closer attention to the gap between a promising model and a usable experience.\n\nMy TigerGraph fraud-investigation work explored another kind of visibility. A LangGraph workflow connects graph evidence, comparisons with previous cases, and a human-readable investigation. I wanted the report to show the entities behind its reasoning, the evidence it used, and why a recommendation changed. The customer check was simulated; keeping that boundary visible matters as much as making the demonstration work.\n\nBackend work has been a quieter part of the same education. My FastAPI task API models users, projects, and tasks, giving me practice in how data and responsibilities fit together. My interest in AWS and cloud architecture grows from wanting those foundations to support useful systems.\n\nI'm now building Veyra, which is still called Cross-Exam on GitHub. Its working version examines a website's pages and turns HTTP and HTML evidence into a readable report. I want someone reading it to understand the findings and the limits of what was actually checked. There is more to build, and I prefer being clear about that.\n\nMy Adobe hackathon brand-audit work follows a related idea. Four specialized analyzers share one crawl of a website, then bring their findings into a report with evidence and limitations. I like the challenge of turning several technical perspectives into something a person can read, question, and act on.\n\nThis interactive portfolio is another expression of that curiosity. I wanted a place you could explore, open, and spend time in, with small details that make the work feel approachable. It is still taking shape, alongside the projects inside it.\n\nWhat connects these experiments is a simple belief: technology is only as powerful as the difference it makes in someone's day-to-day life. I'm learning to judge my work by that difference, one useful, understandable piece at a time.",
+      "geometry": {
+        "width": 642,
+        "height": 478
+      },
+      "status": "PASS",
+      "elapsedMs": 64096
+    },
+    {
+      "name": "clear-updates-editor-and-never-resurrects-stale-html",
+      "afterClear": "",
+      "afterTyping": "Fresh words only",
+      "status": "PASS",
+      "elapsedMs": 30981
+    },
+    {
+      "name": "typing-caret-native-formatting-and-undo",
+      "caret": {
+        "offset": 11,
+        "node": "Alpha warm omega"
+      },
+      "formatted": "Alpha <b>warm</b> omega",
+      "afterUndo": "Alpha warm omega",
+      "status": "PASS",
+      "elapsedMs": 12998
+    },
+    {
+      "name": "search-filter-clear-and-escape",
+      "search": "Case-insensitive matching, no-match state, clear, and Escape",
+      "status": "PASS",
+      "elapsedMs": 15339
+    },
+    {
+      "name": "edited-seed-and-visitor-notes-survive-reopening-but-remain-memory-only",
+      "storage": {
+        "local": {
+          "portfolio-appearance": "{\"version\":1,\"state\":{\"theme\":\"dark\",\"wallpaper\":\"coast\",\"wallpaperMode\":\"auto\"}}"
+        },
+        "session": {}
+      },
+      "status": "PASS",
+      "elapsedMs": 71812
+    }
+  ]
+}

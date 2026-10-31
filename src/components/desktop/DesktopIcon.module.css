@@ -1,4 +1,13 @@
-.icon {
+.iconShell {
+    position: relative;
+    width: 84px;
+    max-width: 100%;
+  }
+  .finderShell { width: 108px; }
+  .finderShell [data-file-rename-editor] { top: 77px; }
+  .finderShell [data-file-rename-editor] input { font-size: 14px; line-height: 18px; }
+  .icon[data-editing] .label { visibility: hidden; }
+  .icon {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -6,6 +15,7 @@
     width: 84px;
     padding: 8px 6px;
     border: none;
+    border-radius: 8px;
     background: transparent;
     cursor: grab;
     will-change: transform;
@@ -56,6 +66,10 @@
     color: #fff;
     font-size: 12px;
     font-weight: 500;
+    line-height: 16px;
+    max-width: 100%;
+    text-align: center;
+    overflow-wrap: anywhere;
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
     padding: 2px 6px;
     border-radius: 4px;
@@ -68,13 +82,52 @@
     text-shadow: none;
   }
 
+  .icon:focus-visible {
+    outline: 2px solid var(--system-accent);
+    outline-offset: 2px;
+    border-radius: 8px;
+  }
+
+  /* Finder sizing is separate from desktop drag geometry. */
+  .finderIcon {
+    width: 108px;
+    max-width: 100%;
+    min-height: 112px;
+    gap: 5px;
+    padding: 8px 3px;
+    border-radius: 8px;
+    will-change: auto;
+    transition: background-color 100ms ease-out;
+  }
+  .finderIcon img { width: 64px !important; height: 64px !important; }
+  .finderIcon .glyphSvg { width: 49px; height: 64px; filter: drop-shadow(0 2px 3px rgb(0 0 0 / 12%)); }
+  .finderIcon .appTile { margin-block: 6px; }
+  .finderIcon .label {
+    max-width: 100%;
+    padding: 2px 5px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 14px;
+    line-height: 18px;
+    font-weight: 500;
+    text-align: center;
+    overflow-wrap: anywhere;
+    text-shadow: none;
+  }
+  .finderIcon:hover { background: rgb(128 128 128 / 8%); }
+  .finderIcon[data-selected] .label { background: var(--system-accent); color: #fff; }
+  .finderIcon[data-selected] { background: rgb(128 128 128 / 10%); }
+  .icon:not(.finderIcon)[data-selected] .label { background: var(--system-accent); color: #fff; }
+  .icon:not(.finderIcon)[data-selected] { background: rgb(255 255 255 / 10%); }
+  :global([data-reduced-motion]) .finderIcon { transition: none; }
+  @media (prefers-reduced-motion: reduce) { .finderIcon { transition: none; } }
+
   :global(.dark) .labelWindow {
     color: #fff;
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
   }
   
   @media (hover: hover) and (pointer: fine) {
-    .icon:hover .label {
+    .icon:not(.finderIcon):not([data-selected]):hover .label {
       background: rgba(255, 255, 255, 0.12);
     }
   }

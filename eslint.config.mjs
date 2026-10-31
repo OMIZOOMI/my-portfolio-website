@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Exact third-party artifacts are checksum-verified, never lint-rewritten.
+    "public/mediapipe/**",
   ]),
 ]);
 

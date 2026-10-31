@@ -1,0 +1,311 @@
+{
+  "schemaVersion": 1,
+  "createdDate": "2026-10-28",
+  "aspectRatio": "16:10",
+  "format": "webp",
+  "termsUrl": "https://openai.com/policies/terms-of-use/",
+  "provenanceNotes": "Six original generated masters and six referenced-image lighting edits. No external stock photographs or third-party image inputs were used. No third-party asset attribution requirement introduced. Use is subject to the OpenAI terms applicable to the generating account. No claim of CC0 status, unique output or exclusive copyright.",
+  "processingNotes": "Native tool outputs were approximately 1586×992 (some dark edits 1585×992), despite requesting 2560×1600. Slight centered normalization to 1600×1000 preserves common 16:10 crop. Thumbnails are dedicated 320×200 WebP exports. Files below 250KB are kept compact because smooth shapes and darker low-contrast detail compress efficiently.",
+  "wallpapers": [
+    {
+      "id": "coast",
+      "name": "Coast",
+      "variants": {
+        "light": {
+          "url": "/wallpapers/coast-light.webp",
+          "projectPath": "public/wallpapers/coast-light.webp",
+          "thumbUrl": "/wallpapers/thumbs/coast-light.webp",
+          "thumbnailProjectPath": "public/wallpapers/thumbs/coast-light.webp",
+          "width": 1600,
+          "height": 1000,
+          "bytes": 247580,
+          "thumbnail": {
+            "width": 320,
+            "height": 200,
+            "bytes": 11090
+          },
+          "nativeSource": {
+            "width": 1586,
+            "height": 992
+          }
+        },
+        "dark": {
+          "url": "/wallpapers/coast-dark.webp",
+          "projectPath": "public/wallpapers/coast-dark.webp",
+          "thumbUrl": "/wallpapers/thumbs/coast-dark.webp",
+          "thumbnailProjectPath": "public/wallpapers/thumbs/coast-dark.webp",
+          "width": 1600,
+          "height": 1000,
+          "bytes": 159880,
+          "thumbnail": {
+            "width": 320,
+            "height": 200,
+            "bytes": 7804
+          },
+          "nativeSource": {
+            "width": 1586,
+            "height": 992
+          }
+        }
+      },
+      "provenance": {
+        "source": "Original AI-generated imagery created for this portfolio",
+        "provider": "OpenAI built-in image_gen",
+        "method": "Original light master followed by a lighting-weather image edit using that exact light master as the reference",
+        "thirdPartyImageInputs": [],
+        "attributionRequired": false,
+        "geometryReview": "Matched camera/crop/horizon and subject positions; no visible doubled mountain/cliff/tree/rock/shoreline edges in overlay. Lighting and color changed. No added moon/stars or objects."
+      }
+    },
+    {
+      "id": "lake",
+      "name": "Mountain Lake",
+      "variants": {
+        "light": {
+          "url": "/wallpapers/lake-light.webp",
+          "projectPath": "public/wallpapers/lake-light.webp",
+          "thumbUrl": "/wallpapers/thumbs/lake-light.webp",
+          "thumbnailProjectPath": "public/wallpapers/thumbs/lake-light.webp",
+          "width": 1600,
+          "height": 1000,
+          "bytes": 176324,
+          "thumbnail": {
+            "width": 320,
+            "height": 200,
+            "bytes": 10350
+          },
+          "nativeSource": {
+            "width": 1586,
+            "height": 992
+          }
+        },
+        "dark": {
+          "url": "/wallpapers/lake-dark.webp",
+          "projectPath": "public/wallpapers/lake-dark.webp",
+          "thumbUrl": "/wallpapers/thumbs/lake-dark.webp",
+          "thumbnailProjectPath": "public/wallpapers/thumbs/lake-dark.webp",
+          "width": 1600,
+          "height": 1000,
+          "bytes": 135814,
+          "thumbnail": {
+            "width": 320,
+            "height": 200,
+            "bytes": 8192
+          },
+          "nativeSource": {
+            "width": 1586,
+            "height": 992
+          }
+        }
+      },
+      "provenance": {
+        "source": "Original AI-generated imagery created for this portfolio",
+        "provider": "OpenAI built-in image_gen",
+        "method": "Original light master followed by a lighting-weather image edit using that exact light master as the reference",
+        "thirdPartyImageInputs": [],
+        "attributionRequired": false,
+        "geometryReview": "Matched camera/crop/horizon and subject positions; no visible doubled mountain/cliff/tree/rock/shoreline edges in overlay. Lighting and color changed. No added moon/stars or objects."
+      }
+    },
+    {
+      "id": "forest",
+      "name": "Forest",
+      "variants": {
+        "light": {
+          "url": "/wallpapers/forest-light.webp",
+          "projectPath": "public/wallpapers/forest-light.webp",
+          "thumbUrl": "/wallpapers/thumbs/forest-light.webp",
+          "thumbnailProjectPath": "public/wallpapers/thumbs/forest-light.webp",
+          "width": 1600,
+          "height": 1000,
+          "bytes": 333656,
+          "thumbnail": {
+            "width": 320,
+            "height": 200,
+            "bytes": 15464
+          },
+          "nativeSource": {
+            "width": 1586,
+            "height": 992
+          }
+        },
+        "dark": {
+          "url": "/wallpapers/forest-dark.webp",
+          "projectPath": "public/wallpapers/forest-dark.webp",
+          "thumbUrl": "/wallpapers/thumbs/forest-dark.webp",
+          "thumbnailProjectPath": "public/wallpapers/thumbs/forest-dark.webp",
+          "width": 1600,
+          "height": 1000,
+          "bytes": 204994,
+          "thumbnail": {
+            "width": 320,
+            "height": 200,
+            "bytes": 9914
+          },
+          "nativeSource": {
+            "width": 1585,
+            "height": 992
+          }
+        }
+      },
+      "provenance": {
+        "source": "Original AI-generated imagery created for this portfolio",
+        "provider": "OpenAI built-in image_gen",
+        "method": "Original light master followed by a lighting-weather image edit using that exact light master as the reference",
+        "thirdPartyImageInputs": [],
+        "attributionRequired": false,
+        "geometryReview": "Matching camera, crop, foreground trunks/branches/boulders, distant mountain ridge, clearing and tree silhouettes. Overlay shows no conspicuous doubled hard edges. Texture and light/sky treatment vary slightly as expected from an AI relight; not a mathematical pixel-identity guarantee."
+      }
+    },
+    {
+      "id": "dunes",
+      "name": "Dunes",
+      "variants": {
+        "light": {
+          "url": "/wallpapers/dunes-light.webp",
+          "projectPath": "public/wallpapers/dunes-light.webp",
+          "thumbUrl": "/wallpapers/thumbs/dunes-light.webp",
+          "thumbnailProjectPath": "public/wallpapers/thumbs/dunes-light.webp",
+          "width": 1600,
+          "height": 1000,
+          "bytes": 59740,
+          "thumbnail": {
+            "width": 320,
+            "height": 200,
+            "bytes": 3414
+          },
+          "nativeSource": {
+            "width": 1586,
+            "height": 992
+          }
+        },
+        "dark": {
+          "url": "/wallpapers/dunes-dark.webp",
+          "projectPath": "public/wallpapers/dunes-dark.webp",
+          "thumbUrl": "/wallpapers/thumbs/dunes-dark.webp",
+          "thumbnailProjectPath": "public/wallpapers/thumbs/dunes-dark.webp",
+          "width": 1600,
+          "height": 1000,
+          "bytes": 54642,
+          "thumbnail": {
+            "width": 320,
+            "height": 200,
+            "bytes": 2708
+          },
+          "nativeSource": {
+            "width": 1586,
+            "height": 992
+          }
+        }
+      },
+      "provenance": {
+        "source": "Original AI-generated imagery created for this portfolio",
+        "provider": "OpenAI built-in image_gen",
+        "method": "Original light master followed by a lighting-weather image edit using that exact light master as the reference",
+        "thirdPartyImageInputs": [],
+        "attributionRequired": false,
+        "geometryReview": "Matching foreground sweep, central peak, ridge crest positions, distant mountain-like dune horizon and sand ripple direction. Overlay shows no conspicuous doubled ridge edges. Exposure and hue shift from warm daylight to cool blue hour; no added celestial objects."
+      }
+    },
+    {
+      "id": "alpine",
+      "name": "Alpine",
+      "variants": {
+        "light": {
+          "url": "/wallpapers/alpine-light.webp",
+          "projectPath": "public/wallpapers/alpine-light.webp",
+          "thumbUrl": "/wallpapers/thumbs/alpine-light.webp",
+          "thumbnailProjectPath": "public/wallpapers/thumbs/alpine-light.webp",
+          "width": 1600,
+          "height": 1000,
+          "bytes": 281216,
+          "thumbnail": {
+            "width": 320,
+            "height": 200,
+            "bytes": 12590
+          },
+          "nativeSource": {
+            "width": 1586,
+            "height": 992
+          }
+        },
+        "dark": {
+          "url": "/wallpapers/alpine-dark.webp",
+          "projectPath": "public/wallpapers/alpine-dark.webp",
+          "thumbUrl": "/wallpapers/thumbs/alpine-dark.webp",
+          "thumbnailProjectPath": "public/wallpapers/thumbs/alpine-dark.webp",
+          "width": 1600,
+          "height": 1000,
+          "bytes": 192938,
+          "thumbnail": {
+            "width": 320,
+            "height": 200,
+            "bytes": 9496
+          },
+          "nativeSource": {
+            "width": 1585,
+            "height": 992
+          }
+        }
+      },
+      "provenance": {
+        "source": "Original AI-generated imagery created for this portfolio",
+        "provider": "OpenAI built-in image_gen",
+        "method": "Original light master followed by a lighting-weather image edit using that exact light master as the reference",
+        "thirdPartyImageInputs": [],
+        "attributionRequired": false,
+        "geometryReview": "Reviewed light and referenced-edit dark side by side and as a 50% opacity overlay. Same camera, crop, distant peak/horizon silhouettes, meadow contours, foreground rocks and tree clusters remain aligned. No visible doubled terrain edges in the overlay at inspection scale. Lighting/sky colors change; not claiming mathematically identical pixels."
+      }
+    },
+    {
+      "id": "drift",
+      "name": "Drift",
+      "variants": {
+        "light": {
+          "url": "/wallpapers/drift-light.webp",
+          "projectPath": "public/wallpapers/drift-light.webp",
+          "thumbUrl": "/wallpapers/thumbs/drift-light.webp",
+          "thumbnailProjectPath": "public/wallpapers/thumbs/drift-light.webp",
+          "width": 1600,
+          "height": 1000,
+          "bytes": 44884,
+          "thumbnail": {
+            "width": 320,
+            "height": 200,
+            "bytes": 3050
+          },
+          "nativeSource": {
+            "width": 1586,
+            "height": 992
+          }
+        },
+        "dark": {
+          "url": "/wallpapers/drift-dark.webp",
+          "projectPath": "public/wallpapers/drift-dark.webp",
+          "thumbUrl": "/wallpapers/thumbs/drift-dark.webp",
+          "thumbnailProjectPath": "public/wallpapers/thumbs/drift-dark.webp",
+          "width": 1600,
+          "height": 1000,
+          "bytes": 44400,
+          "thumbnail": {
+            "width": 320,
+            "height": 200,
+            "bytes": 3004
+          },
+          "nativeSource": {
+            "width": 1586,
+            "height": 992
+          }
+        }
+      },
+      "provenance": {
+        "source": "Original AI-generated imagery created for this portfolio",
+        "provider": "OpenAI built-in image_gen",
+        "method": "Original light master followed by a lighting-weather image edit using that exact light master as the reference",
+        "thirdPartyImageInputs": [],
+        "attributionRequired": false,
+        "geometryReview": "Reviewed light and referenced-edit dark side by side and as a 50% opacity overlay. Same camera, horizon, rolling foreground slopes and background hill crests remain aligned. No visible doubled silhouettes in overlay at inspection scale. Only light/color/exposure change; not claiming mathematically identical pixels."
+      }
+    }
+  ]
+}

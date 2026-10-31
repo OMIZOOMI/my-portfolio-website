@@ -1,0 +1,76 @@
+{
+  "before": false,
+  "browser": "Chrome/156.0.8078.76",
+  "host": {
+    "platform": "darwin",
+    "release": "25.6.0",
+    "arch": "arm64"
+  },
+  "localBuildId": "zerEq8nPVRLpETp_C14N_",
+  "scenarios": [
+    {
+      "name": "real-about-and-existing-project-launchers",
+      "aboutPortfolio": "Om’s PortfolioPortfolio OS 26.4Om Nilesh SawkareAn interactive macOS-inspired portfolio inside a 3D MacBook, built with Next.js, React, Three.js and Zustand.™ by omisan · © 2026 Om Sawkare.",
+      "status": "PASS",
+      "elapsedMs": 8138
+    },
+    {
+      "name": "refresh-feedback-and-active-menu-routing",
+      "reloadChanged": true,
+      "status": "PASS",
+      "elapsedMs": 6309
+    },
+    {
+      "name": "native-editor-undo-redo-and-filesystem-undo-stay-separate",
+      "folderIdentity": "folder-1793329458006-1",
+      "status": "PASS",
+      "elapsedMs": 7683
+    },
+    {
+      "name": "menu-keyboard-dismissal-and-shortcut-ownership",
+      "menuSemantics": {
+        "bar": "Application menus",
+        "triggers": 8
+      },
+      "shortcuts": [
+        {
+          "key": "r",
+          "prevented": false
+        },
+        {
+          "key": "w",
+          "prevented": false
+        },
+        {
+          "key": "q",
+          "prevented": false
+        }
+      ],
+      "status": "PASS",
+      "elapsedMs": 3930
+    },
+    {
+      "name": "mail-cancelled-handoff-preserves-draft-and-legacy-copies",
+      "requests": [
+        [
+          "mailto:sawkare.om@gmail.com?subject=Cancelled%20visitor%20draft&body=Keep%20this%20complete%20message.",
+          "_self"
+        ],
+        [
+          "mailto:sawkare.om@gmail.com?subject=Cancelled%20visitor%20draft&body=Keep%20this%20complete%20message.",
+          "_self"
+        ]
+      ],
+      "retainedLegacyCopies": 1,
+      "cancelFixture": "window.open returns null; sending is not attempted or asserted",
+      "status": "PASS",
+      "elapsedMs": 6014
+    },
+    {
+      "name": "intentional-neural-and-game-placeholders-remain-unfinished",
+      "placeholder": "Neural Block remains the existing placeholder; no game or invented project implementation was added.",
+      "status": "PASS",
+      "elapsedMs": 4283
+    }
+  ]
+}

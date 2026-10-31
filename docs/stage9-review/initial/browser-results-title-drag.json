@@ -1,0 +1,114 @@
+{
+  "browser": "Chrome/156.0.8078.48",
+  "host": {
+    "platform": "darwin",
+    "release": "25.6.0",
+    "arch": "arm64",
+    "cpu": "Apple M1"
+  },
+  "site": "http://127.0.0.1:3001",
+  "input": "Trusted synthetic CDP mouse/key input on macOS Chrome; not a physical mouse/trackpad hardware test",
+  "zoomCoverage": "CSS viewport resizing, emulated DPR, and CDP visual-viewport page-scale emulation; no claim of native browser toolbar zoom",
+  "remainingPhysicalChecks": [
+    "Mac two-finger trackpad secondary click and drag",
+    "Windows mouse/trackpad drag and secondary click",
+    "Native browser toolbar zoom at 80%, 100%, 125%",
+    "Safari hardware/browser interaction"
+  ],
+  "scenarios": [
+    {
+      "name": "title-drag-all-virtual-edges-and-restore-after-drag",
+      "interior": {
+        "before": {
+          "x": 250,
+          "y": 150,
+          "width": 642,
+          "height": 478
+        },
+        "localStart": {
+          "x": 650,
+          "y": 168
+        },
+        "localEnd": {
+          "x": 767,
+          "y": 247
+        },
+        "clientStart": {
+          "x": 686.974609375,
+          "y": 158.539794921875
+        },
+        "after": {
+          "x": 367,
+          "y": 228.998,
+          "width": 642,
+          "height": 478
+        }
+      },
+      "area": {
+        "x": 0,
+        "y": 28,
+        "width": 1400,
+        "height": 782,
+        "desktopWidth": 1400,
+        "desktopHeight": 900,
+        "dockTop": 810
+      },
+      "samples": [
+        {
+          "edge": "left",
+          "desiredLocalPointer": {
+            "x": 8,
+            "y": 246.998
+          },
+          "moved": {
+            "x": 0,
+            "y": 228.506,
+            "width": 642,
+            "height": 478
+          }
+        },
+        {
+          "edge": "right",
+          "desiredLocalPointer": {
+            "x": 1392,
+            "y": 246.506
+          },
+          "moved": {
+            "x": 758,
+            "y": 228.011,
+            "width": 642,
+            "height": 478
+          }
+        },
+        {
+          "edge": "top",
+          "desiredLocalPointer": {
+            "x": 1079,
+            "y": 3
+          },
+          "moved": {
+            "x": 757.916,
+            "y": 28,
+            "width": 642,
+            "height": 478
+          }
+        },
+        {
+          "edge": "bottom",
+          "desiredLocalPointer": {
+            "x": 1078.9160000000002,
+            "y": 897
+          },
+          "moved": {
+            "x": 757.831,
+            "y": 332,
+            "width": 642,
+            "height": 478
+          }
+        }
+      ],
+      "status": "PASS",
+      "elapsedMs": 9990
+    }
+  ]
+}

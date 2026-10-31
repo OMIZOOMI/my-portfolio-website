@@ -6,11 +6,13 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "check:mediapipe": "node scripts/check-mediapipe-assets.mjs",
+    "prebuild": "npm run check:mediapipe"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",
-    "@mediapipe/tasks-vision": "^1.0.1",
+    "@mediapipe/tasks-vision": "1.0.1",
     "@react-three/drei": "^10.7.8",
     "@react-three/fiber": "^9.7.0",
     "framer-motion": "^13.1.1",

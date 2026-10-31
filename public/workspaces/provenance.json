@@ -1,0 +1,205 @@
+{
+  "verifiedOn": "2026-10-30",
+  "notes": "Local media only; only selected background downloads. Still PNGs are native generated resolution, not 4K. Quality-first 1080p videos are intentionally larger than superseded 720p clips. Camera stability evidence is in docs/stage13-revision/camera-stability.json. Old provenance retained in docs/stage13-review/sources/provenance-initial.json.",
+  "workspaces": {
+    "beach": {
+      "kind": "motion",
+      "title": "Waves reaching the shore",
+      "creator": "Edgar Fernandez",
+      "sourceUrl": "https://mixkit.co/free-stock-video/waves-reaching-the-shore-1925/",
+      "downloadUrl": "https://assets.mixkit.co/videos/1925/1925-1080.mp4",
+      "sourceSha256": "96a82a7753f0d91e67740ed8e4f0fd86ff993ad84440f4608114b44ac46ad232",
+      "license": "Mixkit Stock Video Free License",
+      "licenseUrl": "https://mixkit.co/license/modal/videoFree/",
+      "termsUrl": "https://mixkit.co/terms/",
+      "attributionRequired": false,
+      "permission": "Individual item explicitly Free, not Restricted. Download, edit, host and display as incorporated portfolio background. No stock redistribution or resale. Voluntary creator credit in picker.",
+      "edits": "Native Full HD 1920x1080; first 16 seconds, 0.75-second wrap crossfade; 24 fps H.264 High L4 yuv420p, CRF20/max10Mbps/buffer20Mbps, faststart, audio/metadata stripped. No pan, zoom, artificial resolution upscale or reversed playback.",
+      "files": [
+        {
+          "path": "public/workspaces/beach-hd.webp",
+          "bytes": 833548,
+          "sha256": "31f3622bd2677172fc19255eb86b625832b3be75985d493b1348117d108fc68b",
+          "width": 1920,
+          "height": 1080
+        },
+        {
+          "path": "public/workspaces/thumbs/beach-hd.webp",
+          "bytes": 3912,
+          "sha256": "72e47c2cc74b473db83401073dc7dad51fe4da1886403361466655b101c9f5b7",
+          "width": 160,
+          "height": 100
+        },
+        {
+          "path": "public/workspaces/beach-hd.mp4",
+          "bytes": 19613425,
+          "sha256": "4ca9ca6f7a4de59fdaed313f574bc23215eb585a8a8fd3bd66e44eb34fbe894c",
+          "width": 1920,
+          "height": 1080,
+          "fps": 24.0,
+          "frames": 366,
+          "durationSeconds": 15.25,
+          "audioTracks": 0
+        }
+      ]
+    },
+    "forest": {
+      "kind": "motion",
+      "title": "The wind gently moves the forest\u2019s lush vegetation on a foggy day",
+      "creator": "Mixkit contributor account @mixkit; individual camera operator not named",
+      "sourceUrl": "https://mixkit.co/free-stock-video/the-wind-gently-moves-the-forests-lush-vegetation-on-a-50870/",
+      "downloadUrl": "https://assets.mixkit.co/videos/50870/50870-1080.mp4",
+      "sourceSha256": "8d5d0d09b21199c04d4e843e17132c08e05059f99373eef260e3f10f75922863",
+      "license": "Mixkit Stock Video Free License",
+      "licenseUrl": "https://mixkit.co/license/modal/videoFree/",
+      "termsUrl": "https://mixkit.co/terms/",
+      "attributionRequired": false,
+      "permission": "Individual item explicitly Free, not Restricted. Download, edit, host and display as incorporated portfolio background. No stock redistribution or resale. Voluntary creator credit in picker.",
+      "edits": "Native Full HD 1920x1080; first 16 seconds, 1-second wrap crossfade; 24 fps H.264 High L4 yuv420p, CRF20/max10Mbps/buffer20Mbps, faststart, audio/metadata stripped. No pan, zoom, artificial resolution upscale or reversed playback.",
+      "files": [
+        {
+          "path": "public/workspaces/forest-hd.webp",
+          "bytes": 873512,
+          "sha256": "082f2f2ba69e85422886ea1cd1a1eebcdb725785ae0499041fa361a21e7562f8",
+          "width": 1920,
+          "height": 1080
+        },
+        {
+          "path": "public/workspaces/thumbs/forest-hd.webp",
+          "bytes": 6704,
+          "sha256": "9f5206707b3078e83a28a463b1f951bb5c197b26f4b7a26df76634e1bb188a50",
+          "width": 160,
+          "height": 100
+        },
+        {
+          "path": "public/workspaces/forest-hd.mp4",
+          "bytes": 19537742,
+          "sha256": "81ee0411fe5ccbfd548f9fbc95d0dfd286cfe725f150b51a1ab77419b5e62257",
+          "width": 1920,
+          "height": 1080,
+          "fps": 24.0,
+          "frames": 360,
+          "durationSeconds": 15.0,
+          "audioTracks": 0
+        }
+      ]
+    },
+    "studio": {
+      "kind": "still",
+      "title": "Studio",
+      "creator": "Original artwork generated with OpenAI image_gen for this project",
+      "sourceUrl": null,
+      "license": "Original generated project artwork; no third-party stock asset or required third-party credit",
+      "attributionRequired": false,
+      "edits": "Lossless optimized PNG at native 1672x941. No artificial upscale. Separate 160x100 WebP thumbnail. Studio retained; Paper and Slate are material/architectural compositions, no landscapes.",
+      "files": [
+        {
+          "path": "public/workspaces/studio.png",
+          "bytes": 2903482,
+          "sha256": "5b330357a4667ee8454136304e0ff6070de59f0666d19bca3f013e62ce53a20c",
+          "width": 1672,
+          "height": 941
+        },
+        {
+          "path": "public/workspaces/thumbs/studio.webp",
+          "bytes": 2550,
+          "sha256": "6fa25b03886c1f8e6853639896b57086c27ddaf92634065f0aa4ac5b13abe3cd",
+          "width": 160,
+          "height": 100
+        }
+      ]
+    },
+    "paper": {
+      "kind": "still",
+      "title": "Paper",
+      "creator": "Original artwork generated with OpenAI image_gen for this project",
+      "sourceUrl": null,
+      "license": "Original generated project artwork; no third-party stock asset or required third-party credit",
+      "attributionRequired": false,
+      "edits": "Lossless optimized PNG at native 1672x941. No artificial upscale. Separate 160x100 WebP thumbnail. Studio retained; Paper and Slate are material/architectural compositions, no landscapes.",
+      "files": [
+        {
+          "path": "public/workspaces/paper.png",
+          "bytes": 2606726,
+          "sha256": "1483f723107f479020e9c0e7414d8a6489ae19f28ff3cbc1abd3167ee92348af",
+          "width": 1672,
+          "height": 941
+        },
+        {
+          "path": "public/workspaces/thumbs/paper.webp",
+          "bytes": 778,
+          "sha256": "a881c47f4d89908df7a27280d7b9fe97f56c734525db7a2aa1380e6592ded3b3",
+          "width": 160,
+          "height": 100
+        }
+      ]
+    },
+    "slate": {
+      "kind": "still",
+      "title": "Slate",
+      "creator": "Original artwork generated with OpenAI image_gen for this project",
+      "sourceUrl": null,
+      "license": "Original generated project artwork; no third-party stock asset or required third-party credit",
+      "attributionRequired": false,
+      "edits": "Lossless optimized PNG at native 1672x941. No artificial upscale. Separate 160x100 WebP thumbnail. Studio retained; Paper and Slate are material/architectural compositions, no landscapes.",
+      "files": [
+        {
+          "path": "public/workspaces/slate.png",
+          "bytes": 3282586,
+          "sha256": "7b94dae740737904ef4e25e4ce0ec1897b0c5f7b9dde100c7363ff78e09ff5e3",
+          "width": 1672,
+          "height": 941
+        },
+        {
+          "path": "public/workspaces/thumbs/slate.webp",
+          "bytes": 824,
+          "sha256": "da49199758932094dce43cbca9d2996027071ee227b25267807e11f697ca0898",
+          "width": 160,
+          "height": 100
+        }
+      ]
+    },
+    "ink": {
+      "kind": "color",
+      "color": "#15191f",
+      "creator": "Original neutral color palette",
+      "files": [],
+      "note": "CSS solid color. No image, thumbnail, video, or media download."
+    },
+    "graphite": {
+      "kind": "color",
+      "color": "#34383c",
+      "creator": "Original neutral color palette",
+      "files": [],
+      "note": "CSS solid color. No image, thumbnail, video, or media download."
+    },
+    "chalk": {
+      "kind": "color",
+      "color": "#e7e4de",
+      "creator": "Original neutral color palette",
+      "files": [],
+      "note": "CSS solid color. No image, thumbnail, video, or media download."
+    },
+    "stone": {
+      "kind": "color",
+      "color": "#a79c8d",
+      "creator": "Original neutral color palette",
+      "files": [],
+      "note": "CSS solid color. No image, thumbnail, video, or media download."
+    },
+    "sage": {
+      "kind": "color",
+      "color": "#81928b",
+      "creator": "Original neutral color palette",
+      "files": [],
+      "note": "CSS solid color. No image, thumbnail, video, or media download."
+    },
+    "mist": {
+      "kind": "color",
+      "color": "#667889",
+      "creator": "Original neutral color palette",
+      "files": [],
+      "note": "CSS solid color. No image, thumbnail, video, or media download."
+    }
+  }
+}

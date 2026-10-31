@@ -1,0 +1,51 @@
+{
+  "phase": "before",
+  "browser": "Chrome/156.0.8078.48",
+  "viewport": {
+    "width": 1440,
+    "height": 1000
+  },
+  "scenarios": [
+    {
+      "name": "baseline-and-clear-note-stale-content-reproduction",
+      "before": "<h1>Developer Log // Current Status</h1><p>I am a Final Year Computer Science Engineering student at VIT Bhopal, engineering AI pipelines and edge systems designed to solve real-world problems.</p><p><strong>Tech Stack:</strong><br>✅ Python<br>✅ Java<br>✅ AWS Cloud Architecture<br>✅ React / Next.js</p><p><strong>Active Projects:</strong><br>• Real-Time Sign Language Translator<br>• Smart Assistive Stick (ESP32 &amp; Ultrasonic Sensors)<br>• Vehicle Tracking System (GPS Integration)</p><p><strong>Recent Hackathons &amp; Events:</strong><br>• Adobe University Hackathon 2026<br>• Devfolio AI x Filmmaking<br>• GrowthSchool Generative AI Mastermind</p>",
+      "geometry": {
+        "width": 642,
+        "height": 478,
+        "projectedWidth": 414.4134826660156,
+        "projectedHeight": 307.4944152832031,
+        "controls": [
+          {
+            "label": "Close",
+            "width": 13,
+            "height": 13,
+            "projectedWidth": 8.52691650390625,
+            "projectedHeight": 8.510635375976562
+          },
+          {
+            "label": "Minimize",
+            "width": 13,
+            "height": 13,
+            "projectedWidth": 8.519866943359375,
+            "projectedHeight": 8.510635375976562
+          },
+          {
+            "label": "Maximize",
+            "width": 13,
+            "height": 13,
+            "projectedWidth": 8.5128173828125,
+            "projectedHeight": 8.510635375976562
+          }
+        ]
+      },
+      "afterClear": "<h1>Developer Log // Current Status</h1><p>I am a Final Year Computer Science Engineering student at VIT Bhopal, engineering AI pipelines and edge systems designed to solve real-world problems.</p><p><strong>Tech Stack:</strong><br>✅ Python<br>✅ Java<br>✅ AWS Cloud Architecture<br>✅ React / Next.js</p><p><strong>Active Projects:</strong><br>• Real-Time Sign Language Translator<br>• Smart Assistive Stick (ESP32 &amp; Ultrasonic Sensors)<br>• Vehicle Tracking System (GPS Integration)</p><p><strong>Recent Hackathons &amp; Events:</strong><br>• Adobe University Hackathon 2026<br>• Devfolio AI x Filmmaking<br>• GrowthSchool Generative AI Mastermind</p>",
+      "sidebar": [
+        "New Note"
+      ],
+      "afterTyping": "<h1>CLEARED_CONTENT_PROBEDeveloper Log // Current Status</h1><p>I am a Final Year Computer Science Engineering student at VIT Bhopal, engineering AI pipelines and edge systems designed to solve real-world problems.</p><p><strong>Tech Stack:</strong><br>✅ Python<br>✅ Java<br>✅ AWS Cloud Architecture<br>✅ React / Next.js</p><p><strong>Active Projects:</strong><br>• Real-Time Sign Language Translator<br>• Smart Assistive Stick (ESP32 &amp; Ultrasonic Sensors)<br>• Vehicle Tracking System (GPS Integration)</p><p><strong>Recent Hackathons &amp; Events:</strong><br>• Adobe University Hackathon 2026<br>• Devfolio AI x Filmmaking<br>• GrowthSchool Generative AI Mastermind</p>",
+      "reproduced": true,
+      "status": "PASS",
+      "elapsedMs": 40714
+    }
+  ]
+}

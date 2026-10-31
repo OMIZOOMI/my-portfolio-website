@@ -1,0 +1,16 @@
+(node:16430) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/Om/Om%20Main%20Portfolio/src/components/webcam/sceneReadiness.test.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /Users/Om/Om Main Portfolio/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ does not reveal before the first usable render (0.477375ms)
+✔ allows a failed wallpaper to use the desktop fallback (0.136583ms)
+✔ reports the first missing critical stage without percentages (0.068125ms)
+✔ progress bar counts completed readiness steps including a wallpaper fallback (0.076625ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 114.104667

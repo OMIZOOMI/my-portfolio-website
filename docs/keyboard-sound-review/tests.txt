@@ -1,0 +1,20 @@
+✔ recorded keyboard tap is short, quiet, varied and ends at zero (5.565542ms)
+✔ sound starts lazily, caps voices, reuses buffers and releases its context (0.581959ms)
+✔ a closed sound engine ignores late unlock; unavailable audio never breaks typing (0.232417ms)
+✔ keyboard sound defaults on and remembers only its own preference (14.078ms)
+✔ rapid note creation produces distinct IDs and deletion of another note keeps the active editor (0.342792ms)
+✔ deleting an edited note and undo restores exact rich text and stable identity once (0.16225ms)
+✔ the last note can be deleted, undone, or replaced with a new blank note (0.109208ms)
+✔ nine complete tracks, three per mood, distinct top four and searchable Browse (0.387125ms)
+✔ served audio matches the duration/source/license manifest and measured file sizes (45.554417ms)
+✔ each physical key press sounds once, including modifiers and shortcut letters (53.655625ms)
+✔ held-key repeats, synthetic events, hidden pages and non-model keys remain quiet (10.427666ms)
+✔ switching off releases sound/listeners; reopening installs only one listener (7.588875ms)
+ℹ tests 12
+ℹ suites 0
+ℹ pass 12
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 585.559208

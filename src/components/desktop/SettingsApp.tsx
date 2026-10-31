@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useRef, useState } from "react";
+import React from "react";
+import { useShallow } from "zustand/react/shallow";
 import {
   Sun,
   Moon,
@@ -15,13 +16,14 @@ import {
 import {
   useSystemStore,
   ACCENT_HEX,
-  WALLPAPER_THEMES,
   type AccentName,
   type WallpaperMode,
 } from "../window-manager/useSystemStore";
 import { useNotesStore } from "./NotesApp";
 import { useMailStore } from "../window-manager/useMailStore";
-import { useSmoothScroll } from "./useSmoothScroll";
+import { useWindowStore, type WindowState } from "../window-manager/useWindowStore";
+import { WallpaperPicker } from "./WallpaperPicker";
+import styles from "./SettingsApp.module.css";
 
 const ACCENTS: { name: AccentName; label: string }[] = [
   { name: "blue", label: "Blue" },
@@ -77,14 +79,12 @@ function Toggle({
   );
 }
 
-export function SettingsApp({ window }: { window: { id: string; title: string } }) {
-  void window;
-  const [activeTab, setActiveTab] = useState<TabId>("appearance");
+export function SettingsApp({ window }: { window: WindowState }) {
+  const activeTab = window.settingsSection ?? "appearance";
+  const setActiveTab = (section: TabId) => useWindowStore.getState().setSettingsSection(window.id, section);
   const {
     theme,
     setTheme,
-    wallpaper,
-    setWallpaper,
     wallpaperMode,
     setWallpaperMode,
     accent,
@@ -97,20 +97,20 @@ export function SettingsApp({ window }: { window: { id: string; title: string } 
     setDockSize,
     trashItems,
     desktopIds,
-  } = useSystemStore();
+  } = useSystemStore(useShallow((s) => ({
+    theme: s.theme, setTheme: s.setTheme,
+    wallpaperMode: s.wallpaperMode, setWallpaperMode: s.setWallpaperMode,
+    accent: s.accent, setAccent: s.setAccent,
+    reduceMotion: s.reduceMotion, setReduceMotion: s.setReduceMotion,
+    dockMagnification: s.dockMagnification, setDockMagnification: s.setDockMagnification,
+    dockSize: s.dockSize, setDockSize: s.setDockSize,
+    trashItems: s.trashItems, desktopIds: s.desktopIds,
+  })));
   const noteCount = useNotesStore((s) => s.notes.length);
   const sentCount = useMailStore((s) => s.sent.length);
   const inboxCount = useMailStore((s) => s.inbox.length);
 
   const accentHex = ACCENT_HEX[accent];
-
-  // Mirror the Notes scroll architecture: hijacked, normalized wheel deltas
-  // with overscroll containment, so trackpad momentum (esp. swipe-up) can't
-  // escape into the R3F canvas portal or trigger browser pull-to-refresh.
-  const sidebarRef = useRef<HTMLDivElement>(null);
-  const contentRef = useRef<HTMLDivElement>(null);
-  useSmoothScroll(sidebarRef);
-  useSmoothScroll(contentRef);
 
   const handleFactoryReset = () => {
     const confirmed = globalThis.confirm(
@@ -122,11 +122,10 @@ export function SettingsApp({ window }: { window: { id: string; title: string } 
   };
 
   return (
-    <div className="w-full h-full bg-[#f4f4f4] text-gray-800 dark:bg-[#1e1e1e] dark:text-gray-200 font-sans flex overflow-hidden transition-colors duration-1000 ease-in-out">
+    <div className={`${styles.app} w-full h-full bg-[#f4f4f4] text-gray-800 dark:bg-[#1e1e1e] dark:text-gray-200 font-sans flex overflow-hidden transition-colors duration-1000 ease-in-out`} data-settings-app data-reduced-motion={reduceMotion || undefined}>
       {/* Sidebar — glassmorphic nav */}
       <div
-        ref={sidebarRef}
-        className="w-48 shrink-0 h-full bg-[#ebebeb] dark:bg-black/30 backdrop-blur-xl border-r border-gray-300 dark:border-white/10 p-2 flex flex-col gap-1 overflow-y-auto overscroll-contain transition-colors duration-1000 ease-in-out"
+        className={`${styles.sidebar} w-48 shrink-0 h-full bg-[#ebebeb] dark:bg-black/30 backdrop-blur-xl border-r border-gray-300 dark:border-white/10 p-2 flex flex-col gap-1 overflow-y-auto transition-colors duration-1000 ease-in-out`}
         style={{ transform: "translateZ(0)" }}
       >
         {TABS.map((tab) => {
@@ -134,8 +133,12 @@ export function SettingsApp({ window }: { window: { id: string; title: string } 
           return (
             <button
               key={tab.id}
+              data-settings-section={tab.id}
+              aria-label={tab.label}
+              title={tab.label}
               onClick={() => setActiveTab(tab.id)}
-              className={`flex items-center gap-2.5 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-1000 ease-in-out text-left ${
+              aria-current={active ? "page" : undefined}
+              className={`${styles.navigation} flex items-center gap-2.5 px-3 py-2 rounded-md text-sm font-medium text-left ${
                 active ? "" : "text-gray-600 dark:text-[#d4d4d8] hover:bg-gray-300/60 dark:hover:bg-white/10"
               }`}
               style={
@@ -145,16 +148,15 @@ export function SettingsApp({ window }: { window: { id: string; title: string } 
               }
             >
               {tab.icon}
-              {tab.label}
+              <span>{tab.label}</span>
             </button>
           );
         })}
       </div>
 
-      {/* Content — sole scroll owner: flex-1 + overscroll trapped, like Notes */}
+      {/* Scroll regions are shared with the projected desktop's wheel routing. */}
       <div
-        ref={contentRef}
-        className="flex-1 p-8 overflow-y-auto overscroll-contain min-w-0 min-h-0 transition-colors duration-1000 ease-in-out"
+        className={`${styles.content} flex-1 p-8 overflow-y-auto min-w-0 min-h-0 transition-colors duration-1000 ease-in-out`}
         style={{ transform: "translateZ(0)" }}
       >
         {activeTab === "appearance" && (
@@ -165,16 +167,18 @@ export function SettingsApp({ window }: { window: { id: string; title: string } 
               <SectionTitle>Mode</SectionTitle>
               <div className="flex gap-4">
                 <button
+                  data-appearance-theme="light"
                   onClick={() => setTheme("light")}
-                  className={`flex flex-col items-center gap-2 p-4 rounded-xl border transition-all ${theme === "light" ? "scale-105" : "border-gray-300 hover:border-gray-400 dark:border-white/10 dark:hover:border-white/30"}`}
+                  className={`${styles.themeChoice} flex flex-col items-center gap-2 p-4 rounded-xl border transition-all ${theme === "light" ? "scale-105" : "border-gray-300 hover:border-gray-400 dark:border-white/10 dark:hover:border-white/30"}`}
                   style={theme === "light" ? { borderColor: accentHex, backgroundColor: `${accentHex}1a` } : undefined}
                 >
                   <Sun size={24} style={theme === "light" ? { color: accentHex } : undefined} className={theme === "light" ? "" : "text-gray-400"} />
                   <span className="text-sm font-medium">Light</span>
                 </button>
                 <button
+                  data-appearance-theme="dark"
                   onClick={() => setTheme("dark")}
-                  className={`flex flex-col items-center gap-2 p-4 rounded-xl border transition-all ${theme === "dark" ? "scale-105" : "border-gray-300 hover:border-gray-400 dark:border-white/10 dark:hover:border-white/30"}`}
+                  className={`${styles.themeChoice} flex flex-col items-center gap-2 p-4 rounded-xl border transition-all ${theme === "dark" ? "scale-105" : "border-gray-300 hover:border-gray-400 dark:border-white/10 dark:hover:border-white/30"}`}
                   style={theme === "dark" ? { borderColor: accentHex, backgroundColor: `${accentHex}1a` } : undefined}
                 >
                   <Moon size={24} style={theme === "dark" ? { color: accentHex } : undefined} className={theme === "dark" ? "" : "text-gray-400"} />
@@ -185,7 +189,7 @@ export function SettingsApp({ window }: { window: { id: string; title: string } 
 
             <div className="mb-8">
               <SectionTitle>Accent Color</SectionTitle>
-              <div className="flex gap-3">
+              <div className="flex flex-wrap gap-3">
                 {ACCENTS.map((a) => (
                   <button
                     key={a.name}
@@ -193,7 +197,7 @@ export function SettingsApp({ window }: { window: { id: string; title: string } 
                     title={a.label}
                     aria-label={`${a.label} accent`}
                     aria-pressed={accent === a.name}
-                    className="w-9 h-9 rounded-full flex items-center justify-center transition-transform hover:scale-110"
+                    className={`${styles.accentChoice} w-9 h-9 shrink-0 rounded-full flex items-center justify-center transition-transform hover:scale-110`}
                     style={{
                       backgroundColor: ACCENT_HEX[a.name],
                       boxShadow: accent === a.name ? `0 0 0 2px #1e1e1e, 0 0 0 4px ${ACCENT_HEX[a.name]}` : "none",
@@ -205,48 +209,18 @@ export function SettingsApp({ window }: { window: { id: string; title: string } 
               </div>
             </div>
 
-            <div>
+            <div className="mb-6">
               <SectionTitle>Wallpaper Theme</SectionTitle>
-              <div className="grid grid-cols-3 gap-4">
-                {WALLPAPER_THEMES.map((wp) => (
-                  <button
-                    key={wp.name}
-                    onClick={() => setWallpaper(wp.name)}
-                    className="group text-left"
-                    title={`${wp.name} (auto day/night)`}
-                  >
-                    <span
-                      className="relative block w-full h-20 overflow-hidden rounded-lg border-2 transition-all"
-                      style={{
-                        borderColor: wallpaper === wp.name ? accentHex : "transparent",
-                        transform: wallpaper === wp.name ? "scale(1.05)" : undefined,
-                      }}
-                    >
-                      <span
-                        aria-hidden="true"
-                        className="absolute inset-0 bg-cover bg-center transition-opacity duration-700"
-                        style={{ backgroundImage: `url(${wp.lightUrl})`, opacity: theme === "dark" ? 0 : 1 }}
-                      />
-                      <span
-                        aria-hidden="true"
-                        className="absolute inset-0 bg-cover bg-center transition-opacity duration-700"
-                        style={{ backgroundImage: `url(${wp.darkUrl})`, opacity: theme === "dark" ? 1 : 0 }}
-                      />
-                    </span>
-                    <span className="block text-xs text-gray-500 mt-1.5 group-hover:text-gray-800 dark:group-hover:text-gray-200">
-                      {wp.name}
-                    </span>
-                  </button>
-                ))}
-              </div>
+              <WallpaperPicker accent={accentHex} />
             </div>
 
             <div>
               <SectionTitle>Wallpaper Mode</SectionTitle>
-              <div className="flex gap-3">
+              <div className={`${styles.wallpaperModes} flex flex-wrap gap-3`}>
                 {(["auto", "light", "dark"] as WallpaperMode[]).map((mode) => (
                   <button
                     key={mode}
+                    data-wallpaper-mode={mode}
                     onClick={() => setWallpaperMode(mode)}
                     className={`flex-1 px-4 py-2.5 rounded-lg text-sm font-medium transition-colors ${
                       wallpaperMode === mode
@@ -259,6 +233,7 @@ export function SettingsApp({ window }: { window: { id: string; title: string } 
                   </button>
                 ))}
               </div>
+              <p className="mt-3 text-xs leading-5 text-gray-500 dark:text-gray-400">Auto follows Appearance. Light and Dark keep their own lighting.</p>
             </div>
           </div>
         )}

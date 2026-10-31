@@ -1,10 +1,11 @@
 "use client";
 
-import React, { useEffect, useMemo, useRef, useState } from "react";
-import { Folder, Search, Edit, X, Bold, Italic, Underline } from "lucide-react";
+import React, { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
+import { Folder, Search, Edit, X, Bold, Italic, Underline, Trash2 } from "lucide-react";
 import { create } from "zustand";
-import { useSmoothScroll as useMacScroll } from "./useSmoothScroll";
 import { useSystemStore } from "../window-manager/useSystemStore";
+import styles from "./NotesApp.module.css";
+import { getDesktopCoordinateSpace } from "../window-manager/desktopCoordinates";
 
 // --- 1. NOTES STORE (single rich-text HTML string per note + search state) ---
 interface Note {
@@ -13,7 +14,13 @@ interface Note {
   updatedAt: number;
 }
 
-const DEFAULT_NOTE_HTML = `<h1>Developer Log // Current Status</h1><p>I am a Final Year Computer Science Engineering student at VIT Bhopal, engineering AI pipelines and edge systems designed to solve real-world problems.</p><p><strong>Tech Stack:</strong><br>✅ Python<br>✅ Java<br>✅ AWS Cloud Architecture<br>✅ React / Next.js</p><p><strong>Active Projects:</strong><br>• Real-Time Sign Language Translator<br>• Smart Assistive Stick (ESP32 &amp; Ultrasonic Sensors)<br>• Vehicle Tracking System (GPS Integration)</p><p><strong>Recent Hackathons &amp; Events:</strong><br>• Adobe University Hackathon 2026<br>• Devfolio AI x Filmmaking<br>• GrowthSchool Generative AI Mastermind</p>`;
+const DEFAULT_NOTE_HTML = `<h1>Developer Log</h1>
+<p>Long before code, I built Lego robots and marvelled at Halo’s Spartan armor. That curiosity grew into a fascination with technology that extends what people can do.</p>
+<p>I’m Om Sawkare, a final-year student at VIT, working across computer vision, AI workflows, and backend development.</p>
+<p>My main focus is <strong data-note-highlight="true">Veyra</strong>, a website investigation tool I’m building to turn page evidence into clear, useful reports. I want people to understand what needs attention, why it matters, and what the tool could actually verify.</p>
+<p>My <strong data-note-highlight="true">Adobe hackathon</strong> brand-audit project explores how websites communicate with people and AI systems. Four analyzers share a crawl to produce a report with evidence and practical recommendations. Our team reached the <mark>top 45</mark> among roughly 100,000 teams.</p>
+<p>White Box Detection gave me experience with YOLOv8 and OpenCV; my TigerGraph and FastAPI work strengthened my approach to evidence, data, and backend design.</p>
+<p data-note-signoff="true">Technology is only as powerful as the impact on a person's day to day</p>`;
 
 const BLANK_NOTE_HTML = "";
 
@@ -25,22 +32,27 @@ interface NotesState {
   addNote: () => void;
   clearActiveNote: () => void;
   deleteActiveNote: () => void;
+  deleteNote: (id: string) => void;
+  deletedNote: { note: Note; index: number } | null;
+  undoDelete: () => void;
   setActiveNote: (id: string) => void;
   updateNoteContent: (id: string, html: string) => void;
   setSearchQuery: (q: string) => void;
   toggleSearch: () => void;
 }
 
-// This lives OUTSIDE the component, so it never forgets your notes!
-export const useNotesStore = create<NotesState>((set) => ({
+// Session memory only: closing/reopening Notes retains edits; reloading resets.
+let noteSequence = 0;
+export const useNotesStore = create<NotesState>((set, get) => ({
   notes: [{ id: "1", contentHtml: DEFAULT_NOTE_HTML, updatedAt: Date.now() }],
   activeNoteId: "1",
   searchQuery: "",
   showSearch: false,
+  deletedNote: null,
   addNote: () =>
     set((state) => {
       // Blank page — no forced Title/Body split, the user formats freely.
-      const newNote: Note = { id: Date.now().toString(), contentHtml: BLANK_NOTE_HTML, updatedAt: Date.now() };
+      const newNote: Note = { id: `note-${Date.now()}-${++noteSequence}`, contentHtml: BLANK_NOTE_HTML, updatedAt: Date.now() };
       return { notes: [newNote, ...state.notes], activeNoteId: newNote.id };
     }),
   clearActiveNote: () =>
@@ -49,12 +61,21 @@ export const useNotesStore = create<NotesState>((set) => ({
         note.id === state.activeNoteId ? { ...note, contentHtml: "", updatedAt: Date.now() } : note
       ),
     })),
-  deleteActiveNote: () =>
+  deleteActiveNote: () => { const id = get().activeNoteId; if (id) get().deleteNote(id); },
+  deleteNote: (id) =>
     set((state) => {
-      if (!state.activeNoteId || state.notes.length <= 1) return state;
-      const remaining = state.notes.filter((note) => note.id !== state.activeNoteId);
-      return { notes: remaining, activeNoteId: remaining[0]?.id ?? null };
+      const index = state.notes.findIndex(note => note.id === id);
+      if (index < 0) return state;
+      const remaining = state.notes.filter(note => note.id !== id);
+      return { notes: remaining, deletedNote: { note: state.notes[index], index }, activeNoteId: state.activeNoteId === id ? remaining[Math.min(index, remaining.length - 1)]?.id ?? null : state.activeNoteId };
     }),
+  undoDelete: () => set(state => {
+    if (!state.deletedNote) return state;
+    const { note, index } = state.deletedNote;
+    const notes = [...state.notes];
+    if (!notes.some(item => item.id === note.id)) notes.splice(Math.min(index, notes.length), 0, note);
+    return { notes, activeNoteId: note.id, deletedNote: null };
+  }),
   setActiveNote: (id) => set({ activeNoteId: id }),
   updateNoteContent: (id, html) =>
     set((state) => ({
@@ -85,11 +106,10 @@ function notePreview(html: string): { title: string; snippet: string } {
   };
 }
 
-// --- 2. SCROLL FIX (shared normalized hook; see useSmoothScroll.ts) ---
-
-// --- 3. MAIN COMPONENT ---
+// --- 2. MAIN COMPONENT ---
 export function NotesApp({ window }: { window: { id: string; title: string } }) {
   void window;
+  const reduceMotion = useSystemStore((state) => state.reduceMotion);
   const {
     notes,
     activeNoteId,
@@ -100,21 +120,21 @@ export function NotesApp({ window }: { window: { id: string; title: string } }) 
     updateNoteContent,
     setSearchQuery,
     toggleSearch,
+    deleteNote,
+    deletedNote,
+    undoDelete,
   } = useNotesStore();
 
-  const sidebarRef = useRef<HTMLDivElement>(null);
-  const scrollerRef = useRef<HTMLDivElement>(null);
+  const appRef = useRef<HTMLDivElement>(null);
+  const menuRef = useRef<HTMLDivElement>(null);
+  const [noteMenu, setNoteMenu] = useState<{ id: string; x: number; y: number; trigger: HTMLElement } | null>(null);
   const editorRef = useRef<HTMLDivElement>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
-  // Tracks which note's HTML is currently loaded into the uncontrolled editor
-  // so keystrokes (which update the store + re-render) never clobber the caret.
+  // The editor stays uncontrolled while typing; external changes such as Clear
+  // still need to reach the DOM even when the active note's ID is unchanged.
   const loadedNoteIdRef = useRef<string | null>(null);
 
   const [fmt, setFmt] = useState({ bold: false, italic: false, underline: false, header: false });
-  const isDarkMode = useSystemStore((s) => s.theme === "dark");
-
-  useMacScroll(sidebarRef);
-  useMacScroll(scrollerRef);
 
   const sortedNotes = useMemo(
     () => [...notes].sort((a, b) => b.updatedAt - a.updatedAt),
@@ -129,40 +149,82 @@ export function NotesApp({ window }: { window: { id: string; title: string } }) 
 
   const activeNote = notes.find((n) => n.id === activeNoteId) ?? null;
 
+  const openNoteMenu = (id: string, trigger: HTMLElement, x: number, y: number) => {
+    const app = appRef.current;
+    if (!app) return;
+    const point = getDesktopCoordinateSpace(app)?.toLocal({ x, y });
+    if (!point) return;
+    setNoteMenu({ id, trigger, x: Math.max(8, Math.min(point.x, app.clientWidth - 188)), y: Math.max(8, Math.min(point.y, app.clientHeight - 60)) });
+  };
+  useEffect(() => {
+    if (!noteMenu) return;
+    menuRef.current?.querySelector<HTMLButtonElement>("button")?.focus({ preventScroll: true });
+    const outside = (event: PointerEvent) => { if (event.target instanceof Node && !menuRef.current?.contains(event.target)) setNoteMenu(null); };
+    const escape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") { event.preventDefault(); event.stopPropagation(); setNoteMenu(null); noteMenu.trigger.focus({ preventScroll: true }); }
+    };
+    document.addEventListener("pointerdown", outside, true);
+    document.addEventListener("keydown", escape, true);
+    return () => { document.removeEventListener("pointerdown", outside, true); document.removeEventListener("keydown", escape, true); };
+  }, [noteMenu]);
+
+  function focusEditor(resetSelection = false) {
+    const el = editorRef.current;
+    if (!el) return null;
+    el.focus({ preventScroll: true });
+    const selection = document.getSelection();
+    // A toolbar click on a fresh note may still refer to the old note's range.
+    // Keep an existing in-editor selection, otherwise place the caret inside it.
+    if (selection && (resetSelection || !el.contains(selection.anchorNode) || !el.contains(selection.focusNode))) {
+      const range = document.createRange();
+      range.selectNodeContents(el);
+      range.collapse(false);
+      selection.removeAllRanges();
+      selection.addRange(range);
+    }
+    return el;
+  }
+
   function refreshFormatState() {
+    const el = editorRef.current;
+    const selection = document.getSelection();
+    if (!el || !selection || !el.contains(selection.anchorNode)) return;
     try {
-      const block = document.queryCommandValue("formatBlock").toLowerCase();
+      const node = selection.anchorNode;
+      const element = node instanceof Element ? node : node?.parentElement;
       setFmt({
         bold: document.queryCommandState("bold"),
         italic: document.queryCommandState("italic"),
         underline: document.queryCommandState("underline"),
-        header: block === "h1",
+        header: !!element?.closest("h1"),
       });
     } catch {
       // queryCommandState throws for unsupported commands — leave as-is.
     }
   }
 
-  // Load note HTML into the editor only when switching notes.
-  useEffect(() => {
+  // Apply external content before the next paint/input. A normal keystroke has
+  // already updated the DOM, so equality leaves its caret and native undo alone.
+  useLayoutEffect(() => {
     const el = editorRef.current;
     if (!el || !activeNote) return;
-    if (loadedNoteIdRef.current !== activeNote.id) {
+    if (loadedNoteIdRef.current !== activeNote.id || el.innerHTML !== activeNote.contentHtml) {
+      const changedNote = loadedNoteIdRef.current !== activeNote.id;
       loadedNoteIdRef.current = activeNote.id;
       el.innerHTML = activeNote.contentHtml;
+      if (changedNote && !activeNote.contentHtml) focusEditor(true);
       refreshFormatState();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [activeNote?.id]);
+  }, [activeNote?.id, activeNote?.contentHtml]);
 
   useEffect(() => {
     if (showSearch) searchInputRef.current?.focus();
   }, [showSearch]);
 
   const exec = (command: string, value?: string) => {
-    const el = editorRef.current;
+    const el = focusEditor();
     if (!el || !activeNote) return;
-    el.focus({ preventScroll: true });
     try {
       document.execCommand(command, false, value);
     } catch {
@@ -174,6 +236,8 @@ export function NotesApp({ window }: { window: { id: string; title: string } }) 
   };
 
   const toggleHeader = () => {
+    // Focus/restore the editor before asking for its current block format.
+    if (!focusEditor()) return;
     let isHeader = false;
     try {
       isHeader = document.queryCommandValue("formatBlock").toLowerCase() === "h1";
@@ -188,32 +252,15 @@ export function NotesApp({ window }: { window: { id: string; title: string } }) 
     updateNoteContent(activeNote.id, e.currentTarget.innerHTML);
   };
 
-  const toolBtn =
-    "p-1.5 rounded-md transition-colors text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-white/10 hover:text-gray-800 dark:hover:text-gray-100";
-  const toolBtnActive = "bg-gray-800 dark:bg-white/20 text-white hover:bg-gray-800 dark:hover:bg-white/20 hover:text-white";
+  const toolBtn = styles.toolButton;
+  const toolBtnActive = styles.toolButtonActive;
 
   return (
-    <div className="flex w-full h-full bg-[#f4f4f4] text-gray-800 dark:bg-[#1a1a1e] dark:text-gray-200 font-sans select-text overflow-hidden transition-colors duration-1000 ease-in-out">
-      <style>{`
-        .notes-editor { outline: none; caret-color: #b8860b; }
-        .notes-editor:empty::before {
-          content: attr(data-placeholder);
-          color: #c4c4c7;
-          pointer-events: none;
-        }
-        .notes-editor h1 { font-size: 1.75rem; font-weight: 800; color: #111; margin: 0 0 0.75rem; line-height: 1.2; }
-        .notes-editor h2 { font-size: 1.35rem; font-weight: 700; color: #111; margin: 0 0 0.6rem; }
-        .notes-editor p { margin: 0 0 0.6rem; }
-        .notes-editor ul, .notes-editor ol { margin: 0 0 0.6rem; padding-left: 1.4rem; }
-        .notes-editor li { margin-bottom: 0.15rem; }
-        .notes-editor b, .notes-editor strong { font-weight: 700; }
-        .dark .notes-editor h1, .dark .notes-editor h2 { color: #f4f4f5; }
-      `}</style>
-
+    <div ref={appRef} className={styles.notesApp} data-notes-app data-reduced-motion={reduceMotion || undefined}>
       {/* Sidebar */}
-      <div className="w-56 h-full bg-[#ebebeb] border-r border-gray-300 dark:bg-black/30 dark:border-white/10 flex flex-col overflow-hidden shrink-0 transition-colors duration-1000 ease-in-out">
-        <div className="h-12 flex items-center px-4 border-b border-gray-300 dark:border-white/10 text-gray-500 dark:text-gray-400 shrink-0">
-          <Folder size={16} className="mr-2 text-yellow-600" />
+      <div className={styles.sidebar}>
+        <div className={styles.sidebarHeader}>
+          <Folder size={16} />
           <span className="font-semibold text-sm">On My Mac</span>
           {searchQuery.trim() && (
             <span className="ml-auto text-[11px] text-gray-400">
@@ -223,8 +270,7 @@ export function NotesApp({ window }: { window: { id: string; title: string } }) 
         </div>
 
         <div
-          ref={sidebarRef}
-          className="flex-1 overflow-y-auto p-2 space-y-1"
+          className={styles.noteList}
           style={{ transform: "translateZ(0)" }}
         >
           {filteredNotes.map((note) => {
@@ -232,12 +278,24 @@ export function NotesApp({ window }: { window: { id: string; title: string } }) 
             return (
               <div
                 key={note.id}
+                role="button"
+                tabIndex={0}
+                aria-label={preview.title}
+                aria-current={activeNoteId === note.id ? "true" : undefined}
                 onClick={() => setActiveNote(note.id)}
-                className={`rounded-md p-3 cursor-pointer border-l-4 transition-colors duration-1000 ease-in-out ${
-                  activeNoteId === note.id
-                    ? "border-[var(--system-accent)] bg-[var(--system-accent)]/15"
-                    : "text-gray-700 dark:text-gray-300 border-transparent hover:bg-gray-200/50 dark:hover:bg-white/10"
-                }`}
+                onContextMenu={event => { event.preventDefault(); event.stopPropagation(); openNoteMenu(note.id, event.currentTarget, event.clientX, event.clientY); }}
+                onKeyDown={(event) => {
+                  if ((event.shiftKey && event.key === "F10") || event.key === "ContextMenu") {
+                    event.preventDefault(); event.stopPropagation();
+                    const rect = event.currentTarget.getBoundingClientRect();
+                    openNoteMenu(note.id, event.currentTarget, rect.left + 20, rect.bottom); return;
+                  }
+                  if (event.key === "Enter" || event.key === " ") {
+                    event.preventDefault();
+                    setActiveNote(note.id);
+                  }
+                }}
+                className={`${styles.noteRow} ${activeNoteId === note.id ? styles.selected : ""}`}
               >
                 <h4 className="font-bold text-sm truncate">{preview.title}</h4>
                 <p className="text-xs mt-1 opacity-70 truncate">{preview.snippet}</p>
@@ -253,17 +311,10 @@ export function NotesApp({ window }: { window: { id: string; title: string } }) 
       </div>
 
       {/* Main Content View */}
-      <div
-        className="flex-1 h-full flex flex-col bg-white dark:bg-[#1e1e1e] overflow-hidden transition-colors duration-1000 ease-in-out"
-        style={
-          isDarkMode
-            ? undefined
-            : { backgroundImage: "radial-gradient(#e5e5e5 1px, transparent 1px)", backgroundSize: "20px 20px" }
-        }
-      >
+      <div className={styles.main}>
 
         {/* Toolbar: formatting + search + new note */}
-        <div className="min-h-12 border-b border-gray-200 dark:border-white/10 flex items-center gap-1 px-3 py-1.5 bg-white/80 dark:bg-black/40 backdrop-blur-sm shrink-0 flex-wrap transition-colors duration-1000 ease-in-out">
+        <div className={styles.toolbar}>
           <button
             onMouseDown={(e) => e.preventDefault()}
             onClick={() => exec("bold")}
@@ -318,6 +369,7 @@ export function NotesApp({ window }: { window: { id: string; title: string } }) 
           </button>
 
           <div className="flex-1" />
+          <button type="button" className={toolBtn} disabled={!activeNote} aria-label="Delete current note" title="Delete note" onClick={() => { if (activeNote) deleteNote(activeNote.id); }}><Trash2 size={16} /></button>
 
           {showSearch && (
             <div className="flex items-center gap-1 bg-gray-100 dark:bg-white/10 rounded-md px-2 py-1 mr-1">
@@ -356,7 +408,7 @@ export function NotesApp({ window }: { window: { id: string; title: string } }) 
           </button>
           <button
             onClick={addNote}
-            className="p-1 hover:bg-gray-100 dark:hover:bg-white/10 rounded-md transition-colors"
+            className={toolBtn}
             title="Create a new note"
           >
             <Edit size={16} className="text-gray-500 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-100" />
@@ -366,22 +418,25 @@ export function NotesApp({ window }: { window: { id: string; title: string } }) 
         {/* Unified scrolling page — title scrolls away naturally with the body */}
         {activeNote ? (
           <div
-            ref={scrollerRef}
-            className="flex-1 overflow-y-auto"
+            className={styles.scroller}
             style={{ transform: "translateZ(0)" }}
           >
-            <div className="max-w-2xl mx-auto px-10 py-10 min-h-full">
+            <div className={styles.notePage} data-note-page>
+              <time className={styles.editedAt} dateTime={new Date(activeNote.updatedAt).toISOString()} aria-label="Last edited">
+                {new Date(activeNote.updatedAt).toLocaleString("en-GB", { dateStyle: "long", timeStyle: "short" })}
+              </time>
               <div
                 ref={editorRef}
                 contentEditable={true}
                 suppressContentEditableWarning={true}
                 onInput={handleInput}
+                onFocus={refreshFormatState}
                 onKeyUp={refreshFormatState}
                 onMouseUp={refreshFormatState}
                 onPointerDown={(e) => e.stopPropagation()}
                 data-placeholder="Start writing…"
                 aria-label="Note editor"
-                className="notes-editor w-full bg-transparent text-gray-800 dark:text-gray-200 text-[15px] leading-relaxed font-medium min-h-[60vh]"
+                className={`${styles.editor} notes-editor`}
               />
             </div>
           </div>
@@ -391,6 +446,10 @@ export function NotesApp({ window }: { window: { id: string; title: string } }) 
           </div>
         )}
       </div>
+      {noteMenu && <div ref={menuRef} role="menu" aria-label="Note actions" className={styles.noteMenu} style={{ left: noteMenu.x, top: noteMenu.y }} onPointerDown={event => event.stopPropagation()} onContextMenu={event => { event.preventDefault(); event.stopPropagation(); }} onKeyDown={event => { if (["ArrowDown", "ArrowUp", "Home", "End"].includes(event.key)) { event.preventDefault(); menuRef.current?.querySelector<HTMLButtonElement>("button")?.focus(); } if (event.key === "Tab") setNoteMenu(null); }}>
+        <button type="button" role="menuitem" onClick={() => { deleteNote(noteMenu.id); setNoteMenu(null); requestAnimationFrame(() => editorRef.current?.focus({ preventScroll: true })); }}><Trash2 size={14} />Delete note</button>
+      </div>}
+      {deletedNote && <div className={styles.deleteNotice} role="status">Note deleted <button type="button" onClick={undoDelete}>Undo delete</button></div>}
     </div>
   );
 }

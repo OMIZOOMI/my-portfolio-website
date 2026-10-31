@@ -1,0 +1,9 @@
+PASS cold-and-warm-handoff (3.9s)
+PASS reduced-motion (1.6s)
+PASS model-failure-and-retry (2.7s)
+PASS lighting-failure-and-retry (2.0s)
+PASS wallpaper-failure-fallback (2.2s)
+PASS unavailable-webgl-flat-desktop (0.7s)
+PASS context-loss-and-retry (3.8s)
+PASS stalled-lighting-deadline (3.4s)
+All startup browser scenarios passed. Screenshots: /Users/Om/Om Main Portfolio/docs/stage13-review/startup/

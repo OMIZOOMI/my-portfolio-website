@@ -1,0 +1,95 @@
+{
+  "phase": "before",
+  "browser": "Chrome/156.0.8078.48",
+  "viewport": {
+    "width": 1440,
+    "height": 1000
+  },
+  "autoplayPolicyOverride": false,
+  "scenarios": [
+    {
+      "name": "baseline-music-layout-and-short-synthesized-tracks",
+      "geometry": {
+        "host": {
+          "x": 419.29150390625,
+          "y": 172.0239715576172,
+          "width": 429.4534912109375,
+          "height": 294.142822265625,
+          "localWidth": 640,
+          "localHeight": 440
+        },
+        "app": {
+          "x": 419.29150390625,
+          "y": 172.0239715576172,
+          "width": 429.4534912109375,
+          "height": 294.142822265625,
+          "localWidth": 640,
+          "localHeight": 440
+        },
+        "sidebar": {
+          "x": 419.29150390625,
+          "y": 172.0239715576172,
+          "width": 131.920654296875,
+          "height": 294.142822265625,
+          "localWidth": 191,
+          "localHeight": 440
+        },
+        "header": {
+          "x": 548.1275634765625,
+          "y": 172.0239715576172,
+          "width": 300.617431640625,
+          "height": 62.388153076171875,
+          "localWidth": 448,
+          "localHeight": 91
+        },
+        "content": {
+          "x": 548.7817993164062,
+          "y": 234.41212463378906,
+          "width": 299.47308349609375,
+          "height": 175.42674255371094,
+          "localWidth": 448,
+          "localHeight": 263
+        },
+        "footer": {
+          "x": 550.6214599609375,
+          "y": 409.8388671875,
+          "width": 296.25543212890625,
+          "height": 56.32794189453125,
+          "localWidth": 448,
+          "localHeight": 85
+        },
+        "artwork": {
+          "x": 561.6630859375,
+          "y": 183.927978515625,
+          "width": 37.8299560546875,
+          "height": 37.97688293457031,
+          "localWidth": 56,
+          "localHeight": 56
+        },
+        "theme": "geist_a71539c9-module__T19VSG__variable geist_mono_8d43a2aa-module__8Li5zG__variable antialiased dark"
+      },
+      "library": [
+        {
+          "text": "1\nCoding Lo-Fi\nPortfolio Radio\n00:12"
+        },
+        {
+          "text": "2\nDeep Focus\nPortfolio Radio\n00:14"
+        },
+        {
+          "text": "3\nMidnight Merge\nPortfolio Radio\n00:16"
+        },
+        {
+          "text": "4\nShip It Slow\nPortfolio Radio\n00:13"
+        }
+      ],
+      "audio": {
+        "src": "blob:http://127.0.0.1:3001/cac0b61d-5054-49b8-824d-a11974eb4465",
+        "duration": 12,
+        "paused": true,
+        "preload": "auto"
+      },
+      "status": "PASS",
+      "elapsedMs": 4482
+    }
+  ]
+}

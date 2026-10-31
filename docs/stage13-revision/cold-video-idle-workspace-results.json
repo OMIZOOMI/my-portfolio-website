@@ -1,0 +1,231 @@
+{
+  "phase": "cold",
+  "explicitColdCache": true,
+  "startedAt": "2026-10-30T15:50:22.831Z",
+  "buildId": "vEe7Zo3GwNY-OZLfGkORG",
+  "browser": "Chrome/156.0.8078.76",
+  "host": {
+    "model": "MacBookAir10,1",
+    "chip": "Apple M1",
+    "ramGiB": 8,
+    "os": "macOS 27.2",
+    "darwin": "27.2.0",
+    "arch": "arm64"
+  },
+  "viewport": {
+    "width": 1440,
+    "height": 1000,
+    "dpr": 1
+  },
+  "conditions": "Production localhost; isolated headless Chrome with ANGLE Metal. CDP wheel/touch/keyboard and controlled visibility/playback fixtures are not physical hardware coverage. rAF/Event Timing are local probes, not field INP or presented FPS.",
+  "scenarios": [
+    {
+      "name": "video-idle-and-travel-frame-observations",
+      "beach": {
+        "label": "Beach video + 3D idle",
+        "durationMs": 8008.10000000149,
+        "wallMs": 8011,
+        "frames": {
+          "n": 480,
+          "p50": 16.699999999999818,
+          "p95": 16.700000000000728,
+          "p99": 16.80000000000109,
+          "max": 16.80000000000109,
+          "over16_7": 122,
+          "over33_4": 0
+        },
+        "longTasks": [],
+        "eventTiming": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "over16_7": 0,
+          "over33_4": 0
+        },
+        "inputDelay": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "over16_7": 0,
+          "over33_4": 0
+        },
+        "pointerToNextRAF": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "over16_7": 0,
+          "over33_4": 0
+        },
+        "inference": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "over16_7": 0,
+          "over33_4": 0
+        },
+        "mainThreadBusyPercent": 8.116894144677003,
+        "attachedCanvasClearsPerSecond": 120.12837002532699,
+        "drawCallsPerSecond": 2702.888325569857,
+        "pendingRaf": 1,
+        "pendingVideoCallbacks": 0,
+        "jsHeap": 15035468,
+        "dom": {
+          "documents": 1,
+          "nodes": 335,
+          "jsEventListeners": 586
+        }
+      },
+      "forest": {
+        "label": "Forest video + 3D idle",
+        "durationMs": 8007.400000002235,
+        "wallMs": 8012,
+        "frames": {
+          "n": 480,
+          "p50": 16.69999999999891,
+          "p95": 16.799999999999272,
+          "p99": 16.80000000000109,
+          "max": 16.80000000000291,
+          "over16_7": 220,
+          "over33_4": 0
+        },
+        "longTasks": [],
+        "eventTiming": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "over16_7": 0,
+          "over33_4": 0
+        },
+        "inputDelay": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "over16_7": 0,
+          "over33_4": 0
+        },
+        "pointerToNextRAF": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "over16_7": 0,
+          "over33_4": 0
+        },
+        "inference": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "over16_7": 0,
+          "over33_4": 0
+        },
+        "mainThreadBusyPercent": 11.078065289604018,
+        "attachedCanvasClearsPerSecond": 119.88910258007994,
+        "drawCallsPerSecond": 2697.5048080517986,
+        "pendingRaf": 1,
+        "pendingVideoCallbacks": 0,
+        "jsHeap": 19368256,
+        "dom": {
+          "documents": 1,
+          "nodes": 631,
+          "jsEventListeners": 724
+        }
+      },
+      "travel": {
+        "label": "six prepared location changes",
+        "durationMs": 6397.800000000745,
+        "wallMs": 6406,
+        "frames": {
+          "n": 384,
+          "p50": 16.69999999999709,
+          "p95": 16.799999999999272,
+          "p99": 16.80000000000291,
+          "max": 16.80000000000291,
+          "over16_7": 184,
+          "over33_4": 0
+        },
+        "longTasks": [],
+        "eventTiming": {
+          "n": 116,
+          "p50": 32,
+          "p95": 32,
+          "p99": 32,
+          "max": 32,
+          "over16_7": 116,
+          "over33_4": 0
+        },
+        "inputDelay": {
+          "n": 116,
+          "p50": 8.5,
+          "p95": 15.300000000745058,
+          "p99": 15.399999998509884,
+          "max": 15.399999998509884,
+          "over16_7": 0,
+          "over33_4": 0
+        },
+        "pointerToNextRAF": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "over16_7": 0,
+          "over33_4": 0
+        },
+        "inference": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "over16_7": 0,
+          "over33_4": 0
+        },
+        "mainThreadBusyPercent": 12.295085810746016,
+        "attachedCanvasClearsPerSecond": 120.35387164336339,
+        "drawCallsPerSecond": 2707.962111975676,
+        "pendingRaf": 1,
+        "pendingVideoCallbacks": 0,
+        "jsHeap": 16340752,
+        "dom": {
+          "documents": 1,
+          "nodes": 1179,
+          "jsEventListeners": 1070
+        }
+      },
+      "resources": {
+        "layers": 1,
+        "videos": [
+          {
+            "id": "forest",
+            "paused": false,
+            "src": "/workspaces/forest-hd.mp4",
+            "time": 0.1151,
+            "ready": 4
+          }
+        ],
+        "canvases": 1,
+        "pendingRaf": 1,
+        "pendingVideo": 0
+      },
+      "status": "PASS",
+      "elapsedMs": 27973
+    }
+  ],
+  "elapsedMs": 28449,
+  "finishedAt": "2026-10-30T15:50:51.280Z"
+}

@@ -1,0 +1,245 @@
+{
+  "browser": "Chrome/156.0.8078.48",
+  "viewport": {
+    "width": 1440,
+    "height": 1000
+  },
+  "scenarios": [
+    {
+      "name": "larger-targets-respond-outside-visible-dots",
+      "targets": [
+        {
+          "action": "close",
+          "width": 28,
+          "height": 28,
+          "projectedWidth": 18.361846923828125,
+          "projectedHeight": 18.32220458984375,
+          "label": "Close"
+        },
+        {
+          "action": "minimize",
+          "width": 28,
+          "height": 28,
+          "projectedWidth": 18.341583251953125,
+          "projectedHeight": 18.32220458984375,
+          "label": "Minimize"
+        },
+        {
+          "action": "maximize",
+          "width": 28,
+          "height": 28,
+          "projectedWidth": 18.321380615234375,
+          "projectedHeight": 18.32220458984375,
+          "label": "Maximize"
+        }
+      ],
+      "minimizePoint": {
+        "x": 449.3376098632813,
+        "y": 158.84149169921875
+      },
+      "maximizePoint": {
+        "x": 468.1643798828125,
+        "y": 158.84149169921875
+      },
+      "maximized": {
+        "width": 1322,
+        "height": 822,
+        "left": "40px",
+        "top": "40px",
+        "transform": "none",
+        "pointerEvents": "auto",
+        "rect": {
+          "left": 274.5704650878906,
+          "top": 70.67937469482422,
+          "right": 1167.9492492675781,
+          "bottom": 618.790153503418,
+          "width": 893.3787841796875,
+          "height": 548.1107788085938
+        },
+        "desktop": {
+          "width": 1400,
+          "height": 900,
+          "left": 246.7438201904297,
+          "top": 43.03950881958008,
+          "right": 1194.426254272461,
+          "bottom": 643.2448310852051
+        }
+      },
+      "closePoint": {
+        "x": 430.5108337402344,
+        "y": 158.84149169921875
+      },
+      "status": "PASS",
+      "elapsedMs": 25377
+    },
+    {
+      "name": "repeated-real-pointer-actions-and-combination-races",
+      "realPointerCycles": 5,
+      "burst": [
+        "maximize",
+        "minimize",
+        "maximize",
+        "close",
+        "minimize",
+        "maximize",
+        "close"
+      ],
+      "final": {
+        "width": 1322,
+        "height": 822,
+        "left": "40px",
+        "top": "40px",
+        "transform": "none",
+        "pointerEvents": "auto",
+        "rect": {
+          "left": 274.5704650878906,
+          "top": 70.67937469482422,
+          "right": 1167.9492492675781,
+          "bottom": 618.790153503418,
+          "width": 893.3787841796875,
+          "height": 548.1107788085938
+        },
+        "desktop": {
+          "width": 1400,
+          "height": 900,
+          "left": 246.7438201904297,
+          "top": 43.03950881958008,
+          "right": 1194.426254272461,
+          "bottom": 643.2448310852051
+        }
+      },
+      "status": "PASS",
+      "elapsedMs": 44670
+    },
+    {
+      "name": "keyboard-controls-and-reduced-motion",
+      "focusVisible": {
+        "outline": "solid",
+        "outlineWidth": "2px",
+        "focused": true
+      },
+      "status": "PASS",
+      "elapsedMs": 12320
+    },
+    {
+      "name": "drag-cleanup-after-blur-close-and-pointer-cancel",
+      "after": {
+        "width": 642,
+        "height": 478,
+        "left": "250px",
+        "top": "150px",
+        "transform": "scale(0.96)",
+        "pointerEvents": "auto",
+        "rect": {
+          "left": 426.6348571777344,
+          "top": 152.74374389648438,
+          "right": 841.04833984375,
+          "bottom": 460.2381591796875,
+          "width": 414.4134826660156,
+          "height": 307.4944152832031
+        },
+        "desktop": {
+          "width": 1400,
+          "height": 900,
+          "left": 246.7438201904297,
+          "top": 43.03950881958008,
+          "right": 1194.426254272461,
+          "bottom": 643.2448310852051
+        }
+      },
+      "status": "PASS",
+      "elapsedMs": 17318
+    },
+    {
+      "name": "maximized-window-follows-desktop-resizing",
+      "sizes": [
+        {
+          "width": 1000,
+          "height": 750,
+          "state": {
+            "width": 1322,
+            "height": 822,
+            "left": "40px",
+            "top": "40px",
+            "transform": "none",
+            "pointerEvents": "auto",
+            "rect": {
+              "left": 165.92787170410156,
+              "top": 53.00954818725586,
+              "right": 835.9619293212891,
+              "bottom": 464.0926170349121,
+              "width": 670.0340576171875,
+              "height": 411.08306884765625
+            },
+            "desktop": {
+              "width": 1400,
+              "height": 900,
+              "left": 145.05789184570312,
+              "top": 32.27964782714844,
+              "right": 855.8197326660156,
+              "bottom": 482.4336395263672
+            }
+          }
+        },
+        {
+          "width": 1700,
+          "height": 1100,
+          "state": {
+            "width": 1322,
+            "height": 822,
+            "left": "40px",
+            "top": "40px",
+            "transform": "none",
+            "pointerEvents": "auto",
+            "rect": {
+              "left": 360.02752685546875,
+              "top": 77.747314453125,
+              "right": 1342.744140625,
+              "bottom": 680.669189453125,
+              "width": 982.7166137695312,
+              "height": 602.921875
+            },
+            "desktop": {
+              "width": 1400,
+              "height": 900,
+              "left": 329.418212890625,
+              "top": 47.34346008300781,
+              "right": 1371.868896484375,
+              "bottom": 707.5693511962891
+            }
+          }
+        },
+        {
+          "width": 1440,
+          "height": 1000,
+          "state": {
+            "width": 1322,
+            "height": 822,
+            "left": "40px",
+            "top": "40px",
+            "transform": "none",
+            "pointerEvents": "auto",
+            "rect": {
+              "left": 274.5704650878906,
+              "top": 70.67937469482422,
+              "right": 1167.9492492675781,
+              "bottom": 618.790153503418,
+              "width": 893.3787841796875,
+              "height": 548.1107788085938
+            },
+            "desktop": {
+              "width": 1400,
+              "height": 900,
+              "left": 246.7438201904297,
+              "top": 43.03950881958008,
+              "right": 1194.426254272461,
+              "bottom": 643.2448310852051
+            }
+          }
+        }
+      ],
+      "status": "PASS",
+      "elapsedMs": 33362
+    }
+  ]
+}

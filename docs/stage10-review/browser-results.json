@@ -1,0 +1,210 @@
+{
+  "browser": "Chrome/156.0.8078.48",
+  "host": {
+    "platform": "darwin",
+    "release": "25.6.0",
+    "arch": "arm64"
+  },
+  "site": "http://127.0.0.1:3001",
+  "before": false,
+  "localBuildId": "Yx_fn2D0rHhnJVHL7JnOA",
+  "input": "Trusted synthetic CDP mouse/key/wheel input on macOS Chrome, plus labelled programmatic rapid-click stress. Not a native Safari app or physical trackpad test.",
+  "scenarios": [
+    {
+      "name": "independent-tab-urls-history-and-rapid-switching",
+      "afterSwitching": {
+        "mode": "normal",
+        "address": "portfolio://project/edge-ai-hardware-state-detection",
+        "tabs": [
+          {
+            "id": "safari-tab-1",
+            "title": "3D macOS Web Portfolio",
+            "active": false,
+            "url": "portfolio://project/3d-macos-web-portfolio",
+            "entry": "safari-page-4",
+            "scroll": 0,
+            "hidden": true,
+            "reload": "0"
+          },
+          {
+            "id": "safari-tab-5",
+            "title": "Edge AI Hardware State Detection System",
+            "active": true,
+            "url": "portfolio://project/edge-ai-hardware-state-detection",
+            "entry": "safari-page-8",
+            "scroll": 0,
+            "hidden": false,
+            "reload": "0"
+          }
+        ],
+        "back": false,
+        "forward": true,
+        "feedback": null,
+        "text": " Back to favoritesProject detailEdge AI Hardware State Detection SystemA computer-vision pipeline that detects hardware states from live camera frames, combining a YOLOv8 model, Roboflow dataset tooling, LiteRT/TFLite deployment, and OpenCV stream processing.YOLOv8RoboflowLiteRT / TFLiteOpenCVPython Open GitHub repository Architecture1OpenCV captures and normalizes webcam frames.2YOLOv8 performs object and state detection with confidence filtering.3The LiteRT/TFLite runtime keeps inference portable on edge hardware.4A lightweight result loop exposes labels, confidence, and timing to the UI.HighlightsReal-time webcam inferenceEdge-optimized model runtimeFalse-positive handling and confidence thresholds"
+      },
+      "afterIndependentBack": {
+        "mode": "normal",
+        "address": "portfolio://project/cloud-native-asset-management-api",
+        "tabs": [
+          {
+            "id": "safari-tab-1",
+            "title": "Edge AI Hardware State Detection System",
+            "active": false,
+            "url": "portfolio://project/edge-ai-hardware-state-detection",
+            "entry": "safari-page-3",
+            "scroll": 0,
+            "hidden": true,
+            "reload": "0"
+          },
+          {
+            "id": "safari-tab-5",
+            "title": "Cloud-Native Asset Management API",
+            "active": true,
+            "url": "portfolio://project/cloud-native-asset-management-api",
+            "entry": "safari-page-7",
+            "scroll": 0,
+            "hidden": false,
+            "reload": "0"
+          }
+        ],
+        "back": false,
+        "forward": false,
+        "feedback": null,
+        "text": " Back to favoritesProject detailCloud-Native Asset Management APIA cloud-ready backend architecture built around FastAPI, PostgreSQL, Docker, and AWS primitives, with clear separation between API, persistence, configuration, and deployment concerns.FastAPIPostgreSQLDockerAWSPython Open GitHub repository Architecture1FastAPI exposes typed HTTP endpoints and validation boundaries.2PostgreSQL stores durable asset metadata and workflow state.3Docker packages the service for reproducible local and cloud runs.4AWS architecture provides the deployment, networking, and storage path.HighlightsTyped REST API boundariesPersistent relational storageReproducible container deployment"
+      },
+      "rapidProgrammaticSwitches": 200,
+      "status": "PASS",
+      "elapsedMs": 6856
+    },
+    {
+      "name": "scroll-disclosures-history-reload-and-private-roundtrip",
+      "savedScroll": 220,
+      "restored": {
+        "mode": "normal",
+        "address": "portfolio://start",
+        "tabs": [
+          {
+            "id": "safari-tab-1",
+            "title": "Start Page",
+            "active": true,
+            "url": "portfolio://start",
+            "entry": "safari-page-2",
+            "scroll": 220,
+            "hidden": false,
+            "reload": "1"
+          },
+          {
+            "id": "safari-tab-3",
+            "title": "Edge AI Hardware State Detection System",
+            "active": false,
+            "url": "portfolio://project/edge-ai-hardware-state-detection",
+            "entry": "safari-page-5",
+            "scroll": 0,
+            "hidden": true,
+            "reload": "0"
+          }
+        ],
+        "back": true,
+        "forward": false,
+        "feedback": "Portfolio view refreshed. External websites are not loaded inside this demo.",
+        "text": " Portfolio Start PageBuild systems. Ship useful work.Explore the engineering projects behind this desktop experience, from edge inference to cloud-native APIs.Favorites3core repositoriesProject favoritesFeatured repositoryEdge AI Hardware State Detection SystemReal-time webcam inference for hardware-state recognition at the edge.YOLOv8RoboflowLiteRT / TFLiteOpenCVPythonArchitecture breakdownOpenCV captures and normalizes webcam frames.YOLOv8 performs object and state detection with confidence filtering.The LiteRT/TFLite runtime keeps inference portable on edge hardware.A lightweight result loop exposes labels, confidence, and timing to the UI.View details Open repo Featured repositoryCloud-Native Asset Management APIContainerized FastAPI services for reliable asset and task workflows.FastAPIPostgreSQLDockerAWSPythonArchitecture breakdownFastAPI exposes typed HTTP endpoints and validation boundaries.PostgreSQL stores durable asset metadata and workflow state.Docker packages the service for reproducible local and cloud runs.AWS architecture provides the deployment, networking, and storage path.View details Open repo Featured repository3D macOS Web PortfolioAn interactive portfolio OS rendered inside a 3D MacBook scene.Next.jsReactReact Three FiberThree.jsTailwind CSSZustandArchitecture breakdownNext.js App Router provides the client entry point and build pipeline.React Three Fiber renders the MacBook shell and HTML screen portal.Zustand coordinates windows, system settings, files, mail, browser, and music.Tailwind and CSS modules provide app-level visual systems and dark-mode behavior.View details Open repo "
+      },
+      "status": "PASS",
+      "elapsedMs": 5395
+    },
+    {
+      "name": "predictable-close-final-tab-and-keyboard-activation",
+      "finalUsable": {
+        "mode": "normal",
+        "address": "portfolio://project/3d-macos-web-portfolio",
+        "tabs": [
+          {
+            "id": "safari-tab-10",
+            "title": "3D macOS Web Portfolio",
+            "active": true,
+            "url": "portfolio://project/3d-macos-web-portfolio",
+            "entry": "safari-page-12",
+            "scroll": 0,
+            "hidden": false,
+            "reload": "0"
+          }
+        ],
+        "back": false,
+        "forward": true,
+        "feedback": null,
+        "text": " Back to favoritesProject detail3D macOS Web PortfolioA Next.js and React portfolio that turns the browser into a macOS-inspired desktop with draggable windows, app-specific stores, gesture interactions, dynamic wallpapers, and a portfolio-native project browser.Next.jsReactReact Three FiberThree.jsTailwind CSSZustand Open GitHub repository Architecture1Next.js App Router provides the client entry point and build pipeline.2React Three Fiber renders the MacBook shell and HTML screen portal.3Zustand coordinates windows, system settings, files, mail, browser, and music.4Tailwind and CSS modules provide app-level visual systems and dark-mode behavior.Highlights3D MacBook presentation layerWindow manager with focus, minimize, maximize, and drag behaviorPortfolio projects surfaced as Finder files and Safari favorites"
+      },
+      "status": "PASS",
+      "elapsedMs": 5166
+    },
+    {
+      "name": "private-isolation-minimize-close-and-session-reload",
+      "storageKeys": [
+        "portfolio-appearance"
+      ],
+      "afterRealPageReload": {
+        "mode": "normal",
+        "address": "portfolio://start",
+        "tabs": [
+          {
+            "id": "safari-tab-1",
+            "title": "Start Page",
+            "active": true,
+            "url": "portfolio://start",
+            "entry": "safari-page-2",
+            "scroll": 0,
+            "hidden": false,
+            "reload": "0"
+          }
+        ],
+        "back": true,
+        "forward": true,
+        "feedback": null,
+        "text": " Portfolio Start PageBuild systems. Ship useful work.Explore the engineering projects behind this desktop experience, from edge inference to cloud-native APIs.Favorites3core repositoriesProject favoritesFeatured repositoryEdge AI Hardware State Detection SystemReal-time webcam inference for hardware-state recognition at the edge.YOLOv8RoboflowLiteRT / TFLiteOpenCVPythonArchitecture breakdownOpenCV captures and normalizes webcam frames.YOLOv8 performs object and state detection with confidence filtering.The LiteRT/TFLite runtime keeps inference portable on edge hardware.A lightweight result loop exposes labels, confidence, and timing to the UI.View details Open repo Featured repositoryCloud-Native Asset Management APIContainerized FastAPI services for reliable asset and task workflows.FastAPIPostgreSQLDockerAWSPythonArchitecture breakdownFastAPI exposes typed HTTP endpoints and validation boundaries.PostgreSQL stores durable asset metadata and workflow state.Docker packages the service for reproducible local and cloud runs.AWS architecture provides the deployment, networking, and storage path.View details Open repo Featured repository3D macOS Web PortfolioAn interactive portfolio OS rendered inside a 3D MacBook scene.Next.jsReactReact Three FiberThree.jsTailwind CSSZustandArchitecture breakdownNext.js App Router provides the client entry point and build pipeline.React Three Fiber renders the MacBook shell and HTML screen portal.Zustand coordinates windows, system settings, files, mail, browser, and music.Tailwind and CSS modules provide app-level visual systems and dark-mode behavior.View details Open repo "
+      },
+      "status": "PASS",
+      "elapsedMs": 10404
+    },
+    {
+      "name": "narrow-window-active-tab-remains-reachable",
+      "state": {
+        "mode": "normal",
+        "address": "portfolio://project/edge-ai-hardware-state-detection",
+        "tabs": [
+          {
+            "id": "safari-tab-1",
+            "title": "Edge AI Hardware State Detection System",
+            "active": true,
+            "url": "portfolio://project/edge-ai-hardware-state-detection",
+            "entry": "safari-page-3",
+            "scroll": 0,
+            "hidden": false,
+            "reload": "0"
+          },
+          {
+            "id": "safari-tab-4",
+            "title": "Cloud-Native Asset Management API",
+            "active": false,
+            "url": "portfolio://project/cloud-native-asset-management-api",
+            "entry": "safari-page-6",
+            "scroll": 0,
+            "hidden": true,
+            "reload": "0"
+          }
+        ],
+        "back": false,
+        "forward": true,
+        "feedback": null,
+        "text": " Back to favoritesProject detailEdge AI Hardware State Detection SystemA computer-vision pipeline that detects hardware states from live camera frames, combining a YOLOv8 model, Roboflow dataset tooling, LiteRT/TFLite deployment, and OpenCV stream processing.YOLOv8RoboflowLiteRT / TFLiteOpenCVPython Open GitHub repository Architecture1OpenCV captures and normalizes webcam frames.2YOLOv8 performs object and state detection with confidence filtering.3The LiteRT/TFLite runtime keeps inference portable on edge hardware.4A lightweight result loop exposes labels, confidence, and timing to the UI.HighlightsReal-time webcam inferenceEdge-optimized model runtimeFalse-positive handling and confidence thresholds"
+      },
+      "status": "PASS",
+      "elapsedMs": 6791
+    },
+    {
+      "name": "invalid-address-and-truthful-external-handoffs",
+      "feedback": "Requested a new browser tab. If nothing opened, allow pop-ups for this site. This demo has not loaded the website.",
+      "status": "PASS",
+      "elapsedMs": 5222
+    }
+  ]
+}

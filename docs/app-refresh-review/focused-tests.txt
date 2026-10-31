@@ -1,0 +1,52 @@
+✔ original keyboard sound is short, bounded, varied and ends at zero (5.162458ms)
+✔ sound starts lazily, caps voices, reuses buffers and releases its context (0.707375ms)
+✔ a closed sound engine ignores late unlock; unavailable audio never breaks typing (0.17525ms)
+✔ keyboard sound defaults on and remembers only its own preference (13.142708ms)
+✔ rapid note creation produces distinct IDs and deletion of another note keeps the active editor (0.310458ms)
+✔ deleting an edited note and undo restores exact rich text and stable identity once (0.151541ms)
+✔ the last note can be deleted, undone, or replaced with a new blank note (0.101458ms)
+✔ nine complete tracks, three per mood, distinct top four and searchable Browse (0.303125ms)
+✔ served audio matches the duration/source/license manifest and measured file sizes (40.179292ms)
+✔ camera preview paints new frames, mirrors once, and bounds the backing resolution (67.501916ms)
+✔ cover crop keeps the subject centered without stretching (27.374542ms)
+✔ preview callbacks are capped at 30Hz and resizing stays bounded (17.67625ms)
+✔ drawing failure and unavailable context remain actionable without retry loops (18.654958ms)
+✔ closing before a queued callback cannot paint or report ready later (12.133917ms)
+✔ live video without delivered frames times out to an actionable preview error (6.616375ms)
+▶ on-demand native Music playback
+  ✔ mount neither requests nor plays audio and starts synchronously only on intent (7.336958ms)
+  ✔ metadata owns duration, seeking works beyond two minutes and clamps safely (0.778333ms)
+  ✔ a rejected old play promise cannot replace the newer selection's state (3.128333ms)
+  ✔ pause while Play is pending prevents late completion/events from resuming (0.649625ms)
+  ✔ a blocked play promise remains actionable after late metadata; Play retries (0.828375ms)
+  ✔ loading has a finite deadline, cancels the request, and Retry restores position (0.789167ms)
+  ✔ a saved resume survives timeout before metadata and a subsequent retry (0.161209ms)
+  ✔ pause and close before metadata preserve the unapplied resume/seek position (0.120209ms)
+  ✔ repeated waiting events cannot extend a buffering deadline indefinitely (0.180666ms)
+  ✔ a network stall with sufficient buffered media keeps playing without a timeout (0.170917ms)
+  ✔ fetch/decode failures never leave playback loading and can be retried (0.170958ms)
+  ✔ unsupported audio reports an error without claiming playback (0.084916ms)
+  ✔ ended advances only once, and a restarted track can end again (0.256875ms)
+  ✔ queued events from a replaced source cannot mark its replacement as playing, ended or failed (0.165042ms)
+  ✔ close pauses, releases src/listeners/timer, and ignores late play outcomes (1.737292ms)
+  ✔ volume is clamped and user values survive source changes (0.239583ms)
+✔ on-demand native Music playback (18.33425ms)
+▶ Music store and app lifecycle
+  ✔ mood queues retain next, previous, shuffle and ending within the chosen playlist (2.652791ms)
+  ✔ invalid queues cannot replace playback and duplicate indices are removed (0.100625ms)
+  ✔ commands cannot invent a playing state without a mounted player (0.062875ms)
+  ✔ only one live player survives a replacement; stale cleanup leaves it intact (0.2415ms)
+  ✔ close releases immediately; reopening keeps position without autoplay or requests (0.315541ms)
+  ✔ closing a resumed player before its new metadata arrives retains the saved position (0.220292ms)
+  ✔ Next preserves pause; shuffle excludes the current track and Previous follows history (0.301917ms)
+  ✔ real endings advance automatically; repeat reloads the same complete track (0.458584ms)
+  ✔ late old-source metadata cannot contaminate a newer track's measured duration (0.233041ms)
+✔ Music store and app lifecycle (4.735542ms)
+ℹ tests 40
+ℹ suites 2
+ℹ pass 40
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 523.8495

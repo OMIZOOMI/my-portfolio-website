@@ -7,6 +7,7 @@ Source: https://sketchfab.com/3d-models/macbook-pro-14-inch-m5-652a992f4f244122a
 Title: MacBook Pro 14-inch M5
 */
 
+import { useEffect } from 'react'
 import {TactileKeyboard} from './TactileKeyboard';
 import * as THREE from 'three'
 import type { ThreeElements } from '@react-three/fiber'
@@ -95,13 +96,20 @@ type GLTFResult = GLTF & {
   animations: GLTFAction[]
 }
 
-export function Model(props: ThreeElements['group']) {
+type ModelProps = ThreeElements['group'] & { onReady?: () => void; reduceMotion?: boolean }
+
+export function Model({ onReady, reduceMotion = false, ...props }: ModelProps) {
   const { nodes, materials } = useGLTF('/macbook.glb/scene.gltf') as unknown as GLTFResult
+
+  useEffect(() => {
+    onReady?.()
+  }, [onReady])
+
   return (
     <group {...props} dispose={null}>
-      <TactileKeyboard nodes={nodes} />
       <group rotation={[-Math.PI / 2, 0, 0]}>
         <group scale={0.01}>
+          <TactileKeyboard nodes={nodes} reduceMotion={reduceMotion} />
           <mesh geometry={nodes.Object_12.geometry} material={materials.zNRfbdNyoCOxSDD} />
           <mesh geometry={nodes.Object_14.geometry} material={materials.HdeQgqDhVRltuvQ} />
           <mesh geometry={nodes.Object_16.geometry} material={materials.HdeQgqDhVRltuvQ} />
@@ -125,11 +133,7 @@ export function Model(props: ThreeElements['group']) {
           <mesh geometry={nodes.Object_59.geometry} material={materials.XvtJEVWVvyDeJRR} />
           <mesh geometry={nodes.Object_62.geometry} material={materials.YMmdfGRsPviDXYd} />
           <mesh geometry={nodes.Object_64.geometry} material={materials.HdeQgqDhVRltuvQ} />
-          <mesh geometry={nodes.Object_67.geometry} material={materials.kMkIQgtfAZdmtyc} />
           <mesh geometry={nodes.Object_69.geometry} material={materials.sqkqSXQCeccDMmm} />
-          <mesh geometry={nodes.Object_71.geometry} material={materials.utAQarMJnpKrQeb} />
-          <mesh geometry={nodes.Object_73.geometry} material={materials.waAAeDqzqDLObIi} />
-          <mesh geometry={nodes.Object_75.geometry} material={materials.quuXrfeUujYrUMo} />
           <mesh geometry={nodes.Object_77.geometry} material={materials.WiyOPYJEeiHNVjF} />
           <mesh geometry={nodes.Object_79.geometry} material={materials.gGmExFByNnyrwMm} />
           <mesh geometry={nodes.Object_83.geometry} material={materials.KtCwfhzYtafEPLg} />

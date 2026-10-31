@@ -1,0 +1,36 @@
+{
+  "phase": "final",
+  "explicitColdCache": false,
+  "startedAt": "2026-10-30T16:32:44.213Z",
+  "buildId": "tzLjDbWpdyQ5J2PwXlxdh",
+  "browser": "Chrome/156.0.8078.76",
+  "host": {
+    "model": "MacBookAir10,1",
+    "chip": "Apple M1",
+    "ramGiB": 8,
+    "os": "macOS 27.2",
+    "darwin": "27.2.0",
+    "arch": "arm64"
+  },
+  "viewport": {
+    "width": 1440,
+    "height": 1000,
+    "dpr": 1
+  },
+  "conditions": "Production localhost; isolated headless Chrome with ANGLE Metal. CDP wheel/touch/keyboard and controlled visibility/playback fixtures are not physical hardware coverage. rAF/Event Timing are local probes, not field INP or presented FPS.",
+  "scenarios": [
+    {
+      "name": "recording-travel-transition",
+      "recording": {
+        "frames": 124,
+        "seconds": 4.0997278690338135,
+        "source": "Actual CDP page screencast; two UI-triggered transitions. No physical-camera recording.",
+        "temporaryFrames": "/private/tmp/portfolio-stage13-sources/demo-frames"
+      },
+      "status": "PASS",
+      "elapsedMs": 8518
+    }
+  ],
+  "elapsedMs": 8684,
+  "finishedAt": "2026-10-30T16:32:52.897Z"
+}

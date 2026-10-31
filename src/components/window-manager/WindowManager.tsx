@@ -1,6 +1,6 @@
 "use client";
 
-import type { ComponentType } from "react";
+import { useMemo, type ComponentType } from "react";
 import { AnimatePresence } from "framer-motion";
 import { useWindowStore, type WindowState } from "./useWindowStore";
 import { WindowFrame } from "@/components/window-manager/WindowFrame";
@@ -52,20 +52,17 @@ interface WindowManagerProps {
 }
 
 export function WindowManager({ dragConstraintsRef, onActivateGameMenu }: WindowManagerProps) {
-  const windows = useWindowStore((s) => s.windows);
-  const context: WindowContext = { onActivateGameMenu };
+  const windows = useWindowStore(state => state.windows);
+  const context = useMemo(() => ({ onActivateGameMenu }), [onActivateGameMenu]);
+
 
   return (
     <AnimatePresence>
-      {Object.values(windows).map((win) => {
-        const Content = WINDOW_CONTENT[win.kind];
-        if (!Content) return null;
-
-        return (
-          <WindowFrame key={win.id} window={win} dragConstraintsRef={dragConstraintsRef}>
-            <Content context={context} window={win} />
-          </WindowFrame>
-        );
+      {Object.values(windows).map(window => {
+        const Content = WINDOW_CONTENT[window.kind];
+        return Content ? <WindowFrame key={window.id} window={window} dragConstraintsRef={dragConstraintsRef}>
+          <Content context={context} window={window} />
+        </WindowFrame> : null;
       })}
     </AnimatePresence>
   );

@@ -1,0 +1,24 @@
+(node:26559) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/Om/Om%20Main%20Portfolio/src/data/workspaces.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /Users/Om/Om Main Portfolio/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ catalog contains two HD live views, three non-landscape PNGs and six zero-request solid colors (212.36725ms)
+✔ corrupt/unknown preferences use Beach; a saved location is independent of theme (0.440667ms)
+✔ serialization saves only a version and environment, never drag/media/window/pause state (0.112917ms)
+✔ the first usable destination arrives without a travel animation (0.179708ms)
+✔ the outgoing location remains active until the new media and travel finish (0.080792ms)
+✔ late readiness and failures from superseded requests cannot change the latest selection (0.073292ms)
+✔ rapid choices during travel form a bounded latest-only queue (0.081667ms)
+✔ failure preserves the old scene and an actionable failed destination (0.091417ms)
+✔ selecting the current location cancels a pending destination (0.064834ms)
+✔ reduced motion settles immediately and stale completion cannot disturb it (0.096875ms)
+✔ repeated changes and stale motion callbacks retain no retired layers (0.111292ms)
+✔ color and PNG selections use the same latest-only readiness path and persist independently (0.066291ms)
+ℹ tests 12
+ℹ suites 0
+ℹ pass 12
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 409.9775

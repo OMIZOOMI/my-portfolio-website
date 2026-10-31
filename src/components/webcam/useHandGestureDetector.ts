@@ -1,168 +1,266 @@
 "use client";
 
-/**
- * npm install @mediapipe/tasks-vision
- *
- * Loads once (module-level cache) and stays warm across opens/closes of
- * the webcam window, so re-clicking "Try Me" doesn't re-pay the WASM +
- * model download cost. Detection runs on the main thread via
- * requestAnimationFrame — see the note in WebcamModule.tsx on why.
- */
-
 import { useEffect, useRef } from "react";
-import { HandLandmarker, FilesetResolver } from "@mediapipe/tasks-vision";
+import { HandLandmarker, FilesetResolver, type HandLandmarkerResult } from "@mediapipe/tasks-vision";
 import { classifyGesture, type Gesture } from "./GestureClassifier";
+import { createGestureTriggerGate } from "./gestureTriggerGate";
+import { createVideoFrameScheduler } from "./videoFrameScheduler";
+import {
+  createExclusiveDetectorRuntime,
+  type DetectorLease,
+  type DetectorStatus,
+  type LandmarkerDelegate,
+} from "./handDetectorRuntime";
 
-// Keep this version pinned to whatever you install in package.json —
-// a mismatch between the WASM runtime and the npm package is a common
-// source of silent failures.
-const TASKS_VISION_VERSION = "0.10.14";
+export type { DetectorStatus, LandmarkerDelegate } from "./handDetectorRuntime";
 
-let landmarkerPromise: Promise<HandLandmarker> | null = null;
+// Copied from this project's exact top-level npm package, not Drei's nested copy.
+// The build checks package/lockfile/runtime hashes together before shipping.
+const WASM_ROOT = "/mediapipe/tasks-vision-1.0.1/wasm";
+const MODEL_PATH = "/mediapipe/hand_landmarker.task";
+const DOWNLOAD_TIMEOUT_MS = 20_000;
+const INITIALIZATION_TIMEOUT_MS = 20_000;
+const MODEL_CACHE_MS = 5 * 60_000;
+const MAX_FRAME_FAILURES = 3;
 
-export type LandmarkerDelegate = "GPU" | "CPU";
-let activeDelegate: LandmarkerDelegate = "GPU";
+let filesetPromise: ReturnType<typeof FilesetResolver.forVisionTasks> | null = null;
+let runtimeAssetsReady = false;
+let modelBytes: Uint8Array | null = null;
+let modelExpiry: ReturnType<typeof setTimeout> | null = null;
 
-function createLandmarker(
-  vision: Awaited<ReturnType<typeof FilesetResolver.forVisionTasks>>,
-  delegate: LandmarkerDelegate
-) {
-  return HandLandmarker.createFromOptions(vision, {
-    baseOptions: {
-      modelAssetPath:
-        "https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/1/hand_landmarker.task",
-      delegate,
-    },
-    runningMode: "VIDEO",
-    numHands: 1,
-  });
+class GestureAssetError extends Error {}
+
+interface ManagedHandDetector {
+  detectForVideo(video: HTMLVideoElement, timestamp: number): HandLandmarkerResult;
+  close(): void;
 }
 
-/** Which delegate the cached landmarker actually runs on (for status UI). */
+async function readAsset(path: string, signal: AbortSignal, maximumBytes: number) {
+  const controller = new AbortController();
+  const abort = () => controller.abort();
+  signal.addEventListener("abort", abort, { once: true });
+  if (signal.aborted) controller.abort();
+  let timedOut = false;
+  const timeout = globalThis.setTimeout(() => {
+    timedOut = true;
+    controller.abort();
+  }, DOWNLOAD_TIMEOUT_MS);
+  try {
+    const response = await fetch(path, { signal: controller.signal, cache: "force-cache" });
+    if (!response.ok) throw new Error(`Gesture asset could not load (${response.status}).`);
+    const announcedSize = Number(response.headers.get("content-length"));
+    if (announcedSize > maximumBytes) throw new Error("Gesture asset exceeds its size limit.");
+    const bytes = new Uint8Array(await response.arrayBuffer());
+    if (!bytes.length || bytes.length > maximumBytes) throw new Error("Gesture asset is empty or invalid.");
+    return bytes;
+  } catch (error) {
+    if (timedOut) throw new Error("Gesture assets took too long to download. Check your connection and retry.");
+    throw error;
+  } finally {
+    globalThis.clearTimeout(timeout);
+    signal.removeEventListener("abort", abort);
+  }
+}
+
+async function prepareAssets(signal: AbortSignal) {
+  // FilesetResolver chooses SIMD or no-SIMD. Its own API only resolves filenames;
+  // checking those two files first makes blocked/download failures bounded and
+  // abortable before MediaPipe's native script loader takes ownership.
+  filesetPromise ??= FilesetResolver.forVisionTasks(WASM_ROOT).catch((error) => {
+    filesetPromise = null;
+    throw error;
+  });
+  const vision = await filesetPromise;
+  if (!runtimeAssetsReady) {
+    await Promise.all([
+      readAsset(vision.wasmLoaderPath, signal, 2 * 1024 * 1024),
+      readAsset(vision.wasmBinaryPath, signal, 64 * 1024 * 1024),
+    ]);
+    runtimeAssetsReady = true;
+  }
+  if (!modelBytes) modelBytes = await readAsset(MODEL_PATH, signal, 10 * 1024 * 1024);
+  if (modelExpiry) globalThis.clearTimeout(modelExpiry);
+  modelExpiry = globalThis.setTimeout(() => { modelBytes = null; modelExpiry = null; }, MODEL_CACHE_MS);
+  if (signal.aborted) throw new DOMException("Gesture detection was stopped.", "AbortError");
+  return { vision, model: modelBytes };
+}
+
+let activeDelegate: LandmarkerDelegate = "GPU";
+const runtime = createExclusiveDetectorRuntime<ManagedHandDetector>(async (delegate, signal) => {
+  let assets: Awaited<ReturnType<typeof prepareAssets>>;
+  try { assets = await prepareAssets(signal); }
+  catch (error) {
+    if (signal.aborted) throw error;
+    throw new GestureAssetError(error instanceof Error ? error.message : "Gesture assets could not load. Please retry.");
+  }
+  const { vision, model } = assets;
+  const canvas = delegate === "GPU" ? document.createElement("canvas") : undefined;
+  let contextLost = false;
+  const lost = (event: Event) => { event.preventDefault(); contextLost = true; };
+  canvas?.addEventListener("webglcontextlost", lost);
+  const clearCanvas = () => {
+    canvas?.removeEventListener("webglcontextlost", lost);
+    if (canvas) { canvas.width = 0; canvas.height = 0; }
+  };
+  let detector: HandLandmarker;
+  const existingScripts = new Set(Array.from(document.scripts ?? []));
+  try {
+    detector = await HandLandmarker.createFromOptions(vision, {
+      baseOptions: { modelAssetBuffer: model, delegate },
+      canvas,
+      runningMode: "VIDEO",
+      numHands: 1,
+      minHandDetectionConfidence: 0.5,
+      minHandPresenceConfidence: 0.5,
+      minTrackingConfidence: 0.5,
+    });
+  } catch (error) { clearCanvas(); throw error; }
+  finally {
+    // MediaPipe appends a fresh loader tag on each create, retaining its two
+    // callbacks after it has run. Only remove our completed, exact loader tag.
+    for (const script of Array.from(document.scripts ?? [])) {
+      const ownedLoader = script.getAttribute("src") === vision.wasmLoaderPath || script.src === new URL(vision.wasmLoaderPath, document.baseURI).href;
+      if (!existingScripts.has(script) && ownedLoader) {
+        script.onload = null;
+        script.onerror = null;
+        script.remove();
+      }
+    }
+  }
+  activeDelegate = delegate;
+  return {
+    detectForVideo(video, timestamp) {
+      if (contextLost) throw new Error("The GPU context was lost. Switching gesture detection to CPU.");
+      const started = performance.now();
+      try { return detector.detectForVideo(video, timestamp); }
+      finally {
+        // Visible in browser traces without accumulating entries or React state.
+        if (typeof performance.measure === "function" && typeof performance.clearMeasures === "function") {
+          performance.measure("portfolio:hand-inference", { start: started, end: performance.now() });
+          performance.clearMeasures("portfolio:hand-inference");
+        }
+      }
+    },
+    close() {
+      try { detector.close(); } finally { clearCanvas(); }
+    },
+  };
+}, { canFallback: (error) => !(error instanceof GestureAssetError) });
+
+/** Actual active delegate, retained for the older demo consumer. */
 export function getHandLandmarkerDelegate(): LandmarkerDelegate {
   return activeDelegate;
 }
 
-function getHandLandmarker() {
-  if (!landmarkerPromise) {
-    landmarkerPromise = (async () => {
-      const vision = await FilesetResolver.forVisionTasks(
-        `https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@${TASKS_VISION_VERSION}/wasm`
-      );
-      try {
-        // Windows ANGLE/D3D drivers (NVIDIA/AMD/Intel Iris) can refuse the
-        // WebGL context here — fall through to CPU instead of dying.
-        const lm = await createLandmarker(vision, "GPU");
-        activeDelegate = "GPU";
-        return lm;
-      } catch (gpuError) {
-        console.warn(
-          "[gestures] GPU delegate init failed, falling back to CPU:",
-          gpuError
-        );
-        try {
-          const lm = await createLandmarker(vision, "CPU");
-          activeDelegate = "CPU";
-          return lm;
-        } catch (cpuError) {
-          // Don't cache a poisoned rejection — allow a later retry.
-          landmarkerPromise = null;
-          throw cpuError;
-        }
-      }
-    })();
-  }
-  return landmarkerPromise;
-}
-
 interface UseHandGestureDetectorOptions {
-  videoRef: React.RefObject<HTMLVideoElement>;
+  videoRef: React.RefObject<HTMLVideoElement | null>;
   enabled: boolean;
   onGesture: (gesture: Exclude<Gesture, "none">) => void;
-  /** Minimum ms between triggers, so holding a pose doesn't spam effects. */
   cooldownMs?: number;
-  /** Fired once the WASM runtime + model are loaded and the loop starts. */
+  /** A changed key retries a failed initialization without remounting video. */
+  retryKey?: number | string;
+  /** Ready means an inference has succeeded, not merely that the model exists. */
   onReady?: (delegate: LandmarkerDelegate) => void;
-  /** Fired if the model can't load at all, or the per-frame loop keeps failing. */
-  onError?: () => void;
+  onStatus?: (status: DetectorStatus) => void;
+  onError?: (error: Error) => void;
 }
 
 export function useHandGestureDetector({
-  videoRef,
-  enabled,
-  onGesture,
-  cooldownMs = 2500,
-  onReady,
-  onError,
+  videoRef, enabled, onGesture, cooldownMs = 2500, retryKey = 0, onReady, onStatus, onError,
 }: UseHandGestureDetectorOptions) {
-  const rafRef = useRef<number>(null);
-  const lastGestureRef = useRef<Gesture>("none");
-  const cooldownUntilRef = useRef(0);
-  // A poisoned GPU context can fail AFTER init succeeds (context loss under
-  // ANGLE). Count consecutive per-frame failures and bail out instead of
-  // throwing inside rAF forever.
-  const frameFailuresRef = useRef(0);
-  const MAX_FRAME_FAILURES = 30;
+  const callbacks = useRef({ onGesture, onReady, onStatus, onError });
+  useEffect(() => { callbacks.current = { onGesture, onReady, onStatus, onError }; }, [onGesture, onReady, onStatus, onError]);
 
   useEffect(() => {
     if (!enabled) return;
+    const controller = new AbortController();
+    const gate = createGestureTriggerGate(cooldownMs);
+    let lease: DetectorLease<ManagedHandDetector> | null = null;
+    let failures = 0;
+    let ready = false;
+    let failed = false;
+    let status: DetectorStatus = "loading";
+    let initializationTimeout: ReturnType<typeof setTimeout> | null = null;
 
-    let cancelled = false;
-    let landmarker: HandLandmarker | null = null;
-    // Fresh session each enable: a pose held across toggles shouldn't
-    // instantly fire, and a stale pose must not leak into the new session.
-    lastGestureRef.current = "none";
-    cooldownUntilRef.current = 0;
-    frameFailuresRef.current = 0;
-
-    getHandLandmarker().then((lm) => {
-      if (cancelled) return;
-      landmarker = lm;
-      onReady?.(getHandLandmarkerDelegate());
-      loop();
-    }).catch(() => {
-      // Model/WASM failed (offline CDN etc.) — caller surfaces status.
-      if (!cancelled) onError?.();
-    });
-
-    function loop() {
+    const publish = (status: DetectorStatus) => {
+      if (!controller.signal.aborted) {
+        callbacks.current.onStatus?.(status);
+        if (status === "fallback") armInitializationTimeout();
+      }
+    };
+    const fail = (cause: unknown) => {
+      if (controller.signal.aborted || failed) return;
+      failed = true;
+      scheduler.stop();
+      lease?.release();
+      lease = null;
+      gate.reset();
+      publish("failed");
+      callbacks.current.onError?.(cause instanceof Error ? cause : new Error("Gesture detection could not start. Please retry."));
+      if (initializationTimeout) globalThis.clearTimeout(initializationTimeout);
+      // Also relinquishes a lease that is still initializing. The runtime keeps
+      // its native creation serialized and closes any result arriving later.
+      controller.abort();
+    };
+    function armInitializationTimeout() {
+      if (initializationTimeout) globalThis.clearTimeout(initializationTimeout);
+      initializationTimeout = globalThis.setTimeout(() => fail(new Error(
+        status === "busy"
+          ? "Another gesture session is still finishing. Close other camera windows and retry; reload if it remains busy."
+          : "Gesture detection took too long to start. Check your connection and retry; reload if it remains busy.",
+      )), INITIALIZATION_TIMEOUT_MS);
+    }
+    const scheduler = createVideoFrameScheduler(() => videoRef.current, loop);
+    async function loop() {
+      if (controller.signal.aborted || failed) return;
       const video = videoRef.current;
-
-      if (video && landmarker && video.readyState >= 2) {
+      // CSS mirrors only the preview. Inference receives raw video pixels once;
+      // the classifier's distances and upward-y check do not depend on handedness.
+      if (document.visibilityState !== "hidden" && video && lease?.detector &&
+          !video.paused && !video.ended && video.readyState >= 2 && video.videoWidth > 0) {
         try {
-          const result = landmarker.detectForVideo(video, performance.now());
-          frameFailuresRef.current = 0;
-          const landmarks = result.landmarks?.[0];
-          const gesture = landmarks ? classifyGesture(landmarks) : "none";
-
-          const now = performance.now();
-          // Rising edge only: fire when ENTERING a recognized pose, then cool down.
-          const isNewPose =
-            gesture !== "none" && lastGestureRef.current !== gesture;
-
-          if (isNewPose && now > cooldownUntilRef.current) {
-            cooldownUntilRef.current = now + cooldownMs;
-            onGesture(gesture as Exclude<Gesture, "none">);
+          const result = lease.detector.detectForVideo(video, performance.now());
+          if (controller.signal.aborted) return;
+          failures = 0;
+          if (!ready) {
+            ready = true;
+            if (initializationTimeout) globalThis.clearTimeout(initializationTimeout);
+            publish("ready");
+            callbacks.current.onReady?.(lease.delegate);
           }
-
-          lastGestureRef.current = gesture;
-        } catch {
-          // Context loss / transient inference failure: tolerate a burst,
-          // then stop the loop and report instead of throwing every frame.
-          frameFailuresRef.current += 1;
-          if (frameFailuresRef.current > MAX_FRAME_FAILURES) {
-            onError?.();
-            return;
+          const landmarks = result.landmarks?.[0];
+          const gesture = gate.update(landmarks ? classifyGesture(landmarks) : "none", performance.now());
+          if (gesture) callbacks.current.onGesture(gesture);
+        } catch (error) {
+          failures += 1;
+          if (failures >= MAX_FRAME_FAILURES) {
+            gate.reset();
+            ready = false;
+            if (lease?.delegate === "GPU") {
+              try {
+                await lease.fallbackToCpu();
+                if (controller.signal.aborted) return;
+                failures = 0;
+              } catch (cpuError) { fail(cpuError); return; }
+            } else { fail(error); return; }
           }
         }
       }
-
-      rafRef.current = requestAnimationFrame(loop);
     }
 
+    armInitializationTimeout();
+    runtime.acquire(controller.signal, (nextStatus) => { status = nextStatus; publish(nextStatus); }).then((owned) => {
+      if (controller.signal.aborted) { owned.release(); return; }
+      lease = owned;
+      scheduler.start();
+    }).catch(fail);
+
     return () => {
-      cancelled = true;
-      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+      controller.abort();
+      if (initializationTimeout) globalThis.clearTimeout(initializationTimeout);
+      scheduler.stop();
+      lease?.release();
+      gate.reset();
     };
-  }, [enabled, videoRef, onGesture, cooldownMs, onReady, onError]);
+  }, [enabled, videoRef, cooldownMs, retryKey]);
 }

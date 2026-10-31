@@ -1,0 +1,29 @@
+.app { container: settings / inline-size; min-width: 0; }
+.app .navigation { min-height: 36px; transition: background-color 100ms ease-out, color 100ms ease-out; }
+.navigation > svg { flex-shrink: 0; }
+.navigation:focus-visible { outline: 2px solid var(--system-accent); outline-offset: -2px; }
+.content { overflow-wrap: anywhere; }
+.wallpaperModes > button { flex: 1 1 72px; }
+
+@container settings (max-width: 580px) {
+  .app .sidebar { width: 132px; padding-inline: 6px; }
+  .app .navigation { gap: 7px; padding-inline: 8px; font-size: 12px; }
+  .app .content { padding: 22px 20px; }
+}
+@container settings (max-width: 380px) {
+  .app .sidebar { width: 112px; }
+  .app .navigation { gap: 6px; padding-inline: 5px; font-size: 11px; }
+  .app .content { padding: 18px 14px; }
+}
+@container settings (max-width: 320px) {
+  .app .sidebar { width: 44px; padding-inline: 3px; }
+  .app .navigation { justify-content: center; padding-inline: 0; }
+  .navigation > span { display: none; }
+}
+
+.app[data-reduced-motion], .app[data-reduced-motion] * { transition: none; animation: none; }
+.app[data-reduced-motion] .themeChoice, .app[data-reduced-motion] .accentChoice { transform: none; scale: none; }
+@media (prefers-reduced-motion: reduce) {
+  .app, .app * { transition: none; animation: none; }
+  .themeChoice, .accentChoice { transform: none; scale: none; }
+}

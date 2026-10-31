@@ -1,0 +1,65 @@
+{
+  "phase": "after",
+  "startedAt": "2026-10-30T12:16:06.740Z",
+  "buildId": "RNz8VH_Q7gRvd_uvt1L54",
+  "browser": "Chrome/156.0.8078.76",
+  "host": {
+    "model": "MacBookAir10,1",
+    "chip": "Apple M1",
+    "ramGiB": 8,
+    "os": "macOS 27.2",
+    "darwin": "27.2.0",
+    "arch": "arm64"
+  },
+  "viewport": {
+    "width": 1440,
+    "height": 1000,
+    "dpr": 1
+  },
+  "conditions": "Production localhost; isolated headless Chrome with ANGLE Metal. CDP wheel/touch/keyboard and controlled visibility/playback fixtures are not physical hardware coverage. rAF/Event Timing are local probes, not field INP or presented FPS.",
+  "scenarios": [
+    {
+      "name": "entry-assets-three-places-and-laptop-continuity",
+      "entry": {
+        "startupReady": 1558.8,
+        "resources": [
+          {
+            "url": "http://127.0.0.1:3013/workspaces/beach.webp",
+            "start": 218.30000000074506,
+            "duration": 1.300000000745058,
+            "encoded": 42318
+          },
+          {
+            "url": "http://127.0.0.1:3013/workspaces/beach.mp4",
+            "start": 928.9000000022352,
+            "duration": 9.599999997764826,
+            "encoded": 2393930
+          }
+        ]
+      },
+      "renderer": {
+        "alpha": true,
+        "background": {
+          "0": 0,
+          "1": 0,
+          "2": 0,
+          "3": 0
+        }
+      },
+      "wallpaper": "/wallpapers/coast-dark.webp",
+      "preference": {
+        "version": 1,
+        "state": {
+          "environment": "studio"
+        }
+      },
+      "reloadResources": [
+        "http://127.0.0.1:3013/workspaces/studio.webp"
+      ],
+      "status": "PASS",
+      "elapsedMs": 8688
+    }
+  ],
+  "elapsedMs": 9186,
+  "finishedAt": "2026-10-30T12:16:15.926Z"
+}

@@ -1,0 +1,56 @@
+{
+  "baseline A": {
+    "keyboard": {
+      "mean_pixel_difference": 0.0,
+      "pixels_over_20": 0
+    },
+    "A": {
+      "mean_pixel_difference": 0.0,
+      "pixels_over_20": 0
+    },
+    "S": {
+      "mean_pixel_difference": 0.0,
+      "pixels_over_20": 0
+    },
+    "Space": {
+      "mean_pixel_difference": 0.0,
+      "pixels_over_20": 0
+    }
+  },
+  "animated A": {
+    "keyboard": {
+      "mean_pixel_difference": 0.086,
+      "pixels_over_20": 236
+    },
+    "A": {
+      "mean_pixel_difference": 7.3808,
+      "pixels_over_20": 236
+    },
+    "S": {
+      "mean_pixel_difference": 0.1574,
+      "pixels_over_20": 0
+    },
+    "Space": {
+      "mean_pixel_difference": 0.0,
+      "pixels_over_20": 0
+    }
+  },
+  "reduced motion Space": {
+    "keyboard": {
+      "mean_pixel_difference": 0.2656,
+      "pixels_over_20": 952
+    },
+    "A": {
+      "mean_pixel_difference": 0.0,
+      "pixels_over_20": 0
+    },
+    "S": {
+      "mean_pixel_difference": 0.0,
+      "pixels_over_20": 0
+    },
+    "Space": {
+      "mean_pixel_difference": 3.8693,
+      "pixels_over_20": 952
+    }
+  }
+}

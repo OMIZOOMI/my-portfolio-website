@@ -1,0 +1,506 @@
+{
+  "testedAt": "2026-10-30T08:44:20.792Z",
+  "phase": "after",
+  "site": "http://127.0.0.1:3012",
+  "viewport": {
+    "width": 1440,
+    "height": 1000,
+    "deviceScaleFactor": 1
+  },
+  "cacheNetwork": "New isolated context for each scenario; normal HTTP cache, unthrottled localhost; camera/model warmed before measured profile windows.",
+  "measurementScope": "Local rAF callback cadence and event-to-next-rAF latency; not field INP, GPU presentation, or whole-machine CPU.",
+  "buildId": "tn56yDtmK_Ro_VJQn75ci",
+  "browser": "Chrome/156.0.8078.76",
+  "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36",
+  "os": "darwin 27.2.0 arm64",
+  "macOS": "27.2",
+  "device": "MacBookAir10,1\nApple M1",
+  "environment": "Isolated headless Chromium on the OS above. Canvas MediaStream and synthetic permission/playback failures. No physical camera or native permission-prompt evidence; this run does not establish parity with an untested OS/browser.",
+  "scenarios": [
+    {
+      "name": "camera-denial-retry-hidden-restore-and-repeated-cleanup",
+      "fixture": {
+        "behaviors": [
+          "NotAllowedError",
+          "ok"
+        ]
+      },
+      "deniedText": "Camera\n\nGesture demo\n\nCamera unavailable\nGestures paused\nCamera unavailable\n\nCamera permission was denied or dismissed. Allow camera access in your browser\u2019s site settings, then retry.\n\nRetry camera\nRetry camera\nEffects on\nReduce motion\nGesture help\n\nVideo stays on this device.",
+      "deniedMedia": {
+        "calls": [
+          {
+            "constraints": {
+              "video": {
+                "width": {
+                  "ideal": 1280
+                },
+                "height": {
+                  "ideal": 720
+                },
+                "facingMode": {
+                  "ideal": "user"
+                }
+              },
+              "audio": false
+            },
+            "at": 3326.60000000149
+          }
+        ],
+        "stops": 0,
+        "pending": 0,
+        "paintIntervals": 0,
+        "liveTracks": 0,
+        "trackStates": [],
+        "events": []
+      },
+      "retriedMedia": {
+        "calls": [
+          {
+            "constraints": {
+              "video": {
+                "width": {
+                  "ideal": 1280
+                },
+                "height": {
+                  "ideal": 720
+                },
+                "facingMode": {
+                  "ideal": "user"
+                }
+              },
+              "audio": false
+            },
+            "at": 3326.60000000149
+          },
+          {
+            "constraints": {
+              "video": {
+                "width": {
+                  "ideal": 1280
+                },
+                "height": {
+                  "ideal": 720
+                },
+                "facingMode": {
+                  "ideal": "user"
+                }
+              },
+              "audio": false
+            },
+            "at": 3756.300000000745
+          }
+        ],
+        "stops": 0,
+        "pending": 0,
+        "paintIntervals": 1,
+        "liveTracks": 1,
+        "trackStates": [
+          {
+            "readyState": "live",
+            "enabled": true,
+            "kind": "video"
+          }
+        ],
+        "events": [
+          {
+            "name": "waiting",
+            "at": 3806.5,
+            "readyState": 0
+          },
+          {
+            "name": "loadedmetadata",
+            "at": 3808.5,
+            "readyState": 4
+          },
+          {
+            "name": "playing",
+            "at": 3810,
+            "readyState": 4
+          }
+        ]
+      },
+      "hidden": {
+        "inferencesDuringPause": 0,
+        "resources": {
+          "pendingVideoCallbacks": 0,
+          "cameraApps": 1,
+          "effectRoots": 0,
+          "effectParticles": 0,
+          "nonzeroWebGLCanvases": 1,
+          "audio": []
+        },
+        "media": {
+          "calls": [
+            {
+              "constraints": {
+                "video": {
+                  "width": {
+                    "ideal": 1280
+                  },
+                  "height": {
+                    "ideal": 720
+                  },
+                  "facingMode": {
+                    "ideal": "user"
+                  }
+                },
+                "audio": false
+              },
+              "at": 3326.60000000149
+            },
+            {
+              "constraints": {
+                "video": {
+                  "width": {
+                    "ideal": 1280
+                  },
+                  "height": {
+                    "ideal": 720
+                  },
+                  "facingMode": {
+                    "ideal": "user"
+                  }
+                },
+                "audio": false
+              },
+              "at": 3756.300000000745
+            }
+          ],
+          "stops": 1,
+          "pending": 0,
+          "paintIntervals": 0,
+          "liveTracks": 0,
+          "trackStates": [
+            {
+              "readyState": "ended",
+              "enabled": true,
+              "kind": "video"
+            }
+          ],
+          "events": [
+            {
+              "name": "waiting",
+              "at": 3806.5,
+              "readyState": 0
+            },
+            {
+              "name": "loadedmetadata",
+              "at": 3808.5,
+              "readyState": 4
+            },
+            {
+              "name": "playing",
+              "at": 3810,
+              "readyState": 4
+            }
+          ]
+        }
+      },
+      "minimized": {
+        "pendingVideoCallbacks": 0,
+        "cameraApps": 1,
+        "effectRoots": 0,
+        "effectParticles": 0,
+        "nonzeroWebGLCanvases": 1,
+        "audio": []
+      },
+      "pageHideImmediate": {
+        "calls": [
+          {
+            "constraints": {
+              "video": {
+                "width": {
+                  "ideal": 1280
+                },
+                "height": {
+                  "ideal": 720
+                },
+                "facingMode": {
+                  "ideal": "user"
+                }
+              },
+              "audio": false
+            },
+            "at": 3326.60000000149
+          },
+          {
+            "constraints": {
+              "video": {
+                "width": {
+                  "ideal": 1280
+                },
+                "height": {
+                  "ideal": 720
+                },
+                "facingMode": {
+                  "ideal": "user"
+                }
+              },
+              "audio": false
+            },
+            "at": 3756.300000000745
+          },
+          {
+            "constraints": {
+              "video": {
+                "width": {
+                  "ideal": 1280
+                },
+                "height": {
+                  "ideal": 720
+                },
+                "facingMode": {
+                  "ideal": "user"
+                }
+              },
+              "audio": false
+            },
+            "at": 6068.5
+          },
+          {
+            "constraints": {
+              "video": {
+                "width": {
+                  "ideal": 1280
+                },
+                "height": {
+                  "ideal": 720
+                },
+                "facingMode": {
+                  "ideal": "user"
+                }
+              },
+              "audio": false
+            },
+            "at": 7036.400000002235
+          }
+        ],
+        "stops": 3,
+        "pending": 0,
+        "paintIntervals": 0,
+        "liveTracks": 0,
+        "trackStates": [
+          {
+            "readyState": "ended",
+            "enabled": true,
+            "kind": "video"
+          },
+          {
+            "readyState": "ended",
+            "enabled": true,
+            "kind": "video"
+          },
+          {
+            "readyState": "ended",
+            "enabled": true,
+            "kind": "video"
+          }
+        ],
+        "events": [
+          {
+            "name": "waiting",
+            "at": 3806.5,
+            "readyState": 0
+          },
+          {
+            "name": "loadedmetadata",
+            "at": 3808.5,
+            "readyState": 4
+          },
+          {
+            "name": "playing",
+            "at": 3810,
+            "readyState": 4
+          },
+          {
+            "name": "waiting",
+            "at": 6070,
+            "readyState": 0
+          },
+          {
+            "name": "loadedmetadata",
+            "at": 6075.400000002235,
+            "readyState": 4
+          },
+          {
+            "name": "playing",
+            "at": 6076.20000000298,
+            "readyState": 4
+          },
+          {
+            "name": "waiting",
+            "at": 7038.300000000745,
+            "readyState": 0
+          },
+          {
+            "name": "loadedmetadata",
+            "at": 7051.300000000745,
+            "readyState": 4
+          },
+          {
+            "name": "playing",
+            "at": 7052.60000000149,
+            "readyState": 4
+          }
+        ]
+      },
+      "resources": [
+        {
+          "cycle": 0,
+          "documents": 1,
+          "nodes": 405,
+          "jsEventListeners": 579,
+          "heapUsed": 13485892,
+          "resources": {
+            "pendingVideoCallbacks": 0,
+            "cameraApps": 0,
+            "effectRoots": 0,
+            "effectParticles": 0,
+            "nonzeroWebGLCanvases": 1,
+            "audio": []
+          },
+          "media": {
+            "calls": [],
+            "stops": 4,
+            "pending": 0,
+            "paintIntervals": 0,
+            "liveTracks": 0,
+            "trackStates": [],
+            "events": []
+          }
+        },
+        {
+          "cycle": 2,
+          "documents": 1,
+          "nodes": 405,
+          "jsEventListeners": 579,
+          "heapUsed": 13812404,
+          "resources": {
+            "pendingVideoCallbacks": 0,
+            "cameraApps": 0,
+            "effectRoots": 0,
+            "effectParticles": 0,
+            "nonzeroWebGLCanvases": 1,
+            "audio": []
+          },
+          "media": {
+            "calls": [],
+            "stops": 6,
+            "pending": 0,
+            "paintIntervals": 0,
+            "liveTracks": 0,
+            "trackStates": [],
+            "events": []
+          }
+        },
+        {
+          "cycle": 4,
+          "documents": 1,
+          "nodes": 405,
+          "jsEventListeners": 579,
+          "heapUsed": 13887664,
+          "resources": {
+            "pendingVideoCallbacks": 0,
+            "cameraApps": 0,
+            "effectRoots": 0,
+            "effectParticles": 0,
+            "nonzeroWebGLCanvases": 1,
+            "audio": []
+          },
+          "media": {
+            "calls": [],
+            "stops": 8,
+            "pending": 0,
+            "paintIntervals": 0,
+            "liveTracks": 0,
+            "trackStates": [],
+            "events": []
+          }
+        },
+        {
+          "cycle": 6,
+          "documents": 1,
+          "nodes": 405,
+          "jsEventListeners": 579,
+          "heapUsed": 14017228,
+          "resources": {
+            "pendingVideoCallbacks": 0,
+            "cameraApps": 0,
+            "effectRoots": 0,
+            "effectParticles": 0,
+            "nonzeroWebGLCanvases": 1,
+            "audio": []
+          },
+          "media": {
+            "calls": [],
+            "stops": 10,
+            "pending": 0,
+            "paintIntervals": 0,
+            "liveTracks": 0,
+            "trackStates": [],
+            "events": []
+          }
+        },
+        {
+          "cycle": 8,
+          "documents": 1,
+          "nodes": 405,
+          "jsEventListeners": 579,
+          "heapUsed": 14117344,
+          "resources": {
+            "pendingVideoCallbacks": 0,
+            "cameraApps": 0,
+            "effectRoots": 0,
+            "effectParticles": 0,
+            "nonzeroWebGLCanvases": 1,
+            "audio": []
+          },
+          "media": {
+            "calls": [],
+            "stops": 12,
+            "pending": 0,
+            "paintIntervals": 0,
+            "liveTracks": 0,
+            "trackStates": [],
+            "events": []
+          }
+        }
+      ],
+      "inferencesAfterClose": 0,
+      "status": "PASS",
+      "runtimeErrors": [],
+      "elapsedMs": 24386
+    }
+  ],
+  "gpu": {
+    "devices": [
+      {
+        "vendorId": 4203,
+        "deviceId": 0,
+        "vendorString": "Google Inc. (Apple)",
+        "deviceString": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Version 27.2 (Build 26B123))",
+        "driverVendor": "Apple",
+        "driverVersion": "27.2"
+      }
+    ],
+    "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Version 27.2 (Build 26B123))",
+    "vendor": "Google Inc. (Apple)",
+    "featureStatus": {
+      "2d_canvas": "enabled",
+      "direct_rendering_display_compositor": "disabled_off_ok",
+      "gpu_compositing": "enabled",
+      "multiple_raster_threads": "enabled_on",
+      "opengl": "enabled_on",
+      "rasterization": "enabled",
+      "raw_draw": "disabled_off_ok",
+      "skia_graphite": "enabled_on",
+      "trees_in_viz": "disabled_off",
+      "video_decode": "enabled",
+      "video_encode": "enabled",
+      "webgl": "enabled",
+      "webgpu": "enabled",
+      "webnn": "disabled_off"
+    }
+  },
+  "completedAt": "2026-10-30T08:45:24.481Z"
+}

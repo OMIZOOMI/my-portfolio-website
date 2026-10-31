@@ -1,0 +1,67 @@
+.backdrop { position: absolute; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; background: #283b3d; }
+.mediaLayer { position: absolute; inset: -2px; overflow: hidden; }
+.mediaLayer[data-workspace-role="incoming"] { opacity: 0; }
+.media { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; user-select: none; }
+.video { opacity: 0; }
+.video[data-frame-ready] { opacity: 1; }
+.vignette { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 40%, transparent 25%, #07131935 100%), linear-gradient(0deg, #08111545, transparent 35%); }
+.backdrop[data-workspace-kind="color"][data-workspace-phase="idle"] .vignette { display: none; }
+.backdrop[data-workspace-phase="travelling"] .mediaLayer { will-change: transform; }
+/* Matched easing/distance keeps the incoming edge joined to the outgoing
+   edge. The surroundings slide left; the laptop never moves or scales. */
+.backdrop[data-workspace-phase="travelling"] .mediaLayer[data-workspace-role="active"] { animation: depart 800ms cubic-bezier(.76,0,.24,1) both; }
+.backdrop[data-workspace-phase="travelling"] .mediaLayer[data-workspace-role="incoming"] { animation: arrive 800ms cubic-bezier(.76,0,.24,1) both; }
+.warp { position: absolute; inset: 0 auto 0 -35%; width: 180%; height: 100%; will-change: transform, opacity; animation: travel 800ms cubic-bezier(.76,0,.24,1) both; }
+@keyframes depart { from { transform: translate3d(0,0,0); } to { transform: translate3d(-100%,0,0); } }
+@keyframes arrive { from { transform: translate3d(100%,0,0); opacity: 1; } to { transform: translate3d(0,0,0); opacity: 1; } }
+@keyframes travel { 0% { opacity: 0; transform: translate3d(24%,0,0); } 30% { opacity: .15; } 55% { opacity: .7; } 100% { opacity: 0; transform: translate3d(-40%,0,0); } }
+
+.selector { position: fixed; left: max(18px, env(safe-area-inset-left)); bottom: max(18px, env(safe-area-inset-bottom)); z-index: 3; color: #f5f5f7; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; -webkit-font-smoothing: antialiased; }
+.selector button { -webkit-tap-highlight-color: transparent; cursor: pointer; }
+.selector button:focus-visible, .selector a:focus-visible, .credits summary:focus-visible { outline: 2px solid #d8e8f5; outline-offset: 3px; }
+.trigger { display: block; position: relative; width: 48px; height: 48px; overflow: hidden; border: 1px solid #ffffff2e; border-radius: 15px; background: #252b2ed9; box-shadow: 0 3px 14px #0000001f, inset 0 1px #ffffff08; backdrop-filter: blur(10px); text-align: left; transition: width 200ms cubic-bezier(.2,.8,.2,1), background-color 120ms ease, transform 100ms ease; }
+.trigger > svg:first-child { position: absolute; top: 15px; left: 15px; }
+.selector[data-revealed] .trigger, .selector[data-open] .trigger, .selector:has(:focus-visible) .trigger { width: 164px; }
+.trigger:hover { background: #303639ec; }
+.trigger:active { transform: scale(.98); }
+.triggerText { position: absolute; top: 9px; left: 43px; display: flex; flex-direction: column; gap: 2px; white-space: nowrap; opacity: 0; transition: opacity 100ms ease; }
+.selector[data-revealed] .triggerText, .selector[data-open] .triggerText, .selector:has(:focus-visible) .triggerText { opacity: 1; transition-delay: 40ms; }
+.triggerText > span { color: #d1d4d7; font-size: 10px; font-weight: 500; letter-spacing: .01em; }
+.triggerText strong { font-size: 12px; font-weight: 590; }
+.chevron { position: absolute; right: 12px; top: 17px; color: #c2c8cc; opacity: 0; transition: transform 120ms ease, opacity 100ms ease; }
+.selector[data-revealed] .chevron, .selector[data-open] .chevron, .selector:has(:focus-visible) .chevron { opacity: 1; }
+.chevron[data-open] { transform: rotate(180deg); }
+.panel { position: absolute; bottom: calc(100% + 12px); left: 0; width: min(304px, calc(100dvw - 36px)); max-height: min(660px, calc(100dvh - 96px - env(safe-area-inset-top) - env(safe-area-inset-bottom))); overflow-y: auto; overscroll-behavior: contain; padding: 14px; border-radius: 22px; border: 1px solid #ffffff30; background: #252a2ef5; box-shadow: 0 18px 55px #00000038, inset 0 1px #ffffff0a; animation: panelIn 150ms ease-out both; }
+.panelHeader { display: flex; align-items: flex-start; justify-content: space-between; gap: 4px; margin-bottom: 12px; }
+.panelHeader h2 { margin: 4px 0 4px; font-size: 14px; line-height: 1.4; font-weight: 600; letter-spacing: -.02em; }
+.panelHeader p { color: #b7bdc2; margin: 0; font-size: 11px; line-height: 1.5; }
+.close { display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; margin: -5px -7px 0 0; border-radius: 12px; flex-shrink: 0; }
+.close:hover { background: #ffffff0b; }
+.choices { display: flex; flex-direction: column; gap: 14px; }
+.group h3 { margin: 0 4px 6px; color: #b8c0c6; font-size: 10px; font-weight: 550; }
+.optionGrid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px; }
+.motionGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.choice { position: relative; min-width: 0; width: 100%; min-height: 44px; display: flex; flex-direction: column; align-items: stretch; gap: 6px; padding: 6px; border: 1px solid transparent; border-radius: 11px; text-align: left; transition: background-color 100ms ease, border-color 100ms ease; }
+.choice:hover { background: #ffffff09; }
+.choice[aria-checked="true"] { background: #ffffff12; border-color: #ffffff26; }
+.choice > img { width: 100%; height: 52px; border-radius: 6px; object-fit: cover; outline: 1px solid #ffffff12; outline-offset: -1px; background: #41484e; }
+.choice strong { display: block; font-size: 11px; font-weight: 550; line-height: 1.5; }
+.check { position: absolute; top: 10px; right: 10px; width: 18px; height: 18px; border-radius: 50%; display: grid; place-items: center; color: #fff; }
+.choice[aria-checked="true"] .check { background: #343c44; box-shadow: 0 0 0 1px #ffffff42; }
+.colorChoice { flex-direction: row; align-items: center; gap: 6px; padding: 8px 5px; }
+.colorChoice strong { font-size: 10px; }
+.swatch { width: 20px; height: 20px; flex-shrink: 0; border-radius: 50%; box-shadow: inset 0 0 0 1px #ffffff24; }
+.colorChoice .check { top: 50%; left: 6px; right: auto; transform: translateY(-50%); }
+.motionControls { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; padding-top: 10px; margin-top: 10px; border-top: 1px solid #ffffff12; }
+.motionControls button { min-height: 44px; display: inline-flex; align-items: center; gap: 7px; padding: 5px 9px; font-size: 11px; color: #e8ebed; border-radius: 9px; }
+.motionControls button:hover:not(:disabled) { background: #ffffff0a; }
+.motionControls button:disabled { cursor: default; color: #9ba5ac; }
+.status { min-height: 30px; margin: 4px 8px 8px; color: #bbc3c9; font-size: 10px; line-height: 1.6; text-wrap: pretty; }
+.credits { margin: 0 8px 2px; color: #b2bac0; font-size: 10px; }
+.credits summary { cursor: pointer; padding-block: 8px; }
+.credits p { margin: 6px 0; line-height: 1.5; }
+.credits a:hover { color: #f5f5f7; text-decoration: underline; }
+@keyframes panelIn { from { opacity: 0; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .selector *, .backdrop * { animation: none !important; transition: none !important; } }
+.selector[data-reduced-motion] * { animation: none; transition: none; }
+.selector[data-reduced-motion] .trigger:active { transform: none; }

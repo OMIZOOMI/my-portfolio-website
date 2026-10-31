@@ -1,0 +1,112 @@
+{
+  "verifiedOn": "2026-10-30",
+  "notes": "Film clips are real footage. Studio is generated artwork. Website serves local derivatives, not runtime hotlinks. Full source videos remain temporary review inputs.",
+  "workspaces": {
+    "beach": {
+      "title": "View from a calm beach during a sunset",
+      "creator": "Ruben Velasco",
+      "creatorUrl": "https://mixkit.co/@rubenvelasco/",
+      "sourceUrl": "https://mixkit.co/free-stock-video/view-from-a-calm-beach-during-a-sunset-44498/",
+      "downloadUrl": "https://assets.mixkit.co/videos/44498/44498-720.mp4",
+      "sourceSha256": "13e556b52d32fa8f25f1e092748c38d81d1eaf69bef52fe4052af09b617673fd",
+      "edits": "Trimmed to 8 seconds; 0.75-second wrap crossfade; 24fps H.264 Main L3.1 yuv420p; metadata/audio stripped; fast-start MP4. Poster extracted from prepared loop; WebP previews.",
+      "license": "Mixkit Stock Video Free License",
+      "licenseUrl": "https://mixkit.co/license/modal/videoFree/",
+      "termsUrl": "https://mixkit.co/terms/",
+      "permission": "Source item explicitly carries Free (not Restricted) license. Download, modify and publicly display as incorporated website background; not resold or offered as stock. Attribution optional; voluntary credit provided in selector.",
+      "attributionRequired": false,
+      "files": [
+        {
+          "path": "public/workspaces/beach.webp",
+          "bytes": 42318,
+          "sha256": "1778e0658404b9b5da4fc879b71e99c57073a5f24a160e2f1bd59bb3982cb12d",
+          "width": 1280,
+          "height": 720
+        },
+        {
+          "path": "public/workspaces/thumbs/beach.webp",
+          "bytes": 1474,
+          "sha256": "8e40d3b779249857c2e4bcf2340f53f093d5c350452aab0e754e4d3c0dfdb904",
+          "width": 160,
+          "height": 100
+        },
+        {
+          "path": "public/workspaces/beach.mp4",
+          "bytes": 2393930,
+          "sha256": "0d8e804f87b9efb192d76c21ad078efe75a68661fbfd16f317d53e17c43f48c4",
+          "width": 1280,
+          "height": 720,
+          "fps": 24.0,
+          "frames": 174,
+          "durationSeconds": 7.25,
+          "audioTracks": 0
+        }
+      ]
+    },
+    "forest": {
+      "title": "The wind gently moves the forest's lush vegetation on a foggy day",
+      "creator": "Mixkit contributor account @mixkit; individual camera operator not named",
+      "creatorUrl": "https://mixkit.co/@mixkit/",
+      "sourceUrl": "https://mixkit.co/free-stock-video/the-wind-gently-moves-the-forests-lush-vegetation-on-a-50870/",
+      "downloadUrl": "https://assets.mixkit.co/videos/50870/50870-720.mp4",
+      "sourceSha256": "b748ac9cfab2b52886f4427c496568799119ef6e805f941e984efac05abaaf5c",
+      "edits": "Trimmed to 16 seconds; 1-second wrap crossfade; 24fps H.264 Main L3.1 yuv420p with 1.8Mbps max-rate and 3.6Mb buffer; metadata/audio stripped; fast-start MP4. Poster extracted from earlier same-composition encode; WebP previews.",
+      "license": "Mixkit Stock Video Free License",
+      "licenseUrl": "https://mixkit.co/license/modal/videoFree/",
+      "termsUrl": "https://mixkit.co/terms/",
+      "permission": "Source item explicitly carries Free (not Restricted) license. Download, modify and publicly display as incorporated website background; not resold or offered as stock. Attribution optional; voluntary credit provided in selector.",
+      "attributionRequired": false,
+      "files": [
+        {
+          "path": "public/workspaces/forest.webp",
+          "bytes": 229538,
+          "sha256": "ad40f0341a029cae41630a5c2a6fc64f36b931d9e51a86e7b5ec3da03c0c66bf",
+          "width": 1280,
+          "height": 720
+        },
+        {
+          "path": "public/workspaces/thumbs/forest.webp",
+          "bytes": 5168,
+          "sha256": "a8a8c12cd0410a934b2240c2bd1fdea4205d75e5dad948847ee6f577cdef5413",
+          "width": 160,
+          "height": 100
+        },
+        {
+          "path": "public/workspaces/forest.mp4",
+          "bytes": 3559203,
+          "sha256": "c6de9b2590b99acc9da684b148fcf3ad0854a4c4c4bdaf744e0c4c7c2c6a7cec",
+          "width": 1280,
+          "height": 720,
+          "fps": 24.0,
+          "frames": 360,
+          "durationSeconds": 15.0,
+          "audioTracks": 0
+        }
+      ]
+    },
+    "studio": {
+      "title": "A little room to think",
+      "creator": "Original artwork generated with OpenAI image_gen for this project",
+      "sourceUrl": null,
+      "license": "Generated original project artwork; no third-party stock license or attribution requirement attached",
+      "master": "docs/stage13-review/sources/studio-master.png",
+      "edits": "Original 1672x941 image resized/cropped less than one pixel in aspect ratio to 1600x900 WebP; dedicated 160x100 preview.",
+      "files": [
+        {
+          "path": "public/workspaces/studio.webp",
+          "bytes": 79898,
+          "sha256": "14ea05110f3bff18c0785f51a5a0dce773f7b3040177487ba78572f67de0c0c0",
+          "width": 1600,
+          "height": 900
+        },
+        {
+          "path": "public/workspaces/thumbs/studio.webp",
+          "bytes": 1968,
+          "sha256": "e234790618cb31cc141b9c2caa540f417582cba6d8a9d31f0bada0da574a3b8e",
+          "width": 160,
+          "height": 100
+        }
+      ]
+    }
+  }
+}

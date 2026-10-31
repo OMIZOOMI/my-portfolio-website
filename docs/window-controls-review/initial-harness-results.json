@@ -1,0 +1,254 @@
+{
+  "browser": "Chrome/156.0.8078.48",
+  "viewport": {
+    "width": 1440,
+    "height": 1000
+  },
+  "scenarios": [
+    {
+      "name": "larger-targets-respond-outside-visible-dots",
+      "targets": [
+        {
+          "action": "close",
+          "width": 28,
+          "height": 28,
+          "projectedWidth": 18.370391845703125,
+          "projectedHeight": 18.330596923828125,
+          "label": "Close"
+        },
+        {
+          "action": "minimize",
+          "width": 28,
+          "height": 28,
+          "projectedWidth": 18.350067138671875,
+          "projectedHeight": 18.330596923828125,
+          "label": "Minimize"
+        },
+        {
+          "action": "maximize",
+          "width": 28,
+          "height": 28,
+          "projectedWidth": 18.329833984375,
+          "projectedHeight": 18.330596923828125,
+          "label": "Maximize"
+        }
+      ],
+      "minimizePoint": {
+        "x": 447.04198364257815,
+        "y": 158.84149169921875
+      },
+      "maximizePoint": {
+        "x": 498.7689099121094,
+        "y": 226.15631866455078
+      },
+      "maximized": {
+        "width": 1322,
+        "height": 822,
+        "left": "40px",
+        "top": "40px",
+        "transform": "translateY(57.0854px) scale(0.809715)",
+        "pointerEvents": "auto",
+        "rect": {
+          "left": 361.6063232421875,
+          "top": 163.48126220703125,
+          "right": 1080.8990478515625,
+          "bottom": 605.164794921875,
+          "width": 719.292724609375,
+          "height": 441.68353271484375
+        },
+        "desktop": {
+          "width": 1400,
+          "height": 900,
+          "left": 246.7438201904297,
+          "top": 43.03950881958008,
+          "right": 1194.426254272461,
+          "bottom": 643.2448310852051
+        }
+      },
+      "status": "FAIL",
+      "error": "Error: Timed out: Restore responds: false\n    at until (file:///Users/Om/Om%20Main%20Portfolio/tests/window-controls.browser.mjs:22:213)\n    at async file:///Users/Om/Om%20Main%20Portfolio/tests/window-controls.browser.mjs:56:36\n    at async scenario (file:///Users/Om/Om%20Main%20Portfolio/tests/window-controls.browser.mjs:51:176)\n    at async file:///Users/Om/Om%20Main%20Portfolio/tests/window-controls.browser.mjs:52:1",
+      "state": {
+        "width": 1322,
+        "height": 822,
+        "left": "40px",
+        "top": "40px",
+        "transform": "none",
+        "pointerEvents": "auto",
+        "rect": {
+          "left": 274.5704650878906,
+          "top": 70.67937469482422,
+          "right": 1167.9492492675781,
+          "bottom": 618.790153503418,
+          "width": 893.3787841796875,
+          "height": 548.1107788085938
+        },
+        "desktop": {
+          "width": 1400,
+          "height": 900,
+          "left": 246.7438201904297,
+          "top": 43.03950881958008,
+          "right": 1194.426254272461,
+          "bottom": 643.2448310852051
+        }
+      },
+      "elapsedMs": 74757
+    },
+    {
+      "name": "repeated-real-pointer-actions-and-combination-races",
+      "status": "FAIL",
+      "error": "Error: Timed out: 3D entry: false\n    at until (file:///Users/Om/Om%20Main%20Portfolio/tests/window-controls.browser.mjs:22:213)\n    at async Object.boot (file:///Users/Om/Om%20Main%20Portfolio/tests/window-controls.browser.mjs:37:55)\n    at async scenario (file:///Users/Om/Om%20Main%20Portfolio/tests/window-controls.browser.mjs:51:158)\n    at async file:///Users/Om/Om%20Main%20Portfolio/tests/window-controls.browser.mjs:59:1",
+      "state": null,
+      "elapsedMs": 65336
+    },
+    {
+      "name": "keyboard-controls-and-reduced-motion",
+      "status": "FAIL",
+      "error": "Error: Timed out: Enter restores: false\n    at until (file:///Users/Om/Om%20Main%20Portfolio/tests/window-controls.browser.mjs:22:213)\n    at async file:///Users/Om/Om%20Main%20Portfolio/tests/window-controls.browser.mjs:66:353\n    at async scenario (file:///Users/Om/Om%20Main%20Portfolio/tests/window-controls.browser.mjs:51:176)\n    at async file:///Users/Om/Om%20Main%20Portfolio/tests/window-controls.browser.mjs:64:1",
+      "state": {
+        "width": 1322,
+        "height": 822,
+        "left": "40px",
+        "top": "40px",
+        "transform": "none",
+        "pointerEvents": "auto",
+        "rect": {
+          "left": 274.5704650878906,
+          "top": 70.67937469482422,
+          "right": 1167.9492492675781,
+          "bottom": 618.790153503418,
+          "width": 893.3787841796875,
+          "height": 548.1107788085938
+        },
+        "desktop": {
+          "width": 1400,
+          "height": 900,
+          "left": 246.7438201904297,
+          "top": 43.03950881958008,
+          "right": 1194.426254272461,
+          "bottom": 643.2448310852051
+        }
+      },
+      "elapsedMs": 59581
+    },
+    {
+      "name": "drag-cleanup-after-blur-close-and-pointer-cancel",
+      "after": {
+        "width": 642,
+        "height": 478,
+        "left": "250px",
+        "top": "150px",
+        "transform": "scale(0.96)",
+        "pointerEvents": "auto",
+        "rect": {
+          "left": 426.6348571777344,
+          "top": 152.74374389648438,
+          "right": 841.04833984375,
+          "bottom": 460.2381591796875,
+          "width": 414.4134826660156,
+          "height": 307.4944152832031
+        },
+        "desktop": {
+          "width": 1400,
+          "height": 900,
+          "left": 246.7438201904297,
+          "top": 43.03950881958008,
+          "right": 1194.426254272461,
+          "bottom": 643.2448310852051
+        }
+      },
+      "status": "PASS",
+      "elapsedMs": 20614
+    },
+    {
+      "name": "maximized-window-follows-desktop-resizing",
+      "sizes": [
+        {
+          "width": 1000,
+          "height": 750,
+          "state": {
+            "width": 1322,
+            "height": 822,
+            "left": "40px",
+            "top": "40px",
+            "transform": "none",
+            "pointerEvents": "auto",
+            "rect": {
+              "left": 165.92787170410156,
+              "top": 53.00955581665039,
+              "right": 835.9619293212891,
+              "bottom": 464.09262466430664,
+              "width": 670.0340576171875,
+              "height": 411.08306884765625
+            },
+            "desktop": {
+              "width": 1400,
+              "height": 900,
+              "left": 145.05789184570312,
+              "top": 32.27965545654297,
+              "right": 855.8197326660156,
+              "bottom": 482.4336166381836
+            }
+          }
+        },
+        {
+          "width": 1700,
+          "height": 1100,
+          "state": {
+            "width": 1322,
+            "height": 822,
+            "left": "40px",
+            "top": "40px",
+            "transform": "none",
+            "pointerEvents": "auto",
+            "rect": {
+              "left": 360.02752685546875,
+              "top": 77.747314453125,
+              "right": 1342.744140625,
+              "bottom": 680.669189453125,
+              "width": 982.7166137695312,
+              "height": 602.921875
+            },
+            "desktop": {
+              "width": 1400,
+              "height": 900,
+              "left": 329.418212890625,
+              "top": 47.34346008300781,
+              "right": 1371.868896484375,
+              "bottom": 707.5693511962891
+            }
+          }
+        },
+        {
+          "width": 1440,
+          "height": 1000,
+          "state": {
+            "width": 1322,
+            "height": 822,
+            "left": "40px",
+            "top": "40px",
+            "transform": "none",
+            "pointerEvents": "auto",
+            "rect": {
+              "left": 274.5704650878906,
+              "top": 70.67937469482422,
+              "right": 1167.9492492675781,
+              "bottom": 618.790153503418,
+              "width": 893.3787841796875,
+              "height": 548.1107788085938
+            },
+            "desktop": {
+              "width": 1400,
+              "height": 900,
+              "left": 246.7438201904297,
+              "top": 43.03950881958008,
+              "right": 1194.426254272461,
+              "bottom": 643.2448310852051
+            }
+          }
+        }
+      ],
+      "status": "PASS",
+      "elapsedMs": 23219
+    }
+  ]
+}

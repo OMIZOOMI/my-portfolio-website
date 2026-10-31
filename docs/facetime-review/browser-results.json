@@ -1,0 +1,1083 @@
+{
+  "browser": "Chrome/156.0.8078.48",
+  "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36",
+  "os": "darwin 25.6.0 arm64",
+  "macOS": "26.6.1",
+  "device": "MacBookAir10,1\nApple M1",
+  "environment": "Isolated headless Chromium on the OS above. Canvas MediaStream and synthetic permission/playback failures. No physical camera or native permission-prompt evidence; this run does not establish parity with an untested OS/browser.",
+  "scenarios": [
+    {
+      "name": "native-video-model-no-hand-camera-toggle-and-single-instance",
+      "fixture": {},
+      "requestsBeforeOpen": [],
+      "live": {
+        "camera": "live",
+        "delegate": "GPU",
+        "readyState": 4,
+        "paused": false,
+        "width": 320,
+        "height": 240,
+        "transform": "none",
+        "scale": "-1 1"
+      },
+      "noHand": "FaceTime\nINTERACTIVE GESTURES\n\u270c\ufe0fPeace Sign\n\nTriggers a confetti explosion\n\n\ud83d\udc4dThumbs Up\n\nTriggers floating likes\n\nHold a pose steady to the camera to trigger it.\n\nGesture detection\nLive (GPU)\nCamera\nOn\nAudio\nNot requested",
+      "media": {
+        "calls": [
+          {
+            "constraints": {
+              "video": {
+                "width": {
+                  "ideal": 1280
+                },
+                "height": {
+                  "ideal": 720
+                },
+                "facingMode": {
+                  "ideal": "user"
+                }
+              },
+              "audio": false
+            },
+            "at": 6181.600000023842
+          },
+          {
+            "constraints": {
+              "video": {
+                "width": {
+                  "ideal": 1280
+                },
+                "height": {
+                  "ideal": 720
+                },
+                "facingMode": {
+                  "ideal": "user"
+                }
+              },
+              "audio": false
+            },
+            "at": 17924.80000001192
+          }
+        ],
+        "stops": 1,
+        "pending": 0,
+        "liveTracks": 1,
+        "trackStates": [
+          {
+            "readyState": "ended",
+            "enabled": true,
+            "kind": "video"
+          },
+          {
+            "readyState": "live",
+            "enabled": true,
+            "kind": "video"
+          }
+        ],
+        "events": [
+          {
+            "name": "waiting",
+            "at": 6401.399999976158,
+            "readyState": 0
+          },
+          {
+            "name": "loadedmetadata",
+            "at": 7352.5,
+            "readyState": 4
+          },
+          {
+            "name": "playing",
+            "at": 7354.5,
+            "readyState": 4
+          },
+          {
+            "name": "waiting",
+            "at": 17938,
+            "readyState": 0
+          },
+          {
+            "name": "loadedmetadata",
+            "at": 17953.600000023842,
+            "readyState": 4
+          },
+          {
+            "name": "playing",
+            "at": 17955.69999998808,
+            "readyState": 4
+          }
+        ]
+      },
+      "status": "PASS",
+      "runtimeErrors": [],
+      "elapsedMs": 19345
+    },
+    {
+      "name": "denied-camera-retry",
+      "fixture": {
+        "behaviors": [
+          "NotAllowedError",
+          "ok"
+        ]
+      },
+      "failure": "FaceTime\nINTERACTIVE GESTURES\n\u270c\ufe0fPeace Sign\n\nTriggers a confetti explosion\n\n\ud83d\udc4dThumbs Up\n\nTriggers floating likes\n\nHold a pose steady to the camera to trigger it.\n\nGesture detection\nPaused\nCamera\nOff\nAudio\nNot requested\n\nCamera permission was denied or dismissed. Allow camera access in your browser\u2019s site settings, then retry.\n\nRetry camera",
+      "media": {
+        "calls": [
+          {
+            "constraints": {
+              "video": {
+                "width": {
+                  "ideal": 1280
+                },
+                "height": {
+                  "ideal": 720
+                },
+                "facingMode": {
+                  "ideal": "user"
+                }
+              },
+              "audio": false
+            },
+            "at": 3339.300000011921
+          },
+          {
+            "constraints": {
+              "video": {
+                "width": {
+                  "ideal": 1280
+                },
+                "height": {
+                  "ideal": 720
+                },
+                "facingMode": {
+                  "ideal": "user"
+                }
+              },
+              "audio": false
+            },
+            "at": 3787.800000011921
+          }
+        ],
+        "stops": 0,
+        "pending": 0,
+        "liveTracks": 1,
+        "trackStates": [
+          {
+            "readyState": "live",
+            "enabled": true,
+            "kind": "video"
+          }
+        ],
+        "events": [
+          {
+            "name": "waiting",
+            "at": 3853.300000011921,
+            "readyState": 0
+          },
+          {
+            "name": "loadedmetadata",
+            "at": 3858.599999964237,
+            "readyState": 4
+          },
+          {
+            "name": "playing",
+            "at": 3859.5,
+            "readyState": 4
+          }
+        ]
+      },
+      "status": "PASS",
+      "runtimeErrors": [],
+      "elapsedMs": 4626
+    },
+    {
+      "name": "busy-camera-retry",
+      "fixture": {
+        "behaviors": [
+          "NotReadableError",
+          "ok"
+        ]
+      },
+      "failure": "FaceTime\nINTERACTIVE GESTURES\n\u270c\ufe0fPeace Sign\n\nTriggers a confetti explosion\n\n\ud83d\udc4dThumbs Up\n\nTriggers floating likes\n\nHold a pose steady to the camera to trigger it.\n\nGesture detection\nPaused\nCamera\nOff\nAudio\nNot requested\n\nThe camera is busy or unavailable. Close other camera apps and check your system camera settings, then retry.\n\nRetry camera",
+      "media": {
+        "calls": [
+          {
+            "constraints": {
+              "video": {
+                "width": {
+                  "ideal": 1280
+                },
+                "height": {
+                  "ideal": 720
+                },
+                "facingMode": {
+                  "ideal": "user"
+                }
+              },
+              "audio": false
+            },
+            "at": 3386.699999988079
+          },
+          {
+            "constraints": {
+              "video": {
+                "width": {
+                  "ideal": 1280
+                },
+                "height": {
+                  "ideal": 720
+                },
+                "facingMode": {
+                  "ideal": "user"
+                }
+              },
+              "audio": false
+            },
+            "at": 3826.899999976158
+          }
+        ],
+        "stops": 0,
+        "pending": 0,
+        "liveTracks": 1,
+        "trackStates": [
+          {
+            "readyState": "live",
+            "enabled": true,
+            "kind": "video"
+          }
+        ],
+        "events": [
+          {
+            "name": "waiting",
+            "at": 3910.300000011921,
+            "readyState": 0
+          },
+          {
+            "name": "loadedmetadata",
+            "at": 3912.899999976158,
+            "readyState": 4
+          },
+          {
+            "name": "playing",
+            "at": 3914,
+            "readyState": 4
+          }
+        ]
+      },
+      "status": "PASS",
+      "runtimeErrors": [],
+      "elapsedMs": 4678
+    },
+    {
+      "name": "missing-camera-retry",
+      "fixture": {
+        "behaviors": [
+          "NotFoundError",
+          "ok"
+        ]
+      },
+      "failure": "FaceTime\nINTERACTIVE GESTURES\n\u270c\ufe0fPeace Sign\n\nTriggers a confetti explosion\n\n\ud83d\udc4dThumbs Up\n\nTriggers floating likes\n\nHold a pose steady to the camera to trigger it.\n\nGesture detection\nPaused\nCamera\nOff\nAudio\nNot requested\n\nNo camera was found. Connect or enable a camera, then retry.\n\nRetry camera",
+      "media": {
+        "calls": [
+          {
+            "constraints": {
+              "video": {
+                "width": {
+                  "ideal": 1280
+                },
+                "height": {
+                  "ideal": 720
+                },
+                "facingMode": {
+                  "ideal": "user"
+                }
+              },
+              "audio": false
+            },
+            "at": 3702.300000011921
+          },
+          {
+            "constraints": {
+              "video": {
+                "width": {
+                  "ideal": 1280
+                },
+                "height": {
+                  "ideal": 720
+                },
+                "facingMode": {
+                  "ideal": "user"
+                }
+              },
+              "audio": false
+            },
+            "at": 4139.800000011921
+          }
+        ],
+        "stops": 0,
+        "pending": 0,
+        "liveTracks": 1,
+        "trackStates": [
+          {
+            "readyState": "live",
+            "enabled": true,
+            "kind": "video"
+          }
+        ],
+        "events": [
+          {
+            "name": "waiting",
+            "at": 4199.699999988079,
+            "readyState": 0
+          },
+          {
+            "name": "loadedmetadata",
+            "at": 4200.599999964237,
+            "readyState": 4
+          },
+          {
+            "name": "playing",
+            "at": 4201.599999964237,
+            "readyState": 4
+          }
+        ]
+      },
+      "status": "PASS",
+      "runtimeErrors": [],
+      "elapsedMs": 4955
+    },
+    {
+      "name": "delayed-stream-attaches-without-permission-render-deadlock",
+      "fixture": {
+        "behaviors": [
+          "pending"
+        ]
+      },
+      "media": {
+        "calls": [
+          {
+            "constraints": {
+              "video": {
+                "width": {
+                  "ideal": 1280
+                },
+                "height": {
+                  "ideal": 720
+                },
+                "facingMode": {
+                  "ideal": "user"
+                }
+              },
+              "audio": false
+            },
+            "at": 3381.5
+          }
+        ],
+        "stops": 0,
+        "pending": 0,
+        "liveTracks": 1,
+        "trackStates": [
+          {
+            "readyState": "live",
+            "enabled": true,
+            "kind": "video"
+          }
+        ],
+        "events": [
+          {
+            "name": "waiting",
+            "at": 3981.199999988079,
+            "readyState": 0
+          },
+          {
+            "name": "loadedmetadata",
+            "at": 3988.199999988079,
+            "readyState": 4
+          },
+          {
+            "name": "playing",
+            "at": 3989.7999999523163,
+            "readyState": 4
+          }
+        ]
+      },
+      "status": "PASS",
+      "runtimeErrors": [],
+      "elapsedMs": 4751
+    },
+    {
+      "name": "unanswered-permission-times-out-and-retry-does-not-duplicate-prompts",
+      "fixture": {
+        "behaviors": [
+          "pending"
+        ]
+      },
+      "timeout": "FaceTime\nINTERACTIVE GESTURES\n\u270c\ufe0fPeace Sign\n\nTriggers a confetti explosion\n\n\ud83d\udc4dThumbs Up\n\nTriggers floating likes\n\nHold a pose steady to the camera to trigger it.\n\nGesture detection\nPaused\nCamera\nOff\nAudio\nNot requested\n\nThe camera request is still waiting. Answer or dismiss the browser prompt, then retry.\n\nRetry camera",
+      "media": {
+        "calls": [
+          {
+            "constraints": {
+              "video": {
+                "width": {
+                  "ideal": 1280
+                },
+                "height": {
+                  "ideal": 720
+                },
+                "facingMode": {
+                  "ideal": "user"
+                }
+              },
+              "audio": false
+            },
+            "at": 3951.699999988079
+          },
+          {
+            "constraints": {
+              "video": {
+                "width": {
+                  "ideal": 1280
+                },
+                "height": {
+                  "ideal": 720
+                },
+                "facingMode": {
+                  "ideal": "user"
+                }
+              },
+              "audio": false
+            },
+            "at": 19675
+          }
+        ],
+        "stops": 1,
+        "pending": 0,
+        "liveTracks": 1,
+        "trackStates": [
+          {
+            "readyState": "ended",
+            "enabled": true,
+            "kind": "video"
+          },
+          {
+            "readyState": "live",
+            "enabled": true,
+            "kind": "video"
+          }
+        ],
+        "events": [
+          {
+            "name": "waiting",
+            "at": 19765.80000001192,
+            "readyState": 0
+          },
+          {
+            "name": "loadedmetadata",
+            "at": 19773.900000035763,
+            "readyState": 4
+          },
+          {
+            "name": "playing",
+            "at": 19779.900000035763,
+            "readyState": 4
+          }
+        ]
+      },
+      "status": "PASS",
+      "runtimeErrors": [],
+      "elapsedMs": 20562
+    },
+    {
+      "name": "close-before-permission-completes-stops-late-stream",
+      "fixture": {
+        "behaviors": [
+          "pending",
+          "ok"
+        ]
+      },
+      "media": {
+        "calls": [
+          {
+            "constraints": {
+              "video": {
+                "width": {
+                  "ideal": 1280
+                },
+                "height": {
+                  "ideal": 720
+                },
+                "facingMode": {
+                  "ideal": "user"
+                }
+              },
+              "audio": false
+            },
+            "at": 3696.5
+          }
+        ],
+        "stops": 1,
+        "pending": 0,
+        "liveTracks": 0,
+        "trackStates": [
+          {
+            "readyState": "ended",
+            "enabled": true,
+            "kind": "video"
+          }
+        ],
+        "events": []
+      },
+      "status": "PASS",
+      "runtimeErrors": [],
+      "elapsedMs": 6335
+    },
+    {
+      "name": "playback-rejected-resume-is-a-real-user-action",
+      "fixture": {
+        "playbackFailures": 1
+      },
+      "blocked": "FaceTime\nINTERACTIVE GESTURES\n\u270c\ufe0fPeace Sign\n\nTriggers a confetti explosion\n\n\ud83d\udc4dThumbs Up\n\nTriggers floating likes\n\nHold a pose steady to the camera to trigger it.\n\nGesture detection\nPaused\nCamera\nOn \u00b7 preview paused\nAudio\nNot requested\n\nCamera allowed, but preview playback was blocked. Select Resume camera to continue.\n\nResume camera",
+      "media": {
+        "calls": [
+          {
+            "constraints": {
+              "video": {
+                "width": {
+                  "ideal": 1280
+                },
+                "height": {
+                  "ideal": 720
+                },
+                "facingMode": {
+                  "ideal": "user"
+                }
+              },
+              "audio": false
+            },
+            "at": 4138.300000011921
+          }
+        ],
+        "stops": 0,
+        "pending": 0,
+        "liveTracks": 1,
+        "trackStates": [
+          {
+            "readyState": "live",
+            "enabled": true,
+            "kind": "video"
+          }
+        ],
+        "events": [
+          {
+            "name": "loadedmetadata",
+            "at": 4179.899999976158,
+            "readyState": 4
+          },
+          {
+            "name": "playing",
+            "at": 4545.100000023842,
+            "readyState": 4
+          }
+        ]
+      },
+      "status": "PASS",
+      "runtimeErrors": [],
+      "elapsedMs": 5300
+    },
+    {
+      "name": "externally-ended-track-is-not-reported-live",
+      "fixture": {},
+      "text": "FaceTime\nINTERACTIVE GESTURES\n\u270c\ufe0fPeace Sign\n\nTriggers a confetti explosion\n\n\ud83d\udc4dThumbs Up\n\nTriggers floating likes\n\nHold a pose steady to the camera to trigger it.\n\nGesture detection\nPaused\nCamera\nOff\nAudio\nNot requested\n\nThe camera disconnected or permission was removed. Check access, then retry.\n\nRetry camera",
+      "media": {
+        "calls": [
+          {
+            "constraints": {
+              "video": {
+                "width": {
+                  "ideal": 1280
+                },
+                "height": {
+                  "ideal": 720
+                },
+                "facingMode": {
+                  "ideal": "user"
+                }
+              },
+              "audio": false
+            },
+            "at": 3441.699999988079
+          },
+          {
+            "constraints": {
+              "video": {
+                "width": {
+                  "ideal": 1280
+                },
+                "height": {
+                  "ideal": 720
+                },
+                "facingMode": {
+                  "ideal": "user"
+                }
+              },
+              "audio": false
+            },
+            "at": 3834
+          }
+        ],
+        "stops": 2,
+        "pending": 0,
+        "liveTracks": 1,
+        "trackStates": [
+          {
+            "readyState": "ended",
+            "enabled": true,
+            "kind": "video"
+          },
+          {
+            "readyState": "live",
+            "enabled": true,
+            "kind": "video"
+          }
+        ],
+        "events": [
+          {
+            "name": "waiting",
+            "at": 3480.900000035763,
+            "readyState": 0
+          },
+          {
+            "name": "loadedmetadata",
+            "at": 3481.300000011921,
+            "readyState": 4
+          },
+          {
+            "name": "playing",
+            "at": 3482.199999988079,
+            "readyState": 4
+          },
+          {
+            "name": "waiting",
+            "at": 3846.199999988079,
+            "readyState": 0
+          },
+          {
+            "name": "loadedmetadata",
+            "at": 3846.5,
+            "readyState": 4
+          },
+          {
+            "name": "playing",
+            "at": 3847.900000035763,
+            "readyState": 4
+          }
+        ]
+      },
+      "status": "PASS",
+      "runtimeErrors": [],
+      "elapsedMs": 4599
+    },
+    {
+      "name": "minimize-hidden-restore-and-explicit-off-lifecycle",
+      "fixture": {},
+      "pageHideImmediate": {
+        "calls": [
+          {
+            "constraints": {
+              "video": {
+                "width": {
+                  "ideal": 1280
+                },
+                "height": {
+                  "ideal": 720
+                },
+                "facingMode": {
+                  "ideal": "user"
+                }
+              },
+              "audio": false
+            },
+            "at": 3292.099999964237
+          },
+          {
+            "constraints": {
+              "video": {
+                "width": {
+                  "ideal": 1280
+                },
+                "height": {
+                  "ideal": 720
+                },
+                "facingMode": {
+                  "ideal": "user"
+                }
+              },
+              "audio": false
+            },
+            "at": 4846.099999964237
+          },
+          {
+            "constraints": {
+              "video": {
+                "width": {
+                  "ideal": 1280
+                },
+                "height": {
+                  "ideal": 720
+                },
+                "facingMode": {
+                  "ideal": "user"
+                }
+              },
+              "audio": false
+            },
+            "at": 5153.399999976158
+          }
+        ],
+        "stops": 3,
+        "pending": 0,
+        "liveTracks": 0,
+        "trackStates": [
+          {
+            "readyState": "ended",
+            "enabled": true,
+            "kind": "video"
+          },
+          {
+            "readyState": "ended",
+            "enabled": true,
+            "kind": "video"
+          },
+          {
+            "readyState": "ended",
+            "enabled": true,
+            "kind": "video"
+          }
+        ],
+        "events": [
+          {
+            "name": "waiting",
+            "at": 3331.199999988079,
+            "readyState": 0
+          },
+          {
+            "name": "loadedmetadata",
+            "at": 3331.699999988079,
+            "readyState": 4
+          },
+          {
+            "name": "playing",
+            "at": 3332.800000011921,
+            "readyState": 4
+          },
+          {
+            "name": "waiting",
+            "at": 4848.599999964237,
+            "readyState": 0
+          },
+          {
+            "name": "loadedmetadata",
+            "at": 4856.199999988079,
+            "readyState": 4
+          },
+          {
+            "name": "playing",
+            "at": 4857.300000011921,
+            "readyState": 4
+          },
+          {
+            "name": "waiting",
+            "at": 5155,
+            "readyState": 0
+          },
+          {
+            "name": "loadedmetadata",
+            "at": 5161.5,
+            "readyState": 4
+          },
+          {
+            "name": "playing",
+            "at": 5162.399999976158,
+            "readyState": 4
+          }
+        ]
+      },
+      "media": {
+        "calls": [
+          {
+            "constraints": {
+              "video": {
+                "width": {
+                  "ideal": 1280
+                },
+                "height": {
+                  "ideal": 720
+                },
+                "facingMode": {
+                  "ideal": "user"
+                }
+              },
+              "audio": false
+            },
+            "at": 3292.099999964237
+          },
+          {
+            "constraints": {
+              "video": {
+                "width": {
+                  "ideal": 1280
+                },
+                "height": {
+                  "ideal": 720
+                },
+                "facingMode": {
+                  "ideal": "user"
+                }
+              },
+              "audio": false
+            },
+            "at": 4846.099999964237
+          },
+          {
+            "constraints": {
+              "video": {
+                "width": {
+                  "ideal": 1280
+                },
+                "height": {
+                  "ideal": 720
+                },
+                "facingMode": {
+                  "ideal": "user"
+                }
+              },
+              "audio": false
+            },
+            "at": 5153.399999976158
+          },
+          {
+            "constraints": {
+              "video": {
+                "width": {
+                  "ideal": 1280
+                },
+                "height": {
+                  "ideal": 720
+                },
+                "facingMode": {
+                  "ideal": "user"
+                }
+              },
+              "audio": false
+            },
+            "at": 5417.399999976158
+          }
+        ],
+        "stops": 4,
+        "pending": 0,
+        "liveTracks": 0,
+        "trackStates": [
+          {
+            "readyState": "ended",
+            "enabled": true,
+            "kind": "video"
+          },
+          {
+            "readyState": "ended",
+            "enabled": true,
+            "kind": "video"
+          },
+          {
+            "readyState": "ended",
+            "enabled": true,
+            "kind": "video"
+          },
+          {
+            "readyState": "ended",
+            "enabled": true,
+            "kind": "video"
+          }
+        ],
+        "events": [
+          {
+            "name": "waiting",
+            "at": 3331.199999988079,
+            "readyState": 0
+          },
+          {
+            "name": "loadedmetadata",
+            "at": 3331.699999988079,
+            "readyState": 4
+          },
+          {
+            "name": "playing",
+            "at": 3332.800000011921,
+            "readyState": 4
+          },
+          {
+            "name": "waiting",
+            "at": 4848.599999964237,
+            "readyState": 0
+          },
+          {
+            "name": "loadedmetadata",
+            "at": 4856.199999988079,
+            "readyState": 4
+          },
+          {
+            "name": "playing",
+            "at": 4857.300000011921,
+            "readyState": 4
+          },
+          {
+            "name": "waiting",
+            "at": 5155,
+            "readyState": 0
+          },
+          {
+            "name": "loadedmetadata",
+            "at": 5161.5,
+            "readyState": 4
+          },
+          {
+            "name": "playing",
+            "at": 5162.399999976158,
+            "readyState": 4
+          },
+          {
+            "name": "waiting",
+            "at": 5420.300000011921,
+            "readyState": 0
+          },
+          {
+            "name": "loadedmetadata",
+            "at": 5423,
+            "readyState": 4
+          },
+          {
+            "name": "playing",
+            "at": 5423.599999964237,
+            "readyState": 4
+          }
+        ]
+      },
+      "status": "PASS",
+      "runtimeErrors": [],
+      "elapsedMs": 7316
+    },
+    {
+      "name": "real-gpu-initialization-refusal-falls-back-to-cpu",
+      "fixture": {},
+      "delegate": "CPU",
+      "refusedContexts": 6,
+      "confetti": {
+        "particles": 70,
+        "canvases": 0,
+        "camera": "live"
+      },
+      "status": "PASS",
+      "runtimeErrors": [],
+      "elapsedMs": 8555
+    },
+    {
+      "name": "gpu-context-loss-after-inference-rebuilds-one-cpu-detector",
+      "fixture": {},
+      "initialDelegate": "GPU",
+      "loss": {
+        "method": "WEBGL_lose_context",
+        "contexts": 4
+      },
+      "final": {
+        "delegate": "CPU",
+        "status": "ready"
+      },
+      "status": "PASS",
+      "runtimeErrors": [],
+      "elapsedMs": 5157
+    },
+    {
+      "name": "model-asset-failure-keeps-camera-usable-and-retries",
+      "fixture": {
+        "block": [
+          "*hand_landmarker.task*"
+        ]
+      },
+      "failure": "FaceTime\nINTERACTIVE GESTURES\n\u270c\ufe0fPeace Sign\n\nTriggers a confetti explosion\n\n\ud83d\udc4dThumbs Up\n\nTriggers floating likes\n\nHold a pose steady to the camera to trigger it.\n\nGesture detection\nUnavailable\nCamera\nOn\nAudio\nNot requested\n\nFailed to fetch\n\nRetry gestures",
+      "delegate": "GPU",
+      "assetRequests": [
+        "http://127.0.0.1:3001/mediapipe/tasks-vision-1.0.1/wasm/vision_wasm_internal.js",
+        "http://127.0.0.1:3001/mediapipe/tasks-vision-1.0.1/wasm/vision_wasm_internal.wasm",
+        "http://127.0.0.1:3001/mediapipe/hand_landmarker.task",
+        "http://127.0.0.1:3001/mediapipe/hand_landmarker.task",
+        "http://127.0.0.1:3001/mediapipe/tasks-vision-1.0.1/wasm/vision_wasm_internal.js",
+        "http://127.0.0.1:3001/mediapipe/tasks-vision-1.0.1/wasm/vision_wasm_internal.wasm"
+      ],
+      "status": "PASS",
+      "runtimeErrors": [],
+      "elapsedMs": 4889
+    },
+    {
+      "name": "wasm-asset-failure-keeps-camera-usable-and-retries",
+      "fixture": {
+        "block": [
+          "*vision_wasm*"
+        ]
+      },
+      "failure": "FaceTime\nINTERACTIVE GESTURES\n\u270c\ufe0fPeace Sign\n\nTriggers a confetti explosion\n\n\ud83d\udc4dThumbs Up\n\nTriggers floating likes\n\nHold a pose steady to the camera to trigger it.\n\nGesture detection\nUnavailable\nCamera\nOn\nAudio\nNot requested\n\nFailed to fetch\n\nRetry gestures",
+      "delegate": "GPU",
+      "assetRequests": [
+        "http://127.0.0.1:3001/mediapipe/tasks-vision-1.0.1/wasm/vision_wasm_internal.js",
+        "http://127.0.0.1:3001/mediapipe/tasks-vision-1.0.1/wasm/vision_wasm_internal.wasm",
+        "http://127.0.0.1:3001/mediapipe/tasks-vision-1.0.1/wasm/vision_wasm_internal.js",
+        "http://127.0.0.1:3001/mediapipe/tasks-vision-1.0.1/wasm/vision_wasm_internal.wasm",
+        "http://127.0.0.1:3001/mediapipe/hand_landmarker.task",
+        "http://127.0.0.1:3001/mediapipe/tasks-vision-1.0.1/wasm/vision_wasm_internal.js",
+        "http://127.0.0.1:3001/mediapipe/tasks-vision-1.0.1/wasm/vision_wasm_internal.wasm"
+      ],
+      "status": "PASS",
+      "runtimeErrors": [],
+      "elapsedMs": 5299
+    },
+    {
+      "name": "insecure-context-fixture-has-actionable-status-and-no-request",
+      "fixture": {
+        "insecure": true
+      },
+      "text": "FaceTime\nINTERACTIVE GESTURES\n\u270c\ufe0fPeace Sign\n\nTriggers a confetti explosion\n\n\ud83d\udc4dThumbs Up\n\nTriggers floating likes\n\nHold a pose steady to the camera to trigger it.\n\nGesture detection\nPaused\nCamera\nOff\nAudio\nNot requested\n\nCamera access needs HTTPS or localhost. Open the secure version of this site.\n\nRetry camera",
+      "status": "PASS",
+      "runtimeErrors": [],
+      "elapsedMs": 3520
+    }
+  ],
+  "gpu": {
+    "devices": [
+      {
+        "vendorId": 4203,
+        "deviceId": 0,
+        "vendorString": "Google Inc. (Apple)",
+        "deviceString": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Version 26.6.1 (Build 25G76))",
+        "driverVendor": "Apple",
+        "driverVersion": "26.6.1"
+      }
+    ],
+    "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Version 26.6.1 (Build 25G76))",
+    "vendor": "Google Inc. (Apple)",
+    "featureStatus": {
+      "2d_canvas": "enabled",
+      "direct_rendering_display_compositor": "disabled_off_ok",
+      "gpu_compositing": "enabled",
+      "multiple_raster_threads": "enabled_on",
+      "opengl": "enabled_on",
+      "rasterization": "enabled",
+      "raw_draw": "disabled_off_ok",
+      "skia_graphite": "enabled_on",
+      "trees_in_viz": "disabled_off",
+      "video_decode": "enabled",
+      "video_encode": "enabled",
+      "webgl": "enabled",
+      "webgpu": "enabled",
+      "webnn": "disabled_off"
+    }
+  },
+  "site": "http://127.0.0.1:3001",
+  "buildId": "7qugy3Xr-FETakA9c8zdY",
+  "buildMetadataRecordedAfterRun": "2026-10-29T09:28:00.641391+00:00"
+}

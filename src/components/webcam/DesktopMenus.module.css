@@ -1,0 +1,10 @@
+.bar { display: flex; align-items: center; height: 100%; }
+.group { position: relative; height: 100%; }
+.trigger { height: 100%; padding: 0 10px; border: 0; border-radius: 4px; background: transparent; color: inherit; cursor: pointer; font: inherit; }
+.trigger[aria-expanded="true"] { background: rgba(255, 255, 255, .2); }
+.trigger:focus-visible { outline: 2px solid rgba(255,255,255,.9); outline-offset: -2px; }
+.popup { position: absolute; top: 28px; left: 0; min-width: 220px; max-height: calc(900px - 36px); overflow-y: auto; padding: 4px; border: 1px solid rgba(255,255,255,.15); border-radius: 6px; background: rgba(40,40,45,.96); box-shadow: 0 10px 30px rgba(0,0,0,.5); display: flex; flex-direction: column; }
+.item { padding: 5px 12px; border: 0; border-radius: 4px; background: transparent; color: inherit; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 24px; text-align: left; white-space: nowrap; font: inherit; }
+.item:not(:disabled):hover, .item:not(:disabled):focus { outline: none; background: #0a60ff; }
+.item:disabled { opacity: .4; cursor: default; }
+.shortcut { opacity: .65; font-size: 12px; }

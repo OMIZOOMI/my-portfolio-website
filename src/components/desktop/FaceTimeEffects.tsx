@@ -25,6 +25,7 @@ export function FloatingLikes({ burstKey }: { burstKey: number }) {
   return (
     <div
       aria-hidden="true"
+      data-floating-likes
       className="pointer-events-none absolute inset-0 overflow-hidden"
     >
       <style>{`
@@ -33,6 +34,7 @@ export function FloatingLikes({ burstKey }: { burstKey: number }) {
           12% { opacity: 1; }
           100% { transform: translateY(-340px) scale(1.25) rotate(12deg); opacity: 0; }
         }
+        @media (prefers-reduced-motion: reduce) { .facetime-like-particle { animation: none !important; } }
       `}</style>
       {Array.from({ length: LIKE_COUNT }, (_, i) => {
         // Deterministic pseudo-random spread so SSR/first paint is stable.
@@ -42,13 +44,15 @@ export function FloatingLikes({ burstKey }: { burstKey: number }) {
         return (
           <span
             key={`${burstKey}-${i}`}
+            data-like-particle
+            className="facetime-like-particle"
             style={{
               position: "absolute",
               bottom: "18%",
               left: `${left}%`,
               fontSize: `${size}px`,
-              animation: `facetime-like-float 2s ease-out ${delay}s forwards`,
-              filter: "drop-shadow(0 4px 10px rgba(0,0,0,0.45))",
+              animation: `facetime-like-float ${LIKE_LIFETIME_MS - delay * 1000}ms ease-out ${delay}s forwards`,
+              textShadow: "0 2px 6px #0005",
             }}
           >
             {LIKE_EMOJIS[i % LIKE_EMOJIS.length]}

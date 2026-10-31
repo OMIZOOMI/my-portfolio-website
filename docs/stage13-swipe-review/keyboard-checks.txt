@@ -1,0 +1,1 @@
+PASS keyboard-touch-and-narrow-selector

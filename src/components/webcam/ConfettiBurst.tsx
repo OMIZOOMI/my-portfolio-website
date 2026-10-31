@@ -1,108 +1,72 @@
 "use client";
 
-/**
- * <ConfettiBurst/>
- * npm install three @react-three/fiber
- *
- * A short-lived R3F Canvas mounted only for the duration of the burst —
- * it self-unmounts after LIFETIME_MS rather than staying alive as an idle
- * WebGL context, which matters here since it's already running nested
- * inside the outer MacBook scene's canvas + the <Html> DOM portal.
- */
-
-import { useMemo, useRef, useEffect, useState } from "react";
-import { Canvas, useFrame } from "@react-three/fiber";
-import * as THREE from "three";
+import { useEffect, useState, type CSSProperties } from "react";
 
 const PARTICLE_COUNT = 70;
 const COLORS = ["#ff5f57", "#ffb454", "#34c759", "#4c8dff", "#8a5cf6", "#ffffff"];
 const LIFETIME_MS = 2600;
-const GRAVITY = -4.5;
-const DRAG = 0.985;
 
-interface Particle {
-  position: THREE.Vector3;
-  velocity: THREE.Vector3;
-  spin: THREE.Vector3;
-  color: string;
-}
-
-function useParticles() {
-  return useMemo<Particle[]>(() => {
-    return Array.from({ length: PARTICLE_COUNT }, (_, index) => {
-      const angle = ((index * 37) % 360) * (Math.PI / 180);
-      const speed = 1.5 + ((index * 17) % 25) / 10;
-      return {
-        position: new THREE.Vector3((((index * 13) % 20) / 20 - 0.5) * 0.5, -0.5, 0),
-        velocity: new THREE.Vector3(
-          Math.cos(angle) * speed * 0.6,
-          2.5 + ((index * 11) % 20) / 10,
-          (((index * 19) % 20) / 20 - 0.5) * 1.5
-        ),
-        spin: new THREE.Vector3(((index * 7) % 60) / 10, ((index * 23) % 60) / 10, ((index * 29) % 60) / 10),
-        color: COLORS[index % COLORS.length],
-      };
-    });
-  }, []);
-}
-
-function ConfettiField() {
-  const particles = useParticles();
-  const meshRefs = useRef<(THREE.Mesh | null)[]>([]);
-  const elapsedRef = useRef(0);
-
-  useFrame((_, delta) => {
-    elapsedRef.current += delta;
-    const fade = Math.max(0, 1 - elapsedRef.current / (LIFETIME_MS / 1000));
-
-    particles.forEach((p, i) => {
-      p.velocity.y += GRAVITY * delta;
-      p.velocity.multiplyScalar(DRAG);
-      p.position.addScaledVector(p.velocity, delta);
-
-      const mesh = meshRefs.current[i];
-      if (!mesh) return;
-
-      mesh.position.copy(p.position);
-      mesh.rotation.x += p.spin.x * delta;
-      mesh.rotation.y += p.spin.y * delta;
-      mesh.rotation.z += p.spin.z * delta;
-      (mesh.material as THREE.MeshBasicMaterial).opacity = fade;
-    });
-  });
-
-  return (
-    <>
-      {particles.map((p, i) => (
-        <mesh key={i} ref={(el) => (meshRefs.current[i] = el)} position={p.position}>
-          <planeGeometry args={[0.12, 0.06]} />
-          <meshBasicMaterial color={p.color} transparent opacity={1} side={THREE.DoubleSide} />
-        </mesh>
-      ))}
-    </>
-  );
-}
+// The same short confetti explosion works when the hand model uses CPU.
+// CSS fragments avoid a second WebGL context competing with the laptop/model.
+const PARTICLES = Array.from({ length: PARTICLE_COUNT }, (_, index) => {
+  const angle = ((index * 37) % 360) * (Math.PI / 180);
+  const speed = 1.5 + ((index * 17) % 25) / 10;
+  const x = Math.cos(angle) * speed * 80;
+  const rotation = 360 + ((index * 29) % 5) * 180;
+  const delay = (index % 5) * 15;
+  return {
+    "--confetti-start-x": `${(((index * 13) % 20) / 20 - 0.5) * 32}px`,
+    "--confetti-mid-x": `${x * 0.7}px`,
+    "--confetti-end-x": `${x}px`,
+    "--confetti-peak-y": `${-110 - ((index * 11) % 20) * 8}px`,
+    "--confetti-end-y": `${120 + ((index * 19) % 20) * 10}px`,
+    "--confetti-mid-rotation": `${rotation * 0.45}deg`,
+    "--confetti-end-rotation": `${rotation}deg`,
+    width: `${8 + index % 3}px`,
+    height: `${4 + index % 2}px`,
+    backgroundColor: COLORS[index % COLORS.length],
+    animationDuration: `${LIFETIME_MS - delay}ms`,
+    animationDelay: `${delay}ms`,
+  } as CSSProperties;
+});
 
 export function ConfettiBurst() {
   const [visible, setVisible] = useState(true);
 
   useEffect(() => {
-    const id = setTimeout(() => setVisible(false), LIFETIME_MS);
-    return () => clearTimeout(id);
+    const id = globalThis.setTimeout(() => setVisible(false), LIFETIME_MS);
+    return () => globalThis.clearTimeout(id);
   }, []);
 
   if (!visible) return null;
 
   return (
-    <div style={{ position: "absolute", inset: 0, pointerEvents: "none" }}>
-      <Canvas
-        orthographic
-        camera={{ zoom: 80, position: [0, 0, 10] }}
-        gl={{ alpha: true }}
-        style={{ background: "transparent" }}
-      >
-        <ConfettiField />
-      </Canvas>
+    <div
+      aria-hidden="true"
+      data-confetti-renderer="css"
+      style={{ position: "absolute", inset: 0, pointerEvents: "none", overflow: "hidden" }}
+    >
+      <style>{`
+        @keyframes facetime-confetti-burst {
+          0% { opacity: 0; transform: translate(var(--confetti-start-x), 0) rotate(0deg); }
+          8% { opacity: 1; }
+          45% { opacity: 0.85; transform: translate(var(--confetti-mid-x), var(--confetti-peak-y)) rotate(var(--confetti-mid-rotation)); }
+          100% { opacity: 0; transform: translate(var(--confetti-end-x), var(--confetti-end-y)) rotate(var(--confetti-end-rotation)); }
+        }
+        .facetime-confetti-particle {
+          position: absolute; left: 50%; top: 58%; opacity: 0;
+          border-radius: 1px;
+          animation-name: facetime-confetti-burst;
+          animation-timing-function: cubic-bezier(0.2, 0.65, 0.4, 1);
+          animation-fill-mode: both;
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .facetime-confetti-particle { animation: none; }
+        }
+      `}</style>
+      {PARTICLES.map((style, index) => (
+        <span key={index} data-confetti-particle className="facetime-confetti-particle" style={style} />
+      ))}
     </div>
   );
 }

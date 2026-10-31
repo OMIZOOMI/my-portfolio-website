@@ -1,0 +1,5893 @@
+{
+  "phase": "after",
+  "startedAt": "2026-10-30T08:42:12.440Z",
+  "buildId": "tn56yDtmK_Ro_VJQn75ci",
+  "browser": "Chrome/156.0.8078.76",
+  "host": {
+    "model": "MacBookAir10,1",
+    "chip": "Apple M1",
+    "ramGiB": 8,
+    "os": "macOS 27.2",
+    "osBuild": "26B123",
+    "darwin": "27.2.0",
+    "arch": "arm64"
+  },
+  "viewport": {
+    "width": 1440,
+    "height": 1000,
+    "dpr": 1
+  },
+  "input": "Isolated headless Chrome on actual M1; CDP mouse/key/wheel/touch. Photo-camera fixtures reported separately. rAF cadence and event timing are local lab probes, not field INP or presented-frame proof.",
+  "scenarios": [
+    {
+      "name": "startup-cold-returning-0",
+      "cold": {
+        "ready": 1577,
+        "loaderSeen": true,
+        "resource": [
+          {
+            "url": "http://127.0.0.1:3012/_next/static/media/797e433ab948586e-s.p.0r6juujl39pe6.woff2",
+            "start": 28.300000000745058,
+            "end": 32.80000000074506,
+            "duration": 4.5,
+            "transfer": 23408,
+            "encoded": 23108,
+            "decoded": 23108,
+            "initiator": "link"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/static/media/caa3a2e1cccd8315-s.p.0wgildi0cnwt9.woff2",
+            "start": 29,
+            "end": 36.100000001490116,
+            "duration": 7.100000001490116,
+            "transfer": 29588,
+            "encoded": 29288,
+            "decoded": 29288,
+            "initiator": "link"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/static/chunks/3ttwe4uost65z.css",
+            "start": 29.100000001490116,
+            "end": 37.5,
+            "duration": 8.399999998509884,
+            "transfer": 10089,
+            "encoded": 9789,
+            "decoded": 53961,
+            "initiator": "link"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/static/chunks/0_vo3dqwssl0h.css",
+            "start": 29.100000001490116,
+            "end": 38,
+            "duration": 8.899999998509884,
+            "transfer": 9319,
+            "encoded": 9019,
+            "decoded": 50362,
+            "initiator": "link"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/static/chunks/0e5i2op18hcyw.js",
+            "start": 29.300000000745058,
+            "end": 44.80000000074506,
+            "duration": 15.5,
+            "transfer": 7596,
+            "encoded": 7296,
+            "decoded": 21905,
+            "initiator": "link"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/static/chunks/2eu73rnhwzfc-.js",
+            "start": 29.300000000745058,
+            "end": 45.400000002235174,
+            "duration": 16.100000001490116,
+            "transfer": 7632,
+            "encoded": 7332,
+            "decoded": 24440,
+            "initiator": "script"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/static/chunks/turbopack-0a2yvjgrpz17d.js",
+            "start": 29.300000000745058,
+            "end": 46.900000002235174,
+            "duration": 17.600000001490116,
+            "transfer": 4129,
+            "encoded": 3829,
+            "decoded": 9652,
+            "initiator": "script"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/static/chunks/2epaexi-r3zyk.js",
+            "start": 29.300000000745058,
+            "end": 52.80000000074506,
+            "duration": 23.5,
+            "transfer": 47381,
+            "encoded": 47081,
+            "decoded": 178153,
+            "initiator": "script"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/static/chunks/19h11uu_inxyg.js",
+            "start": 29.300000000745058,
+            "end": 55.80000000074506,
+            "duration": 26.5,
+            "transfer": 65024,
+            "encoded": 64724,
+            "decoded": 204830,
+            "initiator": "script"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/static/chunks/0h2qsuyze9ds1.js",
+            "start": 29.400000002235174,
+            "end": 48.600000001490116,
+            "duration": 19.199999999254942,
+            "transfer": 3962,
+            "encoded": 3662,
+            "decoded": 14377,
+            "initiator": "script"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/static/chunks/0bhe5g1n57o23.js",
+            "start": 29.400000002235174,
+            "end": 50.5,
+            "duration": 21.099999997764826,
+            "transfer": 827,
+            "encoded": 527,
+            "decoded": 1072,
+            "initiator": "script"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/static/chunks/02dj0d1t6r9cr.js",
+            "start": 29.5,
+            "end": 125,
+            "duration": 95.5,
+            "transfer": 485390,
+            "encoded": 485090,
+            "decoded": 1670283,
+            "initiator": "script"
+          },
+          {
+            "url": "http://127.0.0.1:3012/macbook.glb/scene.gltf",
+            "start": 214.60000000149012,
+            "end": 218,
+            "duration": 3.399999998509884,
+            "transfer": 14752,
+            "encoded": 14452,
+            "decoded": 98977,
+            "initiator": "fetch"
+          },
+          {
+            "url": "http://127.0.0.1:3012/wallpapers/coast-dark.webp",
+            "start": 226.60000000149012,
+            "end": 229.20000000298023,
+            "duration": 2.600000001490116,
+            "transfer": 160180,
+            "encoded": 159880,
+            "decoded": 159880,
+            "initiator": "img"
+          },
+          {
+            "url": "http://127.0.0.1:3012/macbook.glb/scene.bin",
+            "start": 255.60000000149012,
+            "end": 313.80000000074506,
+            "duration": 58.19999999925494,
+            "transfer": 8293780,
+            "encoded": 8293480,
+            "decoded": 8293480,
+            "initiator": "fetch"
+          },
+          {
+            "url": "http://127.0.0.1:3012/macbook.glb/textures/zNRfbdNyoCOxSDD_metallicRoughness.png",
+            "start": 257.70000000298023,
+            "end": 266.1000000014901,
+            "duration": 8.399999998509884,
+            "transfer": 166384,
+            "encoded": 166084,
+            "decoded": 166084,
+            "initiator": "fetch"
+          },
+          {
+            "url": "http://127.0.0.1:3012/macbook.glb/textures/zNRfbdNyoCOxSDD_normal.png",
+            "start": 257.80000000074506,
+            "end": 270.5,
+            "duration": 12.699999999254942,
+            "transfer": 433365,
+            "encoded": 433065,
+            "decoded": 433065,
+            "initiator": "fetch"
+          },
+          {
+            "url": "http://127.0.0.1:3012/macbook.glb/textures/GzMrvkTsmRxvOJz_normal.png",
+            "start": 257.9000000022352,
+            "end": 264.6000000014901,
+            "duration": 6.699999999254942,
+            "transfer": 114104,
+            "encoded": 113804,
+            "decoded": 113804,
+            "initiator": "fetch"
+          },
+          {
+            "url": "http://127.0.0.1:3012/macbook.glb/textures/ItKEDAaOJloGKSH_baseColor.png",
+            "start": 258,
+            "end": 263.9000000022352,
+            "duration": 5.900000002235174,
+            "transfer": 48970,
+            "encoded": 48670,
+            "decoded": 48670,
+            "initiator": "fetch"
+          },
+          {
+            "url": "http://127.0.0.1:3012/macbook.glb/textures/ItKEDAaOJloGKSH_metallicRoughness.png",
+            "start": 258,
+            "end": 264.1000000014901,
+            "duration": 6.100000001490116,
+            "transfer": 37768,
+            "encoded": 37468,
+            "decoded": 37468,
+            "initiator": "fetch"
+          },
+          {
+            "url": "http://127.0.0.1:3012/macbook.glb/textures/ItKEDAaOJloGKSH_normal.png",
+            "start": 258.1000000014901,
+            "end": 269.4000000022352,
+            "duration": 11.300000000745058,
+            "transfer": 23233,
+            "encoded": 22933,
+            "decoded": 22933,
+            "initiator": "fetch"
+          },
+          {
+            "url": "http://127.0.0.1:3012/macbook.glb/textures/xEcnbqMzoZoLkIZ_metallicRoughness.png",
+            "start": 258.1000000014901,
+            "end": 280.70000000298023,
+            "duration": 22.600000001490116,
+            "transfer": 159321,
+            "encoded": 159021,
+            "decoded": 159021,
+            "initiator": "fetch"
+          },
+          {
+            "url": "http://127.0.0.1:3012/macbook.glb/textures/YMmdfGRsPviDXYd_baseColor.png",
+            "start": 258.20000000298023,
+            "end": 270.20000000298023,
+            "duration": 12,
+            "transfer": 9137,
+            "encoded": 8837,
+            "decoded": 8837,
+            "initiator": "fetch"
+          },
+          {
+            "url": "http://127.0.0.1:3012/macbook.glb/textures/YMmdfGRsPviDXYd_normal.png",
+            "start": 258.20000000298023,
+            "end": 281,
+            "duration": 22.799999997019768,
+            "transfer": 120145,
+            "encoded": 119845,
+            "decoded": 119845,
+            "initiator": "fetch"
+          },
+          {
+            "url": "http://127.0.0.1:3012/macbook.glb/textures/DthpMXUDOFLFvyk_baseColor.jpeg",
+            "start": 258.30000000074506,
+            "end": 282.70000000298023,
+            "duration": 24.400000002235174,
+            "transfer": 2944,
+            "encoded": 2644,
+            "decoded": 2644,
+            "initiator": "fetch"
+          },
+          {
+            "url": "http://127.0.0.1:3012/macbook.glb/textures/HlQwFCAPWzetDQy_emissive.png",
+            "start": 258.4000000022352,
+            "end": 294.1000000014901,
+            "duration": 35.69999999925494,
+            "transfer": 1222452,
+            "encoded": 1222152,
+            "decoded": 1222152,
+            "initiator": "fetch"
+          },
+          {
+            "url": "http://127.0.0.1:3012/favicon.ico?favicon.2vob68tjqpejf.ico",
+            "start": 259.20000000298023,
+            "end": 289.80000000074506,
+            "duration": 30.599999997764826,
+            "transfer": 26231,
+            "encoded": 25931,
+            "decoded": 25931,
+            "initiator": "other"
+          },
+          {
+            "url": "https://raw.githack.com/pmndrs/drei-assets/456060a26bbeb8fdf79326f224b6d99b8bcce736/hdri/potsdamer_platz_1k.hdr",
+            "start": 338.70000000298023,
+            "end": 585.2000000029802,
+            "duration": 246.5,
+            "transfer": 0,
+            "encoded": 0,
+            "decoded": 0,
+            "initiator": "fetch"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/static/media/FolderIcon.2bkp8_hshfnfd.png",
+            "start": 655.6000000014901,
+            "end": 682.3000000007451,
+            "duration": 26.699999999254942,
+            "transfer": 57079,
+            "encoded": 56779,
+            "decoded": 56779,
+            "initiator": "img"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/image?url=%2F_next%2Fstatic%2Fmedia%2F3d-mac-os-finder.1zqsd7qowfgs_.png&w=64&q=75",
+            "start": 656.2000000029802,
+            "end": 788.8000000007451,
+            "duration": 132.59999999776483,
+            "transfer": 1492,
+            "encoded": 1192,
+            "decoded": 1192,
+            "initiator": "img"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/image?url=%2F_next%2Fstatic%2Fmedia%2FNotes.2-qrml94pobf3.png&w=64&q=75",
+            "start": 656.2000000029802,
+            "end": 793.8000000007451,
+            "duration": 137.59999999776483,
+            "transfer": 1590,
+            "encoded": 1290,
+            "decoded": 1290,
+            "initiator": "img"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/image?url=%2F_next%2Fstatic%2Fmedia%2FTerminal.2z63frtn8-xsr.png&w=64&q=75",
+            "start": 656.2000000029802,
+            "end": 796.2000000029802,
+            "duration": 140,
+            "transfer": 1386,
+            "encoded": 1086,
+            "decoded": 1086,
+            "initiator": "img"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fsafari.12-il2jy_ek2h.png&w=64&q=75",
+            "start": 656.3000000007451,
+            "end": 788.9000000022352,
+            "duration": 132.60000000149012,
+            "transfer": 1962,
+            "encoded": 1662,
+            "decoded": 1662,
+            "initiator": "img"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/image?url=%2F_next%2Fstatic%2Fmedia%2FMusic.2-ysqrfxxp1ab.png&w=64&q=75",
+            "start": 656.3000000007451,
+            "end": 809.6000000014901,
+            "duration": 153.30000000074506,
+            "transfer": 1834,
+            "encoded": 1534,
+            "decoded": 1534,
+            "initiator": "img"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/image?url=%2F_next%2Fstatic%2Fmedia%2FMail.3948ov6l4i-64.png&w=64&q=75",
+            "start": 656.3000000007451,
+            "end": 810.1000000014901,
+            "duration": 153.80000000074506,
+            "transfer": 1808,
+            "encoded": 1508,
+            "decoded": 1508,
+            "initiator": "img"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Ffacetime.36k92b9qw97c8.png&w=64&q=75",
+            "start": 656.4000000022352,
+            "end": 809.3000000007451,
+            "duration": 152.89999999850988,
+            "transfer": 1486,
+            "encoded": 1186,
+            "decoded": 1186,
+            "initiator": "img"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/image?url=%2F_next%2Fstatic%2Fmedia%2FSystem-Settings.05jfit5j7la3d.png&w=64&q=75",
+            "start": 656.4000000022352,
+            "end": 828.7000000029802,
+            "duration": 172.30000000074506,
+            "transfer": 2006,
+            "encoded": 1706,
+            "decoded": 1706,
+            "initiator": "img"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/image?url=%2F_next%2Fstatic%2Fmedia%2FEmpty_Bin_lVRgezRq9O_icns-9852c609a9.2gucv69tmykyt.png&w=64&q=75",
+            "start": 656.4000000022352,
+            "end": 837,
+            "duration": 180.59999999776483,
+            "transfer": 2152,
+            "encoded": 1852,
+            "decoded": 1852,
+            "initiator": "img"
+          },
+          {
+            "url": "http://127.0.0.1:3012/wallpapers/coast-dark.webp",
+            "start": 895.4000000022352,
+            "end": 901.4000000022352,
+            "duration": 6,
+            "transfer": 300,
+            "encoded": 159880,
+            "decoded": 159880,
+            "initiator": "css"
+          }
+        ],
+        "navigation": [
+          {
+            "domContentLoaded": 43.80000000074506,
+            "load": 222.60000000149012,
+            "encoded": 2557,
+            "transfer": 2857
+          }
+        ]
+      },
+      "returning": {
+        "ready": 1294.1,
+        "loaderSeen": true,
+        "resource": [
+          {
+            "url": "http://127.0.0.1:3012/_next/static/media/797e433ab948586e-s.p.0r6juujl39pe6.woff2",
+            "start": 15.400000002235174,
+            "end": 15.400000002235174,
+            "duration": 0,
+            "transfer": 0,
+            "encoded": 23108,
+            "decoded": 23108,
+            "initiator": "link"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/static/media/caa3a2e1cccd8315-s.p.0wgildi0cnwt9.woff2",
+            "start": 15.400000002235174,
+            "end": 15.400000002235174,
+            "duration": 0,
+            "transfer": 0,
+            "encoded": 29288,
+            "decoded": 29288,
+            "initiator": "link"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/static/chunks/3ttwe4uost65z.css",
+            "start": 15.400000002235174,
+            "end": 15.400000002235174,
+            "duration": 0,
+            "transfer": 0,
+            "encoded": 9789,
+            "decoded": 53961,
+            "initiator": "link"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/static/chunks/0_vo3dqwssl0h.css",
+            "start": 15.400000002235174,
+            "end": 15.400000002235174,
+            "duration": 0,
+            "transfer": 0,
+            "encoded": 9019,
+            "decoded": 50362,
+            "initiator": "link"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/static/chunks/0e5i2op18hcyw.js",
+            "start": 15.5,
+            "end": 15.5,
+            "duration": 0,
+            "transfer": 0,
+            "encoded": 7296,
+            "decoded": 21905,
+            "initiator": "link"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/static/chunks/2eu73rnhwzfc-.js",
+            "start": 15.5,
+            "end": 15.5,
+            "duration": 0,
+            "transfer": 0,
+            "encoded": 7332,
+            "decoded": 24440,
+            "initiator": "script"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/static/chunks/19h11uu_inxyg.js",
+            "start": 15.5,
+            "end": 15.5,
+            "duration": 0,
+            "transfer": 0,
+            "encoded": 64724,
+            "decoded": 204830,
+            "initiator": "script"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/static/chunks/2epaexi-r3zyk.js",
+            "start": 15.5,
+            "end": 15.5,
+            "duration": 0,
+            "transfer": 0,
+            "encoded": 47081,
+            "decoded": 178153,
+            "initiator": "script"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/static/chunks/turbopack-0a2yvjgrpz17d.js",
+            "start": 15.5,
+            "end": 15.5,
+            "duration": 0,
+            "transfer": 0,
+            "encoded": 3829,
+            "decoded": 9652,
+            "initiator": "script"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/static/chunks/0h2qsuyze9ds1.js",
+            "start": 15.600000001490116,
+            "end": 15.600000001490116,
+            "duration": 0,
+            "transfer": 0,
+            "encoded": 3662,
+            "decoded": 14377,
+            "initiator": "script"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/static/chunks/0bhe5g1n57o23.js",
+            "start": 15.600000001490116,
+            "end": 15.600000001490116,
+            "duration": 0,
+            "transfer": 0,
+            "encoded": 527,
+            "decoded": 1072,
+            "initiator": "script"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/static/chunks/02dj0d1t6r9cr.js",
+            "start": 15.600000001490116,
+            "end": 15.600000001490116,
+            "duration": 0,
+            "transfer": 0,
+            "encoded": 485090,
+            "decoded": 1670283,
+            "initiator": "script"
+          },
+          {
+            "url": "http://127.0.0.1:3012/macbook.glb/scene.gltf",
+            "start": 45.100000001490116,
+            "end": 47.30000000074506,
+            "duration": 2.199999999254942,
+            "transfer": 300,
+            "encoded": 14452,
+            "decoded": 98977,
+            "initiator": "fetch"
+          },
+          {
+            "url": "http://127.0.0.1:3012/wallpapers/coast-dark.webp",
+            "start": 50.900000002235174,
+            "end": 51.900000002235174,
+            "duration": 1,
+            "transfer": 300,
+            "encoded": 0,
+            "decoded": 0,
+            "initiator": "css"
+          },
+          {
+            "url": "http://127.0.0.1:3012/macbook.glb/scene.bin",
+            "start": 52.30000000074506,
+            "end": 79.60000000149012,
+            "duration": 27.300000000745058,
+            "transfer": 8293780,
+            "encoded": 8293480,
+            "decoded": 8293480,
+            "initiator": "fetch"
+          },
+          {
+            "url": "http://127.0.0.1:3012/macbook.glb/textures/zNRfbdNyoCOxSDD_metallicRoughness.png",
+            "start": 53.5,
+            "end": 55.19999999925494,
+            "duration": 1.699999999254942,
+            "transfer": 300,
+            "encoded": 166084,
+            "decoded": 166084,
+            "initiator": "fetch"
+          },
+          {
+            "url": "http://127.0.0.1:3012/macbook.glb/textures/zNRfbdNyoCOxSDD_normal.png",
+            "start": 53.5,
+            "end": 55.600000001490116,
+            "duration": 2.100000001490116,
+            "transfer": 300,
+            "encoded": 433065,
+            "decoded": 433065,
+            "initiator": "fetch"
+          },
+          {
+            "url": "http://127.0.0.1:3012/macbook.glb/textures/GzMrvkTsmRxvOJz_normal.png",
+            "start": 53.600000001490116,
+            "end": 55.69999999925494,
+            "duration": 2.099999997764826,
+            "transfer": 300,
+            "encoded": 113804,
+            "decoded": 113804,
+            "initiator": "fetch"
+          },
+          {
+            "url": "http://127.0.0.1:3012/macbook.glb/textures/ItKEDAaOJloGKSH_baseColor.png",
+            "start": 53.69999999925494,
+            "end": 56.100000001490116,
+            "duration": 2.400000002235174,
+            "transfer": 300,
+            "encoded": 48670,
+            "decoded": 48670,
+            "initiator": "fetch"
+          },
+          {
+            "url": "http://127.0.0.1:3012/macbook.glb/textures/ItKEDAaOJloGKSH_metallicRoughness.png",
+            "start": 53.69999999925494,
+            "end": 57.900000002235174,
+            "duration": 4.200000002980232,
+            "transfer": 300,
+            "encoded": 37468,
+            "decoded": 37468,
+            "initiator": "fetch"
+          },
+          {
+            "url": "http://127.0.0.1:3012/macbook.glb/textures/ItKEDAaOJloGKSH_normal.png",
+            "start": 53.69999999925494,
+            "end": 58.80000000074506,
+            "duration": 5.100000001490116,
+            "transfer": 300,
+            "encoded": 22933,
+            "decoded": 22933,
+            "initiator": "fetch"
+          },
+          {
+            "url": "http://127.0.0.1:3012/macbook.glb/textures/xEcnbqMzoZoLkIZ_metallicRoughness.png",
+            "start": 53.80000000074506,
+            "end": 59.100000001490116,
+            "duration": 5.300000000745058,
+            "transfer": 300,
+            "encoded": 159021,
+            "decoded": 159021,
+            "initiator": "fetch"
+          },
+          {
+            "url": "http://127.0.0.1:3012/macbook.glb/textures/YMmdfGRsPviDXYd_baseColor.png",
+            "start": 53.80000000074506,
+            "end": 59.600000001490116,
+            "duration": 5.800000000745058,
+            "transfer": 300,
+            "encoded": 8837,
+            "decoded": 8837,
+            "initiator": "fetch"
+          },
+          {
+            "url": "http://127.0.0.1:3012/macbook.glb/textures/YMmdfGRsPviDXYd_normal.png",
+            "start": 53.900000002235174,
+            "end": 59.900000002235174,
+            "duration": 6,
+            "transfer": 300,
+            "encoded": 119845,
+            "decoded": 119845,
+            "initiator": "fetch"
+          },
+          {
+            "url": "http://127.0.0.1:3012/macbook.glb/textures/DthpMXUDOFLFvyk_baseColor.jpeg",
+            "start": 54,
+            "end": 64.30000000074506,
+            "duration": 10.300000000745058,
+            "transfer": 300,
+            "encoded": 2644,
+            "decoded": 2644,
+            "initiator": "fetch"
+          },
+          {
+            "url": "http://127.0.0.1:3012/macbook.glb/textures/HlQwFCAPWzetDQy_emissive.png",
+            "start": 54.100000001490116,
+            "end": 65.5,
+            "duration": 11.399999998509884,
+            "transfer": 300,
+            "encoded": 1222152,
+            "decoded": 1222152,
+            "initiator": "fetch"
+          },
+          {
+            "url": "http://127.0.0.1:3012/favicon.ico?favicon.2vob68tjqpejf.ico",
+            "start": 54.80000000074506,
+            "end": 63.900000002235174,
+            "duration": 9.100000001490116,
+            "transfer": 26231,
+            "encoded": 25931,
+            "decoded": 25931,
+            "initiator": "other"
+          },
+          {
+            "url": "https://raw.githack.com/pmndrs/drei-assets/456060a26bbeb8fdf79326f224b6d99b8bcce736/hdri/potsdamer_platz_1k.hdr",
+            "start": 139.19999999925494,
+            "end": 142.30000000074506,
+            "duration": 3.100000001490116,
+            "transfer": 0,
+            "encoded": 0,
+            "decoded": 0,
+            "initiator": "fetch"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/static/media/FolderIcon.2bkp8_hshfnfd.png",
+            "start": 443.5,
+            "end": 443.5,
+            "duration": 0,
+            "transfer": 0,
+            "encoded": 56779,
+            "decoded": 56779,
+            "initiator": "img"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/image?url=%2F_next%2Fstatic%2Fmedia%2F3d-mac-os-finder.1zqsd7qowfgs_.png&w=64&q=75",
+            "start": 444.30000000074506,
+            "end": 444.30000000074506,
+            "duration": 0,
+            "transfer": 0,
+            "encoded": 1192,
+            "decoded": 1192,
+            "initiator": "img"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/image?url=%2F_next%2Fstatic%2Fmedia%2FTerminal.2z63frtn8-xsr.png&w=64&q=75",
+            "start": 444.5,
+            "end": 444.5,
+            "duration": 0,
+            "transfer": 0,
+            "encoded": 1086,
+            "decoded": 1086,
+            "initiator": "img"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/image?url=%2F_next%2Fstatic%2Fmedia%2FNotes.2-qrml94pobf3.png&w=64&q=75",
+            "start": 444.6000000014901,
+            "end": 444.6000000014901,
+            "duration": 0,
+            "transfer": 0,
+            "encoded": 1290,
+            "decoded": 1290,
+            "initiator": "img"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/image?url=%2F_next%2Fstatic%2Fmedia%2FMail.3948ov6l4i-64.png&w=64&q=75",
+            "start": 444.80000000074506,
+            "end": 444.80000000074506,
+            "duration": 0,
+            "transfer": 0,
+            "encoded": 1508,
+            "decoded": 1508,
+            "initiator": "img"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fsafari.12-il2jy_ek2h.png&w=64&q=75",
+            "start": 444.9000000022352,
+            "end": 444.9000000022352,
+            "duration": 0,
+            "transfer": 0,
+            "encoded": 1662,
+            "decoded": 1662,
+            "initiator": "img"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/image?url=%2F_next%2Fstatic%2Fmedia%2FMusic.2-ysqrfxxp1ab.png&w=64&q=75",
+            "start": 445.1000000014901,
+            "end": 445.1000000014901,
+            "duration": 0,
+            "transfer": 0,
+            "encoded": 1534,
+            "decoded": 1534,
+            "initiator": "img"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Ffacetime.36k92b9qw97c8.png&w=64&q=75",
+            "start": 445.30000000074506,
+            "end": 445.30000000074506,
+            "duration": 0,
+            "transfer": 0,
+            "encoded": 1186,
+            "decoded": 1186,
+            "initiator": "img"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/image?url=%2F_next%2Fstatic%2Fmedia%2FSystem-Settings.05jfit5j7la3d.png&w=64&q=75",
+            "start": 445.4000000022352,
+            "end": 445.4000000022352,
+            "duration": 0,
+            "transfer": 0,
+            "encoded": 1706,
+            "decoded": 1706,
+            "initiator": "img"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/image?url=%2F_next%2Fstatic%2Fmedia%2FEmpty_Bin_lVRgezRq9O_icns-9852c609a9.2gucv69tmykyt.png&w=64&q=75",
+            "start": 445.6000000014901,
+            "end": 445.6000000014901,
+            "duration": 0,
+            "transfer": 0,
+            "encoded": 1852,
+            "decoded": 1852,
+            "initiator": "img"
+          }
+        ],
+        "navigation": [
+          {
+            "domContentLoaded": 19.300000000745058,
+            "load": 48.69999999925494,
+            "encoded": 2557,
+            "transfer": 300
+          }
+        ]
+      },
+      "status": "PASS",
+      "durationMs": 4664
+    },
+    {
+      "name": "startup-cold-returning-1",
+      "cold": {
+        "ready": 1392.1,
+        "loaderSeen": true,
+        "resource": [
+          {
+            "url": "http://127.0.0.1:3012/_next/static/media/797e433ab948586e-s.p.0r6juujl39pe6.woff2",
+            "start": 14.600000001490116,
+            "end": 18.800000000745058,
+            "duration": 4.199999999254942,
+            "transfer": 23408,
+            "encoded": 23108,
+            "decoded": 23108,
+            "initiator": "link"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/static/media/caa3a2e1cccd8315-s.p.0wgildi0cnwt9.woff2",
+            "start": 14.800000000745058,
+            "end": 22.5,
+            "duration": 7.699999999254942,
+            "transfer": 29588,
+            "encoded": 29288,
+            "decoded": 29288,
+            "initiator": "link"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/static/chunks/0_vo3dqwssl0h.css",
+            "start": 14.800000000745058,
+            "end": 23.800000000745058,
+            "duration": 9,
+            "transfer": 9319,
+            "encoded": 9019,
+            "decoded": 50362,
+            "initiator": "link"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/static/chunks/3ttwe4uost65z.css",
+            "start": 14.800000000745058,
+            "end": 24.100000001490116,
+            "duration": 9.300000000745058,
+            "transfer": 10089,
+            "encoded": 9789,
+            "decoded": 53961,
+            "initiator": "link"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/static/chunks/0e5i2op18hcyw.js",
+            "start": 14.800000000745058,
+            "end": 24.300000000745058,
+            "duration": 9.5,
+            "transfer": 7596,
+            "encoded": 7296,
+            "decoded": 21905,
+            "initiator": "link"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/static/chunks/2eu73rnhwzfc-.js",
+            "start": 14.800000000745058,
+            "end": 25.100000001490116,
+            "duration": 10.300000000745058,
+            "transfer": 7632,
+            "encoded": 7332,
+            "decoded": 24440,
+            "initiator": "script"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/static/chunks/2epaexi-r3zyk.js",
+            "start": 14.899999998509884,
+            "end": 33.69999999925494,
+            "duration": 18.800000000745058,
+            "transfer": 47381,
+            "encoded": 47081,
+            "decoded": 178153,
+            "initiator": "script"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/static/chunks/19h11uu_inxyg.js",
+            "start": 14.899999998509884,
+            "end": 34.100000001490116,
+            "duration": 19.200000002980232,
+            "transfer": 65024,
+            "encoded": 64724,
+            "decoded": 204830,
+            "initiator": "script"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/static/chunks/0bhe5g1n57o23.js",
+            "start": 15,
+            "end": 29.800000000745058,
+            "duration": 14.800000000745058,
+            "transfer": 827,
+            "encoded": 527,
+            "decoded": 1072,
+            "initiator": "script"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/static/chunks/turbopack-0a2yvjgrpz17d.js",
+            "start": 15,
+            "end": 29.100000001490116,
+            "duration": 14.100000001490116,
+            "transfer": 4129,
+            "encoded": 3829,
+            "decoded": 9652,
+            "initiator": "script"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/static/chunks/0h2qsuyze9ds1.js",
+            "start": 15,
+            "end": 29.399999998509884,
+            "duration": 14.399999998509884,
+            "transfer": 3962,
+            "encoded": 3662,
+            "decoded": 14377,
+            "initiator": "script"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/static/chunks/02dj0d1t6r9cr.js",
+            "start": 15,
+            "end": 74.10000000149012,
+            "duration": 59.100000001490116,
+            "transfer": 485390,
+            "encoded": 485090,
+            "decoded": 1670283,
+            "initiator": "script"
+          },
+          {
+            "url": "http://127.0.0.1:3012/macbook.glb/scene.gltf",
+            "start": 144.19999999925494,
+            "end": 146.89999999850988,
+            "duration": 2.699999999254942,
+            "transfer": 14752,
+            "encoded": 14452,
+            "decoded": 98977,
+            "initiator": "fetch"
+          },
+          {
+            "url": "http://127.0.0.1:3012/wallpapers/coast-dark.webp",
+            "start": 152.19999999925494,
+            "end": 153.80000000074506,
+            "duration": 1.6000000014901161,
+            "transfer": 160180,
+            "encoded": 159880,
+            "decoded": 159880,
+            "initiator": "img"
+          },
+          {
+            "url": "http://127.0.0.1:3012/macbook.glb/scene.bin",
+            "start": 160.39999999850988,
+            "end": 195.69999999925494,
+            "duration": 35.30000000074506,
+            "transfer": 8293780,
+            "encoded": 8293480,
+            "decoded": 8293480,
+            "initiator": "fetch"
+          },
+          {
+            "url": "http://127.0.0.1:3012/macbook.glb/textures/zNRfbdNyoCOxSDD_metallicRoughness.png",
+            "start": 163.69999999925494,
+            "end": 168.19999999925494,
+            "duration": 4.5,
+            "transfer": 166384,
+            "encoded": 166084,
+            "decoded": 166084,
+            "initiator": "fetch"
+          },
+          {
+            "url": "http://127.0.0.1:3012/macbook.glb/textures/zNRfbdNyoCOxSDD_normal.png",
+            "start": 163.69999999925494,
+            "end": 173.10000000149012,
+            "duration": 9.400000002235174,
+            "transfer": 433365,
+            "encoded": 433065,
+            "decoded": 433065,
+            "initiator": "fetch"
+          },
+          {
+            "url": "http://127.0.0.1:3012/macbook.glb/textures/GzMrvkTsmRxvOJz_normal.png",
+            "start": 163.89999999850988,
+            "end": 168,
+            "duration": 4.100000001490116,
+            "transfer": 114104,
+            "encoded": 113804,
+            "decoded": 113804,
+            "initiator": "fetch"
+          },
+          {
+            "url": "http://127.0.0.1:3012/macbook.glb/textures/ItKEDAaOJloGKSH_baseColor.png",
+            "start": 164,
+            "end": 167.10000000149012,
+            "duration": 3.100000001490116,
+            "transfer": 48970,
+            "encoded": 48670,
+            "decoded": 48670,
+            "initiator": "fetch"
+          },
+          {
+            "url": "http://127.0.0.1:3012/macbook.glb/textures/ItKEDAaOJloGKSH_metallicRoughness.png",
+            "start": 164,
+            "end": 167.69999999925494,
+            "duration": 3.699999999254942,
+            "transfer": 37768,
+            "encoded": 37468,
+            "decoded": 37468,
+            "initiator": "fetch"
+          },
+          {
+            "url": "http://127.0.0.1:3012/macbook.glb/textures/ItKEDAaOJloGKSH_normal.png",
+            "start": 164,
+            "end": 170.60000000149012,
+            "duration": 6.600000001490116,
+            "transfer": 23233,
+            "encoded": 22933,
+            "decoded": 22933,
+            "initiator": "fetch"
+          },
+          {
+            "url": "http://127.0.0.1:3012/macbook.glb/textures/YMmdfGRsPviDXYd_baseColor.png",
+            "start": 164.19999999925494,
+            "end": 171.60000000149012,
+            "duration": 7.400000002235174,
+            "transfer": 9137,
+            "encoded": 8837,
+            "decoded": 8837,
+            "initiator": "fetch"
+          },
+          {
+            "url": "http://127.0.0.1:3012/macbook.glb/textures/xEcnbqMzoZoLkIZ_metallicRoughness.png",
+            "start": 164.19999999925494,
+            "end": 172.60000000149012,
+            "duration": 8.400000002235174,
+            "transfer": 159321,
+            "encoded": 159021,
+            "decoded": 159021,
+            "initiator": "fetch"
+          },
+          {
+            "url": "http://127.0.0.1:3012/macbook.glb/textures/YMmdfGRsPviDXYd_normal.png",
+            "start": 164.19999999925494,
+            "end": 172.69999999925494,
+            "duration": 8.5,
+            "transfer": 120145,
+            "encoded": 119845,
+            "decoded": 119845,
+            "initiator": "fetch"
+          },
+          {
+            "url": "http://127.0.0.1:3012/macbook.glb/textures/DthpMXUDOFLFvyk_baseColor.jpeg",
+            "start": 164.30000000074506,
+            "end": 175.5,
+            "duration": 11.199999999254942,
+            "transfer": 2944,
+            "encoded": 2644,
+            "decoded": 2644,
+            "initiator": "fetch"
+          },
+          {
+            "url": "http://127.0.0.1:3012/macbook.glb/textures/HlQwFCAPWzetDQy_emissive.png",
+            "start": 164.5,
+            "end": 180.80000000074506,
+            "duration": 16.300000000745058,
+            "transfer": 1222452,
+            "encoded": 1222152,
+            "decoded": 1222152,
+            "initiator": "fetch"
+          },
+          {
+            "url": "http://127.0.0.1:3012/favicon.ico?favicon.2vob68tjqpejf.ico",
+            "start": 165.60000000149012,
+            "end": 175.10000000149012,
+            "duration": 9.5,
+            "transfer": 26231,
+            "encoded": 25931,
+            "decoded": 25931,
+            "initiator": "other"
+          },
+          {
+            "url": "https://raw.githack.com/pmndrs/drei-assets/456060a26bbeb8fdf79326f224b6d99b8bcce736/hdri/potsdamer_platz_1k.hdr",
+            "start": 235.30000000074506,
+            "end": 478.80000000074506,
+            "duration": 243.5,
+            "transfer": 0,
+            "encoded": 0,
+            "decoded": 0,
+            "initiator": "fetch"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/static/media/FolderIcon.2bkp8_hshfnfd.png",
+            "start": 550.1000000014901,
+            "end": 553.8000000007451,
+            "duration": 3.699999999254942,
+            "transfer": 57079,
+            "encoded": 56779,
+            "decoded": 56779,
+            "initiator": "img"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/image?url=%2F_next%2Fstatic%2Fmedia%2F3d-mac-os-finder.1zqsd7qowfgs_.png&w=64&q=75",
+            "start": 550.3999999985099,
+            "end": 554.3999999985099,
+            "duration": 4,
+            "transfer": 1492,
+            "encoded": 1192,
+            "decoded": 1192,
+            "initiator": "img"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/image?url=%2F_next%2Fstatic%2Fmedia%2FTerminal.2z63frtn8-xsr.png&w=64&q=75",
+            "start": 550.3999999985099,
+            "end": 556.1999999992549,
+            "duration": 5.800000000745058,
+            "transfer": 1386,
+            "encoded": 1086,
+            "decoded": 1086,
+            "initiator": "img"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/image?url=%2F_next%2Fstatic%2Fmedia%2FMail.3948ov6l4i-64.png&w=64&q=75",
+            "start": 550.5,
+            "end": 554.5,
+            "duration": 4,
+            "transfer": 1808,
+            "encoded": 1508,
+            "decoded": 1508,
+            "initiator": "img"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fsafari.12-il2jy_ek2h.png&w=64&q=75",
+            "start": 550.5,
+            "end": 555.5,
+            "duration": 5,
+            "transfer": 1962,
+            "encoded": 1662,
+            "decoded": 1662,
+            "initiator": "img"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/image?url=%2F_next%2Fstatic%2Fmedia%2FNotes.2-qrml94pobf3.png&w=64&q=75",
+            "start": 550.5,
+            "end": 556.1999999992549,
+            "duration": 5.699999999254942,
+            "transfer": 1590,
+            "encoded": 1290,
+            "decoded": 1290,
+            "initiator": "img"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Ffacetime.36k92b9qw97c8.png&w=64&q=75",
+            "start": 550.5,
+            "end": 556.8999999985099,
+            "duration": 6.399999998509884,
+            "transfer": 1486,
+            "encoded": 1186,
+            "decoded": 1186,
+            "initiator": "img"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/image?url=%2F_next%2Fstatic%2Fmedia%2FMusic.2-ysqrfxxp1ab.png&w=64&q=75",
+            "start": 550.5,
+            "end": 556.8999999985099,
+            "duration": 6.399999998509884,
+            "transfer": 1834,
+            "encoded": 1534,
+            "decoded": 1534,
+            "initiator": "img"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/image?url=%2F_next%2Fstatic%2Fmedia%2FSystem-Settings.05jfit5j7la3d.png&w=64&q=75",
+            "start": 550.5,
+            "end": 557,
+            "duration": 6.5,
+            "transfer": 2006,
+            "encoded": 1706,
+            "decoded": 1706,
+            "initiator": "img"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/image?url=%2F_next%2Fstatic%2Fmedia%2FEmpty_Bin_lVRgezRq9O_icns-9852c609a9.2gucv69tmykyt.png&w=64&q=75",
+            "start": 550.5,
+            "end": 557.1000000014901,
+            "duration": 6.600000001490116,
+            "transfer": 2152,
+            "encoded": 1852,
+            "decoded": 1852,
+            "initiator": "img"
+          },
+          {
+            "url": "http://127.0.0.1:3012/wallpapers/coast-dark.webp",
+            "start": 711.6999999992549,
+            "end": 714.6000000014901,
+            "duration": 2.900000002235174,
+            "transfer": 300,
+            "encoded": 159880,
+            "decoded": 159880,
+            "initiator": "css"
+          }
+        ],
+        "navigation": [
+          {
+            "domContentLoaded": 25.100000001490116,
+            "load": 149.5,
+            "encoded": 2557,
+            "transfer": 2857
+          }
+        ]
+      },
+      "returning": {
+        "ready": 1326.5,
+        "loaderSeen": true,
+        "resource": [
+          {
+            "url": "http://127.0.0.1:3012/_next/static/media/797e433ab948586e-s.p.0r6juujl39pe6.woff2",
+            "start": 15.399999998509884,
+            "end": 15.399999998509884,
+            "duration": 0,
+            "transfer": 0,
+            "encoded": 23108,
+            "decoded": 23108,
+            "initiator": "link"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/static/media/caa3a2e1cccd8315-s.p.0wgildi0cnwt9.woff2",
+            "start": 15.399999998509884,
+            "end": 15.399999998509884,
+            "duration": 0,
+            "transfer": 0,
+            "encoded": 29288,
+            "decoded": 29288,
+            "initiator": "link"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/static/chunks/3ttwe4uost65z.css",
+            "start": 15.5,
+            "end": 15.5,
+            "duration": 0,
+            "transfer": 0,
+            "encoded": 9789,
+            "decoded": 53961,
+            "initiator": "link"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/static/chunks/0_vo3dqwssl0h.css",
+            "start": 15.5,
+            "end": 15.5,
+            "duration": 0,
+            "transfer": 0,
+            "encoded": 9019,
+            "decoded": 50362,
+            "initiator": "link"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/static/chunks/0e5i2op18hcyw.js",
+            "start": 15.5,
+            "end": 15.5,
+            "duration": 0,
+            "transfer": 0,
+            "encoded": 7296,
+            "decoded": 21905,
+            "initiator": "link"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/static/chunks/2eu73rnhwzfc-.js",
+            "start": 15.599999997764826,
+            "end": 15.599999997764826,
+            "duration": 0,
+            "transfer": 0,
+            "encoded": 7332,
+            "decoded": 24440,
+            "initiator": "script"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/static/chunks/19h11uu_inxyg.js",
+            "start": 15.599999997764826,
+            "end": 15.599999997764826,
+            "duration": 0,
+            "transfer": 0,
+            "encoded": 64724,
+            "decoded": 204830,
+            "initiator": "script"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/static/chunks/2epaexi-r3zyk.js",
+            "start": 15.599999997764826,
+            "end": 15.599999997764826,
+            "duration": 0,
+            "transfer": 0,
+            "encoded": 47081,
+            "decoded": 178153,
+            "initiator": "script"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/static/chunks/turbopack-0a2yvjgrpz17d.js",
+            "start": 15.699999999254942,
+            "end": 15.699999999254942,
+            "duration": 0,
+            "transfer": 0,
+            "encoded": 3829,
+            "decoded": 9652,
+            "initiator": "script"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/static/chunks/0h2qsuyze9ds1.js",
+            "start": 15.799999997019768,
+            "end": 15.799999997019768,
+            "duration": 0,
+            "transfer": 0,
+            "encoded": 3662,
+            "decoded": 14377,
+            "initiator": "script"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/static/chunks/0bhe5g1n57o23.js",
+            "start": 15.799999997019768,
+            "end": 15.799999997019768,
+            "duration": 0,
+            "transfer": 0,
+            "encoded": 527,
+            "decoded": 1072,
+            "initiator": "script"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/static/chunks/02dj0d1t6r9cr.js",
+            "start": 15.799999997019768,
+            "end": 15.799999997019768,
+            "duration": 0,
+            "transfer": 0,
+            "encoded": 485090,
+            "decoded": 1670283,
+            "initiator": "script"
+          },
+          {
+            "url": "http://127.0.0.1:3012/macbook.glb/scene.gltf",
+            "start": 46.29999999701977,
+            "end": 47.599999997764826,
+            "duration": 1.300000000745058,
+            "transfer": 300,
+            "encoded": 14452,
+            "decoded": 98977,
+            "initiator": "fetch"
+          },
+          {
+            "url": "http://127.0.0.1:3012/wallpapers/coast-dark.webp",
+            "start": 51.399999998509884,
+            "end": 52.399999998509884,
+            "duration": 1,
+            "transfer": 300,
+            "encoded": 0,
+            "decoded": 0,
+            "initiator": "css"
+          },
+          {
+            "url": "http://127.0.0.1:3012/macbook.glb/scene.bin",
+            "start": 52.69999999925494,
+            "end": 78.69999999925494,
+            "duration": 26,
+            "transfer": 8293780,
+            "encoded": 8293480,
+            "decoded": 8293480,
+            "initiator": "fetch"
+          },
+          {
+            "url": "http://127.0.0.1:3012/macbook.glb/textures/zNRfbdNyoCOxSDD_metallicRoughness.png",
+            "start": 53.899999998509884,
+            "end": 55.19999999925494,
+            "duration": 1.300000000745058,
+            "transfer": 300,
+            "encoded": 166084,
+            "decoded": 166084,
+            "initiator": "fetch"
+          },
+          {
+            "url": "http://127.0.0.1:3012/macbook.glb/textures/zNRfbdNyoCOxSDD_normal.png",
+            "start": 53.899999998509884,
+            "end": 55.599999997764826,
+            "duration": 1.699999999254942,
+            "transfer": 300,
+            "encoded": 433065,
+            "decoded": 433065,
+            "initiator": "fetch"
+          },
+          {
+            "url": "http://127.0.0.1:3012/macbook.glb/textures/GzMrvkTsmRxvOJz_normal.png",
+            "start": 54.099999997764826,
+            "end": 56,
+            "duration": 1.9000000022351742,
+            "transfer": 300,
+            "encoded": 113804,
+            "decoded": 113804,
+            "initiator": "fetch"
+          },
+          {
+            "url": "http://127.0.0.1:3012/macbook.glb/textures/ItKEDAaOJloGKSH_baseColor.png",
+            "start": 54.099999997764826,
+            "end": 56.19999999925494,
+            "duration": 2.100000001490116,
+            "transfer": 300,
+            "encoded": 48670,
+            "decoded": 48670,
+            "initiator": "fetch"
+          },
+          {
+            "url": "http://127.0.0.1:3012/macbook.glb/textures/ItKEDAaOJloGKSH_metallicRoughness.png",
+            "start": 54.099999997764826,
+            "end": 56.69999999925494,
+            "duration": 2.600000001490116,
+            "transfer": 300,
+            "encoded": 37468,
+            "decoded": 37468,
+            "initiator": "fetch"
+          },
+          {
+            "url": "http://127.0.0.1:3012/macbook.glb/textures/ItKEDAaOJloGKSH_normal.png",
+            "start": 54.19999999925494,
+            "end": 58.19999999925494,
+            "duration": 4,
+            "transfer": 300,
+            "encoded": 22933,
+            "decoded": 22933,
+            "initiator": "fetch"
+          },
+          {
+            "url": "http://127.0.0.1:3012/macbook.glb/textures/xEcnbqMzoZoLkIZ_metallicRoughness.png",
+            "start": 54.19999999925494,
+            "end": 58.599999997764826,
+            "duration": 4.399999998509884,
+            "transfer": 300,
+            "encoded": 159021,
+            "decoded": 159021,
+            "initiator": "fetch"
+          },
+          {
+            "url": "http://127.0.0.1:3012/macbook.glb/textures/YMmdfGRsPviDXYd_normal.png",
+            "start": 54.29999999701977,
+            "end": 59.099999997764826,
+            "duration": 4.800000000745058,
+            "transfer": 300,
+            "encoded": 119845,
+            "decoded": 119845,
+            "initiator": "fetch"
+          },
+          {
+            "url": "http://127.0.0.1:3012/macbook.glb/textures/YMmdfGRsPviDXYd_baseColor.png",
+            "start": 54.29999999701977,
+            "end": 59.29999999701977,
+            "duration": 5,
+            "transfer": 300,
+            "encoded": 8837,
+            "decoded": 8837,
+            "initiator": "fetch"
+          },
+          {
+            "url": "http://127.0.0.1:3012/macbook.glb/textures/DthpMXUDOFLFvyk_baseColor.jpeg",
+            "start": 54.399999998509884,
+            "end": 59.099999997764826,
+            "duration": 4.699999999254942,
+            "transfer": 300,
+            "encoded": 2644,
+            "decoded": 2644,
+            "initiator": "fetch"
+          },
+          {
+            "url": "http://127.0.0.1:3012/macbook.glb/textures/HlQwFCAPWzetDQy_emissive.png",
+            "start": 54.5,
+            "end": 64.5,
+            "duration": 10,
+            "transfer": 300,
+            "encoded": 1222152,
+            "decoded": 1222152,
+            "initiator": "fetch"
+          },
+          {
+            "url": "http://127.0.0.1:3012/favicon.ico?favicon.2vob68tjqpejf.ico",
+            "start": 55.399999998509884,
+            "end": 63.399999998509884,
+            "duration": 8,
+            "transfer": 26231,
+            "encoded": 25931,
+            "decoded": 25931,
+            "initiator": "other"
+          },
+          {
+            "url": "https://raw.githack.com/pmndrs/drei-assets/456060a26bbeb8fdf79326f224b6d99b8bcce736/hdri/potsdamer_platz_1k.hdr",
+            "start": 139.89999999850988,
+            "end": 142.29999999701977,
+            "duration": 2.399999998509884,
+            "transfer": 0,
+            "encoded": 0,
+            "decoded": 0,
+            "initiator": "fetch"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/static/media/FolderIcon.2bkp8_hshfnfd.png",
+            "start": 448.19999999925494,
+            "end": 448.19999999925494,
+            "duration": 0,
+            "transfer": 0,
+            "encoded": 56779,
+            "decoded": 56779,
+            "initiator": "img"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/image?url=%2F_next%2Fstatic%2Fmedia%2F3d-mac-os-finder.1zqsd7qowfgs_.png&w=64&q=75",
+            "start": 449.5,
+            "end": 449.5,
+            "duration": 0,
+            "transfer": 0,
+            "encoded": 1192,
+            "decoded": 1192,
+            "initiator": "img"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/image?url=%2F_next%2Fstatic%2Fmedia%2FTerminal.2z63frtn8-xsr.png&w=64&q=75",
+            "start": 449.8999999985099,
+            "end": 449.8999999985099,
+            "duration": 0,
+            "transfer": 0,
+            "encoded": 1086,
+            "decoded": 1086,
+            "initiator": "img"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/image?url=%2F_next%2Fstatic%2Fmedia%2FNotes.2-qrml94pobf3.png&w=64&q=75",
+            "start": 450.19999999925494,
+            "end": 450.19999999925494,
+            "duration": 0,
+            "transfer": 0,
+            "encoded": 1290,
+            "decoded": 1290,
+            "initiator": "img"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/image?url=%2F_next%2Fstatic%2Fmedia%2FMail.3948ov6l4i-64.png&w=64&q=75",
+            "start": 450.5,
+            "end": 450.5,
+            "duration": 0,
+            "transfer": 0,
+            "encoded": 1508,
+            "decoded": 1508,
+            "initiator": "img"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fsafari.12-il2jy_ek2h.png&w=64&q=75",
+            "start": 450.79999999701977,
+            "end": 450.79999999701977,
+            "duration": 0,
+            "transfer": 0,
+            "encoded": 1662,
+            "decoded": 1662,
+            "initiator": "img"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/image?url=%2F_next%2Fstatic%2Fmedia%2FMusic.2-ysqrfxxp1ab.png&w=64&q=75",
+            "start": 451.19999999925494,
+            "end": 451.19999999925494,
+            "duration": 0,
+            "transfer": 0,
+            "encoded": 1534,
+            "decoded": 1534,
+            "initiator": "img"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Ffacetime.36k92b9qw97c8.png&w=64&q=75",
+            "start": 451.3999999985099,
+            "end": 451.3999999985099,
+            "duration": 0,
+            "transfer": 0,
+            "encoded": 1186,
+            "decoded": 1186,
+            "initiator": "img"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/image?url=%2F_next%2Fstatic%2Fmedia%2FSystem-Settings.05jfit5j7la3d.png&w=64&q=75",
+            "start": 451.69999999925494,
+            "end": 451.69999999925494,
+            "duration": 0,
+            "transfer": 0,
+            "encoded": 1706,
+            "decoded": 1706,
+            "initiator": "img"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/image?url=%2F_next%2Fstatic%2Fmedia%2FEmpty_Bin_lVRgezRq9O_icns-9852c609a9.2gucv69tmykyt.png&w=64&q=75",
+            "start": 452.0999999977648,
+            "end": 452.0999999977648,
+            "duration": 0,
+            "transfer": 0,
+            "encoded": 1852,
+            "decoded": 1852,
+            "initiator": "img"
+          }
+        ],
+        "navigation": [
+          {
+            "domContentLoaded": 19.5,
+            "load": 50.099999997764826,
+            "encoded": 2557,
+            "transfer": 300
+          }
+        ]
+      },
+      "status": "PASS",
+      "durationMs": 4201
+    },
+    {
+      "name": "startup-cold-returning-2",
+      "cold": {
+        "ready": 1487.5,
+        "loaderSeen": true,
+        "resource": [
+          {
+            "url": "http://127.0.0.1:3012/_next/static/media/797e433ab948586e-s.p.0r6juujl39pe6.woff2",
+            "start": 5.899999998509884,
+            "end": 11.800000000745058,
+            "duration": 5.900000002235174,
+            "transfer": 23408,
+            "encoded": 23108,
+            "decoded": 23108,
+            "initiator": "link"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/static/media/caa3a2e1cccd8315-s.p.0wgildi0cnwt9.woff2",
+            "start": 6.099999997764826,
+            "end": 16.199999999254942,
+            "duration": 10.100000001490116,
+            "transfer": 29588,
+            "encoded": 29288,
+            "decoded": 29288,
+            "initiator": "link"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/static/chunks/3ttwe4uost65z.css",
+            "start": 6.099999997764826,
+            "end": 18.199999999254942,
+            "duration": 12.100000001490116,
+            "transfer": 10089,
+            "encoded": 9789,
+            "decoded": 53961,
+            "initiator": "link"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/static/chunks/0_vo3dqwssl0h.css",
+            "start": 6.099999997764826,
+            "end": 18.899999998509884,
+            "duration": 12.800000000745058,
+            "transfer": 9319,
+            "encoded": 9019,
+            "decoded": 50362,
+            "initiator": "link"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/static/chunks/0e5i2op18hcyw.js",
+            "start": 6.199999999254942,
+            "end": 18.599999997764826,
+            "duration": 12.399999998509884,
+            "transfer": 7596,
+            "encoded": 7296,
+            "decoded": 21905,
+            "initiator": "link"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/static/chunks/2eu73rnhwzfc-.js",
+            "start": 6.199999999254942,
+            "end": 20.699999999254942,
+            "duration": 14.5,
+            "transfer": 7632,
+            "encoded": 7332,
+            "decoded": 24440,
+            "initiator": "script"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/static/chunks/turbopack-0a2yvjgrpz17d.js",
+            "start": 6.199999999254942,
+            "end": 23.099999997764826,
+            "duration": 16.899999998509884,
+            "transfer": 4129,
+            "encoded": 3829,
+            "decoded": 9652,
+            "initiator": "script"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/static/chunks/0h2qsuyze9ds1.js",
+            "start": 6.199999999254942,
+            "end": 24.399999998509884,
+            "duration": 18.199999999254942,
+            "transfer": 3962,
+            "encoded": 3662,
+            "decoded": 14377,
+            "initiator": "script"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/static/chunks/2epaexi-r3zyk.js",
+            "start": 6.199999999254942,
+            "end": 28.800000000745058,
+            "duration": 22.600000001490116,
+            "transfer": 47381,
+            "encoded": 47081,
+            "decoded": 178153,
+            "initiator": "script"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/static/chunks/19h11uu_inxyg.js",
+            "start": 6.199999999254942,
+            "end": 31.199999999254942,
+            "duration": 25,
+            "transfer": 65024,
+            "encoded": 64724,
+            "decoded": 204830,
+            "initiator": "script"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/static/chunks/0bhe5g1n57o23.js",
+            "start": 6.300000000745058,
+            "end": 24.199999999254942,
+            "duration": 17.899999998509884,
+            "transfer": 827,
+            "encoded": 527,
+            "decoded": 1072,
+            "initiator": "script"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/static/chunks/02dj0d1t6r9cr.js",
+            "start": 6.300000000745058,
+            "end": 68.09999999776483,
+            "duration": 61.79999999701977,
+            "transfer": 485390,
+            "encoded": 485090,
+            "decoded": 1670283,
+            "initiator": "script"
+          },
+          {
+            "url": "http://127.0.0.1:3012/macbook.glb/scene.gltf",
+            "start": 140.30000000074506,
+            "end": 143.09999999776483,
+            "duration": 2.7999999970197678,
+            "transfer": 14752,
+            "encoded": 14452,
+            "decoded": 98977,
+            "initiator": "fetch"
+          },
+          {
+            "url": "http://127.0.0.1:3012/wallpapers/coast-dark.webp",
+            "start": 148.30000000074506,
+            "end": 149.69999999925494,
+            "duration": 1.3999999985098839,
+            "transfer": 160180,
+            "encoded": 159880,
+            "decoded": 159880,
+            "initiator": "img"
+          },
+          {
+            "url": "http://127.0.0.1:3012/macbook.glb/scene.bin",
+            "start": 156.30000000074506,
+            "end": 190.30000000074506,
+            "duration": 34,
+            "transfer": 8293780,
+            "encoded": 8293480,
+            "decoded": 8293480,
+            "initiator": "fetch"
+          },
+          {
+            "url": "http://127.0.0.1:3012/macbook.glb/textures/zNRfbdNyoCOxSDD_metallicRoughness.png",
+            "start": 158.69999999925494,
+            "end": 163.69999999925494,
+            "duration": 5,
+            "transfer": 166384,
+            "encoded": 166084,
+            "decoded": 166084,
+            "initiator": "fetch"
+          },
+          {
+            "url": "http://127.0.0.1:3012/macbook.glb/textures/zNRfbdNyoCOxSDD_normal.png",
+            "start": 158.69999999925494,
+            "end": 166.30000000074506,
+            "duration": 7.600000001490116,
+            "transfer": 433365,
+            "encoded": 433065,
+            "decoded": 433065,
+            "initiator": "fetch"
+          },
+          {
+            "url": "http://127.0.0.1:3012/macbook.glb/textures/GzMrvkTsmRxvOJz_normal.png",
+            "start": 158.80000000074506,
+            "end": 163.30000000074506,
+            "duration": 4.5,
+            "transfer": 114104,
+            "encoded": 113804,
+            "decoded": 113804,
+            "initiator": "fetch"
+          },
+          {
+            "url": "http://127.0.0.1:3012/macbook.glb/textures/ItKEDAaOJloGKSH_baseColor.png",
+            "start": 159,
+            "end": 163.09999999776483,
+            "duration": 4.099999997764826,
+            "transfer": 48970,
+            "encoded": 48670,
+            "decoded": 48670,
+            "initiator": "fetch"
+          },
+          {
+            "url": "http://127.0.0.1:3012/macbook.glb/textures/ItKEDAaOJloGKSH_metallicRoughness.png",
+            "start": 159,
+            "end": 163.19999999925494,
+            "duration": 4.199999999254942,
+            "transfer": 37768,
+            "encoded": 37468,
+            "decoded": 37468,
+            "initiator": "fetch"
+          },
+          {
+            "url": "http://127.0.0.1:3012/macbook.glb/textures/ItKEDAaOJloGKSH_normal.png",
+            "start": 159,
+            "end": 167.19999999925494,
+            "duration": 8.199999999254942,
+            "transfer": 23233,
+            "encoded": 22933,
+            "decoded": 22933,
+            "initiator": "fetch"
+          },
+          {
+            "url": "http://127.0.0.1:3012/macbook.glb/textures/xEcnbqMzoZoLkIZ_metallicRoughness.png",
+            "start": 159,
+            "end": 169.59999999776483,
+            "duration": 10.599999997764826,
+            "transfer": 159321,
+            "encoded": 159021,
+            "decoded": 159021,
+            "initiator": "fetch"
+          },
+          {
+            "url": "http://127.0.0.1:3012/macbook.glb/textures/YMmdfGRsPviDXYd_baseColor.png",
+            "start": 159.09999999776483,
+            "end": 167.19999999925494,
+            "duration": 8.100000001490116,
+            "transfer": 9137,
+            "encoded": 8837,
+            "decoded": 8837,
+            "initiator": "fetch"
+          },
+          {
+            "url": "http://127.0.0.1:3012/macbook.glb/textures/YMmdfGRsPviDXYd_normal.png",
+            "start": 159.09999999776483,
+            "end": 170.09999999776483,
+            "duration": 11,
+            "transfer": 120145,
+            "encoded": 119845,
+            "decoded": 119845,
+            "initiator": "fetch"
+          },
+          {
+            "url": "http://127.0.0.1:3012/macbook.glb/textures/DthpMXUDOFLFvyk_baseColor.jpeg",
+            "start": 159.30000000074506,
+            "end": 171,
+            "duration": 11.699999999254942,
+            "transfer": 2944,
+            "encoded": 2644,
+            "decoded": 2644,
+            "initiator": "fetch"
+          },
+          {
+            "url": "http://127.0.0.1:3012/macbook.glb/textures/HlQwFCAPWzetDQy_emissive.png",
+            "start": 159.39999999850988,
+            "end": 175.59999999776483,
+            "duration": 16.199999999254942,
+            "transfer": 1222452,
+            "encoded": 1222152,
+            "decoded": 1222152,
+            "initiator": "fetch"
+          },
+          {
+            "url": "http://127.0.0.1:3012/favicon.ico?favicon.2vob68tjqpejf.ico",
+            "start": 161.30000000074506,
+            "end": 169.5,
+            "duration": 8.199999999254942,
+            "transfer": 26231,
+            "encoded": 25931,
+            "decoded": 25931,
+            "initiator": "other"
+          },
+          {
+            "url": "https://raw.githack.com/pmndrs/drei-assets/456060a26bbeb8fdf79326f224b6d99b8bcce736/hdri/potsdamer_platz_1k.hdr",
+            "start": 231.69999999925494,
+            "end": 570.3999999985099,
+            "duration": 338.69999999925494,
+            "transfer": 0,
+            "encoded": 0,
+            "decoded": 0,
+            "initiator": "fetch"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/static/media/FolderIcon.2bkp8_hshfnfd.png",
+            "start": 763.1999999992549,
+            "end": 766.8000000007451,
+            "duration": 3.600000001490116,
+            "transfer": 57079,
+            "encoded": 56779,
+            "decoded": 56779,
+            "initiator": "img"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/image?url=%2F_next%2Fstatic%2Fmedia%2F3d-mac-os-finder.1zqsd7qowfgs_.png&w=64&q=75",
+            "start": 763.5999999977648,
+            "end": 767,
+            "duration": 3.400000002235174,
+            "transfer": 1492,
+            "encoded": 1192,
+            "decoded": 1192,
+            "initiator": "img"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/image?url=%2F_next%2Fstatic%2Fmedia%2FTerminal.2z63frtn8-xsr.png&w=64&q=75",
+            "start": 763.5999999977648,
+            "end": 767.3000000007451,
+            "duration": 3.7000000029802322,
+            "transfer": 1386,
+            "encoded": 1086,
+            "decoded": 1086,
+            "initiator": "img"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/image?url=%2F_next%2Fstatic%2Fmedia%2FNotes.2-qrml94pobf3.png&w=64&q=75",
+            "start": 763.5999999977648,
+            "end": 767.3000000007451,
+            "duration": 3.7000000029802322,
+            "transfer": 1590,
+            "encoded": 1290,
+            "decoded": 1290,
+            "initiator": "img"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fsafari.12-il2jy_ek2h.png&w=64&q=75",
+            "start": 763.6999999992549,
+            "end": 767.3999999985099,
+            "duration": 3.699999999254942,
+            "transfer": 1962,
+            "encoded": 1662,
+            "decoded": 1662,
+            "initiator": "img"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/image?url=%2F_next%2Fstatic%2Fmedia%2FMail.3948ov6l4i-64.png&w=64&q=75",
+            "start": 763.6999999992549,
+            "end": 768.6999999992549,
+            "duration": 5,
+            "transfer": 1808,
+            "encoded": 1508,
+            "decoded": 1508,
+            "initiator": "img"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/image?url=%2F_next%2Fstatic%2Fmedia%2FSystem-Settings.05jfit5j7la3d.png&w=64&q=75",
+            "start": 763.6999999992549,
+            "end": 770.0999999977648,
+            "duration": 6.399999998509884,
+            "transfer": 2006,
+            "encoded": 1706,
+            "decoded": 1706,
+            "initiator": "img"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/image?url=%2F_next%2Fstatic%2Fmedia%2FMusic.2-ysqrfxxp1ab.png&w=64&q=75",
+            "start": 763.6999999992549,
+            "end": 770.5,
+            "duration": 6.800000000745058,
+            "transfer": 1834,
+            "encoded": 1534,
+            "decoded": 1534,
+            "initiator": "img"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Ffacetime.36k92b9qw97c8.png&w=64&q=75",
+            "start": 763.6999999992549,
+            "end": 770.6999999992549,
+            "duration": 7,
+            "transfer": 1486,
+            "encoded": 1186,
+            "decoded": 1186,
+            "initiator": "img"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/image?url=%2F_next%2Fstatic%2Fmedia%2FEmpty_Bin_lVRgezRq9O_icns-9852c609a9.2gucv69tmykyt.png&w=64&q=75",
+            "start": 763.6999999992549,
+            "end": 771.0999999977648,
+            "duration": 7.399999998509884,
+            "transfer": 2152,
+            "encoded": 1852,
+            "decoded": 1852,
+            "initiator": "img"
+          },
+          {
+            "url": "http://127.0.0.1:3012/wallpapers/coast-dark.webp",
+            "start": 784.5,
+            "end": 786.3000000007451,
+            "duration": 1.800000000745058,
+            "transfer": 300,
+            "encoded": 159880,
+            "decoded": 159880,
+            "initiator": "css"
+          }
+        ],
+        "navigation": [
+          {
+            "domContentLoaded": 29.599999997764826,
+            "load": 145.59999999776483,
+            "encoded": 2557,
+            "transfer": 2857
+          }
+        ]
+      },
+      "returning": {
+        "ready": 1321.3,
+        "loaderSeen": true,
+        "resource": [
+          {
+            "url": "http://127.0.0.1:3012/_next/static/media/797e433ab948586e-s.p.0r6juujl39pe6.woff2",
+            "start": 17.300000000745058,
+            "end": 17.300000000745058,
+            "duration": 0,
+            "transfer": 0,
+            "encoded": 23108,
+            "decoded": 23108,
+            "initiator": "link"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/static/media/caa3a2e1cccd8315-s.p.0wgildi0cnwt9.woff2",
+            "start": 17.399999998509884,
+            "end": 17.399999998509884,
+            "duration": 0,
+            "transfer": 0,
+            "encoded": 29288,
+            "decoded": 29288,
+            "initiator": "link"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/static/chunks/3ttwe4uost65z.css",
+            "start": 17.5,
+            "end": 17.5,
+            "duration": 0,
+            "transfer": 0,
+            "encoded": 9789,
+            "decoded": 53961,
+            "initiator": "link"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/static/chunks/0_vo3dqwssl0h.css",
+            "start": 17.5,
+            "end": 17.5,
+            "duration": 0,
+            "transfer": 0,
+            "encoded": 9019,
+            "decoded": 50362,
+            "initiator": "link"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/static/chunks/0e5i2op18hcyw.js",
+            "start": 17.5,
+            "end": 17.5,
+            "duration": 0,
+            "transfer": 0,
+            "encoded": 7296,
+            "decoded": 21905,
+            "initiator": "link"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/static/chunks/2eu73rnhwzfc-.js",
+            "start": 17.599999997764826,
+            "end": 17.599999997764826,
+            "duration": 0,
+            "transfer": 0,
+            "encoded": 7332,
+            "decoded": 24440,
+            "initiator": "script"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/static/chunks/19h11uu_inxyg.js",
+            "start": 17.599999997764826,
+            "end": 17.599999997764826,
+            "duration": 0,
+            "transfer": 0,
+            "encoded": 64724,
+            "decoded": 204830,
+            "initiator": "script"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/static/chunks/2epaexi-r3zyk.js",
+            "start": 17.699999999254942,
+            "end": 17.699999999254942,
+            "duration": 0,
+            "transfer": 0,
+            "encoded": 47081,
+            "decoded": 178153,
+            "initiator": "script"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/static/chunks/turbopack-0a2yvjgrpz17d.js",
+            "start": 17.699999999254942,
+            "end": 17.699999999254942,
+            "duration": 0,
+            "transfer": 0,
+            "encoded": 3829,
+            "decoded": 9652,
+            "initiator": "script"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/static/chunks/0h2qsuyze9ds1.js",
+            "start": 17.699999999254942,
+            "end": 17.699999999254942,
+            "duration": 0,
+            "transfer": 0,
+            "encoded": 3662,
+            "decoded": 14377,
+            "initiator": "script"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/static/chunks/0bhe5g1n57o23.js",
+            "start": 17.699999999254942,
+            "end": 17.699999999254942,
+            "duration": 0,
+            "transfer": 0,
+            "encoded": 527,
+            "decoded": 1072,
+            "initiator": "script"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/static/chunks/02dj0d1t6r9cr.js",
+            "start": 17.800000000745058,
+            "end": 17.800000000745058,
+            "duration": 0,
+            "transfer": 0,
+            "encoded": 485090,
+            "decoded": 1670283,
+            "initiator": "script"
+          },
+          {
+            "url": "http://127.0.0.1:3012/macbook.glb/scene.gltf",
+            "start": 49,
+            "end": 50.19999999925494,
+            "duration": 1.199999999254942,
+            "transfer": 300,
+            "encoded": 14452,
+            "decoded": 98977,
+            "initiator": "fetch"
+          },
+          {
+            "url": "http://127.0.0.1:3012/wallpapers/coast-dark.webp",
+            "start": 54.099999997764826,
+            "end": 55,
+            "duration": 0.9000000022351742,
+            "transfer": 300,
+            "encoded": 0,
+            "decoded": 0,
+            "initiator": "css"
+          },
+          {
+            "url": "http://127.0.0.1:3012/macbook.glb/scene.bin",
+            "start": 55.5,
+            "end": 82.19999999925494,
+            "duration": 26.699999999254942,
+            "transfer": 8293780,
+            "encoded": 8293480,
+            "decoded": 8293480,
+            "initiator": "fetch"
+          },
+          {
+            "url": "http://127.0.0.1:3012/macbook.glb/textures/zNRfbdNyoCOxSDD_metallicRoughness.png",
+            "start": 56.69999999925494,
+            "end": 60.30000000074506,
+            "duration": 3.600000001490116,
+            "transfer": 300,
+            "encoded": 166084,
+            "decoded": 166084,
+            "initiator": "fetch"
+          },
+          {
+            "url": "http://127.0.0.1:3012/macbook.glb/textures/zNRfbdNyoCOxSDD_normal.png",
+            "start": 56.69999999925494,
+            "end": 60.599999997764826,
+            "duration": 3.899999998509884,
+            "transfer": 300,
+            "encoded": 433065,
+            "decoded": 433065,
+            "initiator": "fetch"
+          },
+          {
+            "url": "http://127.0.0.1:3012/macbook.glb/textures/GzMrvkTsmRxvOJz_normal.png",
+            "start": 56.80000000074506,
+            "end": 60.80000000074506,
+            "duration": 4,
+            "transfer": 300,
+            "encoded": 113804,
+            "decoded": 113804,
+            "initiator": "fetch"
+          },
+          {
+            "url": "http://127.0.0.1:3012/macbook.glb/textures/ItKEDAaOJloGKSH_baseColor.png",
+            "start": 56.899999998509884,
+            "end": 61.099999997764826,
+            "duration": 4.199999999254942,
+            "transfer": 300,
+            "encoded": 48670,
+            "decoded": 48670,
+            "initiator": "fetch"
+          },
+          {
+            "url": "http://127.0.0.1:3012/macbook.glb/textures/ItKEDAaOJloGKSH_metallicRoughness.png",
+            "start": 56.899999998509884,
+            "end": 61.399999998509884,
+            "duration": 4.5,
+            "transfer": 300,
+            "encoded": 37468,
+            "decoded": 37468,
+            "initiator": "fetch"
+          },
+          {
+            "url": "http://127.0.0.1:3012/macbook.glb/textures/ItKEDAaOJloGKSH_normal.png",
+            "start": 57,
+            "end": 62.69999999925494,
+            "duration": 5.699999999254942,
+            "transfer": 300,
+            "encoded": 22933,
+            "decoded": 22933,
+            "initiator": "fetch"
+          },
+          {
+            "url": "http://127.0.0.1:3012/macbook.glb/textures/xEcnbqMzoZoLkIZ_metallicRoughness.png",
+            "start": 57,
+            "end": 62.899999998509884,
+            "duration": 5.899999998509884,
+            "transfer": 300,
+            "encoded": 159021,
+            "decoded": 159021,
+            "initiator": "fetch"
+          },
+          {
+            "url": "http://127.0.0.1:3012/macbook.glb/textures/YMmdfGRsPviDXYd_baseColor.png",
+            "start": 57.099999997764826,
+            "end": 62.899999998509884,
+            "duration": 5.800000000745058,
+            "transfer": 300,
+            "encoded": 8837,
+            "decoded": 8837,
+            "initiator": "fetch"
+          },
+          {
+            "url": "http://127.0.0.1:3012/macbook.glb/textures/YMmdfGRsPviDXYd_normal.png",
+            "start": 57.19999999925494,
+            "end": 63.099999997764826,
+            "duration": 5.899999998509884,
+            "transfer": 300,
+            "encoded": 119845,
+            "decoded": 119845,
+            "initiator": "fetch"
+          },
+          {
+            "url": "http://127.0.0.1:3012/macbook.glb/textures/DthpMXUDOFLFvyk_baseColor.jpeg",
+            "start": 57.19999999925494,
+            "end": 67.69999999925494,
+            "duration": 10.5,
+            "transfer": 300,
+            "encoded": 2644,
+            "decoded": 2644,
+            "initiator": "fetch"
+          },
+          {
+            "url": "http://127.0.0.1:3012/macbook.glb/textures/HlQwFCAPWzetDQy_emissive.png",
+            "start": 57.30000000074506,
+            "end": 68.80000000074506,
+            "duration": 11.5,
+            "transfer": 300,
+            "encoded": 1222152,
+            "decoded": 1222152,
+            "initiator": "fetch"
+          },
+          {
+            "url": "http://127.0.0.1:3012/favicon.ico?favicon.2vob68tjqpejf.ico",
+            "start": 58.099999997764826,
+            "end": 67.39999999850988,
+            "duration": 9.300000000745058,
+            "transfer": 26231,
+            "encoded": 25931,
+            "decoded": 25931,
+            "initiator": "other"
+          },
+          {
+            "url": "https://raw.githack.com/pmndrs/drei-assets/456060a26bbeb8fdf79326f224b6d99b8bcce736/hdri/potsdamer_platz_1k.hdr",
+            "start": 134.19999999925494,
+            "end": 136.89999999850988,
+            "duration": 2.699999999254942,
+            "transfer": 0,
+            "encoded": 0,
+            "decoded": 0,
+            "initiator": "fetch"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/static/media/FolderIcon.2bkp8_hshfnfd.png",
+            "start": 605.0999999977648,
+            "end": 605.0999999977648,
+            "duration": 0,
+            "transfer": 0,
+            "encoded": 56779,
+            "decoded": 56779,
+            "initiator": "img"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/image?url=%2F_next%2Fstatic%2Fmedia%2F3d-mac-os-finder.1zqsd7qowfgs_.png&w=64&q=75",
+            "start": 605.5,
+            "end": 605.5,
+            "duration": 0,
+            "transfer": 0,
+            "encoded": 1192,
+            "decoded": 1192,
+            "initiator": "img"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/image?url=%2F_next%2Fstatic%2Fmedia%2FTerminal.2z63frtn8-xsr.png&w=64&q=75",
+            "start": 605.6999999992549,
+            "end": 605.6999999992549,
+            "duration": 0,
+            "transfer": 0,
+            "encoded": 1086,
+            "decoded": 1086,
+            "initiator": "img"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/image?url=%2F_next%2Fstatic%2Fmedia%2FNotes.2-qrml94pobf3.png&w=64&q=75",
+            "start": 605.8000000007451,
+            "end": 605.8000000007451,
+            "duration": 0,
+            "transfer": 0,
+            "encoded": 1290,
+            "decoded": 1290,
+            "initiator": "img"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/image?url=%2F_next%2Fstatic%2Fmedia%2FMail.3948ov6l4i-64.png&w=64&q=75",
+            "start": 605.8999999985099,
+            "end": 605.8999999985099,
+            "duration": 0,
+            "transfer": 0,
+            "encoded": 1508,
+            "decoded": 1508,
+            "initiator": "img"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fsafari.12-il2jy_ek2h.png&w=64&q=75",
+            "start": 606,
+            "end": 606,
+            "duration": 0,
+            "transfer": 0,
+            "encoded": 1662,
+            "decoded": 1662,
+            "initiator": "img"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/image?url=%2F_next%2Fstatic%2Fmedia%2FMusic.2-ysqrfxxp1ab.png&w=64&q=75",
+            "start": 606.0999999977648,
+            "end": 606.0999999977648,
+            "duration": 0,
+            "transfer": 0,
+            "encoded": 1534,
+            "decoded": 1534,
+            "initiator": "img"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Ffacetime.36k92b9qw97c8.png&w=64&q=75",
+            "start": 606.1999999992549,
+            "end": 606.1999999992549,
+            "duration": 0,
+            "transfer": 0,
+            "encoded": 1186,
+            "decoded": 1186,
+            "initiator": "img"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/image?url=%2F_next%2Fstatic%2Fmedia%2FSystem-Settings.05jfit5j7la3d.png&w=64&q=75",
+            "start": 606.3000000007451,
+            "end": 606.3000000007451,
+            "duration": 0,
+            "transfer": 0,
+            "encoded": 1706,
+            "decoded": 1706,
+            "initiator": "img"
+          },
+          {
+            "url": "http://127.0.0.1:3012/_next/image?url=%2F_next%2Fstatic%2Fmedia%2FEmpty_Bin_lVRgezRq9O_icns-9852c609a9.2gucv69tmykyt.png&w=64&q=75",
+            "start": 606.3999999985099,
+            "end": 606.3999999985099,
+            "duration": 0,
+            "transfer": 0,
+            "encoded": 1852,
+            "decoded": 1852,
+            "initiator": "img"
+          }
+        ],
+        "navigation": [
+          {
+            "domContentLoaded": 21.599999997764826,
+            "load": 52.5,
+            "encoded": 2557,
+            "transfer": 300
+          }
+        ]
+      },
+      "status": "PASS",
+      "durationMs": 4279
+    },
+    {
+      "name": "startup-10Mbps-60ms-rtt",
+      "startup": {
+        "at": 12128.10000000149,
+        "raf": [
+          {
+            "at": 220.5,
+            "duration": 16.69999999999999
+          },
+          {
+            "at": 237.2,
+            "duration": 16.69999999999999
+          },
+          {
+            "at": 253.8,
+            "duration": 16.600000000000023
+          },
+          {
+            "at": 270.5,
+            "duration": 16.69999999999999
+          },
+          {
+            "at": 287.1,
+            "duration": 16.600000000000023
+          },
+          {
+            "at": 303.8,
+            "duration": 16.69999999999999
+          },
+          {
+            "at": 320.5,
+            "duration": 16.69999999999999
+          },
+          {
+            "at": 337.2,
+            "duration": 16.69999999999999
+          },
+          {
+            "at": 353.8,
+            "duration": 16.600000000000023
+          },
+          {
+            "at": 370.4,
+            "duration": 16.599999999999966
+          },
+          {
+            "at": 387.1,
+            "duration": 16.700000000000045
+          },
+          {
+            "at": 403.7,
+            "duration": 16.599999999999966
+          },
+          {
+            "at": 420.4,
+            "duration": 16.69999999999999
+          },
+          {
+            "at": 437.1,
+            "duration": 16.700000000000045
+          },
+          {
+            "at": 453.8,
+            "duration": 16.69999999999999
+          },
+          {
+            "at": 470.4,
+            "duration": 16.599999999999966
+          },
+          {
+            "at": 487.1,
+            "duration": 16.700000000000045
+          },
+          {
+            "at": 503.8,
+            "duration": 16.69999999999999
+          },
+          {
+            "at": 520.4,
+            "duration": 16.599999999999966
+          },
+          {
+            "at": 537.1,
+            "duration": 16.700000000000045
+          },
+          {
+            "at": 553.8,
+            "duration": 16.699999999999932
+          },
+          {
+            "at": 570.5,
+            "duration": 16.700000000000045
+          },
+          {
+            "at": 587.1,
+            "duration": 16.600000000000023
+          },
+          {
+            "at": 603.8,
+            "duration": 16.699999999999932
+          },
+          {
+            "at": 620.4,
+            "duration": 16.600000000000023
+          },
+          {
+            "at": 637.1,
+            "duration": 16.700000000000045
+          },
+          {
+            "at": 653.8,
+            "duration": 16.699999999999932
+          },
+          {
+            "at": 670.4,
+            "duration": 16.600000000000023
+          },
+          {
+            "at": 687.2,
+            "duration": 16.800000000000068
+          },
+          {
+            "at": 703.7,
+            "duration": 16.5
+          },
+          {
+            "at": 720.5,
+            "duration": 16.799999999999955
+          },
+          {
+            "at": 737.1,
+            "duration": 16.600000000000023
+          },
+          {
+            "at": 803.8,
+            "duration": 66.69999999999993
+          },
+          {
+            "at": 820.5,
+            "duration": 16.700000000000045
+          },
+          {
+            "at": 837.1,
+            "duration": 16.600000000000023
+          },
+          {
+            "at": 853.7,
+            "duration": 16.600000000000023
+          },
+          {
+            "at": 870.4,
+            "duration": 16.699999999999932
+          },
+          {
+            "at": 887.1,
+            "duration": 16.700000000000045
+          },
+          {
+            "at": 903.7,
+            "duration": 16.600000000000023
+          },
+          {
+            "at": 920.4,
+            "duration": 16.699999999999932
+          },
+          {
+            "at": 937.1,
+            "duration": 16.700000000000045
+          },
+          {
+            "at": 953.8,
+            "duration": 16.699999999999932
+          },
+          {
+            "at": 970.4,
+            "duration": 16.600000000000023
+          },
+          {
+            "at": 987.1,
+            "duration": 16.700000000000045
+          },
+          {
+            "at": 1003.7,
+            "duration": 16.600000000000023
+          },
+          {
+            "at": 1020.5,
+            "duration": 16.799999999999955
+          },
+          {
+            "at": 1037.1,
+            "duration": 16.59999999999991
+          },
+          {
+            "at": 1053.7,
+            "duration": 16.600000000000136
+          },
+          {
+            "at": 1070.4,
+            "duration": 16.700000000000045
+          },
+          {
+            "at": 1087.1,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 1103.7,
+            "duration": 16.600000000000136
+          },
+          {
+            "at": 1120.4,
+            "duration": 16.700000000000045
+          },
+          {
+            "at": 1137.1,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 1153.8,
+            "duration": 16.700000000000045
+          },
+          {
+            "at": 1170.4,
+            "duration": 16.600000000000136
+          },
+          {
+            "at": 1187.1,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 1203.8,
+            "duration": 16.700000000000045
+          },
+          {
+            "at": 1220.4,
+            "duration": 16.600000000000136
+          },
+          {
+            "at": 1237.1,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 1253.8,
+            "duration": 16.700000000000045
+          },
+          {
+            "at": 1270.4,
+            "duration": 16.600000000000136
+          },
+          {
+            "at": 1287.1,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 1303.7,
+            "duration": 16.600000000000136
+          },
+          {
+            "at": 1320.4,
+            "duration": 16.700000000000045
+          },
+          {
+            "at": 1337.1,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 1353.8,
+            "duration": 16.700000000000045
+          },
+          {
+            "at": 1370.4,
+            "duration": 16.600000000000136
+          },
+          {
+            "at": 1387,
+            "duration": 16.59999999999991
+          },
+          {
+            "at": 1403.7,
+            "duration": 16.700000000000045
+          },
+          {
+            "at": 1420.4,
+            "duration": 16.700000000000045
+          },
+          {
+            "at": 1437.1,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 1453.8,
+            "duration": 16.700000000000045
+          },
+          {
+            "at": 1470.4,
+            "duration": 16.600000000000136
+          },
+          {
+            "at": 1487.1,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 1503.8,
+            "duration": 16.700000000000045
+          },
+          {
+            "at": 1520.4,
+            "duration": 16.600000000000136
+          },
+          {
+            "at": 1537.1,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 1553.7,
+            "duration": 16.600000000000136
+          },
+          {
+            "at": 1570.4,
+            "duration": 16.700000000000045
+          },
+          {
+            "at": 1587.1,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 1603.8,
+            "duration": 16.700000000000045
+          },
+          {
+            "at": 1620.4,
+            "duration": 16.600000000000136
+          },
+          {
+            "at": 1637.1,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 1653.7,
+            "duration": 16.600000000000136
+          },
+          {
+            "at": 1670.4,
+            "duration": 16.700000000000045
+          },
+          {
+            "at": 1687.1,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 1703.7,
+            "duration": 16.600000000000136
+          },
+          {
+            "at": 1720.4,
+            "duration": 16.700000000000045
+          },
+          {
+            "at": 1737.1,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 1753.7,
+            "duration": 16.600000000000136
+          },
+          {
+            "at": 1770.4,
+            "duration": 16.700000000000045
+          },
+          {
+            "at": 1787.1,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 1803.7,
+            "duration": 16.600000000000136
+          },
+          {
+            "at": 1820.4,
+            "duration": 16.700000000000045
+          },
+          {
+            "at": 1837.1,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 1853.8,
+            "duration": 16.700000000000045
+          },
+          {
+            "at": 1870.4,
+            "duration": 16.600000000000136
+          },
+          {
+            "at": 1887,
+            "duration": 16.59999999999991
+          },
+          {
+            "at": 1903.7,
+            "duration": 16.700000000000045
+          },
+          {
+            "at": 1920.4,
+            "duration": 16.700000000000045
+          },
+          {
+            "at": 1937,
+            "duration": 16.59999999999991
+          },
+          {
+            "at": 1953.7,
+            "duration": 16.700000000000045
+          },
+          {
+            "at": 1970.4,
+            "duration": 16.700000000000045
+          },
+          {
+            "at": 1987.1,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 2003.8,
+            "duration": 16.700000000000045
+          },
+          {
+            "at": 2020.4,
+            "duration": 16.600000000000136
+          },
+          {
+            "at": 2037.1,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 2053.7,
+            "duration": 16.59999999999991
+          },
+          {
+            "at": 2070.4,
+            "duration": 16.700000000000273
+          },
+          {
+            "at": 2087,
+            "duration": 16.59999999999991
+          },
+          {
+            "at": 2103.7,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 2120.4,
+            "duration": 16.700000000000273
+          },
+          {
+            "at": 2137.1,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 2153.7,
+            "duration": 16.59999999999991
+          },
+          {
+            "at": 2170.4,
+            "duration": 16.700000000000273
+          },
+          {
+            "at": 2187,
+            "duration": 16.59999999999991
+          },
+          {
+            "at": 2203.7,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 2220.4,
+            "duration": 16.700000000000273
+          },
+          {
+            "at": 2237.1,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 2253.7,
+            "duration": 16.59999999999991
+          },
+          {
+            "at": 2270.4,
+            "duration": 16.700000000000273
+          },
+          {
+            "at": 2287.1,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 2303.7,
+            "duration": 16.59999999999991
+          },
+          {
+            "at": 2320.3,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 2337,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 2353.7,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 2370.4,
+            "duration": 16.700000000000273
+          },
+          {
+            "at": 2387.1,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 2403.7,
+            "duration": 16.59999999999991
+          },
+          {
+            "at": 2420.4,
+            "duration": 16.700000000000273
+          },
+          {
+            "at": 2437.1,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 2453.7,
+            "duration": 16.59999999999991
+          },
+          {
+            "at": 2470.4,
+            "duration": 16.700000000000273
+          },
+          {
+            "at": 2487,
+            "duration": 16.59999999999991
+          },
+          {
+            "at": 2503.7,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 2520.3,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 2537.1,
+            "duration": 16.799999999999727
+          },
+          {
+            "at": 2553.7,
+            "duration": 16.59999999999991
+          },
+          {
+            "at": 2570.4,
+            "duration": 16.700000000000273
+          },
+          {
+            "at": 2587,
+            "duration": 16.59999999999991
+          },
+          {
+            "at": 2603.7,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 2620.4,
+            "duration": 16.700000000000273
+          },
+          {
+            "at": 2637,
+            "duration": 16.59999999999991
+          },
+          {
+            "at": 2653.7,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 2670.4,
+            "duration": 16.700000000000273
+          },
+          {
+            "at": 2687.1,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 2703.7,
+            "duration": 16.59999999999991
+          },
+          {
+            "at": 2720.3,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 2737.1,
+            "duration": 16.799999999999727
+          },
+          {
+            "at": 2753.6,
+            "duration": 16.5
+          },
+          {
+            "at": 2770.4,
+            "duration": 16.800000000000182
+          },
+          {
+            "at": 2787.1,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 2803.7,
+            "duration": 16.59999999999991
+          },
+          {
+            "at": 2820.4,
+            "duration": 16.700000000000273
+          },
+          {
+            "at": 2837,
+            "duration": 16.59999999999991
+          },
+          {
+            "at": 2853.6,
+            "duration": 16.59999999999991
+          },
+          {
+            "at": 2870.3,
+            "duration": 16.700000000000273
+          },
+          {
+            "at": 2887,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 2903.7,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 2920.3,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 2937,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 2953.7,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 2970.4,
+            "duration": 16.700000000000273
+          },
+          {
+            "at": 2987,
+            "duration": 16.59999999999991
+          },
+          {
+            "at": 3003.7,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 3020.3,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 3037,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 3053.7,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 3070.3,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 3087,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 3103.7,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 3120.4,
+            "duration": 16.700000000000273
+          },
+          {
+            "at": 3137,
+            "duration": 16.59999999999991
+          },
+          {
+            "at": 3153.7,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 3170.3,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 3187,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 3203.6,
+            "duration": 16.59999999999991
+          },
+          {
+            "at": 3220.3,
+            "duration": 16.700000000000273
+          },
+          {
+            "at": 3237,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 3253.7,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 3270.4,
+            "duration": 16.700000000000273
+          },
+          {
+            "at": 3287,
+            "duration": 16.59999999999991
+          },
+          {
+            "at": 3303.7,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 3320.3,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 3337,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 3353.7,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 3370.4,
+            "duration": 16.700000000000273
+          },
+          {
+            "at": 3387,
+            "duration": 16.59999999999991
+          },
+          {
+            "at": 3403.6,
+            "duration": 16.59999999999991
+          },
+          {
+            "at": 3420.3,
+            "duration": 16.700000000000273
+          },
+          {
+            "at": 3437,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 3453.7,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 3470.3,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 3487,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 3503.7,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 3520.3,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 3537,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 3553.6,
+            "duration": 16.59999999999991
+          },
+          {
+            "at": 3570.3,
+            "duration": 16.700000000000273
+          },
+          {
+            "at": 3587,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 3603.6,
+            "duration": 16.59999999999991
+          },
+          {
+            "at": 3620.3,
+            "duration": 16.700000000000273
+          },
+          {
+            "at": 3637,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 3653.7,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 3670.3,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 3687,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 3703.7,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 3720.4,
+            "duration": 16.700000000000273
+          },
+          {
+            "at": 3737,
+            "duration": 16.59999999999991
+          },
+          {
+            "at": 3753.7,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 3770.4,
+            "duration": 16.700000000000273
+          },
+          {
+            "at": 3787,
+            "duration": 16.59999999999991
+          },
+          {
+            "at": 3803.7,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 3820.3,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 3836.9,
+            "duration": 16.59999999999991
+          },
+          {
+            "at": 3853.7,
+            "duration": 16.799999999999727
+          },
+          {
+            "at": 3870.3,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 3886.9,
+            "duration": 16.59999999999991
+          },
+          {
+            "at": 3903.7,
+            "duration": 16.799999999999727
+          },
+          {
+            "at": 3920.3,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 3937,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 3953.7,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 3970.4,
+            "duration": 16.700000000000273
+          },
+          {
+            "at": 3987,
+            "duration": 16.59999999999991
+          },
+          {
+            "at": 4003.7,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 4020.3,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 4036.9,
+            "duration": 16.59999999999991
+          },
+          {
+            "at": 4053.6,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 4070.3,
+            "duration": 16.700000000000273
+          },
+          {
+            "at": 4087,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 4103.7,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 4120.3,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 4137,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 4153.6,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 4170.3,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 4187,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 4203.6,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 4220.3,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 4236.9,
+            "duration": 16.599999999999454
+          },
+          {
+            "at": 4253.6,
+            "duration": 16.700000000000728
+          },
+          {
+            "at": 4270.3,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 4287,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 4303.6,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 4320.3,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 4337,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 4353.6,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 4370.3,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 4386.9,
+            "duration": 16.599999999999454
+          },
+          {
+            "at": 4403.7,
+            "duration": 16.800000000000182
+          },
+          {
+            "at": 4420.3,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 4437,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 4453.6,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 4470.3,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 4486.9,
+            "duration": 16.599999999999454
+          },
+          {
+            "at": 4503.6,
+            "duration": 16.700000000000728
+          },
+          {
+            "at": 4520.3,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 4536.9,
+            "duration": 16.599999999999454
+          },
+          {
+            "at": 4553.6,
+            "duration": 16.700000000000728
+          },
+          {
+            "at": 4570.3,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 4587,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 4603.6,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 4620.3,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 4636.9,
+            "duration": 16.599999999999454
+          },
+          {
+            "at": 4653.6,
+            "duration": 16.700000000000728
+          },
+          {
+            "at": 4670.3,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 4686.9,
+            "duration": 16.599999999999454
+          },
+          {
+            "at": 4703.6,
+            "duration": 16.700000000000728
+          },
+          {
+            "at": 4720.3,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 4736.9,
+            "duration": 16.599999999999454
+          },
+          {
+            "at": 4753.7,
+            "duration": 16.800000000000182
+          },
+          {
+            "at": 4770.3,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 4787,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 4803.6,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 4820.2,
+            "duration": 16.599999999999454
+          },
+          {
+            "at": 4837,
+            "duration": 16.800000000000182
+          },
+          {
+            "at": 4853.6,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 4870.3,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 4886.9,
+            "duration": 16.599999999999454
+          },
+          {
+            "at": 4903.6,
+            "duration": 16.700000000000728
+          },
+          {
+            "at": 4920.3,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 4936.9,
+            "duration": 16.599999999999454
+          },
+          {
+            "at": 4953.6,
+            "duration": 16.700000000000728
+          },
+          {
+            "at": 4970.3,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 4986.9,
+            "duration": 16.599999999999454
+          },
+          {
+            "at": 5003.6,
+            "duration": 16.700000000000728
+          },
+          {
+            "at": 5020.3,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 5037,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 5053.6,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 5070.3,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 5086.9,
+            "duration": 16.599999999999454
+          },
+          {
+            "at": 5103.6,
+            "duration": 16.700000000000728
+          },
+          {
+            "at": 5120.3,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 5137,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 5153.6,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 5170.2,
+            "duration": 16.599999999999454
+          },
+          {
+            "at": 5186.9,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 5203.6,
+            "duration": 16.700000000000728
+          },
+          {
+            "at": 5220.3,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 5236.9,
+            "duration": 16.599999999999454
+          },
+          {
+            "at": 5253.6,
+            "duration": 16.700000000000728
+          },
+          {
+            "at": 5270.2,
+            "duration": 16.599999999999454
+          },
+          {
+            "at": 5286.9,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 5303.6,
+            "duration": 16.700000000000728
+          },
+          {
+            "at": 5320.2,
+            "duration": 16.599999999999454
+          },
+          {
+            "at": 5337,
+            "duration": 16.800000000000182
+          },
+          {
+            "at": 5353.6,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 5370.2,
+            "duration": 16.599999999999454
+          },
+          {
+            "at": 5386.9,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 5403.5,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 5420.2,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 5436.9,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 5453.6,
+            "duration": 16.700000000000728
+          },
+          {
+            "at": 5486.9,
+            "duration": 33.29999999999927
+          },
+          {
+            "at": 5503.6,
+            "duration": 16.700000000000728
+          },
+          {
+            "at": 5520.3,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 5536.9,
+            "duration": 16.599999999999454
+          },
+          {
+            "at": 5553.5,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 5570.3,
+            "duration": 16.800000000000182
+          },
+          {
+            "at": 5586.9,
+            "duration": 16.599999999999454
+          },
+          {
+            "at": 5603.6,
+            "duration": 16.700000000000728
+          },
+          {
+            "at": 5620.3,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 5636.9,
+            "duration": 16.599999999999454
+          },
+          {
+            "at": 5653.6,
+            "duration": 16.700000000000728
+          },
+          {
+            "at": 5670.2,
+            "duration": 16.599999999999454
+          },
+          {
+            "at": 5686.9,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 5703.6,
+            "duration": 16.700000000000728
+          },
+          {
+            "at": 5720.3,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 5736.9,
+            "duration": 16.599999999999454
+          },
+          {
+            "at": 5753.6,
+            "duration": 16.700000000000728
+          },
+          {
+            "at": 5770.2,
+            "duration": 16.599999999999454
+          },
+          {
+            "at": 5786.9,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 5803.6,
+            "duration": 16.700000000000728
+          },
+          {
+            "at": 5820.2,
+            "duration": 16.599999999999454
+          },
+          {
+            "at": 5836.9,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 5853.5,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 5870.2,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 5886.9,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 5903.6,
+            "duration": 16.700000000000728
+          },
+          {
+            "at": 5920.2,
+            "duration": 16.599999999999454
+          },
+          {
+            "at": 5936.9,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 5953.6,
+            "duration": 16.700000000000728
+          },
+          {
+            "at": 5970.2,
+            "duration": 16.599999999999454
+          },
+          {
+            "at": 5986.9,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 6003.6,
+            "duration": 16.700000000000728
+          },
+          {
+            "at": 6020.2,
+            "duration": 16.599999999999454
+          },
+          {
+            "at": 6036.9,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 6053.5,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 6070.2,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 6086.9,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 6103.5,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 6120.3,
+            "duration": 16.800000000000182
+          },
+          {
+            "at": 6136.9,
+            "duration": 16.599999999999454
+          },
+          {
+            "at": 6153.6,
+            "duration": 16.700000000000728
+          },
+          {
+            "at": 6170.3,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 6186.9,
+            "duration": 16.599999999999454
+          },
+          {
+            "at": 6203.6,
+            "duration": 16.700000000000728
+          },
+          {
+            "at": 6220.2,
+            "duration": 16.599999999999454
+          },
+          {
+            "at": 6236.9,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 6253.5,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 6270.2,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 6286.9,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 6303.5,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 6320.2,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 6336.9,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 6353.6,
+            "duration": 16.700000000000728
+          },
+          {
+            "at": 6370.2,
+            "duration": 16.599999999999454
+          },
+          {
+            "at": 6386.9,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 6403.5,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 6420.3,
+            "duration": 16.800000000000182
+          },
+          {
+            "at": 6436.8,
+            "duration": 16.5
+          },
+          {
+            "at": 6453.6,
+            "duration": 16.800000000000182
+          },
+          {
+            "at": 6470.2,
+            "duration": 16.599999999999454
+          },
+          {
+            "at": 6486.9,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 6503.6,
+            "duration": 16.700000000000728
+          },
+          {
+            "at": 6520.2,
+            "duration": 16.599999999999454
+          },
+          {
+            "at": 6536.9,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 6553.5,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 6570.2,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 6586.9,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 6603.5,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 6620.2,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 6636.8,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 6653.5,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 6670.2,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 6686.9,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 6703.6,
+            "duration": 16.700000000000728
+          },
+          {
+            "at": 6720.2,
+            "duration": 16.599999999999454
+          },
+          {
+            "at": 6736.8,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 6753.5,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 6770.2,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 6786.9,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 6803.5,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 6820.2,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 6836.9,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 6853.5,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 6870.2,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 6886.9,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 6903.6,
+            "duration": 16.700000000000728
+          },
+          {
+            "at": 6920.2,
+            "duration": 16.599999999999454
+          },
+          {
+            "at": 6936.9,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 6953.5,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 6970.2,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 6986.9,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 7003.5,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 7020.2,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 7036.8,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 7053.6,
+            "duration": 16.800000000000182
+          },
+          {
+            "at": 7070.2,
+            "duration": 16.599999999999454
+          },
+          {
+            "at": 7086.9,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 7103.5,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 7120.2,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 7136.9,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 7153.5,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 7170.2,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 7186.9,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 7203.5,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 7220.2,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 7236.8,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 7253.5,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 7270.2,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 7286.8,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 7303.5,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 7320.2,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 7336.8,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 7353.5,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 7370.2,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 7386.9,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 7403.5,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 7420.2,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 7436.9,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 7453.5,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 7470.2,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 7486.8,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 7503.5,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 7520.2,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 7536.8,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 7553.5,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 7570.2,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 7586.9,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 7603.5,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 7620.1,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 7636.8,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 7653.5,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 7670.1,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 7686.8,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 7703.5,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 7720.2,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 7736.9,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 7753.5,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 7770.2,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 7786.8,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 7803.5,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 7820.2,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 7836.8,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 7853.5,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 7870.1,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 7886.9,
+            "duration": 16.799999999999272
+          },
+          {
+            "at": 7903.5,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 7920.1,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 7936.8,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 7953.5,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 7970.2,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 7986.8,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 8003.5,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 8020.1,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 8036.8,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 8053.4,
+            "duration": 16.599999999999454
+          },
+          {
+            "at": 8070.1,
+            "duration": 16.700000000000728
+          },
+          {
+            "at": 8086.8,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 8103.4,
+            "duration": 16.599999999999454
+          },
+          {
+            "at": 8120.2,
+            "duration": 16.800000000000182
+          },
+          {
+            "at": 8136.8,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 8153.4,
+            "duration": 16.599999999999454
+          },
+          {
+            "at": 8170.2,
+            "duration": 16.800000000000182
+          },
+          {
+            "at": 8186.9,
+            "duration": 16.699999999999818
+          },
+          {
+            "at": 8203.5,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 8220.2,
+            "duration": 16.700000000000728
+          },
+          {
+            "at": 8236.8,
+            "duration": 16.599999999998545
+          },
+          {
+            "at": 8253.4,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 8270.1,
+            "duration": 16.700000000000728
+          },
+          {
+            "at": 8286.8,
+            "duration": 16.69999999999891
+          },
+          {
+            "at": 8303.4,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 8320.2,
+            "duration": 16.80000000000109
+          },
+          {
+            "at": 8336.8,
+            "duration": 16.599999999998545
+          },
+          {
+            "at": 8353.4,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 8370.2,
+            "duration": 16.80000000000109
+          },
+          {
+            "at": 8386.8,
+            "duration": 16.599999999998545
+          },
+          {
+            "at": 8403.4,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 8420.2,
+            "duration": 16.80000000000109
+          },
+          {
+            "at": 8436.8,
+            "duration": 16.599999999998545
+          },
+          {
+            "at": 8453.5,
+            "duration": 16.700000000000728
+          },
+          {
+            "at": 8470.1,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 8486.8,
+            "duration": 16.69999999999891
+          },
+          {
+            "at": 8503.4,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 8520.2,
+            "duration": 16.80000000000109
+          },
+          {
+            "at": 8536.8,
+            "duration": 16.599999999998545
+          },
+          {
+            "at": 8553.5,
+            "duration": 16.700000000000728
+          },
+          {
+            "at": 8570.1,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 8586.8,
+            "duration": 16.69999999999891
+          },
+          {
+            "at": 8603.4,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 8620.2,
+            "duration": 16.80000000000109
+          },
+          {
+            "at": 8636.8,
+            "duration": 16.599999999998545
+          },
+          {
+            "at": 8653.5,
+            "duration": 16.700000000000728
+          },
+          {
+            "at": 8670.1,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 8686.8,
+            "duration": 16.69999999999891
+          },
+          {
+            "at": 8703.4,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 8720.1,
+            "duration": 16.700000000000728
+          },
+          {
+            "at": 8736.7,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 8753.4,
+            "duration": 16.69999999999891
+          },
+          {
+            "at": 8770.2,
+            "duration": 16.80000000000109
+          },
+          {
+            "at": 8786.8,
+            "duration": 16.599999999998545
+          },
+          {
+            "at": 8803.4,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 8820.1,
+            "duration": 16.700000000000728
+          },
+          {
+            "at": 8836.8,
+            "duration": 16.69999999999891
+          },
+          {
+            "at": 8853.4,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 8870.2,
+            "duration": 16.80000000000109
+          },
+          {
+            "at": 8886.8,
+            "duration": 16.599999999998545
+          },
+          {
+            "at": 8903.5,
+            "duration": 16.700000000000728
+          },
+          {
+            "at": 8920.1,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 8936.7,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 8953.4,
+            "duration": 16.69999999999891
+          },
+          {
+            "at": 8970.1,
+            "duration": 16.700000000000728
+          },
+          {
+            "at": 8986.8,
+            "duration": 16.69999999999891
+          },
+          {
+            "at": 9003.4,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 9020.1,
+            "duration": 16.700000000000728
+          },
+          {
+            "at": 9036.7,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 9053.5,
+            "duration": 16.799999999999272
+          },
+          {
+            "at": 9070.1,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 9086.8,
+            "duration": 16.69999999999891
+          },
+          {
+            "at": 9103.4,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 9120.1,
+            "duration": 16.700000000000728
+          },
+          {
+            "at": 9136.8,
+            "duration": 16.69999999999891
+          },
+          {
+            "at": 9153.5,
+            "duration": 16.700000000000728
+          },
+          {
+            "at": 9170.1,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 9186.8,
+            "duration": 16.69999999999891
+          },
+          {
+            "at": 9203.4,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 9220.1,
+            "duration": 16.700000000000728
+          },
+          {
+            "at": 9236.8,
+            "duration": 16.69999999999891
+          },
+          {
+            "at": 9253.4,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 9270,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 9286.8,
+            "duration": 16.799999999999272
+          },
+          {
+            "at": 9303.5,
+            "duration": 16.700000000000728
+          },
+          {
+            "at": 9320.1,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 9336.8,
+            "duration": 16.69999999999891
+          },
+          {
+            "at": 9353.4,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 9370.1,
+            "duration": 16.700000000000728
+          },
+          {
+            "at": 9386.8,
+            "duration": 16.69999999999891
+          },
+          {
+            "at": 9403.4,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 9420.1,
+            "duration": 16.700000000000728
+          },
+          {
+            "at": 9436.8,
+            "duration": 16.69999999999891
+          },
+          {
+            "at": 9453.4,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 9470.1,
+            "duration": 16.700000000000728
+          },
+          {
+            "at": 9486.8,
+            "duration": 16.69999999999891
+          },
+          {
+            "at": 9503.4,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 9520,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 9536.7,
+            "duration": 16.700000000000728
+          },
+          {
+            "at": 9553.4,
+            "duration": 16.69999999999891
+          },
+          {
+            "at": 9570.1,
+            "duration": 16.700000000000728
+          },
+          {
+            "at": 9586.7,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 9603.4,
+            "duration": 16.69999999999891
+          },
+          {
+            "at": 9620.1,
+            "duration": 16.700000000000728
+          },
+          {
+            "at": 9636.7,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 9653.4,
+            "duration": 16.69999999999891
+          },
+          {
+            "at": 9670.1,
+            "duration": 16.700000000000728
+          },
+          {
+            "at": 9686.7,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 9703.4,
+            "duration": 16.69999999999891
+          },
+          {
+            "at": 9720.1,
+            "duration": 16.700000000000728
+          },
+          {
+            "at": 9736.7,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 9753.4,
+            "duration": 16.69999999999891
+          },
+          {
+            "at": 9770.1,
+            "duration": 16.700000000000728
+          },
+          {
+            "at": 9786.7,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 9803.4,
+            "duration": 16.69999999999891
+          },
+          {
+            "at": 9820,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 9836.7,
+            "duration": 16.700000000000728
+          },
+          {
+            "at": 9853.4,
+            "duration": 16.69999999999891
+          },
+          {
+            "at": 9870,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 9886.8,
+            "duration": 16.799999999999272
+          },
+          {
+            "at": 9903.4,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 9920,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 9936.7,
+            "duration": 16.700000000000728
+          },
+          {
+            "at": 9953.4,
+            "duration": 16.69999999999891
+          },
+          {
+            "at": 9970.1,
+            "duration": 16.700000000000728
+          },
+          {
+            "at": 9986.8,
+            "duration": 16.69999999999891
+          },
+          {
+            "at": 10003.4,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 10020,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 10036.7,
+            "duration": 16.700000000000728
+          },
+          {
+            "at": 10053.4,
+            "duration": 16.69999999999891
+          },
+          {
+            "at": 10070.1,
+            "duration": 16.700000000000728
+          },
+          {
+            "at": 10086.7,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 10103.4,
+            "duration": 16.69999999999891
+          },
+          {
+            "at": 10120.1,
+            "duration": 16.700000000000728
+          },
+          {
+            "at": 10136.7,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 10153.4,
+            "duration": 16.69999999999891
+          },
+          {
+            "at": 10170.1,
+            "duration": 16.700000000000728
+          },
+          {
+            "at": 10186.8,
+            "duration": 16.69999999999891
+          },
+          {
+            "at": 10203.4,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 10220.1,
+            "duration": 16.700000000000728
+          },
+          {
+            "at": 10236.7,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 10253.4,
+            "duration": 16.69999999999891
+          },
+          {
+            "at": 10270.1,
+            "duration": 16.700000000000728
+          },
+          {
+            "at": 10286.7,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 10303.4,
+            "duration": 16.69999999999891
+          },
+          {
+            "at": 10320,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 10336.7,
+            "duration": 16.700000000000728
+          },
+          {
+            "at": 10353.3,
+            "duration": 16.599999999998545
+          },
+          {
+            "at": 10370,
+            "duration": 16.700000000000728
+          },
+          {
+            "at": 10386.8,
+            "duration": 16.799999999999272
+          },
+          {
+            "at": 10403.4,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 10420,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 10436.7,
+            "duration": 16.700000000000728
+          },
+          {
+            "at": 10453.4,
+            "duration": 16.69999999999891
+          },
+          {
+            "at": 10470.1,
+            "duration": 16.700000000000728
+          },
+          {
+            "at": 10486.7,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 10503.4,
+            "duration": 16.69999999999891
+          },
+          {
+            "at": 10520,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 10536.7,
+            "duration": 16.700000000000728
+          },
+          {
+            "at": 10553.4,
+            "duration": 16.69999999999891
+          },
+          {
+            "at": 10570,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 10586.7,
+            "duration": 16.700000000000728
+          },
+          {
+            "at": 10603.3,
+            "duration": 16.599999999998545
+          },
+          {
+            "at": 10620,
+            "duration": 16.700000000000728
+          },
+          {
+            "at": 10636.7,
+            "duration": 16.700000000000728
+          },
+          {
+            "at": 10653.4,
+            "duration": 16.69999999999891
+          },
+          {
+            "at": 10670,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 10686.7,
+            "duration": 16.700000000000728
+          },
+          {
+            "at": 10703.3,
+            "duration": 16.599999999998545
+          },
+          {
+            "at": 10720.1,
+            "duration": 16.80000000000109
+          },
+          {
+            "at": 10736.7,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 10753.3,
+            "duration": 16.599999999998545
+          },
+          {
+            "at": 10770.1,
+            "duration": 16.80000000000109
+          },
+          {
+            "at": 10786.7,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 10803.4,
+            "duration": 16.69999999999891
+          },
+          {
+            "at": 10820,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 10970.1,
+            "duration": 150.10000000000036
+          },
+          {
+            "at": 10986.6,
+            "duration": 16.5
+          },
+          {
+            "at": 11003.3,
+            "duration": 16.69999999999891
+          },
+          {
+            "at": 11020,
+            "duration": 16.700000000000728
+          },
+          {
+            "at": 11036.7,
+            "duration": 16.700000000000728
+          },
+          {
+            "at": 11053.4,
+            "duration": 16.69999999999891
+          },
+          {
+            "at": 11070,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 11086.7,
+            "duration": 16.700000000000728
+          },
+          {
+            "at": 11103.4,
+            "duration": 16.69999999999891
+          },
+          {
+            "at": 11120,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 11136.7,
+            "duration": 16.700000000000728
+          },
+          {
+            "at": 11153.4,
+            "duration": 16.69999999999891
+          },
+          {
+            "at": 11170,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 11186.7,
+            "duration": 16.700000000000728
+          },
+          {
+            "at": 11203.4,
+            "duration": 16.69999999999891
+          },
+          {
+            "at": 11220,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 11236.7,
+            "duration": 16.700000000000728
+          },
+          {
+            "at": 11253.4,
+            "duration": 16.69999999999891
+          },
+          {
+            "at": 11270,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 11286.7,
+            "duration": 16.700000000000728
+          },
+          {
+            "at": 11303.3,
+            "duration": 16.599999999998545
+          },
+          {
+            "at": 11320,
+            "duration": 16.700000000000728
+          },
+          {
+            "at": 11336.7,
+            "duration": 16.700000000000728
+          },
+          {
+            "at": 11353.3,
+            "duration": 16.599999999998545
+          },
+          {
+            "at": 11370,
+            "duration": 16.700000000000728
+          },
+          {
+            "at": 11386.7,
+            "duration": 16.700000000000728
+          },
+          {
+            "at": 11403.3,
+            "duration": 16.599999999998545
+          },
+          {
+            "at": 11420.1,
+            "duration": 16.80000000000109
+          },
+          {
+            "at": 11436.6,
+            "duration": 16.5
+          },
+          {
+            "at": 11453.4,
+            "duration": 16.799999999999272
+          },
+          {
+            "at": 11470,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 11486.7,
+            "duration": 16.700000000000728
+          },
+          {
+            "at": 11503.3,
+            "duration": 16.599999999998545
+          },
+          {
+            "at": 11520,
+            "duration": 16.700000000000728
+          },
+          {
+            "at": 11536.7,
+            "duration": 16.700000000000728
+          },
+          {
+            "at": 11553.3,
+            "duration": 16.599999999998545
+          },
+          {
+            "at": 11570,
+            "duration": 16.700000000000728
+          },
+          {
+            "at": 11586.6,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 11603.4,
+            "duration": 16.799999999999272
+          },
+          {
+            "at": 11620,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 11636.6,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 11653.3,
+            "duration": 16.69999999999891
+          },
+          {
+            "at": 11670,
+            "duration": 16.700000000000728
+          },
+          {
+            "at": 11686.7,
+            "duration": 16.700000000000728
+          },
+          {
+            "at": 11703.3,
+            "duration": 16.599999999998545
+          },
+          {
+            "at": 11720,
+            "duration": 16.700000000000728
+          },
+          {
+            "at": 11736.7,
+            "duration": 16.700000000000728
+          },
+          {
+            "at": 11753.3,
+            "duration": 16.599999999998545
+          },
+          {
+            "at": 11770,
+            "duration": 16.700000000000728
+          },
+          {
+            "at": 11786.6,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 11803.3,
+            "duration": 16.69999999999891
+          },
+          {
+            "at": 11820,
+            "duration": 16.700000000000728
+          },
+          {
+            "at": 11836.6,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 11853.3,
+            "duration": 16.69999999999891
+          },
+          {
+            "at": 11869.9,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 11886.7,
+            "duration": 16.80000000000109
+          },
+          {
+            "at": 11903.4,
+            "duration": 16.69999999999891
+          },
+          {
+            "at": 11920,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 11936.7,
+            "duration": 16.700000000000728
+          },
+          {
+            "at": 11953.3,
+            "duration": 16.599999999998545
+          },
+          {
+            "at": 11970,
+            "duration": 16.700000000000728
+          },
+          {
+            "at": 11986.7,
+            "duration": 16.700000000000728
+          },
+          {
+            "at": 12003.3,
+            "duration": 16.599999999998545
+          },
+          {
+            "at": 12020,
+            "duration": 16.700000000000728
+          },
+          {
+            "at": 12036.7,
+            "duration": 16.700000000000728
+          },
+          {
+            "at": 12053.3,
+            "duration": 16.599999999998545
+          },
+          {
+            "at": 12070,
+            "duration": 16.700000000000728
+          },
+          {
+            "at": 12086.6,
+            "duration": 16.600000000000364
+          },
+          {
+            "at": 12103.3,
+            "duration": 16.69999999999891
+          },
+          {
+            "at": 12120,
+            "duration": 16.700000000000728
+          }
+        ],
+        "longTasks": [
+          {
+            "at": 734.5,
+            "duration": 68
+          },
+          {
+            "at": 10826.89999999851,
+            "duration": 151
+          }
+        ],
+        "events": [],
+        "inference": [],
+        "pointer": [],
+        "requests": 890,
+        "callbacks": 887,
+        "pendingRaf": 2,
+        "pendingVideo": 0,
+        "glClears": 1331,
+        "glDraws": 3267,
+        "startupReady": 11686.7,
+        "loaderSeen": true
+      },
+      "network": {
+        "latencyMs": 60,
+        "downloadBytesPerSecond": 1250000,
+        "uploadBytesPerSecond": 125000
+      },
+      "status": "PASS",
+      "durationMs": 12134
+    },
+    {
+      "name": "idle-and-multi-app-window-interaction",
+      "idle": {
+        "label": "idle desktop",
+        "durationMs": 8008.699999999255,
+        "wallMs": 8009,
+        "frames": {
+          "n": 481,
+          "p50": 16.69999999999891,
+          "p95": 16.799999999999272,
+          "p99": 16.80000000000109,
+          "max": 16.80000000000109,
+          "over16_7": 164,
+          "over33_4": 0
+        },
+        "longTasks": [],
+        "eventTiming": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "over16_7": 0,
+          "over33_4": 0
+        },
+        "inputDelay": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "over16_7": 0,
+          "over33_4": 0
+        },
+        "pointerToNextRAF": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "over16_7": 0,
+          "over33_4": 0
+        },
+        "inference": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "over16_7": 0,
+          "over33_4": 0
+        },
+        "mainThreadBusyPercent": 10.425275013423873,
+        "attachedCanvasClearsPerSecond": 120.11937018493506,
+        "drawCallsPerSecond": 2702.6858291610392,
+        "pendingRaf": 1,
+        "pendingVideoCallbacks": 0,
+        "jsHeap": 12421964,
+        "dom": {
+          "documents": 1,
+          "nodes": 170,
+          "jsEventListeners": 552
+        }
+      },
+      "windows": {
+        "label": "four apps + drag/maximize/minimize",
+        "durationMs": 8411.599999997765,
+        "wallMs": 8412,
+        "frames": {
+          "n": 504,
+          "p50": 16.69999999999891,
+          "p95": 16.799999999999272,
+          "p99": 16.80000000000291,
+          "max": 16.80000000000291,
+          "over16_7": 252,
+          "over33_4": 0
+        },
+        "longTasks": [],
+        "eventTiming": {
+          "n": 138,
+          "p50": 40,
+          "p95": 48,
+          "p99": 56,
+          "max": 56,
+          "over16_7": 138,
+          "over33_4": 124
+        },
+        "inputDelay": {
+          "n": 138,
+          "p50": 1.300000000745058,
+          "p95": 15.5,
+          "p99": 15.799999997019768,
+          "max": 15.799999997019768,
+          "over16_7": 0,
+          "over33_4": 0
+        },
+        "pointerToNextRAF": {
+          "n": 210,
+          "p50": 1.2999999970197678,
+          "p95": 2.100000001490116,
+          "p99": 2.399999998509884,
+          "max": 2.400000002235174,
+          "over16_7": 0,
+          "over33_4": 0
+        },
+        "inference": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "over16_7": 0,
+          "over33_4": 0
+        },
+        "mainThreadBusyPercent": 13.96700984355309,
+        "attachedCanvasClearsPerSecond": 119.83451424226875,
+        "drawCallsPerSecond": 2696.276570451047,
+        "pendingRaf": 2,
+        "pendingVideoCallbacks": 0,
+        "jsHeap": 14521632,
+        "dom": {
+          "documents": 1,
+          "nodes": 881,
+          "jsEventListeners": 676
+        }
+      },
+      "renderingPolicy": "Continuous scene rendering retained unless a separate verified variant proves safe.",
+      "status": "PASS",
+      "durationMs": 24320
+    },
+    {
+      "name": "retina-DPR2-idle-and-drag",
+      "idle": {
+        "label": "DPR2 idle desktop",
+        "durationMs": 5005.699999999255,
+        "wallMs": 5006,
+        "frames": {
+          "n": 300,
+          "p50": 16.699999999999818,
+          "p95": 16.799999999999272,
+          "p99": 16.800000000000182,
+          "max": 16.800000000000182,
+          "over16_7": 61,
+          "over33_4": 0
+        },
+        "longTasks": [],
+        "eventTiming": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "over16_7": 0,
+          "over33_4": 0
+        },
+        "inputDelay": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "over16_7": 0,
+          "over33_4": 0
+        },
+        "pointerToNextRAF": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "over16_7": 0,
+          "over33_4": 0
+        },
+        "inference": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "over16_7": 0,
+          "over33_4": 0
+        },
+        "mainThreadBusyPercent": 9.535929040894802,
+        "attachedCanvasClearsPerSecond": 119.86335577443501,
+        "drawCallsPerSecond": 2696.9255049247877,
+        "pendingRaf": 1,
+        "pendingVideoCallbacks": 0,
+        "jsHeap": 15910268,
+        "dom": {
+          "documents": 1,
+          "nodes": 171,
+          "jsEventListeners": 615
+        }
+      },
+      "drag": {
+        "label": "DPR2 Notes dragging",
+        "durationMs": 7494.699999999255,
+        "wallMs": 7498,
+        "frames": {
+          "n": 450,
+          "p50": 16.69999999999891,
+          "p95": 16.700000000000728,
+          "p99": 16.80000000000109,
+          "max": 16.80000000000109,
+          "over16_7": 184,
+          "over33_4": 0
+        },
+        "longTasks": [],
+        "eventTiming": {
+          "n": 35,
+          "p50": 32,
+          "p95": 32,
+          "p99": 32,
+          "max": 32,
+          "over16_7": 35,
+          "over33_4": 0
+        },
+        "inputDelay": {
+          "n": 35,
+          "p50": 3.399999998509884,
+          "p95": 4.399999998509884,
+          "p99": 4.5,
+          "max": 4.5,
+          "over16_7": 0,
+          "over33_4": 0
+        },
+        "pointerToNextRAF": {
+          "n": 210,
+          "p50": 1.1000000014901161,
+          "p95": 1.5,
+          "p99": 1.8999999985098839,
+          "max": 2.2999999970197678,
+          "over16_7": 0,
+          "over33_4": 0
+        },
+        "inference": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "over16_7": 0,
+          "over33_4": 0
+        },
+        "mainThreadBusyPercent": 11.717773893552609,
+        "attachedCanvasClearsPerSecond": 120.08485996772245,
+        "drawCallsPerSecond": 2701.909349273755,
+        "pendingRaf": 1,
+        "pendingVideoCallbacks": 0,
+        "jsHeap": 15904264,
+        "dom": {
+          "documents": 1,
+          "nodes": 301,
+          "jsEventListeners": 597
+        }
+      },
+      "renderer": {
+        "cssWidth": 1440,
+        "cssHeight": 1000,
+        "bufferWidth": 2880,
+        "bufferHeight": 2000,
+        "dpr": 2
+      },
+      "status": "PASS",
+      "durationMs": 16099
+    },
+    {
+      "name": "finder-wallpaper-and-theme",
+      "finder": {
+        "label": "Finder rapid hover/navigation",
+        "durationMs": 745.4000000022352,
+        "wallMs": 744,
+        "frames": {
+          "n": 45,
+          "p50": 16.699999999999818,
+          "p95": 16.800000000000182,
+          "p99": 16.800000000000182,
+          "max": 16.800000000000182,
+          "over16_7": 11,
+          "over33_4": 0
+        },
+        "longTasks": [],
+        "eventTiming": {
+          "n": 111,
+          "p50": 48,
+          "p95": 48,
+          "p99": 48,
+          "max": 48,
+          "over16_7": 111,
+          "over33_4": 111
+        },
+        "inputDelay": {
+          "n": 111,
+          "p50": 8.600000001490116,
+          "p95": 12.700000002980232,
+          "p99": 12.800000000745058,
+          "max": 12.800000000745058,
+          "over16_7": 0,
+          "over33_4": 0
+        },
+        "pointerToNextRAF": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "over16_7": 0,
+          "over33_4": 0
+        },
+        "inference": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "over16_7": 0,
+          "over33_4": 0
+        },
+        "mainThreadBusyPercent": 19.127716662137434,
+        "attachedCanvasClearsPerSecond": 120.74054199051533,
+        "drawCallsPerSecond": 2716.6621947865947,
+        "pendingRaf": 1,
+        "pendingVideoCallbacks": 0,
+        "jsHeap": 16554608,
+        "dom": {
+          "documents": 1,
+          "nodes": 517,
+          "jsEventListeners": 948
+        }
+      },
+      "wallpaper": {
+        "label": "wallpaper/theme switching",
+        "durationMs": 1186.699999999255,
+        "wallMs": 1186,
+        "frames": {
+          "n": 71,
+          "p50": 16.699999999999818,
+          "p95": 16.700000000000728,
+          "p99": 16.800000000000182,
+          "max": 16.800000000000182,
+          "over16_7": 13,
+          "over33_4": 0
+        },
+        "longTasks": [],
+        "eventTiming": {
+          "n": 148,
+          "p50": 48,
+          "p95": 48,
+          "p99": 48,
+          "max": 48,
+          "over16_7": 148,
+          "over33_4": 148
+        },
+        "inputDelay": {
+          "n": 148,
+          "p50": 13.600000001490116,
+          "p95": 14.899999998509884,
+          "p99": 14.899999998509884,
+          "max": 14.899999998509884,
+          "over16_7": 0,
+          "over33_4": 0
+        },
+        "pointerToNextRAF": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "over16_7": 0,
+          "over33_4": 0
+        },
+        "inference": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "over16_7": 0,
+          "over33_4": 0
+        },
+        "mainThreadBusyPercent": 16.32232240668423,
+        "attachedCanvasClearsPerSecond": 119.65956012479073,
+        "drawCallsPerSecond": 2692.3401028077915,
+        "pendingRaf": 1,
+        "pendingVideoCallbacks": 0,
+        "jsHeap": 17057304,
+        "dom": {
+          "documents": 1,
+          "nodes": 946,
+          "jsEventListeners": 1707
+        }
+      },
+      "thumbnails": [
+        {
+          "id": "coast",
+          "ready": true,
+          "source": "http://127.0.0.1:3012/wallpapers/thumbs/coast-dark.webp"
+        },
+        {
+          "id": "lake",
+          "ready": true,
+          "source": "http://127.0.0.1:3012/wallpapers/thumbs/lake-dark.webp"
+        },
+        {
+          "id": "forest",
+          "ready": true,
+          "source": "http://127.0.0.1:3012/wallpapers/thumbs/forest-dark.webp"
+        },
+        {
+          "id": "dunes",
+          "ready": true,
+          "source": "http://127.0.0.1:3012/wallpapers/thumbs/dunes-dark.webp"
+        },
+        {
+          "id": "alpine",
+          "ready": true,
+          "source": "http://127.0.0.1:3012/wallpapers/thumbs/alpine-dark.webp"
+        },
+        {
+          "id": "drift",
+          "ready": true,
+          "source": "http://127.0.0.1:3012/wallpapers/thumbs/drift-dark.webp"
+        }
+      ],
+      "status": "PASS",
+      "durationMs": 5930
+    },
+    {
+      "name": "wheel-and-narrow-app-layouts",
+      "settings": {
+        "frameWidth": 420,
+        "scrollWidth": 286,
+        "clientWidth": 286,
+        "accentOutside": 0,
+        "modeOutside": 0
+      },
+      "wheel": [
+        {
+          "label": "ordinary",
+          "prevented": false,
+          "scrollTop": 0
+        },
+        {
+          "label": "pinch",
+          "prevented": false,
+          "scrollTop": 0
+        },
+        {
+          "label": "horizontal",
+          "prevented": false,
+          "scrollTop": 0
+        },
+        {
+          "label": "shift",
+          "prevented": false,
+          "scrollTop": 0
+        }
+      ],
+      "nativeSettingsScroll": 120,
+      "music": {
+        "frameWidth": 420,
+        "controls": [
+          {
+            "label": "Previous track",
+            "visible": true,
+            "withinFrame": true
+          },
+          {
+            "label": "Play",
+            "visible": true,
+            "withinFrame": true
+          },
+          {
+            "label": "Next track",
+            "visible": true,
+            "withinFrame": true
+          },
+          {
+            "label": "Volume",
+            "visible": true,
+            "withinFrame": true
+          }
+        ]
+      },
+      "notesWheel": {
+        "events": [
+          {
+            "label": "ordinary",
+            "prevented": false
+          },
+          {
+            "label": "pinch",
+            "prevented": false
+          },
+          {
+            "label": "horizontal",
+            "prevented": false
+          },
+          {
+            "label": "shift",
+            "prevented": false
+          }
+        ],
+        "point": {
+          "x": 502.98846435546875,
+          "y": 281.38343811035156
+        },
+        "overscroll": "auto"
+      },
+      "nativeNotesScroll": 160,
+      "status": "PASS",
+      "durationMs": 6218
+    },
+    {
+      "name": "page-viewport-dpr-scale-touch-keyboard-and-reduced-motion",
+      "narrow": {
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "dock": {
+          "x": 104.62775421142578,
+          "y": 498.8264465332031,
+          "width": 31.062660217285156,
+          "height": 30.500579833984375
+        },
+        "within": true
+      },
+      "touchOpenedNotes": true,
+      "keyboardOpenedAbout": true,
+      "osReducedMotion": {
+        "matches": true,
+        "duration": "0s"
+      },
+      "appReducedMotion": [
+        {
+          "enabled": true,
+          "duration": "0s"
+        },
+        {
+          "enabled": true,
+          "duration": "0s"
+        },
+        {
+          "enabled": true,
+          "duration": "0s"
+        }
+      ],
+      "zoomCoverage": "CDP visual page-scale and DPR emulation, not native toolbar/browser zoom",
+      "status": "PASS",
+      "durationMs": 5460
+    }
+  ],
+  "systemInfo": {
+    "gpu": [
+      {
+        "vendorId": 4203,
+        "deviceId": 0,
+        "vendorString": "Google Inc. (Apple)",
+        "deviceString": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Version 27.2 (Build 26B123))",
+        "driverVendor": "Apple",
+        "driverVersion": "27.2"
+      }
+    ],
+    "aux": {
+      "amdSwitchable": false,
+      "canSupportThreadedTextureMailbox": false,
+      "directRenderingVersion": "",
+      "displayType": "ANGLE_METAL",
+      "glExtensions": "GL_AMD_performance_monitor GL_ANGLE_base_vertex_base_instance_shader_builtin GL_ANGLE_blob_cache GL_ANGLE_client_arrays GL_ANGLE_clip_cull_distance GL_ANGLE_compressed_texture_etc GL_ANGLE_depth_texture GL_ANGLE_framebuffer_blit GL_ANGLE_framebuffer_multisample GL_ANGLE_get_serialized_context_string GL_ANGLE_get_tex_level_parameter GL_ANGLE_instanced_arrays GL_ANGLE_memory_size GL_ANGLE_pack_reverse_row_order GL_ANGLE_polygon_mode GL_ANGLE_program_binary_readiness_query GL_ANGLE_program_cache_control GL_ANGLE_provoking_vertex GL_ANGLE_renderability_validation GL_ANGLE_request_extension GL_ANGLE_rgbx_internal_format GL_ANGLE_robust_client_memory GL_ANGLE_shader_pixel_local_storage GL_ANGLE_shader_pixel_local_storage_coherent GL_ANGLE_stencil_texturing GL_ANGLE_texture_compression_dxt3 GL_ANGLE_texture_compression_dxt5 GL_ANGLE_texture_multisample GL_ANGLE_translated_shader_source GL_APPLE_clip_distance GL_ARM_rgba8 GL_CHROMIUM_bind_generates_resource GL_CHROMIUM_bind_uniform_location GL_CHROMIUM_copy_texture GL_CHROMIUM_lose_context GL_EXT_base_instance GL_EXT_blend_func_extended GL_EXT_blend_minmax GL_EXT_clip_control GL_EXT_color_buffer_float GL_EXT_color_buffer_half_float GL_EXT_compressed_ETC1_RGB8_sub_texture GL_EXT_conservative_depth GL_EXT_debug_label GL_EXT_debug_marker GL_EXT_depth_clamp GL_EXT_discard_framebuffer GL_EXT_disjoint_timer_query GL_EXT_draw_buffers GL_EXT_draw_buffers_indexed GL_EXT_draw_elements_base_vertex GL_EXT_float_blend GL_EXT_frag_depth GL_EXT_instanced_arrays GL_EXT_map_buffer_range GL_EXT_multisampled_render_to_texture GL_EXT_occlusion_query_boolean GL_EXT_polygon_offset_clamp GL_EXT_pvrtc_sRGB GL_EXT_read_format_bgra GL_EXT_render_snorm GL_EXT_robustness GL_EXT_sRGB GL_EXT_shader_texture_lod GL_EXT_texture_compression_bptc GL_EXT_texture_compression_dxt1 GL_EXT_texture_compression_rgtc GL_EXT_texture_compression_s3tc_srgb GL_EXT_texture_filter_anisotropic GL_EXT_texture_format_BGRA8888 GL_EXT_texture_mirror_clamp_to_edge GL_EXT_texture_norm16 GL_EXT_texture_rg GL_EXT_texture_sRGB_R8 GL_EXT_texture_sRGB_RG8 GL_EXT_texture_shadow_lod GL_EXT_texture_storage GL_IMG_texture_compression_pvrtc GL_KHR_debug GL_KHR_parallel_shader_compile GL_KHR_robustness GL_KHR_texture_compression_astc_hdr GL_KHR_texture_compression_astc_ldr GL_KHR_texture_compression_astc_sliced_3d GL_MESA_framebuffer_flip_y GL_NV_fence GL_NV_framebuffer_blit GL_NV_pixel_buffer_object GL_NV_shader_noperspective_interpolation GL_OES_EGL_image GL_OES_EGL_sync GL_OES_compressed_ETC1_RGB8_texture GL_OES_depth24 GL_OES_depth32 GL_OES_depth_texture GL_OES_draw_buffers_indexed GL_OES_draw_elements_base_vertex GL_OES_element_index_uint GL_OES_fbo_render_mipmap GL_OES_get_program_binary GL_OES_mapbuffer GL_OES_packed_depth_stencil GL_OES_required_internalformat GL_OES_rgb8_rgba8 GL_OES_sample_variables GL_OES_shader_multisample_interpolation GL_OES_standard_derivatives GL_OES_surfaceless_context GL_OES_texture_3D GL_OES_texture_float GL_OES_texture_float_linear GL_OES_texture_half_float GL_OES_texture_half_float_linear GL_OES_texture_npot GL_OES_texture_stencil8 GL_OES_vertex_array_object GL_QCOM_render_shared_exponent ",
+      "glImplementationParts": "(gl=egl-angle,angle=metal)",
+      "glRenderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Version 27.2 (Build 26B123))",
+      "glResetNotificationStrategy": 33362,
+      "glVendor": "Google Inc. (Apple)",
+      "glVersion": "OpenGL ES 3.0 (ANGLE 2.1.28975 git hash: 127e783de334)",
+      "glWsExtensions": "",
+      "glWsVendor": "",
+      "glWsVersion": "",
+      "inProcessGpu": false,
+      "initializationTime": 0.201742,
+      "isAsan": false,
+      "isClangCoverage": false,
+      "jpegDecodeAcceleratorSupported": false,
+      "maxMsaaSamples": "4",
+      "optimus": false,
+      "passthroughCmdDecoder": true,
+      "pixelShaderVersion": "3.00",
+      "processCrashCount": 0,
+      "sandboxed": true,
+      "skiaBackendType": "GraphiteDawnMetal",
+      "subpixelFontRendering": true,
+      "targetCpuBits": 64,
+      "vertexShaderVersion": "3.00",
+      "visibilityCallbackCallCount": 0
+    },
+    "featureStatus": {
+      "2d_canvas": "enabled",
+      "direct_rendering_display_compositor": "disabled_off_ok",
+      "gpu_compositing": "enabled",
+      "multiple_raster_threads": "enabled_on",
+      "opengl": "enabled_on",
+      "rasterization": "enabled",
+      "raw_draw": "disabled_off_ok",
+      "skia_graphite": "enabled_on",
+      "trees_in_viz": "disabled_off",
+      "video_decode": "enabled",
+      "video_encode": "enabled",
+      "webgl": "enabled",
+      "webgpu": "enabled",
+      "webnn": "disabled_off"
+    }
+  },
+  "elapsedMs": 85324,
+  "finishedAt": "2026-10-30T08:43:37.764Z"
+}

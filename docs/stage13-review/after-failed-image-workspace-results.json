@@ -1,0 +1,31 @@
+{
+  "phase": "after",
+  "startedAt": "2026-10-30T13:26:53.711Z",
+  "buildId": "YhpR266_Aktf2u8bfBJ7N",
+  "browser": "Chrome/156.0.8078.76",
+  "host": {
+    "model": "MacBookAir10,1",
+    "chip": "Apple M1",
+    "ramGiB": 8,
+    "os": "macOS 27.2",
+    "darwin": "27.2.0",
+    "arch": "arm64"
+  },
+  "viewport": {
+    "width": 1440,
+    "height": 1000,
+    "dpr": 1
+  },
+  "conditions": "Production localhost; isolated headless Chrome with ANGLE Metal. CDP wheel/touch/keyboard and controlled visibility/playback fixtures are not physical hardware coverage. rAF/Event Timing are local probes, not field INP or presented FPS.",
+  "scenarios": [
+    {
+      "name": "failed-image-and-video-recovery",
+      "failedImage": "That image couldn’t be opened. Try another workspace or retry.",
+      "failedVideo": "Motion couldn’t start. Retry, or pause motion to explore the still images.",
+      "status": "PASS",
+      "elapsedMs": 4842
+    }
+  ],
+  "elapsedMs": 5048,
+  "finishedAt": "2026-10-30T13:26:58.759Z"
+}

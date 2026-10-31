@@ -1,0 +1,83 @@
+{
+  "phase": "format",
+  "browser": "Chrome/156.0.8078.48",
+  "viewport": {
+    "width": 1440,
+    "height": 1000
+  },
+  "scenarios": [
+    {
+      "name": "new-note-heading-body-changes",
+      "bodyBeforeTyping": {
+        "html": "<p>First line in body</p>",
+        "text": "First line in body",
+        "tag": "P",
+        "size": 16.64,
+        "bodySize": 16,
+        "headingPressed": "false",
+        "block": "p"
+      },
+      "headingAfterTyping": {
+        "html": "<h1>First line in body</h1>",
+        "text": "First line in body",
+        "tag": "H1",
+        "size": 36,
+        "bodySize": 16,
+        "headingPressed": "true",
+        "block": "h1"
+      },
+      "bodyAfterHeading": {
+        "html": "<p>First line in body</p>",
+        "text": "First line in body",
+        "tag": "P",
+        "size": 16.64,
+        "bodySize": 16,
+        "headingPressed": "false",
+        "block": "p"
+      },
+      "headingBeforeTyping": {
+        "html": "<h1>Heading from an empty note</h1>",
+        "text": "Heading from an empty note",
+        "tag": "H1",
+        "size": 36,
+        "bodySize": 16,
+        "headingPressed": "true",
+        "block": "h1"
+      },
+      "bodyAfterTyping": {
+        "html": "<p>Heading from an empty note continued</p>",
+        "text": "Heading from an empty note continued",
+        "tag": "P",
+        "size": 16.64,
+        "bodySize": 16,
+        "headingPressed": "false",
+        "block": "p"
+      },
+      "emptyHeadingToBody": {
+        "html": "<p>Body chosen before the first character</p>",
+        "text": "Body chosen before the first character",
+        "tag": "P",
+        "size": 16.64,
+        "bodySize": 16,
+        "headingPressed": "false",
+        "block": "p"
+      },
+      "defaultBody": {
+        "html": "Default new note body",
+        "text": "Default new note body",
+        "tag": "DIV",
+        "size": 16,
+        "bodySize": 16,
+        "headingPressed": "false",
+        "block": ""
+      },
+      "status": "FAIL",
+      "error": "AssertionError [ERR_ASSERTION]: Body first line uses the actual body size\n\n16.64 !== 16\n\n    at file:///Users/Om/Om%20Main%20Portfolio/tests/notes.browser.mjs:131:10\n    at async scenario (file:///Users/Om/Om%20Main%20Portfolio/tests/notes.browser.mjs:58:176)\n    at async file:///Users/Om/Om%20Main%20Portfolio/tests/notes.browser.mjs:100:1",
+      "dom": {
+        "notes": "Notes\nOn My Mac\nDefault new note body\n\nNo additional text\n\nPrevious heading\n\nNo additional text\n\nBody chosen before the first character\n\nNo additional text\n\nHeading from an empty note continued\n\nNo additional text\n\nFirst line in body\n\nNo additional text\n\nDeveloper Log\n\nLong before code, I built Lego robots and marvelled at Halo’s Spartan armor. That curiosity grew into a fascination with technology that extends what people can do. I’m Om Sawkare, a final-year student at VIT, working across computer vision, AI workflows, and backend development. My main focus is Veyra, a website investigation tool I’m building to turn page evidence into clear, useful reports. I want people to understand what needs attention, why it matters, and what the tool could actually verify. My Adobe hackathon brand-audit project explores how websites communicate with people and AI systems. Four analyzers share a crawl to produce a report with evidence and practical recommendations. Our team reached the top 45 among roughly 100,000 teams. White Box Detection gave me experience with YOLOv8 and OpenCV; my TigerGraph and FastAPI work strengthened my approach to evidence, data, and backend design. The building blocks have changed, but the goal hasn’t: make technology useful in someone’s everyday life.\n\nH\nBody\n29 October 2026 at 10:40\nDefault new note body",
+        "editor": "Default new note body"
+      },
+      "elapsedMs": 7616
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "phase": "after",
+  "browser": "Chrome/156.0.8078.48",
+  "viewport": {
+    "width": 1440,
+    "height": 1000
+  },
+  "checks": [
+    "Projects opens real portfolio files in the icon grid; Bin shows its working empty state"
+  ],
+  "destinationNav": {
+    "projects": {
+      "layout": "grid",
+      "items": [
+        {
+          "label": "Open Edge AI Hardware State Detection System",
+          "width": 108
+        },
+        {
+          "label": "Open Cloud-Native Asset Management API",
+          "width": 108
+        },
+        {
+          "label": "Open 3D macOS Web Portfolio",
+          "width": 108
+        }
+      ],
+      "status": "3 items"
+    },
+    "bin": {
+      "message": "The Bin is emptyItems you move to the Bin appear here.",
+      "emptyDisabled": true,
+      "status": "0 items"
+    }
+  }
+}

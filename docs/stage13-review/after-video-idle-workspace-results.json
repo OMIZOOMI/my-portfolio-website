@@ -1,0 +1,230 @@
+{
+  "phase": "after",
+  "startedAt": "2026-10-30T14:24:54.030Z",
+  "buildId": "KxiCD18wWgf5YdBASmnGe",
+  "browser": "Chrome/156.0.8078.76",
+  "host": {
+    "model": "MacBookAir10,1",
+    "chip": "Apple M1",
+    "ramGiB": 8,
+    "os": "macOS 27.2",
+    "darwin": "27.2.0",
+    "arch": "arm64"
+  },
+  "viewport": {
+    "width": 1440,
+    "height": 1000,
+    "dpr": 1
+  },
+  "conditions": "Production localhost; isolated headless Chrome with ANGLE Metal. CDP wheel/touch/keyboard and controlled visibility/playback fixtures are not physical hardware coverage. rAF/Event Timing are local probes, not field INP or presented FPS.",
+  "scenarios": [
+    {
+      "name": "video-idle-and-travel-frame-observations",
+      "beach": {
+        "label": "Beach video + 3D idle",
+        "durationMs": 8008.699999999255,
+        "wallMs": 8009,
+        "frames": {
+          "n": 480,
+          "p50": 16.69999999999891,
+          "p95": 16.799999999999272,
+          "p99": 16.80000000000109,
+          "max": 33.399999999999636,
+          "over16_7": 147,
+          "over33_4": 0
+        },
+        "longTasks": [],
+        "eventTiming": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "over16_7": 0,
+          "over33_4": 0
+        },
+        "inputDelay": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "over16_7": 0,
+          "over33_4": 0
+        },
+        "pointerToNextRAF": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "over16_7": 0,
+          "over33_4": 0
+        },
+        "inference": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "over16_7": 0,
+          "over33_4": 0
+        },
+        "mainThreadBusyPercent": 12.716670620701175,
+        "attachedCanvasClearsPerSecond": 119.86964176459217,
+        "drawCallsPerSecond": 2697.066939703324,
+        "pendingRaf": 1,
+        "pendingVideoCallbacks": 0,
+        "jsHeap": 17911432,
+        "dom": {
+          "documents": 1,
+          "nodes": 334,
+          "jsEventListeners": 586
+        }
+      },
+      "forest": {
+        "label": "Forest video + 3D idle",
+        "durationMs": 8009.400000002235,
+        "wallMs": 8015,
+        "frames": {
+          "n": 481,
+          "p50": 16.69999999999891,
+          "p95": 16.799999999999272,
+          "p99": 16.80000000000291,
+          "max": 16.80000000000291,
+          "over16_7": 218,
+          "over33_4": 0
+        },
+        "longTasks": [],
+        "eventTiming": {
+          "n": 11,
+          "p50": 48,
+          "p95": 48,
+          "p99": 48,
+          "max": 48,
+          "over16_7": 11,
+          "over33_4": 11
+        },
+        "inputDelay": {
+          "n": 11,
+          "p50": 0.7000000029802322,
+          "p95": 0.7000000029802322,
+          "p99": 0.7000000029802322,
+          "max": 0.7000000029802322,
+          "over16_7": 0,
+          "over33_4": 0
+        },
+        "pointerToNextRAF": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "over16_7": 0,
+          "over33_4": 0
+        },
+        "inference": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "over16_7": 0,
+          "over33_4": 0
+        },
+        "mainThreadBusyPercent": 10.55437361100412,
+        "attachedCanvasClearsPerSecond": 120.10887207527799,
+        "drawCallsPerSecond": 2702.4496216937546,
+        "pendingRaf": 1,
+        "pendingVideoCallbacks": 0,
+        "jsHeap": 19996204,
+        "dom": {
+          "documents": 1,
+          "nodes": 606,
+          "jsEventListeners": 690
+        }
+      },
+      "travel": {
+        "label": "six prepared location changes",
+        "durationMs": 6096.099999997765,
+        "wallMs": 6101,
+        "frames": {
+          "n": 366,
+          "p50": 16.69999999999709,
+          "p95": 16.799999999999272,
+          "p99": 16.799999999999272,
+          "max": 16.80000000000291,
+          "over16_7": 173,
+          "over33_4": 0
+        },
+        "longTasks": [],
+        "eventTiming": {
+          "n": 113,
+          "p50": 64,
+          "p95": 64,
+          "p99": 64,
+          "max": 64,
+          "over16_7": 113,
+          "over33_4": 113
+        },
+        "inputDelay": {
+          "n": 113,
+          "p50": 6.799999997019768,
+          "p95": 16.899999998509884,
+          "p99": 16.899999998509884,
+          "max": 16.899999998509884,
+          "over16_7": 9,
+          "over33_4": 0
+        },
+        "pointerToNextRAF": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "over16_7": 0,
+          "over33_4": 0
+        },
+        "inference": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "over16_7": 0,
+          "over33_4": 0
+        },
+        "mainThreadBusyPercent": 13.341677465925724,
+        "attachedCanvasClearsPerSecond": 120.07677039423048,
+        "drawCallsPerSecond": 2701.7273338701857,
+        "pendingRaf": 1,
+        "pendingVideoCallbacks": 1,
+        "jsHeap": 15788992,
+        "dom": {
+          "documents": 1,
+          "nodes": 1544,
+          "jsEventListeners": 1103
+        }
+      },
+      "resources": {
+        "layers": 1,
+        "videos": [
+          {
+            "id": "forest",
+            "paused": false,
+            "src": "/workspaces/forest.mp4",
+            "time": 0.0586,
+            "ready": 4
+          }
+        ],
+        "canvases": 1,
+        "pendingRaf": 1,
+        "pendingVideo": 1
+      },
+      "status": "PASS",
+      "elapsedMs": 28027
+    }
+  ],
+  "elapsedMs": 28474,
+  "finishedAt": "2026-10-30T14:25:22.504Z"
+}

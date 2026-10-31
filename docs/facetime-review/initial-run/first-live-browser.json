@@ -1,0 +1,57 @@
+{
+  "browser": "Chrome/156.0.8078.48",
+  "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36",
+  "os": "darwin 25.6.0 arm64",
+  "macOS": "26.6.1",
+  "device": "MacBookAir10,1\nApple M1",
+  "environment": "Isolated headless Chromium on the OS above. Canvas MediaStream and synthetic permission/playback failures. No physical camera or native permission-prompt evidence; this run does not establish parity with an untested OS/browser.",
+  "scenarios": [
+    {
+      "name": "native-video-model-no-hand-camera-toggle-and-single-instance",
+      "fixture": {},
+      "status": "FAIL",
+      "error": "Error: Timed out: portfolio entry: false\n    at until (file:///Users/Om/Om%20Main%20Portfolio/tests/facetime.browser.mjs:49:9)\n    at async Object.boot (file:///Users/Om/Om%20Main%20Portfolio/tests/facetime.browser.mjs:150:7)\n    at async scenario (file:///Users/Om/Om%20Main%20Portfolio/tests/facetime.browser.mjs:218:5)\n    at async file:///Users/Om/Om%20Main%20Portfolio/tests/facetime.browser.mjs:230:1",
+      "dom": {
+        "media": {
+          "calls": [],
+          "stops": 0,
+          "pending": 0,
+          "liveTracks": 0,
+          "trackStates": [],
+          "events": []
+        }
+      },
+      "elapsedMs": 46002
+    }
+  ],
+  "gpu": {
+    "devices": [
+      {
+        "vendorId": 4203,
+        "deviceId": 0,
+        "vendorString": "Google Inc. (Apple)",
+        "deviceString": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Version 26.6.1 (Build 25G76))",
+        "driverVendor": "Apple",
+        "driverVersion": "26.6.1"
+      }
+    ],
+    "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Version 26.6.1 (Build 25G76))",
+    "vendor": "Google Inc. (Apple)",
+    "featureStatus": {
+      "2d_canvas": "enabled",
+      "direct_rendering_display_compositor": "disabled_off_ok",
+      "gpu_compositing": "enabled",
+      "multiple_raster_threads": "enabled_on",
+      "opengl": "enabled_on",
+      "rasterization": "enabled",
+      "raw_draw": "disabled_off_ok",
+      "skia_graphite": "enabled_on",
+      "trees_in_viz": "disabled_off",
+      "video_decode": "enabled",
+      "video_encode": "enabled",
+      "webgl": "enabled",
+      "webgpu": "enabled",
+      "webnn": "disabled_off"
+    }
+  }
+}

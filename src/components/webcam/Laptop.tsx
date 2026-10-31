@@ -5,6 +5,7 @@ import { useFrame } from "@react-three/fiber";
 import { Html } from "@react-three/drei";
 import type { ScenePhase } from "./MacBookScene";
 import { Model as MacbookModel } from './Macbook';
+import styles from "./Laptop.module.css";
 
 // Import our store to trigger the lock
 import { useWindowStore } from "../window-manager/useWindowStore";
@@ -25,11 +26,13 @@ export const SCREEN_CENTER_WORLD_Y = 1.0;
 
 interface LaptopProps {
   phase: ScenePhase;
+  reduceMotion?: boolean;
   onOpened?: () => void;
+  onModelReady?: () => void;
   children?: ReactNode;
 }
 
-export function Laptop({ phase, onOpened, children }: LaptopProps) {
+export function Laptop({ phase, reduceMotion = false, onOpened, onModelReady, children }: LaptopProps) {
   const hasFiredOpened = useRef(false);
   const setVMLocked = useWindowStore((s) => s.setVMLocked);
 
@@ -48,22 +51,24 @@ export function Laptop({ phase, onOpened, children }: LaptopProps) {
     <group position={[0, 0, 0]} scale={[6.9, 6.9, 6.9]}>
       
       <group>
-        <MacbookModel rotation={[Math.PI, 0, 0]} />
+        <MacbookModel rotation={[Math.PI, 0, 0]} onReady={onModelReady} reduceMotion={reduceMotion} />
       </group>
 
       <group position={[0.0002, 0.09, -0.19]} rotation={[-0.355, 0, 0]}>
         <Html
           transform
+          wrapperClass={styles.screenPortal}
           scale={SCREEN_SCALE * 7.28}
           style={{
             width: SCREEN_PIXEL_WIDTH,
             height: SCREEN_PIXEL_HEIGHT,
-            overflow: "hidden",
+            overflow: "clip",
             borderRadius: "16px",
           }}
         >
           {/* FIX: Capture all clicks inside the screen to trigger the VM Lock! */}
           <div 
+            data-desktop-projection
             onPointerDownCapture={() => setVMLocked(true)}
             style={{ width: SCREEN_PIXEL_WIDTH, height: SCREEN_PIXEL_HEIGHT}}
           >

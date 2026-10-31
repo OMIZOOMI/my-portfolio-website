@@ -1,0 +1,96 @@
+{
+  "phase": "after",
+  "startedAt": "2026-10-30T13:28:45.581Z",
+  "buildId": "YhpR266_Aktf2u8bfBJ7N",
+  "browser": "Chrome/156.0.8078.76",
+  "host": {
+    "model": "MacBookAir10,1",
+    "chip": "Apple M1",
+    "ramGiB": 8,
+    "os": "macOS 27.2",
+    "darwin": "27.2.0",
+    "arch": "arm64"
+  },
+  "viewport": {
+    "width": 1440,
+    "height": 1000,
+    "dpr": 1
+  },
+  "conditions": "Production localhost; isolated headless Chrome with ANGLE Metal. CDP wheel/touch/keyboard and controlled visibility/playback fixtures are not physical hardware coverage. rAF/Event Timing are local probes, not field INP or presented FPS.",
+  "scenarios": [
+    {
+      "name": "eight-switch-cycles-and-retired-media-cleanup",
+      "samples": [
+        {
+          "cycle": 1,
+          "heapBytes": 11695360,
+          "documents": 1,
+          "nodes": 256,
+          "jsEventListeners": 574,
+          "layers": 1,
+          "videos": [],
+          "canvases": 1,
+          "pendingRaf": 1,
+          "pendingVideo": 0,
+          "retired": []
+        },
+        {
+          "cycle": 2,
+          "heapBytes": 11792628,
+          "documents": 1,
+          "nodes": 256,
+          "jsEventListeners": 574,
+          "layers": 1,
+          "videos": [],
+          "canvases": 1,
+          "pendingRaf": 1,
+          "pendingVideo": 0,
+          "retired": []
+        },
+        {
+          "cycle": 4,
+          "heapBytes": 11947964,
+          "documents": 1,
+          "nodes": 256,
+          "jsEventListeners": 574,
+          "layers": 1,
+          "videos": [],
+          "canvases": 1,
+          "pendingRaf": 1,
+          "pendingVideo": 0,
+          "retired": []
+        },
+        {
+          "cycle": 6,
+          "heapBytes": 11979136,
+          "documents": 1,
+          "nodes": 256,
+          "jsEventListeners": 574,
+          "layers": 1,
+          "videos": [],
+          "canvases": 1,
+          "pendingRaf": 1,
+          "pendingVideo": 0,
+          "retired": []
+        },
+        {
+          "cycle": 8,
+          "heapBytes": 12013688,
+          "documents": 1,
+          "nodes": 256,
+          "jsEventListeners": 574,
+          "layers": 1,
+          "videos": [],
+          "canvases": 1,
+          "pendingRaf": 1,
+          "pendingVideo": 0,
+          "retired": []
+        }
+      ],
+      "status": "PASS",
+      "elapsedMs": 27264
+    }
+  ],
+  "elapsedMs": 27455,
+  "finishedAt": "2026-10-30T13:29:13.036Z"
+}

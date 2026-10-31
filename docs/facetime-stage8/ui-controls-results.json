@@ -1,0 +1,231 @@
+{
+  "testedAt": "2026-10-29T10:26:23.135Z",
+  "site": "http://127.0.0.1:3001",
+  "buildId": "4j8pmUttSV0UBeCCZJ5LU",
+  "browser": "Chrome/156.0.8078.48",
+  "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36",
+  "os": "darwin 25.6.0 arm64",
+  "macOS": "26.6.1",
+  "device": "MacBookAir10,1\nApple M1",
+  "environment": "Isolated headless Chromium on the OS above. Canvas MediaStream and synthetic permission/playback failures. No physical camera or native permission-prompt evidence; this run does not establish parity with an untested OS/browser.",
+  "scenarios": [
+    {
+      "name": "discoverable-controls-narrow-touch-keyboard-and-reduced-motion",
+      "fixture": {},
+      "layouts": [
+        {
+          "width": 640,
+          "height": 440,
+          "overflow": false,
+          "previewHeight": 190.48448181152344,
+          "buttons": [
+            {
+              "label": "Turn camera off",
+              "width": 146,
+              "height": 44,
+              "visible": true
+            },
+            {
+              "label": "Turn effects off",
+              "width": 146,
+              "height": 44,
+              "visible": true
+            },
+            {
+              "label": "Reduced motion",
+              "width": 146,
+              "height": 44,
+              "visible": true
+            },
+            {
+              "label": "Gesture help",
+              "width": 146,
+              "height": 44,
+              "visible": true
+            }
+          ]
+        },
+        {
+          "width": 420,
+          "height": 440,
+          "overflow": false,
+          "previewHeight": 137.69154357910156,
+          "buttons": [
+            {
+              "label": "Turn camera off",
+              "width": 194,
+              "height": 44,
+              "visible": true
+            },
+            {
+              "label": "Turn effects off",
+              "width": 194,
+              "height": 44,
+              "visible": true
+            },
+            {
+              "label": "Reduced motion",
+              "width": 194,
+              "height": 44,
+              "visible": true
+            },
+            {
+              "label": "Gesture help",
+              "width": 194,
+              "height": 44,
+              "visible": true
+            }
+          ]
+        },
+        {
+          "width": 320,
+          "height": 380,
+          "overflow": false,
+          "previewHeight": 99.75050354003906,
+          "buttons": [
+            {
+              "label": "Turn camera off",
+              "width": 144,
+              "height": 44,
+              "visible": true
+            },
+            {
+              "label": "Turn effects off",
+              "width": 144,
+              "height": 44,
+              "visible": true
+            },
+            {
+              "label": "Reduced motion",
+              "width": 144,
+              "height": 44,
+              "visible": true
+            },
+            {
+              "label": "Gesture help",
+              "width": 144,
+              "height": 44,
+              "visible": true
+            }
+          ]
+        },
+        {
+          "width": 360,
+          "height": 300,
+          "overflow": false,
+          "previewHeight": 82.19790649414062,
+          "buttons": [
+            {
+              "label": "Turn camera off",
+              "width": 164,
+              "height": 40,
+              "visible": true
+            },
+            {
+              "label": "Turn effects off",
+              "width": 164,
+              "height": 40,
+              "visible": true
+            },
+            {
+              "label": "Reduced motion",
+              "width": 164,
+              "height": 40,
+              "visible": true
+            },
+            {
+              "label": "Gesture help",
+              "width": 164,
+              "height": 40,
+              "visible": true
+            }
+          ]
+        }
+      ],
+      "focusOutline": "2px",
+      "status": "PASS",
+      "runtimeErrors": [],
+      "elapsedMs": 11674
+    },
+    {
+      "name": "repeated-effects-reopen-and-retained-resources",
+      "fixture": {},
+      "resources": [
+        {
+          "cycle": 0,
+          "documents": 1,
+          "nodes": 438,
+          "jsEventListeners": 581,
+          "heapUsed": 12791308,
+          "apps": 0,
+          "effects": 0,
+          "liveTracks": 0,
+          "nonzeroGestureCanvases": 0
+        },
+        {
+          "cycle": 5,
+          "documents": 1,
+          "nodes": 410,
+          "jsEventListeners": 588,
+          "heapUsed": 13227540,
+          "apps": 0,
+          "effects": 0,
+          "liveTracks": 0,
+          "nonzeroGestureCanvases": 0
+        },
+        {
+          "cycle": 10,
+          "documents": 1,
+          "nodes": 415,
+          "jsEventListeners": 598,
+          "heapUsed": 13436960,
+          "apps": 0,
+          "effects": 0,
+          "liveTracks": 0,
+          "nonzeroGestureCanvases": 0
+        }
+      ],
+      "status": "PASS",
+      "runtimeErrors": [],
+      "elapsedMs": 28081
+    },
+    {
+      "name": "video-frame-callback-unavailable-still-recognizes-with-cleanup",
+      "fixture": {},
+      "fallback": "New-currentTime RAF fallback, actual model and thumb-up photo fixture",
+      "status": "PASS",
+      "runtimeErrors": [],
+      "elapsedMs": 5169
+    }
+  ],
+  "gpu": {
+    "devices": [
+      {
+        "vendorId": 4203,
+        "deviceId": 0,
+        "vendorString": "Google Inc. (Apple)",
+        "deviceString": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Version 26.6.1 (Build 25G76))",
+        "driverVendor": "Apple",
+        "driverVersion": "26.6.1"
+      }
+    ],
+    "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Version 26.6.1 (Build 25G76))",
+    "vendor": "Google Inc. (Apple)",
+    "featureStatus": {
+      "2d_canvas": "enabled",
+      "direct_rendering_display_compositor": "disabled_off_ok",
+      "gpu_compositing": "enabled",
+      "multiple_raster_threads": "enabled_on",
+      "opengl": "enabled_on",
+      "rasterization": "enabled",
+      "raw_draw": "disabled_off_ok",
+      "skia_graphite": "enabled_on",
+      "trees_in_viz": "disabled_off",
+      "video_decode": "enabled",
+      "video_encode": "enabled",
+      "webgl": "enabled",
+      "webgpu": "enabled",
+      "webnn": "disabled_off"
+    }
+  }
+}

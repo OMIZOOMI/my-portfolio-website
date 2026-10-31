@@ -1,0 +1,67 @@
+.app { container: music / inline-size; min-width: 0; }
+.sidebar { min-height: 0; overflow-y: auto; }
+.nowPlaying { display: flex; }
+.transport { flex-shrink: 0; }
+.volume { min-width: 0; }
+.volume input { min-width: 0; }
+.sidebar button { line-height: 1.45; min-height: 38px; transition-duration: 100ms; }
+.featureGrid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 18px 14px; }
+.featureCard { min-width: 0; text-align: left; border-radius: 9px; }
+.featureCard > strong { display: block; margin-top: 8px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 13px; line-height: 1.4; }
+.featureCard > span:not(.featureArt), .featureCard > small { display: block; color: #7b7b82; font-size: 11px; line-height: 1.5; }
+.featureCard > small { font-size: 10px; }
+.featureArt { position: relative; display: flex; align-items: center; justify-content: center; height: 108px; overflow: hidden; border-radius: 9px; color: #fff; box-shadow: 0 4px 12px #00000015; }
+.record { position: absolute; width: 128px; height: 128px; right: -20px; bottom: -43px; border: 1px solid #ffffff35; border-radius: 50%; box-shadow: 0 0 0 15px #ffffff0a, 0 0 0 32px #ffffff09; }
+.pickNumber { position: absolute; left: 11px; top: 8px; font-size: 10px; letter-spacing: .08em; color: #ffffffbf; }
+.artPlay { position: absolute; right: 10px; bottom: 10px; display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; background: #ffffff30; transition: background-color 100ms ease; }
+.featureCard:hover .artPlay, .featureCard[aria-current] .artPlay { background: #ffffff70; }
+.featureCard[aria-current] .featureArt { outline: 2px solid var(--system-accent); outline-offset: 2px; }
+.moodHeading { margin: 26px 0 12px; font-size: 15px; font-weight: 650; letter-spacing: -.02em; }
+.moodGrid { display: grid; gap: 8px; }
+.moodGrid button { display: flex; justify-content: space-between; align-items: center; gap: 8px; padding: 12px; border: 1px solid #8882; border-left-width: 3px; border-radius: 7px; text-align: left; background: #88888808; }
+.moodGrid button:hover { background: #88888816; }
+.moodGrid strong, .moodGrid small { display: block; font-size: 12px; }
+.moodGrid small { margin-top: 3px; color: #85858b; font-size: 10px; }
+.search { display: flex; gap: 9px; align-items: center; margin: 0 0 18px; padding: 9px 12px; border: 1px solid #8883; border-radius: 8px; background: #8888880c; color: #888; }
+.search:focus-within { outline: 2px solid var(--system-accent); outline-offset: 1px; }
+.search input { width: 100%; min-width: 0; outline: none; background: transparent; color: inherit; font-size: 12px; }
+.search input:focus { color: var(--system-accent); }
+.search span { flex-shrink: 0; font-size: 10px; }
+.collectionCount { margin: 0 0 16px; color: #85858b; font-size: 11px; }
+.emptySearch { display: grid; justify-items: center; gap: 12px; padding: 28px 10px; font-size: 12px; color: #85858b; text-align: center; }
+.emptySearch button { min-height: 38px; color: var(--system-accent); }
+@container music (min-width: 950px) { .featureGrid { grid-template-columns: repeat(4,minmax(0,1fr)); } .featureArt { height: 145px; } .moodGrid { grid-template-columns: repeat(3,minmax(0,1fr)); } }
+@container music (max-width: 480px) { .trackRow { grid-template-columns: 1.2rem minmax(0,1fr) 3rem; gap: 7px; padding-inline: 5px; } .trackRow > :nth-child(3) { display: none; } .featureArt { height: 86px; } .featureGrid { gap: 12px 9px; } }
+
+@container music (max-width: 700px) {
+  .nowPlaying { display: none; }
+}
+@container music (max-width: 600px) {
+  .app .sidebar { width: 112px; padding: 12px 6px; }
+  .sidebar button { padding-inline: 8px; }
+  .sidebar > div:last-child { padding: 8px; font-size: 10px; }
+  .app .header, .app .library, .app .player { padding-inline: 12px; }
+  .playbackBar { flex-wrap: wrap; justify-content: center; gap: 10px; }
+  .app .volume { flex: 1 1 100%; justify-content: center; }
+  .app .volume input { width: min(160px, calc(100% - 24px)); }
+}
+@container music (max-width: 440px) {
+  .app .sidebar { width: 96px; }
+  .app .header { gap: 10px; }
+  .app .artwork { width: 40px; height: 40px; }
+  .app .transport { gap: 8px; }
+}
+@container music (max-width: 340px) {
+  .app .sidebar { width: 80px; }
+  .sidebar button { padding-inline: 4px; }
+  .app .transport { gap: 5px; }
+  .app .header, .app .library, .app .player { padding-inline: 8px; }
+}
+
+.app button:focus-visible { outline: 2px solid var(--system-accent); outline-offset: 2px; }
+.app[data-reduced-motion], .app[data-reduced-motion] * { transition: none; animation: none; }
+.app[data-reduced-motion] .playButton { transform: none; scale: none; }
+@media (prefers-reduced-motion: reduce) {
+  .app, .app * { transition: none; animation: none; }
+  .playButton { transform: none; scale: none; }
+}

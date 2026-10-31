@@ -1,0 +1,12 @@
+FAIL cold-and-warm-handoff: Timed out waiting for loader removal and desktop; last value: false
+{"url":"http://127.0.0.1:3013/","overlay":"HelloNamasteLoading Om’s portfolioOpening your workspace…","windows":[]}
+PASS reduced-motion (1.8s)
+FAIL model-failure-and-retry: Timed out waiting for loader removal and desktop; last value: false
+{"url":"http://127.0.0.1:3013/","overlay":"HelloNamasteLoading Om’s portfolioOpening your workspace…","windows":[]}
+FAIL lighting-failure-and-retry: Timed out waiting for loader removal and desktop; last value: false
+{"url":"http://127.0.0.1:3013/","overlay":"HelloNamasteLoading Om’s portfolioOpening your workspace…","windows":[]}
+FAIL wallpaper-failure-fallback: Timed out waiting for loader removal and desktop; last value: false
+{"url":"http://127.0.0.1:3013/","overlay":"HelloNamasteLoading Om’s portfolioOpening your workspace…","windows":[]}
+PASS unavailable-webgl-flat-desktop (6.4s)
+FAIL context-loss-and-retry: Timed out waiting for loader removal and desktop; last value: false
+{"url":"http://127.0.0.1:3013/","overlay":"HelloNamasteLoading Om’s portfolioOpening your workspace…","windows":[]}

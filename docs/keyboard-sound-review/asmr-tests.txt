@@ -1,0 +1,24 @@
+✔ recorded keyboard tap is short, quiet, varied and ends at zero (4.5995ms)
+✔ sound starts lazily, caps voices, reuses buffers and releases its context (0.664709ms)
+✔ a closed sound engine ignores late unlock; unavailable audio never breaks typing (0.189125ms)
+✔ release never initializes audio and both phases share the same bounded engine (0.866709ms)
+✔ all recorded Cream samples match their inline PCM, source manifest and accompanying license (6.604834ms)
+✔ keyboard sound defaults on and remembers only its own preference (11.63925ms)
+✔ rapid note creation produces distinct IDs and deletion of another note keeps the active editor (0.316167ms)
+✔ deleting an edited note and undo restores exact rich text and stable identity once (0.159167ms)
+✔ the last note can be deleted, undone, or replaced with a new blank note (0.117917ms)
+✔ nine complete tracks, three per mood, distinct top four and searchable Browse (0.334708ms)
+✔ served audio matches the duration/source/license manifest and measured file sizes (39.572875ms)
+✔ each physical key press sounds once, including modifiers and shortcut letters (43.783ms)
+✔ held-key repeats, synthetic events, hidden pages and non-model keys remain quiet (7.498417ms)
+✔ switching off releases sound/listeners; reopening installs only one listener (5.7745ms)
+✔ a quiet release follows only a real held key; repeated downs and stray ups do not double clicks (5.072958ms)
+✔ blur, hide and missing macOS Command keyups cannot leave a key stuck or play late returns (5.142667ms)
+ℹ tests 16
+ℹ suites 0
+ℹ pass 16
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 441.468625

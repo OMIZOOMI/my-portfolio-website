@@ -1,0 +1,608 @@
+{
+  "phase": "after",
+  "explicitColdCache": false,
+  "startedAt": "2026-10-30T16:27:26.966Z",
+  "buildId": "OPA1yp5BSzLKTLQGwRNPk",
+  "browser": "Chrome/156.0.8078.76",
+  "host": {
+    "model": "MacBookAir10,1",
+    "chip": "Apple M1",
+    "ramGiB": 8,
+    "os": "macOS 27.2",
+    "darwin": "27.2.0",
+    "arch": "arm64"
+  },
+  "viewport": {
+    "width": 1440,
+    "height": 1000,
+    "dpr": 1
+  },
+  "conditions": "Production localhost; isolated headless Chrome with ANGLE Metal. CDP wheel/touch/keyboard and controlled visibility/playback fixtures are not physical hardware coverage. rAF/Event Timing are local probes, not field INP or presented FPS.",
+  "scenarios": [
+    {
+      "name": "corner-launcher-idle-hover-click-keyboard-and-touch",
+      "status": "FAIL",
+      "error": "AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:\n\n  assert.ok(rect.x>=0&&rect.x<=20&&rect.bottom<=20)\n\n    at scenario.workspace (file:///Users/Om/Om%20Main%20Portfolio/tests/workspaces.browser.mjs:168:9)\n    at async scenario (file:///Users/Om/Om%20Main%20Portfolio/tests/workspaces.browser.mjs:152:24)\n    at async file:///Users/Om/Om%20Main%20Portfolio/tests/workspaces.browser.mjs:164:1",
+      "screen": {
+        "workspace": "<div class=\"WorkspaceEnvironment-module__9kmDYW__backdrop\" aria-hidden=\"true\" data-workspace-environment=\"true\" data-workspace-current=\"chalk\" data-workspace-kind=\"color\" data-workspace-phase=\"idle\" data-workspace-motion=\"enabled\"><div class=\"WorkspaceEnvironment-module__9kmDYW__mediaLayer\" data-workspace-layer=\"chalk\" data-workspace-key=\"1\" data-workspace-role=\"active\" style=\"background-color: rgb(231, 228, 222);\"></div><div class=\"WorkspaceEnvironment-module__9kmDYW__vignette\"></div></div>",
+        "controls": "Workspace\nChalk"
+      },
+      "elapsedMs": 4664
+    },
+    {
+      "name": "horizontal-swipe-geometry-and-anchored-laptop",
+      "geometry": {
+        "frames": [
+          {
+            "time": 0,
+            "width": 1444,
+            "old": {
+              "x": 0,
+              "y": 0,
+              "sx": 1,
+              "sy": 1
+            },
+            "next": {
+              "x": 1444,
+              "y": 0,
+              "sx": 1,
+              "sy": 1
+            }
+          },
+          {
+            "time": 400,
+            "width": 1444,
+            "old": {
+              "x": -722,
+              "y": 0,
+              "sx": 1,
+              "sy": 1
+            },
+            "next": {
+              "x": 722,
+              "y": 0,
+              "sx": 1,
+              "sy": 1
+            }
+          },
+          {
+            "time": 700,
+            "width": 1444,
+            "old": {
+              "x": -1428.64,
+              "y": 0,
+              "sx": 1,
+              "sy": 1
+            },
+            "next": {
+              "x": 15.3636,
+              "y": 0,
+              "sx": 1,
+              "sy": 1
+            }
+          }
+        ],
+        "canvasUnchanged": true,
+        "desktopUnchanged": true,
+        "desktopDelta": 0.8657341003417969,
+        "horizontalStreaks": true
+      },
+      "status": "FAIL",
+      "error": "AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:\n\n  assert.ok(r.geometry.desktopDelta<.5)\n\n    at scenario.workspace (file:///Users/Om/Om%20Main%20Portfolio/tests/workspaces.browser.mjs:198:106)\n    at async scenario (file:///Users/Om/Om%20Main%20Portfolio/tests/workspaces.browser.mjs:152:24)\n    at async file:///Users/Om/Om%20Main%20Portfolio/tests/workspaces.browser.mjs:186:1",
+      "screen": {
+        "workspace": "<div class=\"WorkspaceEnvironment-module__9kmDYW__backdrop\" aria-hidden=\"true\" data-workspace-environment=\"true\" data-workspace-current=\"chalk\" data-workspace-kind=\"color\" data-workspace-phase=\"travelling\" data-workspace-motion=\"enabled\"><div class=\"WorkspaceEnvironment-module__9kmDYW__mediaLayer\" data-workspace-layer=\"chalk\" data-workspace-key=\"1\" data-workspace-role=\"active\" style=\"background-color: rgb(231, 228, 222);\"></div><div class=\"WorkspaceEnvironment-module__9kmDYW__mediaLayer\" data-workspace-layer=\"sage\" data-workspace-key=\"2\" data-workspace-role=\"incoming\" style=\"background-color: rgb(129, 146, 139);\"></div><svg class=\"WorkspaceEnvironment-module__9kmDYW__warp\" viewBox=\"0 0 1000 1000\" preserveAspectRatio=\"none\" data-workspace-warp=\"true\"><defs><linearGradient id=\"workspace-travel-light\" gradientUnits=\"userSpaceOnUse\" x1=\"0\" y1=\"0\" x2=\"1000\" y2=\"0\"><stop offset=\"0\" stop-color=\"#f4f0e6\" stop-opacity=\"0\"></stop><stop offset=\"0.65\" stop-color=\"#f4f0e6\" stop-opacity=\"0.6\"></stop>",
+        "controls": "Workspace\nChalk\nYour workspace\n\nLive views, stills, and quiet colors.\n\nLive views\nBeach\nForest\nStill images\nStudio\nPaper\nSlate\nSolid colors\nInk\nGraphite\nChalk\nStone\nSage\nMist\nPause motion\n\nTravelling to Sage…\n\nBackground credits"
+      },
+      "elapsedMs": 4567
+    },
+    {
+      "name": "entry-assets-and-laptop-continuity",
+      "entry": {
+        "startupReady": 1742.9,
+        "resources": [
+          {
+            "url": "http://127.0.0.1:3012/workspaces/beach-hd.webp",
+            "start": 158.80000000074506,
+            "duration": 3.5,
+            "encoded": 833548
+          }
+        ]
+      },
+      "renderer": {
+        "alpha": true,
+        "background": {
+          "0": 0,
+          "1": 0,
+          "2": 0,
+          "3": 0
+        }
+      },
+      "wallpaper": "/wallpapers/coast-dark.webp",
+      "preference": {
+        "version": 1,
+        "state": {
+          "environment": "studio"
+        }
+      },
+      "reloadResources": [
+        "http://127.0.0.1:3012/workspaces/studio.png"
+      ],
+      "status": "PASS",
+      "elapsedMs": 10373
+    },
+    {
+      "name": "all-backgrounds-colors-and-pngs-without-unselected-downloads",
+      "thumbnails": [
+        {
+          "src": "/workspaces/thumbs/beach-hd.webp",
+          "valid": true
+        },
+        {
+          "src": "/workspaces/thumbs/forest-hd.webp",
+          "valid": true
+        },
+        {
+          "src": "/workspaces/thumbs/studio.webp",
+          "valid": true
+        },
+        {
+          "src": "/workspaces/thumbs/paper.webp",
+          "valid": true
+        },
+        {
+          "src": "/workspaces/thumbs/slate.webp",
+          "valid": true
+        }
+      ],
+      "requests": [
+        {
+          "url": "http://127.0.0.1:3012/workspaces/paper.png",
+          "status": 200,
+          "cache": false,
+          "mime": "image/png"
+        },
+        {
+          "url": "http://127.0.0.1:3012/workspaces/slate.png",
+          "status": 200,
+          "cache": false,
+          "mime": "image/png"
+        }
+      ],
+      "colorReloadRequests": [],
+      "status": "PASS",
+      "elapsedMs": 16815
+    },
+    {
+      "name": "rapid-selection-late-requests-and-bounded-travel",
+      "peak": 2,
+      "final": {
+        "layers": 1,
+        "videos": [],
+        "canvases": 1,
+        "pendingRaf": 1,
+        "pendingVideo": 0
+      },
+      "status": "PASS",
+      "elapsedMs": 12628
+    },
+    {
+      "name": "failed-image-and-video-recovery",
+      "failedImage": "That image couldn’t be opened. Try another workspace or retry.",
+      "failedVideo": "Motion couldn’t start. Retry, or pause motion to explore the still images.",
+      "status": "PASS",
+      "elapsedMs": 5254
+    },
+    {
+      "name": "autoplay-rejection-still-fallback-and-retry",
+      "fixture": {
+        "denied": true,
+        "attempts": 1,
+        "paused": true
+      },
+      "fallback": {
+        "layers": 1,
+        "videos": [
+          {
+            "id": "beach",
+            "paused": true,
+            "src": "/workspaces/beach-hd.mp4",
+            "time": 0,
+            "ready": 4
+          }
+        ],
+        "canvases": 1,
+        "pendingRaf": 2,
+        "pendingVideo": 0
+      },
+      "status": "PASS",
+      "elapsedMs": 2575
+    },
+    {
+      "name": "motion-pause-visibility-reduced-motion-and-loop-ending",
+      "loop": {
+        "duration": 15,
+        "after": 0.2991
+      },
+      "reduced": {
+        "layers": 1,
+        "videos": [
+          {
+            "id": "beach",
+            "paused": true,
+            "src": null,
+            "time": 0,
+            "ready": 0
+          }
+        ],
+        "canvases": 1,
+        "pendingRaf": 2,
+        "pendingVideo": 0
+      },
+      "status": "PASS",
+      "elapsedMs": 4017
+    },
+    {
+      "name": "keyboard-touch-and-narrow-selector",
+      "sizes": [
+        {
+          "viewport": [
+            1440,
+            600
+          ],
+          "trigger": {
+            "x": 18,
+            "y": 529,
+            "w": 164,
+            "h": 48
+          },
+          "panel": {
+            "x": 18,
+            "y": 13,
+            "w": 304,
+            "h": 504
+          },
+          "fits": true
+        },
+        {
+          "viewport": [
+            800,
+            600
+          ],
+          "trigger": {
+            "x": 18,
+            "y": 529,
+            "w": 164,
+            "h": 48
+          },
+          "panel": {
+            "x": 18,
+            "y": 13,
+            "w": 304,
+            "h": 504
+          },
+          "fits": true
+        },
+        {
+          "viewport": [
+            390,
+            844
+          ],
+          "trigger": {
+            "x": 18,
+            "y": 773,
+            "w": 164,
+            "h": 48
+          },
+          "panel": {
+            "x": 18,
+            "y": 174.90625,
+            "w": 304,
+            "h": 586.09375
+          },
+          "fits": true
+        },
+        {
+          "viewport": [
+            320,
+            568
+          ],
+          "trigger": {
+            "x": 18,
+            "y": 497,
+            "w": 164,
+            "h": 48
+          },
+          "panel": {
+            "x": 18,
+            "y": 13,
+            "w": 284,
+            "h": 472
+          },
+          "fits": true
+        }
+      ],
+      "status": "PASS",
+      "elapsedMs": 5328
+    },
+    {
+      "name": "video-idle-and-travel-frame-observations",
+      "beach": {
+        "label": "Beach video + 3D idle",
+        "durationMs": 8009.199999999255,
+        "wallMs": 8011,
+        "frames": {
+          "n": 480,
+          "p50": 16.699999999999818,
+          "p95": 16.799999999999272,
+          "p99": 16.80000000000109,
+          "max": 16.80000000000109,
+          "over16_7": 130,
+          "over33_4": 0
+        },
+        "longTasks": [],
+        "eventTiming": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "over16_7": 0,
+          "over33_4": 0
+        },
+        "inputDelay": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "over16_7": 0,
+          "over33_4": 0
+        },
+        "pointerToNextRAF": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "over16_7": 0,
+          "over33_4": 0
+        },
+        "inference": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "over16_7": 0,
+          "over33_4": 0
+        },
+        "mainThreadBusyPercent": 11.186560455477242,
+        "attachedCanvasClearsPerSecond": 119.86215851771578,
+        "drawCallsPerSecond": 2696.898566648605,
+        "pendingRaf": 1,
+        "pendingVideoCallbacks": 0,
+        "jsHeap": 15537476,
+        "dom": {
+          "documents": 1,
+          "nodes": 335,
+          "jsEventListeners": 586
+        }
+      },
+      "forest": {
+        "label": "Forest video + 3D idle",
+        "durationMs": 8005.400000002235,
+        "wallMs": 8013,
+        "frames": {
+          "n": 480,
+          "p50": 16.69999999999891,
+          "p95": 16.799999999999272,
+          "p99": 16.80000000000109,
+          "max": 16.80000000000291,
+          "over16_7": 219,
+          "over33_4": 0
+        },
+        "longTasks": [],
+        "eventTiming": {
+          "n": 7,
+          "p50": 16,
+          "p95": 16,
+          "p99": 16,
+          "max": 16,
+          "over16_7": 0,
+          "over33_4": 0
+        },
+        "inputDelay": {
+          "n": 7,
+          "p50": 0.5,
+          "p95": 0.5,
+          "p99": 0.5,
+          "max": 0.5,
+          "over16_7": 0,
+          "over33_4": 0
+        },
+        "pointerToNextRAF": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "over16_7": 0,
+          "over33_4": 0
+        },
+        "inference": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "over16_7": 0,
+          "over33_4": 0
+        },
+        "mainThreadBusyPercent": 9.608776575808648,
+        "attachedCanvasClearsPerSecond": 119.91905463808578,
+        "drawCallsPerSecond": 2698.17872935693,
+        "pendingRaf": 1,
+        "pendingVideoCallbacks": 0,
+        "jsHeap": 16713432,
+        "dom": {
+          "documents": 1,
+          "nodes": 451,
+          "jsEventListeners": 610
+        }
+      },
+      "travel": {
+        "label": "six prepared location changes",
+        "durationMs": 6300.10000000149,
+        "wallMs": 6304,
+        "frames": {
+          "n": 378,
+          "p50": 16.700000000000728,
+          "p95": 16.799999999999272,
+          "p99": 16.80000000000291,
+          "max": 16.80000000000291,
+          "over16_7": 195,
+          "over33_4": 0
+        },
+        "longTasks": [],
+        "eventTiming": {
+          "n": 112,
+          "p50": 32,
+          "p95": 32,
+          "p99": 32,
+          "max": 32,
+          "over16_7": 112,
+          "over33_4": 0
+        },
+        "inputDelay": {
+          "n": 112,
+          "p50": 3,
+          "p95": 13.400000002235174,
+          "p99": 13.400000002235174,
+          "max": 13.600000001490116,
+          "over16_7": 0,
+          "over33_4": 0
+        },
+        "pointerToNextRAF": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "over16_7": 0,
+          "over33_4": 0
+        },
+        "inference": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "over16_7": 0,
+          "over33_4": 0
+        },
+        "mainThreadBusyPercent": 11.308852240437952,
+        "attachedCanvasClearsPerSecond": 119.99809526830069,
+        "drawCallsPerSecond": 2699.9571435367657,
+        "pendingRaf": 1,
+        "pendingVideoCallbacks": 0,
+        "jsHeap": 15894180,
+        "dom": {
+          "documents": 1,
+          "nodes": 1175,
+          "jsEventListeners": 1078
+        }
+      },
+      "resources": {
+        "layers": 1,
+        "videos": [
+          {
+            "id": "forest",
+            "paused": false,
+            "src": "/workspaces/forest-hd.mp4",
+            "time": 0.1089,
+            "ready": 4
+          }
+        ],
+        "canvases": 1,
+        "pendingRaf": 1,
+        "pendingVideo": 0
+      },
+      "status": "PASS",
+      "elapsedMs": 27543
+    },
+    {
+      "name": "eight-switch-cycles-and-retired-media-cleanup",
+      "samples": [
+        {
+          "cycle": 1,
+          "heapBytes": 11877480,
+          "documents": 1,
+          "nodes": 304,
+          "jsEventListeners": 586,
+          "layers": 1,
+          "videos": [],
+          "canvases": 1,
+          "pendingRaf": 1,
+          "pendingVideo": 0,
+          "retired": []
+        },
+        {
+          "cycle": 2,
+          "heapBytes": 11933832,
+          "documents": 1,
+          "nodes": 304,
+          "jsEventListeners": 586,
+          "layers": 1,
+          "videos": [],
+          "canvases": 1,
+          "pendingRaf": 1,
+          "pendingVideo": 0,
+          "retired": []
+        },
+        {
+          "cycle": 4,
+          "heapBytes": 12090776,
+          "documents": 1,
+          "nodes": 304,
+          "jsEventListeners": 586,
+          "layers": 1,
+          "videos": [],
+          "canvases": 1,
+          "pendingRaf": 1,
+          "pendingVideo": 0,
+          "retired": []
+        },
+        {
+          "cycle": 6,
+          "heapBytes": 12139620,
+          "documents": 1,
+          "nodes": 304,
+          "jsEventListeners": 586,
+          "layers": 1,
+          "videos": [],
+          "canvases": 1,
+          "pendingRaf": 1,
+          "pendingVideo": 0,
+          "retired": []
+        },
+        {
+          "cycle": 8,
+          "heapBytes": 12171276,
+          "documents": 1,
+          "nodes": 304,
+          "jsEventListeners": 586,
+          "layers": 1,
+          "videos": [],
+          "canvases": 1,
+          "pendingRaf": 1,
+          "pendingVideo": 0,
+          "retired": []
+        }
+      ],
+      "status": "PASS",
+      "elapsedMs": 27610
+    }
+  ],
+  "elapsedMs": 125050,
+  "finishedAt": "2026-10-30T16:29:32.016Z"
+}

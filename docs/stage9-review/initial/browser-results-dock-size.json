@@ -1,0 +1,254 @@
+{
+  "browser": "Chrome/156.0.8078.48",
+  "host": {
+    "platform": "darwin",
+    "release": "25.6.0",
+    "arch": "arm64",
+    "cpu": "Apple M1"
+  },
+  "site": "http://127.0.0.1:3001",
+  "input": "Trusted synthetic CDP mouse/key input on macOS Chrome; not a physical mouse/trackpad hardware test",
+  "zoomCoverage": "CSS viewport resizing, emulated DPR, and CDP visual-viewport page-scale emulation; no claim of native browser toolbar zoom",
+  "remainingPhysicalChecks": [
+    "Mac two-finger trackpad secondary click and drag",
+    "Windows mouse/trackpad drag and secondary click",
+    "Native browser toolbar zoom at 80%, 100%, 125%",
+    "Safari hardware/browser interaction"
+  ],
+  "scenarios": [
+    {
+      "name": "maximized-frame-follows-real-dock-size-preference",
+      "lastDockMeasurement": {
+        "name": "small",
+        "area": {
+          "x": 0,
+          "y": 28,
+          "width": 1400,
+          "height": 790,
+          "desktopWidth": 1400,
+          "desktopHeight": 900,
+          "dockTop": 818
+        },
+        "maximized": {
+          "x": 0,
+          "y": 28,
+          "width": 1400,
+          "height": 782
+        },
+        "sliderValue": "0.75"
+      },
+      "status": "FAIL",
+      "error": "Error: Timed out: Maximized background window follows measured dock layout: false\n    at until (file:///Users/Om/Om%20Main%20Portfolio/tests/stage9-interactions.browser.mjs:39:9)\n    at async file:///Users/Om/Om%20Main%20Portfolio/tests/stage9-interactions.browser.mjs:242:5\n    at async scenario (file:///Users/Om/Om%20Main%20Portfolio/tests/stage9-interactions.browser.mjs:175:28)\n    at async file:///Users/Om/Om%20Main%20Portfolio/tests/stage9-interactions.browser.mjs:229:1",
+      "state": {
+        "windows": [
+          {
+            "id": "app-notes",
+            "z": 10,
+            "active": false,
+            "minimized": false
+          },
+          {
+            "id": "app-settings",
+            "z": 11,
+            "active": true,
+            "minimized": false
+          }
+        ],
+        "menu": "Settings"
+      },
+      "events": [
+        {
+          "type": "pointermove",
+          "detail": 0,
+          "trusted": true,
+          "x": 631.8590087890625,
+          "y": 610.646240234375,
+          "prevented": false
+        },
+        {
+          "type": "pointerdown",
+          "detail": 0,
+          "trusted": true,
+          "x": 631.8590087890625,
+          "y": 610.646240234375,
+          "prevented": false
+        },
+        {
+          "type": "pointerup",
+          "detail": 0,
+          "trusted": true,
+          "x": 631.8590087890625,
+          "y": 610.646240234375,
+          "prevented": false
+        },
+        {
+          "type": "click",
+          "detail": 1,
+          "trusted": true,
+          "x": 631,
+          "y": 610,
+          "prevented": false
+        },
+        {
+          "type": "pointermove",
+          "detail": 0,
+          "trusted": true,
+          "x": 474.4565124511719,
+          "y": 160.27484130859375,
+          "frame": "app-notes",
+          "prevented": false
+        },
+        {
+          "type": "pointerdown",
+          "detail": 0,
+          "trusted": true,
+          "x": 474.4565124511719,
+          "y": 160.27484130859375,
+          "frame": "app-notes",
+          "prevented": false
+        },
+        {
+          "type": "pointerup",
+          "detail": 0,
+          "trusted": true,
+          "x": 474.4565124511719,
+          "y": 160.27484130859375,
+          "frame": "app-notes",
+          "prevented": false
+        },
+        {
+          "type": "click",
+          "detail": 1,
+          "trusted": true,
+          "x": 474,
+          "y": 160,
+          "frame": "app-notes",
+          "prevented": false
+        },
+        {
+          "type": "pointermove",
+          "detail": 0,
+          "trusted": true,
+          "x": 840.4395751953125,
+          "y": 609.278076171875,
+          "prevented": false
+        },
+        {
+          "type": "pointerdown",
+          "detail": 0,
+          "trusted": true,
+          "x": 840.4395751953125,
+          "y": 609.278076171875,
+          "prevented": false
+        },
+        {
+          "type": "pointerup",
+          "detail": 0,
+          "trusted": true,
+          "x": 840.4395751953125,
+          "y": 609.278076171875,
+          "prevented": false
+        },
+        {
+          "type": "click",
+          "detail": 1,
+          "trusted": true,
+          "x": 840,
+          "y": 609,
+          "prevented": false
+        },
+        {
+          "type": "pointermove",
+          "detail": 0,
+          "trusted": true,
+          "x": 500.8529052734375,
+          "y": 286.62066650390625,
+          "frame": "app-settings",
+          "prevented": false
+        },
+        {
+          "type": "pointerdown",
+          "detail": 0,
+          "trusted": true,
+          "x": 500.8529052734375,
+          "y": 286.62066650390625,
+          "frame": "app-settings",
+          "prevented": false
+        },
+        {
+          "type": "pointerup",
+          "detail": 0,
+          "trusted": true,
+          "x": 500.8529052734375,
+          "y": 286.62066650390625,
+          "frame": "app-settings",
+          "prevented": false
+        },
+        {
+          "type": "click",
+          "detail": 1,
+          "trusted": true,
+          "x": 500,
+          "y": 286,
+          "frame": "app-settings",
+          "prevented": false
+        },
+        {
+          "type": "pointermove",
+          "detail": 0,
+          "trusted": true,
+          "x": 714.5939331054688,
+          "y": 346.82586669921875,
+          "frame": "app-settings",
+          "prevented": false
+        },
+        {
+          "type": "pointerdown",
+          "detail": 0,
+          "trusted": true,
+          "x": 714.5939331054688,
+          "y": 346.82586669921875,
+          "frame": "app-settings",
+          "prevented": false
+        },
+        {
+          "type": "pointerup",
+          "detail": 0,
+          "trusted": true,
+          "x": 714.5939331054688,
+          "y": 346.82586669921875,
+          "frame": "app-settings",
+          "prevented": false
+        },
+        {
+          "type": "click",
+          "detail": 1,
+          "trusted": true,
+          "x": 714,
+          "y": 346,
+          "frame": "app-settings",
+          "prevented": false
+        },
+        {
+          "type": "keydown",
+          "key": "Home",
+          "repeat": false,
+          "detail": 0,
+          "trusted": true,
+          "frame": "app-settings",
+          "prevented": false
+        },
+        {
+          "type": "keyup",
+          "key": "Home",
+          "repeat": false,
+          "detail": 0,
+          "trusted": true,
+          "frame": "app-settings",
+          "prevented": false
+        }
+      ],
+      "elapsedMs": 31060
+    }
+  ]
+}

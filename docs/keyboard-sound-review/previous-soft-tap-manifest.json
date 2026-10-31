@@ -1,0 +1,18 @@
+{
+  "title": "Keyboard - Press down",
+  "creator": "Foxfire-",
+  "sourceUrl": "https://freesound.org/people/Foxfire-/sounds/570754/",
+  "downloadUrl": "https://cdn.freesound.org/previews/570/570754_12873144-hq.mp3",
+  "license": "CC0 1.0",
+  "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+  "verifiedAt": "2026-10-31",
+  "recording": "Cherry MX Brown mechanical switch; key down only, no release",
+  "changes": "Cropped source 0.091\u20130.153s; mono 24kHz; 160Hz high-pass / 4.2kHz low-pass; 0.6ms onset and 12ms end fades; normalized sample peak 0.32. Playback attenuated and subtly varied. No oscillators or added reverberation.",
+  "asset": "/sounds/keyboard/soft-brown-press.wav",
+  "durationSeconds": 0.062,
+  "bytes": 3020,
+  "sha256": "fc8d38b3006f0b8a2a4a8b8644a47ec37543053c9967c886758b440753287821",
+  "pcmBytes": 2976,
+  "samplePeak": 0.3199999928474426,
+  "credit": "Keyboard - Press down by Foxfire-, Freesound, CC0 1.0. Cropped, filtered and level adjusted. Attribution is voluntary under CC0."
+}

@@ -1,0 +1,25 @@
+FAIL corner-launcher-idle-hover-click-keyboard-and-touch
+AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+
+  assert.ok(rect.x>=0&&rect.x<=20&&rect.bottom<=20)
+
+    at scenario.workspace (file:///Users/Om/Om%20Main%20Portfolio/tests/workspaces.browser.mjs:168:9)
+    at async scenario (file:///Users/Om/Om%20Main%20Portfolio/tests/workspaces.browser.mjs:152:24)
+    at async file:///Users/Om/Om%20Main%20Portfolio/tests/workspaces.browser.mjs:164:1
+FAIL horizontal-swipe-geometry-and-anchored-laptop
+AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+
+  assert.ok(r.geometry.desktopDelta<.5)
+
+    at scenario.workspace (file:///Users/Om/Om%20Main%20Portfolio/tests/workspaces.browser.mjs:198:106)
+    at async scenario (file:///Users/Om/Om%20Main%20Portfolio/tests/workspaces.browser.mjs:152:24)
+    at async file:///Users/Om/Om%20Main%20Portfolio/tests/workspaces.browser.mjs:186:1
+PASS entry-assets-and-laptop-continuity
+PASS all-backgrounds-colors-and-pngs-without-unselected-downloads
+PASS rapid-selection-late-requests-and-bounded-travel
+PASS failed-image-and-video-recovery
+PASS autoplay-rejection-still-fallback-and-retry
+PASS motion-pause-visibility-reduced-motion-and-loop-ending
+PASS keyboard-touch-and-narrow-selector
+PASS video-idle-and-travel-frame-observations
+PASS eight-switch-cycles-and-retired-media-cleanup

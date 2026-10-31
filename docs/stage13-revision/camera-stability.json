@@ -1,0 +1,1891 @@
+{
+  "beach": {
+    "method": "Every native source frame compared against first-frame 100px stationary sand/bark templates; normalized correlation, \u00b112px search at native 1920x1080. Does not measure browser FPS or prove subjective comfort. SIFT/RANSAC spot checks also showed identity transforms.",
+    "framesChecked": 719,
+    "patches": [
+      [
+        100,
+        980,
+        100,
+        60
+      ],
+      [
+        1500,
+        985,
+        100,
+        60
+      ]
+    ],
+    "minimumCorrelation": 0.9365807771682739,
+    "maxPatchDisplacementPixels": 0.0,
+    "durationSeconds": 30.029999999999998,
+    "samples": [
+      {
+        "seconds": 0.5,
+        "patches": [
+          {
+            "correlation": 0.9958,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          },
+          {
+            "correlation": 0.9935,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "seconds": 1.001,
+        "patches": [
+          {
+            "correlation": 0.979,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          },
+          {
+            "correlation": 0.9826,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "seconds": 1.501,
+        "patches": [
+          {
+            "correlation": 0.9754,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          },
+          {
+            "correlation": 0.9789,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "seconds": 2.002,
+        "patches": [
+          {
+            "correlation": 0.9655,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          },
+          {
+            "correlation": 0.9699,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "seconds": 2.502,
+        "patches": [
+          {
+            "correlation": 0.9698,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          },
+          {
+            "correlation": 0.974,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "seconds": 3.003,
+        "patches": [
+          {
+            "correlation": 0.9649,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          },
+          {
+            "correlation": 0.9623,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "seconds": 3.503,
+        "patches": [
+          {
+            "correlation": 0.9693,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          },
+          {
+            "correlation": 0.9727,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "seconds": 4.004,
+        "patches": [
+          {
+            "correlation": 0.9678,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          },
+          {
+            "correlation": 0.9695,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "seconds": 4.504,
+        "patches": [
+          {
+            "correlation": 0.9676,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          },
+          {
+            "correlation": 0.9711,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "seconds": 5.005,
+        "patches": [
+          {
+            "correlation": 0.9656,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          },
+          {
+            "correlation": 0.9678,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "seconds": 5.505,
+        "patches": [
+          {
+            "correlation": 0.9664,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          },
+          {
+            "correlation": 0.9672,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "seconds": 6.006,
+        "patches": [
+          {
+            "correlation": 0.9666,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          },
+          {
+            "correlation": 0.9689,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "seconds": 6.506,
+        "patches": [
+          {
+            "correlation": 0.9647,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          },
+          {
+            "correlation": 0.9682,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "seconds": 7.007,
+        "patches": [
+          {
+            "correlation": 0.9627,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          },
+          {
+            "correlation": 0.9671,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "seconds": 7.507,
+        "patches": [
+          {
+            "correlation": 0.9595,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          },
+          {
+            "correlation": 0.9595,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "seconds": 8.008,
+        "patches": [
+          {
+            "correlation": 0.96,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          },
+          {
+            "correlation": 0.9599,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "seconds": 8.508,
+        "patches": [
+          {
+            "correlation": 0.9594,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          },
+          {
+            "correlation": 0.9607,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "seconds": 9.009,
+        "patches": [
+          {
+            "correlation": 0.9585,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          },
+          {
+            "correlation": 0.9606,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "seconds": 9.509,
+        "patches": [
+          {
+            "correlation": 0.9581,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          },
+          {
+            "correlation": 0.9602,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "seconds": 10.01,
+        "patches": [
+          {
+            "correlation": 0.9575,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          },
+          {
+            "correlation": 0.9421,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "seconds": 10.51,
+        "patches": [
+          {
+            "correlation": 0.9533,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          },
+          {
+            "correlation": 0.9517,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "seconds": 11.011,
+        "patches": [
+          {
+            "correlation": 0.9565,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          },
+          {
+            "correlation": 0.9588,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "seconds": 11.511,
+        "patches": [
+          {
+            "correlation": 0.9574,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          },
+          {
+            "correlation": 0.961,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "seconds": 12.012,
+        "patches": [
+          {
+            "correlation": 0.9537,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          },
+          {
+            "correlation": 0.9591,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "seconds": 12.512,
+        "patches": [
+          {
+            "correlation": 0.9562,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          },
+          {
+            "correlation": 0.9601,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "seconds": 13.013,
+        "patches": [
+          {
+            "correlation": 0.9556,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          },
+          {
+            "correlation": 0.9571,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "seconds": 13.513,
+        "patches": [
+          {
+            "correlation": 0.95,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          },
+          {
+            "correlation": 0.9465,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "seconds": 14.014,
+        "patches": [
+          {
+            "correlation": 0.9525,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          },
+          {
+            "correlation": 0.9531,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "seconds": 14.514,
+        "patches": [
+          {
+            "correlation": 0.9537,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          },
+          {
+            "correlation": 0.9564,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "seconds": 15.015,
+        "patches": [
+          {
+            "correlation": 0.9514,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          },
+          {
+            "correlation": 0.9555,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "seconds": 15.515,
+        "patches": [
+          {
+            "correlation": 0.9507,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          },
+          {
+            "correlation": 0.9507,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "seconds": 16.016,
+        "patches": [
+          {
+            "correlation": 0.9483,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          },
+          {
+            "correlation": 0.9473,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "seconds": 16.516,
+        "patches": [
+          {
+            "correlation": 0.9489,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          },
+          {
+            "correlation": 0.9502,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "seconds": 17.017,
+        "patches": [
+          {
+            "correlation": 0.9498,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          },
+          {
+            "correlation": 0.9534,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "seconds": 17.517,
+        "patches": [
+          {
+            "correlation": 0.948,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          },
+          {
+            "correlation": 0.9517,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "seconds": 18.018,
+        "patches": [
+          {
+            "correlation": 0.9485,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          },
+          {
+            "correlation": 0.9519,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "seconds": 18.518,
+        "patches": [
+          {
+            "correlation": 0.9493,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          },
+          {
+            "correlation": 0.9554,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "seconds": 19.019,
+        "patches": [
+          {
+            "correlation": 0.9482,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          },
+          {
+            "correlation": 0.9532,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "seconds": 19.519,
+        "patches": [
+          {
+            "correlation": 0.948,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          },
+          {
+            "correlation": 0.9488,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "seconds": 20.02,
+        "patches": [
+          {
+            "correlation": 0.9491,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          },
+          {
+            "correlation": 0.9482,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "seconds": 20.52,
+        "patches": [
+          {
+            "correlation": 0.9497,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          },
+          {
+            "correlation": 0.9489,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "seconds": 21.021,
+        "patches": [
+          {
+            "correlation": 0.9491,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          },
+          {
+            "correlation": 0.9487,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "seconds": 21.521,
+        "patches": [
+          {
+            "correlation": 0.9451,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          },
+          {
+            "correlation": 0.9478,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "seconds": 22.022,
+        "patches": [
+          {
+            "correlation": 0.9456,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          },
+          {
+            "correlation": 0.946,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "seconds": 22.522,
+        "patches": [
+          {
+            "correlation": 0.9379,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          },
+          {
+            "correlation": 0.946,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "seconds": 23.023,
+        "patches": [
+          {
+            "correlation": 0.9387,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          },
+          {
+            "correlation": 0.9398,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "seconds": 23.523,
+        "patches": [
+          {
+            "correlation": 0.9427,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          },
+          {
+            "correlation": 0.9431,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "seconds": 24.024,
+        "patches": [
+          {
+            "correlation": 0.9418,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          },
+          {
+            "correlation": 0.9427,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "seconds": 24.524,
+        "patches": [
+          {
+            "correlation": 0.9451,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          },
+          {
+            "correlation": 0.9485,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "seconds": 25.025,
+        "patches": [
+          {
+            "correlation": 0.9471,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          },
+          {
+            "correlation": 0.9477,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "seconds": 25.525,
+        "patches": [
+          {
+            "correlation": 0.9476,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          },
+          {
+            "correlation": 0.9449,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "seconds": 26.026,
+        "patches": [
+          {
+            "correlation": 0.9521,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          },
+          {
+            "correlation": 0.9565,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "seconds": 26.526,
+        "patches": [
+          {
+            "correlation": 0.9502,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          },
+          {
+            "correlation": 0.9529,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "seconds": 27.027,
+        "patches": [
+          {
+            "correlation": 0.9566,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          },
+          {
+            "correlation": 0.9595,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "seconds": 27.527,
+        "patches": [
+          {
+            "correlation": 0.9565,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          },
+          {
+            "correlation": 0.9579,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "seconds": 28.028,
+        "patches": [
+          {
+            "correlation": 0.9549,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          },
+          {
+            "correlation": 0.9577,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "seconds": 28.528,
+        "patches": [
+          {
+            "correlation": 0.9542,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          },
+          {
+            "correlation": 0.9603,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "seconds": 29.029,
+        "patches": [
+          {
+            "correlation": 0.9547,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          },
+          {
+            "correlation": 0.9448,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "seconds": 29.529,
+        "patches": [
+          {
+            "correlation": 0.9533,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          },
+          {
+            "correlation": 0.9561,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "seconds": 29.988,
+        "patches": [
+          {
+            "correlation": 0.9537,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          },
+          {
+            "correlation": 0.9553,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "forest": {
+    "method": "Every native source frame compared against first-frame 100px stationary sand/bark templates; normalized correlation, \u00b112px search at native 1920x1080. Does not measure browser FPS or prove subjective comfort. SIFT/RANSAC spot checks also showed identity transforms.",
+    "framesChecked": 442,
+    "patches": [
+      [
+        1710,
+        400,
+        100,
+        80
+      ],
+      [
+        90,
+        400,
+        100,
+        80
+      ]
+    ],
+    "minimumCorrelation": 0.9788731336593628,
+    "maxPatchDisplacementPixels": 1.0,
+    "durationSeconds": 18.476791666666664,
+    "samples": [
+      {
+        "seconds": 0.5,
+        "patches": [
+          {
+            "correlation": 0.9955,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          },
+          {
+            "correlation": 0.9971,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "seconds": 1.001,
+        "patches": [
+          {
+            "correlation": 0.9955,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          },
+          {
+            "correlation": 0.9979,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "seconds": 1.501,
+        "patches": [
+          {
+            "correlation": 0.9964,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          },
+          {
+            "correlation": 0.9984,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "seconds": 2.002,
+        "patches": [
+          {
+            "correlation": 0.9943,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          },
+          {
+            "correlation": 0.9978,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "seconds": 2.502,
+        "patches": [
+          {
+            "correlation": 0.9956,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          },
+          {
+            "correlation": 0.9981,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "seconds": 3.003,
+        "patches": [
+          {
+            "correlation": 0.9958,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          },
+          {
+            "correlation": 0.9981,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "seconds": 3.503,
+        "patches": [
+          {
+            "correlation": 0.9917,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          },
+          {
+            "correlation": 0.9981,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "seconds": 4.004,
+        "patches": [
+          {
+            "correlation": 0.9943,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          },
+          {
+            "correlation": 0.997,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "seconds": 4.504,
+        "patches": [
+          {
+            "correlation": 0.9941,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          },
+          {
+            "correlation": 0.997,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "seconds": 5.005,
+        "patches": [
+          {
+            "correlation": 0.9957,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          },
+          {
+            "correlation": 0.9966,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "seconds": 5.505,
+        "patches": [
+          {
+            "correlation": 0.9951,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          },
+          {
+            "correlation": 0.9981,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "seconds": 6.006,
+        "patches": [
+          {
+            "correlation": 0.9932,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          },
+          {
+            "correlation": 0.9961,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "seconds": 6.506,
+        "patches": [
+          {
+            "correlation": 0.9959,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          },
+          {
+            "correlation": 0.997,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "seconds": 7.007,
+        "patches": [
+          {
+            "correlation": 0.9957,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          },
+          {
+            "correlation": 0.9978,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "seconds": 7.507,
+        "patches": [
+          {
+            "correlation": 0.9952,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          },
+          {
+            "correlation": 0.998,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "seconds": 8.008,
+        "patches": [
+          {
+            "correlation": 0.9953,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          },
+          {
+            "correlation": 0.998,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "seconds": 8.508,
+        "patches": [
+          {
+            "correlation": 0.9944,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          },
+          {
+            "correlation": 0.9979,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "seconds": 9.009,
+        "patches": [
+          {
+            "correlation": 0.9911,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          },
+          {
+            "correlation": 0.9982,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "seconds": 9.509,
+        "patches": [
+          {
+            "correlation": 0.9949,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          },
+          {
+            "correlation": 0.9981,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "seconds": 10.01,
+        "patches": [
+          {
+            "correlation": 0.992,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          },
+          {
+            "correlation": 0.9975,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "seconds": 10.51,
+        "patches": [
+          {
+            "correlation": 0.9953,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          },
+          {
+            "correlation": 0.9981,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "seconds": 11.011,
+        "patches": [
+          {
+            "correlation": 0.9959,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          },
+          {
+            "correlation": 0.9977,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "seconds": 11.511,
+        "patches": [
+          {
+            "correlation": 0.9891,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          },
+          {
+            "correlation": 0.9902,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "seconds": 12.012,
+        "patches": [
+          {
+            "correlation": 0.9849,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          },
+          {
+            "correlation": 0.9976,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "seconds": 12.512,
+        "patches": [
+          {
+            "correlation": 0.9924,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          },
+          {
+            "correlation": 0.998,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "seconds": 13.013,
+        "patches": [
+          {
+            "correlation": 0.989,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          },
+          {
+            "correlation": 0.9968,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "seconds": 13.513,
+        "patches": [
+          {
+            "correlation": 0.9951,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          },
+          {
+            "correlation": 0.9897,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "seconds": 14.014,
+        "patches": [
+          {
+            "correlation": 0.9937,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          },
+          {
+            "correlation": 0.9976,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "seconds": 14.514,
+        "patches": [
+          {
+            "correlation": 0.9916,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          },
+          {
+            "correlation": 0.9975,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "seconds": 15.015,
+        "patches": [
+          {
+            "correlation": 0.9936,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          },
+          {
+            "correlation": 0.9976,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "seconds": 15.515,
+        "patches": [
+          {
+            "correlation": 0.9952,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          },
+          {
+            "correlation": 0.9976,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "seconds": 16.016,
+        "patches": [
+          {
+            "correlation": 0.9928,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          },
+          {
+            "correlation": 0.9975,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "seconds": 16.516,
+        "patches": [
+          {
+            "correlation": 0.994,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          },
+          {
+            "correlation": 0.9974,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "seconds": 17.017,
+        "patches": [
+          {
+            "correlation": 0.9905,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          },
+          {
+            "correlation": 0.9974,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "seconds": 17.517,
+        "patches": [
+          {
+            "correlation": 0.9925,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          },
+          {
+            "correlation": 0.9943,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "seconds": 18.018,
+        "patches": [
+          {
+            "correlation": 0.9896,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          },
+          {
+            "correlation": 0.9955,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "seconds": 18.435,
+        "patches": [
+          {
+            "correlation": 0.995,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          },
+          {
+            "correlation": 0.997,
+            "offsetPixels": [
+              0,
+              0
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

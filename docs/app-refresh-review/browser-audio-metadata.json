@@ -1,0 +1,83 @@
+[
+  {
+    "duration": 214.440998,
+    "error": null,
+    "paused": false,
+    "readyState": 4,
+    "src": "/music/roof-tops.mp3",
+    "time": 0.094282,
+    "track": "roof-tops"
+  },
+  {
+    "duration": 227.952993,
+    "error": null,
+    "paused": false,
+    "readyState": 4,
+    "src": "/music/summer-felt-longer-then.mp3",
+    "time": 0.161268,
+    "track": "summer-felt-longer-then"
+  },
+  {
+    "duration": 235.104014,
+    "error": null,
+    "paused": false,
+    "readyState": 4,
+    "src": "/music/transformations-2.mp3",
+    "time": 0.157574,
+    "track": "transformations-2"
+  },
+  {
+    "duration": 231.262041,
+    "error": null,
+    "paused": false,
+    "readyState": 4,
+    "src": "/music/cipher.mp3",
+    "time": 0.146417,
+    "track": "cipher"
+  },
+  {
+    "duration": 190.82449,
+    "error": null,
+    "paused": false,
+    "readyState": 4,
+    "src": "/music/electro-cabello.mp3",
+    "time": 0.16352,
+    "track": "electro-cabello"
+  },
+  {
+    "duration": 235.363265,
+    "error": null,
+    "paused": false,
+    "readyState": 4,
+    "src": "/music/life-of-riley.mp3",
+    "time": 0.156586,
+    "track": "life-of-riley"
+  },
+  {
+    "duration": 218.148571,
+    "error": null,
+    "paused": false,
+    "readyState": 4,
+    "src": "/music/night-in-venice.mp3",
+    "time": 0.149709,
+    "track": "night-in-venice"
+  },
+  {
+    "duration": 223.399184,
+    "error": null,
+    "paused": false,
+    "readyState": 4,
+    "src": "/music/study-and-relax.mp3",
+    "time": 0.139368,
+    "track": "study-and-relax"
+  },
+  {
+    "duration": 228.101224,
+    "error": null,
+    "paused": false,
+    "readyState": 4,
+    "src": "/music/just-as-soon.mp3",
+    "time": 0.146804,
+    "track": "just-as-soon"
+  }
+]

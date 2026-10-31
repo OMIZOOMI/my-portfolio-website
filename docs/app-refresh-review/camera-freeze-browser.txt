@@ -1,0 +1,13 @@
+Preview ready
+Native callbacks delivered: 1 (deliberately frozen after 1)
+Preview draws: 1471
+Video time: 54.904
+Actual canvas center RGB: 182,207,141
+
+After cleanup:
+Preview ready
+Native callbacks delivered: 1 (deliberately frozen after 1)
+Preview draws: 1474
+Video time: 55.009
+Actual canvas center RGB: 182,207,141
+Stopped; tracks released.

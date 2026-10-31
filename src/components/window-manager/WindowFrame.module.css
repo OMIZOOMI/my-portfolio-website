@@ -23,7 +23,7 @@
     border: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: 0 30px 60px rgba(0, 0, 0, 0.45);
   }
-  
+
   .titleBar {
     display: flex;
     align-items: center;
@@ -41,53 +41,98 @@
     background: rgba(255, 255, 255, 0.03);
     border-bottom: 1px solid rgba(255, 255, 255, 0.06);
   }
-  
+
   .titleBar:active {
     cursor: grabbing;
   }
-  
+
   .trafficLights {
     display: flex;
     align-items: center;
-    gap: 8px;
+    flex-shrink: 0;
+    cursor: default;
+    height: 100%;
   }
-  
+
+  /* Keep the 13px visual dots, but make the whole title-bar height forgiving. */
+  .control {
+    appearance: none;
+    display: grid;
+    place-items: center;
+    flex: 0 0 28px;
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    border: 0;
+    border-radius: 6px;
+    background: transparent;
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+
+  .control:focus-visible {
+    outline: 2px solid var(--system-accent, #007aff);
+    outline-offset: -1px;
+    background: rgba(127, 127, 127, 0.12);
+  }
+
+  .control:disabled {
+    cursor: default;
+  }
+
   .dot {
     display: grid;
     place-items: center;
-    width: 12px;
-    height: 12px;
+    width: 13px;
+    height: 13px;
     border-radius: 50%;
-    border: none;
-    cursor: pointer;
-    color: rgba(0, 0, 0, 0.5);
+    border: 0.5px solid rgba(0, 0, 0, 0.15);
+    pointer-events: none;
+    transition: transform 80ms ease, opacity 80ms ease;
   }
-  
+
   .dot svg {
     opacity: 0;
     transition: opacity 120ms ease;
   }
-  
-  .titleBar:hover .dot svg {
+
+  .trafficLights:hover .dot svg,
+  .control:focus-visible .dot svg {
     opacity: 1;
   }
-  
-  .close {
-    background: #ff5f57;
+
+  .control:active:not(:disabled) .dot {
+    transform: scale(0.85);
   }
-  
+
+  .control:disabled .dot {
+    opacity: 0.65;
+  }
+
+  .close {
+    background: #ff5f56;
+    color: #4c0000;
+  }
+
   .minimize {
     background: #ffbd2e;
+    color: #5c4300;
   }
-  
+
   .maximize {
-    background: #28c840;
+    background: #27c93f;
+    color: #004d09;
   }
-  
+
   .title {
     flex: 1;
+    min-width: 0;
     text-align: center;
-    margin-right: 44px; /* balances the traffic lights' width so the title sits visually centered */
+    margin-right: 84px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    user-select: none;
     color: rgba(0, 0, 0, 0.55);
     font-size: 12px;
     font-weight: 500;
@@ -97,11 +142,20 @@
   :global(.dark) .title {
     color: rgba(255, 255, 255, 0.6);
   }
-  
+
   .content {
     overflow: auto;
     /* No CSS transition here on purpose — the resize animation is Framer's
        `layout` FLIP on the parent; a CSS transition on the same property
        would double-animate and fight it. */
   }
-  
+
+  @media (prefers-reduced-motion: reduce) {
+    .window,
+    .titleBar,
+    .title,
+    .dot,
+    .dot svg {
+      transition: none;
+    }
+  }

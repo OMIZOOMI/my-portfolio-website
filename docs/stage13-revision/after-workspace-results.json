@@ -1,0 +1,544 @@
+{
+  "phase": "after",
+  "startedAt": "2026-10-30T15:42:24.546Z",
+  "buildId": "vEe7Zo3GwNY-OZLfGkORG",
+  "browser": "Chrome/156.0.8078.76",
+  "host": {
+    "model": "MacBookAir10,1",
+    "chip": "Apple M1",
+    "ramGiB": 8,
+    "os": "macOS 27.2",
+    "darwin": "27.2.0",
+    "arch": "arm64"
+  },
+  "viewport": {
+    "width": 1440,
+    "height": 1000,
+    "dpr": 1
+  },
+  "conditions": "Production localhost; isolated headless Chrome with ANGLE Metal. CDP wheel/touch/keyboard and controlled visibility/playback fixtures are not physical hardware coverage. rAF/Event Timing are local probes, not field INP or presented FPS.",
+  "scenarios": [
+    {
+      "name": "entry-assets-and-laptop-continuity",
+      "entry": {
+        "startupReady": 1580.3,
+        "resources": [
+          {
+            "url": "http://127.0.0.1:3012/workspaces/beach-hd.webp",
+            "start": 267.3999999985099,
+            "duration": 4,
+            "encoded": 833548
+          }
+        ]
+      },
+      "renderer": {
+        "alpha": true,
+        "background": {
+          "0": 0,
+          "1": 0,
+          "2": 0,
+          "3": 0
+        }
+      },
+      "wallpaper": "/wallpapers/coast-dark.webp",
+      "preference": {
+        "version": 1,
+        "state": {
+          "environment": "studio"
+        }
+      },
+      "reloadResources": [
+        "http://127.0.0.1:3012/workspaces/studio.png"
+      ],
+      "status": "PASS",
+      "elapsedMs": 10281
+    },
+    {
+      "name": "all-backgrounds-colors-and-pngs-without-unselected-downloads",
+      "thumbnails": [
+        {
+          "src": "/workspaces/thumbs/beach-hd.webp",
+          "valid": true
+        },
+        {
+          "src": "/workspaces/thumbs/forest-hd.webp",
+          "valid": true
+        },
+        {
+          "src": "/workspaces/thumbs/studio.webp",
+          "valid": true
+        },
+        {
+          "src": "/workspaces/thumbs/paper.webp",
+          "valid": true
+        },
+        {
+          "src": "/workspaces/thumbs/slate.webp",
+          "valid": true
+        }
+      ],
+      "requests": [
+        {
+          "url": "http://127.0.0.1:3012/workspaces/paper.png",
+          "status": 200,
+          "cache": false,
+          "mime": "image/png"
+        },
+        {
+          "url": "http://127.0.0.1:3012/workspaces/slate.png",
+          "status": 200,
+          "cache": false,
+          "mime": "image/png"
+        }
+      ],
+      "colorReloadRequests": [],
+      "status": "PASS",
+      "elapsedMs": 17356
+    },
+    {
+      "name": "rapid-selection-late-requests-and-bounded-travel",
+      "peak": 2,
+      "final": {
+        "layers": 1,
+        "videos": [],
+        "canvases": 1,
+        "pendingRaf": 1,
+        "pendingVideo": 0
+      },
+      "status": "PASS",
+      "elapsedMs": 12451
+    },
+    {
+      "name": "failed-image-and-video-recovery",
+      "failedImage": "That image couldn’t be opened. Try another workspace or retry.",
+      "failedVideo": "Motion couldn’t start. Retry, or pause motion to explore the still images.",
+      "status": "PASS",
+      "elapsedMs": 5097
+    },
+    {
+      "name": "autoplay-rejection-still-fallback-and-retry",
+      "fixture": {
+        "denied": true,
+        "attempts": 1,
+        "paused": true
+      },
+      "fallback": {
+        "layers": 1,
+        "videos": [
+          {
+            "id": "beach",
+            "paused": true,
+            "src": "/workspaces/beach-hd.mp4",
+            "time": 0,
+            "ready": 4
+          }
+        ],
+        "canvases": 1,
+        "pendingRaf": 2,
+        "pendingVideo": 0
+      },
+      "status": "PASS",
+      "elapsedMs": 2331
+    },
+    {
+      "name": "motion-pause-visibility-reduced-motion-and-loop-ending",
+      "loop": {
+        "duration": 15,
+        "after": 0.3036
+      },
+      "reduced": {
+        "layers": 1,
+        "videos": [
+          {
+            "id": "beach",
+            "paused": true,
+            "src": null,
+            "time": 0,
+            "ready": 0
+          }
+        ],
+        "canvases": 1,
+        "pendingRaf": 2,
+        "pendingVideo": 0
+      },
+      "status": "PASS",
+      "elapsedMs": 4132
+    },
+    {
+      "name": "keyboard-touch-and-narrow-selector",
+      "sizes": [
+        {
+          "viewport": [
+            1440,
+            600
+          ],
+          "trigger": {
+            "x": 18,
+            "y": 272.5,
+            "w": 138.421875,
+            "h": 55
+          },
+          "panel": {
+            "x": 168.421875,
+            "y": 16,
+            "w": 304,
+            "h": 568
+          },
+          "fits": true
+        },
+        {
+          "viewport": [
+            800,
+            600
+          ],
+          "trigger": {
+            "x": 16,
+            "y": 16,
+            "w": 44,
+            "h": 44
+          },
+          "panel": {
+            "x": 16,
+            "y": 70,
+            "w": 304,
+            "h": 512
+          },
+          "fits": true
+        },
+        {
+          "viewport": [
+            390,
+            844
+          ],
+          "trigger": {
+            "x": 16,
+            "y": 16,
+            "w": 44,
+            "h": 44
+          },
+          "panel": {
+            "x": 16,
+            "y": 70,
+            "w": 304,
+            "h": 586.09375
+          },
+          "fits": true
+        },
+        {
+          "viewport": [
+            320,
+            568
+          ],
+          "trigger": {
+            "x": 16,
+            "y": 16,
+            "w": 44,
+            "h": 44
+          },
+          "panel": {
+            "x": 16,
+            "y": 70,
+            "w": 288,
+            "h": 480
+          },
+          "fits": true
+        }
+      ],
+      "status": "PASS",
+      "elapsedMs": 5298
+    },
+    {
+      "name": "video-idle-and-travel-frame-observations",
+      "beach": {
+        "label": "Beach video + 3D idle",
+        "durationMs": 8010.099999997765,
+        "wallMs": 8009,
+        "frames": {
+          "n": 481,
+          "p50": 16.699999999999818,
+          "p95": 16.799999999999272,
+          "p99": 16.800000000000182,
+          "max": 16.80000000000109,
+          "over16_7": 137,
+          "over33_4": 0
+        },
+        "longTasks": [],
+        "eventTiming": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "over16_7": 0,
+          "over33_4": 0
+        },
+        "inputDelay": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "over16_7": 0,
+          "over33_4": 0
+        },
+        "pointerToNextRAF": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "over16_7": 0,
+          "over33_4": 0
+        },
+        "inference": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "over16_7": 0,
+          "over33_4": 0
+        },
+        "mainThreadBusyPercent": 11.752025567724035,
+        "attachedCanvasClearsPerSecond": 120.09837580058532,
+        "drawCallsPerSecond": 2702.2134555131697,
+        "pendingRaf": 1,
+        "pendingVideoCallbacks": 0,
+        "jsHeap": 15943492,
+        "dom": {
+          "documents": 1,
+          "nodes": 335,
+          "jsEventListeners": 586
+        }
+      },
+      "forest": {
+        "label": "Forest video + 3D idle",
+        "durationMs": 8006.89999999851,
+        "wallMs": 8006,
+        "frames": {
+          "n": 481,
+          "p50": 16.69999999999891,
+          "p95": 16.799999999999272,
+          "p99": 16.80000000000291,
+          "max": 16.80000000000291,
+          "over16_7": 211,
+          "over33_4": 0
+        },
+        "longTasks": [],
+        "eventTiming": {
+          "n": 11,
+          "p50": 16,
+          "p95": 16,
+          "p99": 16,
+          "max": 16,
+          "over16_7": 0,
+          "over33_4": 0
+        },
+        "inputDelay": {
+          "n": 11,
+          "p50": 0.5,
+          "p95": 0.5,
+          "p99": 0.5,
+          "max": 0.5,
+          "over16_7": 0,
+          "over33_4": 0
+        },
+        "pointerToNextRAF": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "over16_7": 0,
+          "over33_4": 0
+        },
+        "inference": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "over16_7": 0,
+          "over33_4": 0
+        },
+        "mainThreadBusyPercent": 11.16162310007826,
+        "attachedCanvasClearsPerSecond": 120.14637375266071,
+        "drawCallsPerSecond": 2703.293409434866,
+        "pendingRaf": 1,
+        "pendingVideoCallbacks": 0,
+        "jsHeap": 12969096,
+        "dom": {
+          "documents": 1,
+          "nodes": 631,
+          "jsEventListeners": 724
+        }
+      },
+      "travel": {
+        "label": "six prepared location changes",
+        "durationMs": 6672.800000000745,
+        "wallMs": 6681,
+        "frames": {
+          "n": 369,
+          "p50": 16.69999999999709,
+          "p95": 16.799999999999272,
+          "p99": 16.80000000000291,
+          "max": 333.3000000000029,
+          "over16_7": 184,
+          "over33_4": 2
+        },
+        "longTasks": [
+          {
+            "at": 22557.599999997765,
+            "duration": 343
+          },
+          {
+            "at": 22901.099999997765,
+            "duration": 84
+          },
+          {
+            "at": 22985.89999999851,
+            "duration": 79
+          }
+        ],
+        "eventTiming": {
+          "n": 116,
+          "p50": 48,
+          "p95": 440,
+          "p99": 560,
+          "max": 560,
+          "over16_7": 116,
+          "over33_4": 77
+        },
+        "inputDelay": {
+          "n": 116,
+          "p50": 9.5,
+          "p95": 16.699999999254942,
+          "p99": 341.20000000298023,
+          "max": 372.4000000022352,
+          "over16_7": 5,
+          "over33_4": 5
+        },
+        "pointerToNextRAF": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "over16_7": 0,
+          "over33_4": 0
+        },
+        "inference": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "p99": null,
+          "max": null,
+          "over16_7": 0,
+          "over33_4": 0
+        },
+        "mainThreadBusyPercent": 20.722949886102466,
+        "attachedCanvasClearsPerSecond": 110.59824961034612,
+        "drawCallsPerSecond": 2488.4606162327877,
+        "pendingRaf": 1,
+        "pendingVideoCallbacks": 1,
+        "jsHeap": 14446300,
+        "dom": {
+          "documents": 1,
+          "nodes": 597,
+          "jsEventListeners": 670
+        }
+      },
+      "resources": {
+        "layers": 1,
+        "videos": [
+          {
+            "id": "forest",
+            "paused": false,
+            "src": "/workspaces/forest-hd.mp4",
+            "time": 0.0551,
+            "ready": 4
+          }
+        ],
+        "canvases": 1,
+        "pendingRaf": 1,
+        "pendingVideo": 1
+      },
+      "status": "PASS",
+      "elapsedMs": 27930
+    },
+    {
+      "name": "eight-switch-cycles-and-retired-media-cleanup",
+      "samples": [
+        {
+          "cycle": 1,
+          "heapBytes": 11709640,
+          "documents": 1,
+          "nodes": 304,
+          "jsEventListeners": 586,
+          "layers": 1,
+          "videos": [],
+          "canvases": 1,
+          "pendingRaf": 1,
+          "pendingVideo": 0,
+          "retired": []
+        },
+        {
+          "cycle": 2,
+          "heapBytes": 11791264,
+          "documents": 1,
+          "nodes": 304,
+          "jsEventListeners": 586,
+          "layers": 1,
+          "videos": [],
+          "canvases": 1,
+          "pendingRaf": 1,
+          "pendingVideo": 0,
+          "retired": []
+        },
+        {
+          "cycle": 4,
+          "heapBytes": 11919440,
+          "documents": 1,
+          "nodes": 304,
+          "jsEventListeners": 586,
+          "layers": 1,
+          "videos": [],
+          "canvases": 1,
+          "pendingRaf": 1,
+          "pendingVideo": 0,
+          "retired": []
+        },
+        {
+          "cycle": 6,
+          "heapBytes": 11982456,
+          "documents": 1,
+          "nodes": 304,
+          "jsEventListeners": 586,
+          "layers": 1,
+          "videos": [],
+          "canvases": 1,
+          "pendingRaf": 1,
+          "pendingVideo": 0,
+          "retired": []
+        },
+        {
+          "cycle": 8,
+          "heapBytes": 11998160,
+          "documents": 1,
+          "nodes": 304,
+          "jsEventListeners": 586,
+          "layers": 1,
+          "videos": [],
+          "canvases": 1,
+          "pendingRaf": 1,
+          "pendingVideo": 0,
+          "retired": []
+        }
+      ],
+      "status": "PASS",
+      "elapsedMs": 27736
+    }
+  ],
+  "elapsedMs": 114726,
+  "finishedAt": "2026-10-30T15:44:19.272Z"
+}

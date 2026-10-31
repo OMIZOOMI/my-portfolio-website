@@ -1,0 +1,216 @@
+{
+  "version": 1,
+  "verifiedAt": "2026-10-28",
+  "controlledHosting": "Project public/music; playback uses same-origin URLs, without a third-party runtime dependency.",
+  "encoding": {
+    "format": "MP3",
+    "mimeType": "audio/mpeg",
+    "bitrateKbps": 160,
+    "sampleRateHz": 44100,
+    "channels": 2,
+    "seekHeader": "Xing",
+    "changes": "Transcoded once from the authorized full recording and adjusted by a constant gain. No speed changes, repeated samples, loops, shortening, or new fades."
+  },
+  "permissions": {
+    "cc0": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "ccBy": "https://creativecommons.org/licenses/by/4.0/",
+    "implementation": "Retain the track credit, source, license link and change notice in the in-app credits and this manifest. No DRM or extra license restrictions are applied to the audio assets."
+  },
+  "review": {
+    "listening": "No audio-perception or listening tool was available. Forwarding WAV excerpts produced an omitted-audio response; no subjective listening or vocal/harshness approval is claimed.",
+    "objectiveChecks": "All files decoded completely; durations are decoded PCM frame count / 44100 Hz. No decoded samples reach digital full scale. Endpoint RMS and final samples were measured. These checks do not replace listening."
+  },
+  "tracks": [
+    {
+      "id": "kids",
+      "title": "Kids",
+      "artist": "HoliznaCC0",
+      "album": "Spring at last (LOFI TAPE)",
+      "durationSeconds": 194.61698412698414,
+      "accent": "#bf5af2",
+      "src": "/music/kids.mp3",
+      "sourceUrl": "https://freemusicarchive.org/music/holiznacc0/spring-at-last-lofi-tape/kids/",
+      "license": "CC0 1.0",
+      "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "credit": "“Kids” by HoliznaCC0, from Spring at last (LOFI TAPE). CC0 1.0. Re-encoded and gain adjusted for web playback; the complete composition is unchanged.",
+      "genre": "lo-fi",
+      "gainDb": -5.8,
+      "sourceDownloadUrl": "https://files.freemusicarchive.org/storage-freemusicarchive-org/tracks/ZoqwhiciIssTmq7edNm7tLo5xQUd4RjBQXdiEcUb.mp3",
+      "permissionEvidenceUrls": [
+        "https://freemusicarchive.org/music/holiznacc0/spring-at-last-lofi-tape/kids/",
+        "https://freemusicarchive.org/music/holiznacc0/spring-at-last-lofi-tape",
+        "https://holiznacc0.bandcamp.com/album/spring-at-last"
+      ],
+      "attributionRequired": false,
+      "sourceDurationSeconds": 194.64,
+      "sourceIntegratedLufs": -13.2,
+      "sourceTruePeakDbtp": 0.57,
+      "reviewSegments": [
+        {
+          "start": 0,
+          "seconds": 20
+        },
+        {
+          "start": 87.32,
+          "seconds": 20
+        },
+        {
+          "start": 169.64,
+          "seconds": 25
+        }
+      ],
+      "bytes": 3893857,
+      "sha256": "3017ba310d85562159ea74d3d03863eb7a407d8402d6893bb82993fecefc8488",
+      "samplePeakDbfs": -4.567877769470215,
+      "samplesAtOrAboveFullScale": 0,
+      "firstSecondRmsDbfs": -43.080257415771484,
+      "lastSecondRmsDbfs": -69.43000793457031,
+      "last100msRmsDbfs": -94.86260223388672,
+      "lastSamplePeak": 0.0000036107044252275955
+    },
+    {
+      "id": "cylinder-two",
+      "title": "Cylinder Two",
+      "artist": "Chris Zabriskie",
+      "album": "Cylinders",
+      "durationSeconds": 227.83274376417233,
+      "accent": "#0a84ff",
+      "src": "/music/cylinder-two.mp3",
+      "sourceUrl": "https://chriszabriskie.com/cylinders/",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "credit": "“Cylinder Two” by Chris Zabriskie, from Cylinders. © 2014 Chris Zabriskie. Published by You’ve Been a Wonderful Laugh Track (ASCAP). Licensed under Creative Commons Attribution 4.0. chriszabriskie.com. Re-encoded and gain adjusted for web playback; the complete composition is unchanged.",
+      "genre": "ambient",
+      "gainDb": -2.73,
+      "sourceDownloadUrl": "https://audio.chriszabriskie.com/cylinders/cylinders-02.m4a",
+      "permissionEvidenceUrls": [
+        "https://chriszabriskie.com/cylinders/",
+        "https://chriszabriskie.com/use/",
+        "https://chriszabriskie.com/assets/player.js"
+      ],
+      "attributionRequired": true,
+      "sourceDurationSeconds": 227.88,
+      "sourceIntegratedLufs": -16.27,
+      "sourceTruePeakDbtp": -0.21,
+      "reviewSegments": [
+        {
+          "start": 0,
+          "seconds": 20
+        },
+        {
+          "start": 103.94,
+          "seconds": 20
+        },
+        {
+          "start": 202.88,
+          "seconds": 25
+        }
+      ],
+      "bytes": 4557889,
+      "sha256": "1fb6ca4c4bbe699faa6d0231842c652075e2692d2b1db750a3e5c247ce1c93df",
+      "samplePeakDbfs": -3.3975982666015625,
+      "samplesAtOrAboveFullScale": 0,
+      "firstSecondRmsDbfs": -44.63008117675781,
+      "lastSecondRmsDbfs": -45.33435821533203,
+      "last100msRmsDbfs": -47.03708267211914,
+      "lastSamplePeak": 0.0000016171171637324733
+    },
+    {
+      "id": "gymnopedie-no-1",
+      "title": "Gymnopedie No. 1",
+      "artist": "Kevin MacLeod",
+      "album": "Famous Classics",
+      "durationSeconds": 187.08897959183673,
+      "accent": "#30d158",
+      "src": "/music/gymnopedie-no-1.mp3",
+      "sourceUrl": "https://incompetech.com/music/royalty-free/index.html?Search=Search&isrc=USUAN1100787",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "credit": "“Gymnopedie No. 1” Kevin MacLeod (incompetech.com). Composition by Erik Satie; recording/performance by Kevin MacLeod. Licensed under Creative Commons: By Attribution 4.0. Re-encoded and gain adjusted for web playback; the complete composition is unchanged.",
+      "genre": "piano",
+      "gainDb": -1.4,
+      "sourceDownloadUrl": "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Gymnopedie%20No%201.mp3",
+      "permissionEvidenceUrls": [
+        "https://incompetech.com/music/royalty-free/index.html?Search=Search&isrc=USUAN1100787",
+        "https://incompetech.com/music/royalty-free/pieces.json",
+        "https://incompetech.com/music/royalty-free/faq.html"
+      ],
+      "attributionRequired": true,
+      "isrc": "USUAN1100787",
+      "composer": "Erik Satie",
+      "sourceDurationSeconds": 187.09,
+      "sourceIntegratedLufs": -19.99,
+      "sourceTruePeakDbtp": -0.1,
+      "reviewSegments": [
+        {
+          "start": 0,
+          "seconds": 20
+        },
+        {
+          "start": 83.545,
+          "seconds": 20
+        },
+        {
+          "start": 162.09,
+          "seconds": 25
+        }
+      ],
+      "bytes": 3742869,
+      "sha256": "605637a5b1e8beb40900b581626ca62160db5fb4768fcf84910316a679377c7e",
+      "samplePeakDbfs": -1.9330083131790161,
+      "samplesAtOrAboveFullScale": 0,
+      "firstSecondRmsDbfs": -26.53501319885254,
+      "lastSecondRmsDbfs": -75.39128112792969,
+      "last100msRmsDbfs": -80.53638458251953,
+      "lastSamplePeak": 0
+    },
+    {
+      "id": "floating-cities",
+      "title": "Floating Cities",
+      "artist": "Kevin MacLeod",
+      "album": "Wonders of Other Worlds",
+      "durationSeconds": 184.05877551020407,
+      "accent": "#ff9f0a",
+      "src": "/music/floating-cities.mp3",
+      "sourceUrl": "https://incompetech.com/music/royalty-free/index.html?Search=Search&isrc=USUAN1600018",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "credit": "“Floating Cities” Kevin MacLeod (incompetech.com). Licensed under Creative Commons: By Attribution 4.0. Re-encoded and gain adjusted for web playback; the complete composition is unchanged.",
+      "genre": "electronic",
+      "gainDb": 0.82,
+      "sourceDownloadUrl": "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Floating%20Cities.mp3",
+      "permissionEvidenceUrls": [
+        "https://incompetech.com/music/royalty-free/index.html?Search=Search&isrc=USUAN1600018",
+        "https://incompetech.com/music/royalty-free/pieces.json",
+        "https://incompetech.com/music/royalty-free/faq.html"
+      ],
+      "attributionRequired": true,
+      "isrc": "USUAN1600018",
+      "sourceDurationSeconds": 184.06,
+      "sourceIntegratedLufs": -19.82,
+      "sourceTruePeakDbtp": -5.43,
+      "reviewSegments": [
+        {
+          "start": 0,
+          "seconds": 20
+        },
+        {
+          "start": 82.03,
+          "seconds": 20
+        },
+        {
+          "start": 159.06,
+          "seconds": 25
+        }
+      ],
+      "bytes": 3682265,
+      "sha256": "7b1a6eabe1ad0475868650a7b3a724c484e874e5e4848248013c2d143e5b29d1",
+      "samplePeakDbfs": -5.064324378967285,
+      "samplesAtOrAboveFullScale": 0,
+      "firstSecondRmsDbfs": -24.38220977783203,
+      "lastSecondRmsDbfs": -79.9428482055664,
+      "last100msRmsDbfs": -89.10269927978516,
+      "lastSamplePeak": 2.575133066784474e-7
+    }
+  ]
+}

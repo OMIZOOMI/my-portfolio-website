@@ -1,0 +1,127 @@
+.finder {
+  --finder-surface: #fff;
+  --finder-sidebar: #f0eff0;
+  --finder-toolbar: #f7f6f7;
+  --finder-text: #28272b;
+  --finder-muted: #757379;
+  --finder-divider: rgb(0 0 0 / 9%);
+  --finder-hover: rgb(0 0 0 / 5%);
+  --finder-selection: rgb(0 0 0 / 9%);
+  --finder-selection-text: #212025;
+  container: finder / inline-size;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  overflow: hidden;
+  color: var(--finder-text);
+  background: var(--finder-surface);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  -webkit-user-select: none;
+  user-select: none;
+}
+:global(.dark) .finder {
+  --finder-surface: #29262b;
+  --finder-sidebar: #252228;
+  --finder-toolbar: #302c32;
+  --finder-text: #eeeaf0;
+  --finder-muted: #a7a1ab;
+  --finder-divider: rgb(255 255 255 / 9%);
+  --finder-hover: rgb(255 255 255 / 6%);
+  --finder-selection: rgb(255 255 255 / 10%);
+  --finder-selection-text: #fff;
+}
+.layout { display: flex; width: 100%; height: 100%; min-width: 0; }
+.sidebar { flex: 0 0 168px; min-width: 0; overflow: auto; padding: 16px 10px; border-right: 1px solid var(--finder-divider); background: var(--finder-sidebar); }
+.group + .group { margin-top: 26px; }
+.groupTitle { margin: 0 10px 7px; color: var(--finder-muted); font-size: 12px; line-height: 18px; font-weight: 600; }
+.location {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 36px;
+  margin-top: 2px;
+  padding: 7px 10px;
+  border: 0;
+  border-radius: 7px;
+  background: transparent;
+  color: inherit;
+  text-align: left;
+  font-size: 14px;
+  line-height: 20px;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.location > svg { flex-shrink: 0; color: var(--system-accent); }
+/* Interaction paint has its own layer; theme colors never slow hover. */
+.location::before { content: ""; position: absolute; inset: 0; border-radius: inherit; background: var(--finder-hover); opacity: 0; pointer-events: none; transition: opacity 100ms ease-out; }
+.location:hover::before { opacity: 1; }
+.location[aria-current="page"] { background: var(--finder-selection); color: var(--finder-selection-text); font-weight: 600; }
+.location[aria-current="page"]::before { opacity: 0; }
+.location[data-drop-target] { outline: 2px dashed var(--system-accent); outline-offset: -2px; background: color-mix(in srgb, var(--system-accent) 14%, transparent); }
+.badge { margin-left: auto; font-size: 11px; color: var(--finder-muted); font-variant-numeric: tabular-nums; }
+.main { display: flex; flex: 1; flex-direction: column; min-width: 0; min-height: 0; background: var(--finder-surface); }
+.toolbar { display: flex; align-items: center; gap: 10px; flex-shrink: 0; height: 58px; padding: 0 16px; border-bottom: 1px solid var(--finder-divider); background: var(--finder-toolbar); }
+.toolButton, .emptyButton { display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; height: 32px; border: 0; border-radius: 6px; background: transparent; color: inherit; cursor: pointer; transition: background-color 100ms ease-out; }
+.toolButton { width: 30px; }
+.toolButton:hover:not(:disabled), .emptyButton:hover:not(:disabled) { background: var(--finder-hover); }
+.toolButton:disabled, .emptyButton:disabled { opacity: .3; cursor: default; }
+.toolButton:active:not(:disabled) { background: var(--finder-selection); }
+.history { display: flex; flex-shrink: 0; gap: 1px; padding-right: 10px; border-right: 1px solid var(--finder-divider); }
+.fileActions { display: flex; flex-shrink: 0; gap: 2px; }
+.finder[data-in-bin] .fileActions { display: none; }
+.title { flex: 1; min-width: 0; margin: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 18px; line-height: 24px; font-weight: 650; letter-spacing: -.4px; }
+.emptyButton { padding: 0 10px; min-height: 28px; font-size: 12px; font-weight: 500; box-shadow: inset 0 0 0 1px var(--finder-divider); }
+.content { position: relative; flex: 1; min-width: 0; min-height: 0; overflow: auto; overscroll-behavior: contain; }
+.content:focus-visible { outline: 2px solid var(--system-accent); outline-offset: -3px; }
+.content[data-drop-target] { box-shadow: inset 0 0 0 2px var(--system-accent); background: color-mix(in srgb, var(--system-accent) 5%, var(--finder-surface)); }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(108px, 100%), 1fr)); align-content: start; justify-items: center; gap: 18px 10px; padding: 24px 20px; }
+.item { position: relative; width: 108px; max-width: 100%; min-width: 0; border-radius: 9px; cursor: grab; touch-action: none; transition: opacity 100ms ease-out; }
+.item[data-dragging] { opacity: .4; }
+.item[data-drop-target] { outline: 2px dashed var(--system-accent); outline-offset: 1px; background: color-mix(in srgb, var(--system-accent) 12%, transparent); }
+.emptyState { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100%; padding: 24px; gap: 10px; text-align: center; color: var(--finder-muted); }
+.emptyState p { margin: 3px 0 0; color: var(--finder-text); font-size: 14px; font-weight: 600; }
+.emptyState > span { max-width: 28ch; font-size: 12px; line-height: 18px; }
+.emptyState .emptyButton { margin-top: 5px; color: var(--finder-text); }
+.pathBar, .statusBar { display: flex; align-items: center; flex-shrink: 0; gap: 6px; min-width: 0; padding: 0 16px; border-top: 1px solid var(--finder-divider); background: var(--finder-toolbar); color: var(--finder-muted); font-size: 12px; line-height: 16px; }
+.pathBar { height: 31px; overflow-x: auto; white-space: nowrap; scrollbar-width: thin; }
+.pathRoot, .pathSegment { display: inline-flex; align-items: center; flex-shrink: 0; gap: 6px; }
+.pathSegment > [aria-current] { max-width: 170px; overflow: hidden; text-overflow: ellipsis; color: var(--finder-text); }
+.pathSegment button { padding: 1px 2px; border: 0; border-radius: 3px; background: transparent; color: inherit; cursor: pointer; }
+.pathSegment button:hover { color: var(--finder-text); text-decoration: underline; }
+.statusBar { justify-content: space-between; height: 27px; font-variant-numeric: tabular-nums; }
+.statusHint { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.finder button:focus-visible { outline: 2px solid var(--system-accent); outline-offset: 2px; }
+.sidebar, .main, .toolbar, .pathBar, .statusBar { transition: background-color 180ms ease-out, border-color 180ms ease-out; }
+@container finder (max-width: 540px) {
+  .sidebar { flex-basis: 142px; padding: 12px 7px; }
+  .location { gap: 8px; padding: 7px 9px; font-size: 13px; }
+  .toolbar { gap: 5px; padding: 0 10px; height: 52px; }
+  .history { padding-right: 5px; }
+  .title { font-size: 16px; }
+  .grid { gap: 16px 4px; padding: 20px 10px; }
+}
+@container finder (max-width: 410px) {
+  .sidebar { flex-basis: 118px; padding-inline: 5px; }
+  .location { gap: 6px; padding-inline: 6px; font-size: 12px; }
+  .location > svg { width: 16px; }
+  .groupTitle { margin-inline: 6px; }
+  .toolbar { flex-wrap: wrap; height: auto; min-height: 78px; gap: 0 4px; padding: 6px 9px; }
+  .title { order: 3; flex-basis: 100%; font-size: 15px; line-height: 22px; }
+  .fileActions { margin-left: auto; }
+  .emptyButton { margin-left: auto; height: 27px; padding-inline: 7px; font-size: 11px; }
+  .pathBar, .statusBar { padding-inline: 10px; }
+  .pathRoot > span, .statusHint { display: none; }
+}
+@container finder (max-width: 300px) {
+  .sidebar { flex-basis: 100px; }
+  .location { gap: 5px; padding-inline: 4px; font-size: 11px; }
+  .groupTitle { font-size: 10px; }
+  .toolbar { padding-inline: 4px; }
+  .toolButton { width: 26px; }
+  .history { padding-right: 0; border: 0; }
+  .grid { padding-inline: 5px; }
+}
+.finder[data-reduced-motion] *, .finder[data-reduced-motion] *::before { transition: none; }
+@media (prefers-reduced-motion: reduce) { .finder *, .finder *::before { transition: none; } }

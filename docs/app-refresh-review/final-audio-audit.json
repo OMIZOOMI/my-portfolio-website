@@ -1,0 +1,83 @@
+[
+  {
+    "id": "roof-tops",
+    "durationSeconds": 214.4409977324263,
+    "bytes": 4290395,
+    "sha256": "cddebd5963e3a0bfaae8fd47302fe9f429f9a652da32a8d0dc0609564f04ecf4",
+    "samplePeakDbfs": -4.638807304367168,
+    "samplesAtOrAboveFullScale": 0,
+    "last100msRmsDbfs": -84.88995660720711
+  },
+  {
+    "id": "summer-felt-longer-then",
+    "durationSeconds": 227.95299319727891,
+    "bytes": 4560501,
+    "sha256": "4b9ce7e10af57c9f464de3d592713dec76462acf0e61f6c03c8af60d861e591f",
+    "samplePeakDbfs": -2.2004172183853035,
+    "samplesAtOrAboveFullScale": 0,
+    "last100msRmsDbfs": -82.4631085698587
+  },
+  {
+    "id": "transformations-2",
+    "durationSeconds": 235.1040136054422,
+    "bytes": 4703652,
+    "sha256": "f2a4a96241ddb5ff02d1a47d2fb0cbb3ad58ce9b2936cce1a1d271cf9a3c54a6",
+    "samplePeakDbfs": -9.013188694429727,
+    "samplesAtOrAboveFullScale": 0,
+    "last100msRmsDbfs": -240.0
+  },
+  {
+    "id": "cipher",
+    "durationSeconds": 231.26204081632653,
+    "bytes": 4626329,
+    "sha256": "185110c1cf3aa1afbe356380e7667598f7be9ab4958a968c703fb7ff2d134a9c",
+    "samplePeakDbfs": -5.005226147003222,
+    "samplesAtOrAboveFullScale": 0,
+    "last100msRmsDbfs": -125.90882007859446
+  },
+  {
+    "id": "electro-cabello",
+    "durationSeconds": 190.82448979591837,
+    "bytes": 3817578,
+    "sha256": "ffacde24f67ffae72a03f963693b8ee75bef99c5cb7a3c7e303377d92889589e",
+    "samplePeakDbfs": -6.686486749732994,
+    "samplesAtOrAboveFullScale": 0,
+    "last100msRmsDbfs": -240.0
+  },
+  {
+    "id": "life-of-riley",
+    "durationSeconds": 235.36326530612246,
+    "bytes": 4708354,
+    "sha256": "a2d1753e7d43f89ae9b80b9b270d49da178f38806bb1fecfe49a00dda3b3575c",
+    "samplePeakDbfs": -4.547648103766237,
+    "samplesAtOrAboveFullScale": 0,
+    "last100msRmsDbfs": -149.6195841903969
+  },
+  {
+    "id": "night-in-venice",
+    "durationSeconds": 218.14857142857142,
+    "bytes": 4364060,
+    "sha256": "03662c5838a4e1672d7b29a55186cc78e3c47b46f584f51e31050eacecafed71",
+    "samplePeakDbfs": -7.639932132028369,
+    "samplesAtOrAboveFullScale": 0,
+    "last100msRmsDbfs": -240.0
+  },
+  {
+    "id": "study-and-relax",
+    "durationSeconds": 223.3991836734694,
+    "bytes": 4469072,
+    "sha256": "96af4c6fc249d5f6e74a726f5ab48a902e6cd99dc1958b562587eef5036ede02",
+    "samplePeakDbfs": -5.672839605452319,
+    "samplesAtOrAboveFullScale": 0,
+    "last100msRmsDbfs": -153.01786989669225
+  },
+  {
+    "id": "just-as-soon",
+    "durationSeconds": 228.10122448979592,
+    "bytes": 4563113,
+    "sha256": "9ce77db896bf0a41e3f19c78842a52341e7036e058edf69f937a94d29dedbdf5",
+    "samplePeakDbfs": -2.834158521923386,
+    "samplesAtOrAboveFullScale": 0,
+    "last100msRmsDbfs": -240.0
+  }
+]

@@ -1,0 +1,35 @@
+
+> my-portfolio-website@0.1.0 prebuild
+> npm run check:mediapipe
+
+
+> my-portfolio-website@0.1.0 check:mediapipe
+> node scripts/check-mediapipe-assets.mjs
+
+MediaPipe 1.0.1: package, lockfile, installed runtime, 7 asset sizes/checksums verified.
+
+> my-portfolio-website@0.1.0 build
+> next build
+
+▲ Next.js 16.3.1 (Turbopack)
+✓ Running next.config.ts took 96ms
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 1149ms
+  Running TypeScript ...
+  Finished TypeScript in 1655ms ...
+  Collecting page data using 5 workers ...
+  Generating static pages using 5 workers (0/4) ...
+  Generating static pages using 5 workers (1/4) 
+  Generating static pages using 5 workers (2/4) 
+  Generating static pages using 5 workers (3/4) 
+✓ Generating static pages using 5 workers (4/4) in 376ms
+  Finalizing page optimization ...
+
+Route (app)
+┌ ○ /
+└ ○ /_not-found
+
+
+○  (Static)  prerendered as static content
+

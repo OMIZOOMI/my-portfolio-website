@@ -1,0 +1,1 @@
+PASS horizontal-swipe-geometry-and-anchored-laptop

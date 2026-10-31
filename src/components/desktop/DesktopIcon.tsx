@@ -1,10 +1,12 @@
 "use client";
 
-import type { ReactNode } from "react";
+import { useEffect, useRef, type ReactNode } from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import styles from "./DesktopIcon.module.css";
 import { useSystemStore } from "../window-manager/useSystemStore";
+import { useFileInteractionStore } from "./useFileInteractionStore";
+import { FolderRenameInput } from "./FolderRenameInput";
 
 // 1. Importing your local asset!
 import FolderIconImg from "../../assets/FolderIcon.png";
@@ -17,17 +19,101 @@ interface DesktopIconProps {
   onOpen: () => void;
   /** "desktop" (white labels for wallpapers) or "window" (theme-aware labels). */
   tone?: "desktop" | "window";
+  layout?: "desktop" | "finder";
+  selected?: boolean;
+  onSelect?: () => void;
+  surfaceId?: string;
+  itemId?: string;
 }
 
-export function DesktopIcon({ label, variant, glyph, accent = "#4c8dff", onOpen, tone = "desktop" }: DesktopIconProps) {
+export function DesktopIcon({ label, variant, glyph, accent = "#4c8dff", onOpen, tone = "desktop", layout = "desktop", selected = false, onSelect, surfaceId, itemId }: DesktopIconProps) {
   const isFileDragging = useSystemStore((s) => s.isDragging);
+  const reduceMotion = useSystemStore((s) => s.reduceMotion);
+  const prefersReducedMotion = useReducedMotion();
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const pointerPress = useRef<number | null>(null);
+  const suppressPointerActivation = useRef(false);
+  const acceptedPointerClicks = useRef(0);
+  const ownSelected = useFileInteractionStore((state) => surfaceId && itemId ? state.selections[surfaceId] === itemId : false);
+  const rename = useFileInteractionStore((state) => state.rename?.surfaceId === surfaceId && state.rename?.itemId === itemId ? state.rename : null);
+  const isSelected = surfaceId && itemId ? ownSelected : selected;
+  const animate = layout !== "finder" && !isFileDragging && !reduceMotion && !prefersReducedMotion;
+
+  // DragOverlay clears the drag store during pointerup, before the browser can
+  // dispatch click/dblclick. Remember the actual shared drag decision so a
+  // completed drag cannot turn into an accidental folder activation.
+  useEffect(() => useSystemStore.subscribe((state) => {
+    if (pointerPress.current !== null && state.isDragging && state.draggedItem?.id === itemId && state.dragPointerId === pointerPress.current) {
+      suppressPointerActivation.current = true;
+      pointerPress.current = null;
+    }
+  }), [itemId]);
+
+  const select = () => {
+    if (surfaceId && itemId) useFileInteractionStore.getState().selectItem(surfaceId, itemId);
+    onSelect?.();
+  };
+
   return (
+    <div className={`${styles.iconShell} ${layout === "finder" ? styles.finderShell : ""}`} data-file-icon-shell={itemId}>
     <motion.button
+      ref={buttonRef}
       type="button"
-      className={`${styles.icon} cursor-grab select-none`}
-      onDoubleClick={onOpen}
-      whileHover={isFileDragging ? undefined : { scale: 1.05, y: -2 }}
-      whileTap={isFileDragging ? undefined : { scale: 0.97, y: 0 }}
+      className={`${styles.icon} ${layout === "finder" ? styles.finderIcon : ""} cursor-grab select-none`}
+      data-file-icon={itemId}
+      data-selected={isSelected || undefined}
+      data-editing={!!rename || undefined}
+      aria-pressed={onSelect || surfaceId ? isSelected : undefined}
+      onFocus={() => { if (!rename) select(); }}
+      onPointerDown={(event) => {
+        if (event.button !== 0 || rename) return;
+        pointerPress.current = event.pointerId;
+        suppressPointerActivation.current = false;
+        select();
+      }}
+      onPointerUp={() => { pointerPress.current = null; }}
+      onPointerCancel={() => {
+        pointerPress.current = null;
+        suppressPointerActivation.current = true;
+        acceptedPointerClicks.current = 0;
+      }}
+      onClick={(event) => {
+        pointerPress.current = null;
+        if (rename || isFileDragging || (event.detail !== 0 && suppressPointerActivation.current)) {
+          event.preventDefault();
+          event.stopPropagation();
+          acceptedPointerClicks.current = 0;
+          return;
+        }
+        select();
+        // Assistive technology activates a button with a zero-detail click.
+        // Physical Enter/Space are handled below and suppress native clicks.
+        if (event.detail === 0) {
+          onOpen();
+          return;
+        }
+        acceptedPointerClicks.current = event.detail === 1 ? 1 : acceptedPointerClicks.current + 1;
+      }}
+      onKeyDown={(event) => {
+        if (event.key !== "Enter" && event.key !== " ") return;
+        event.preventDefault();
+        event.stopPropagation();
+        if (event.repeat || event.nativeEvent.isComposing || event.metaKey || event.ctrlKey || event.altKey || isFileDragging || rename) return;
+        select();
+        onOpen();
+      }}
+      onKeyUp={(event) => {
+        if (event.key !== "Enter" && event.key !== " ") return;
+        event.preventDefault();
+        event.stopPropagation();
+      }}
+      onDoubleClick={(event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        if (!rename && !isFileDragging && !suppressPointerActivation.current && acceptedPointerClicks.current >= 2) onOpen();
+      }}
+      whileHover={animate && !rename ? { scale: 1.05, y: -2 } : undefined}
+      whileTap={animate && !rename ? { scale: 0.97, y: 0 } : undefined}
       transition={{ type: "spring", duration: 0.3, bounce: 0 }}
       aria-label={`Open ${label}`}
     >
@@ -46,7 +132,7 @@ export function DesktopIcon({ label, variant, glyph, accent = "#4c8dff", onOpen,
       {variant === "folder" && (
         <Image
           src={FolderIconImg}
-          alt="Folder" 
+          alt=""
           width={56}
           height={56}
           unoptimized
@@ -65,5 +151,7 @@ export function DesktopIcon({ label, variant, glyph, accent = "#4c8dff", onOpen,
       
       <span className={`${styles.label} ${tone === "window" ? styles.labelWindow : ""}`}>{label}</span>
     </motion.button>
+    {rename && <FolderRenameInput key={rename.token} session={rename} name={label} onRestoreFocus={() => buttonRef.current?.focus({ preventScroll: true })} />}
+    </div>
   );
 }

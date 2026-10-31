@@ -1,0 +1,45 @@
+.menu {
+  position: absolute;
+  z-index: 2147483646;
+  box-sizing: border-box;
+  width: 228px;
+  padding: 5px;
+  overflow: auto;
+  border: 1px solid rgb(0 0 0 / 14%);
+  border-radius: 9px;
+  background: rgb(247 247 249 / 97%);
+  box-shadow: 0 12px 30px rgb(0 0 0 / 24%), 0 1px 4px rgb(0 0 0 / 12%);
+  color: #252528;
+  font: 13px/18px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  cursor: default;
+  outline: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+.menu button {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  width: 100%;
+  min-height: 29px;
+  padding: 4px 7px;
+  border: none;
+  border-radius: 5px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  white-space: nowrap;
+  cursor: default;
+  outline: none;
+}
+.menu button svg { flex: 0 0 auto; }
+.menu button span { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+.menu button kbd { margin-left: auto; color: inherit; opacity: .6; font-family: inherit; font-size: 11px; line-height: 18px; }
+.menu button:not(:disabled):hover,
+.menu button:not(:disabled):focus-visible { background: var(--system-accent); color: #fff; }
+.menu button:disabled { opacity: .38; }
+.separator { height: 1px; margin: 4px 5px; background: rgb(0 0 0 / 11%); }
+:global(.dark) .menu { background: rgb(45 45 49 / 98%); border-color: rgb(255 255 255 / 15%); color: #f3f3f5; }
+:global(.dark) .separator { background: rgb(255 255 255 / 13%); }

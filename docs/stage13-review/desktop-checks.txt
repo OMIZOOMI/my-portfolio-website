@@ -1,0 +1,1 @@
+PASS idle-and-multi-app-window-interaction

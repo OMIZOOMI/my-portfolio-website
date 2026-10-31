@@ -1,0 +1,387 @@
+✔ native request asks for camera only and separates permission from arriving frames (4.962833ms)
+✔ closing during a delayed permission response stops late tracks and never attaches video (1.916125ms)
+✔ permission denial is actionable and a later retry can obtain a live camera (2.950916ms)
+✔ request timeout cannot spawn competing native prompts and late success remains discarded (6.587125ms)
+✔ overlapping windows share a broker and never open two native requests or camera owners (3.709583ms)
+✔ minimize/hidden releases camera, video, all listeners and timers immediately; restore requests anew (1.867958ms)
+✔ turning camera off really stops tracks; toggling it while hidden does not request media (8.548958ms)
+✔ play rejection preserves granted permission and offers a user-activation resume without reacquiring (8.412958ms)
+✔ late play completion after close cannot republish a live camera (5.727291ms)
+✔ a granted camera that never produces frames times out with retryable status and releases tracks (7.405042ms)
+✔ track interruption and recovery reflect real muted/live state; disconnection is actionable (2.348625ms)
+✔ a delayed successful first frame retires the startup deadline before a later brief interruption (1.08225ms)
+✔ external camera disable is noticed by monitoring rather than continuing to claim live (0.60575ms)
+✔ stalled live video fails within the bounded frame timeout and drops the stream (0.870583ms)
+✔ video error releases everything and cannot receive stale listener updates (1.514625ms)
+✔ insecure and unsupported environments fail before requesting permission (4.887875ms)
+✔ unavailable/busy/device-settings native failures have specific recoverable messages (4.474625ms)
+✔ an absent preview or stream without a live video track is safely rejected (2.605417ms)
+✔ the CPU-safe confetti explosion has70deterministic fragments and no canvas (13.340208ms)
+✔ all fragment animations finish within the existing2600ms burst lifetime (21.487667ms)
+✔ identity and translated anisotropic projections convert both axes independently (5.811084ms)
+✔ affine rotation, skew, and reflection retain ordered local corners (0.425958ms)
+✔ perspective projection and inverse round-trip points across and outside a trapezoid (1.342083ms)
+✔ invalid, singular, folded, and concave projections are rejected safely (0.197292ms)
+✔ non-finite input points and projective horizons return null without clamping valid outside points (0.128917ms)
+✔ DOM coordinate probes are inert and reused while live camera/zoom/layout measurements stay fresh (1.385583ms)
+✔ invalid DOM probes fall back to the root rectangle and hidden/zero-size desktops return null (2.667625ms)
+✔ Enter and Space activate once and suppress native repeat/keyup clicks, including selectable icons (22.736958ms)
+✔ focus selects an icon visibly, while single click selects and double click opens exactly once (0.9455ms)
+✔ assistive activation remains available after a completed pointer drag (2.175208ms)
+✔ a completed shared drag cannot become a click/double click after pointerup cleared drag state (2.323042ms)
+✔ dragging a different icon does not suppress the current icon's activation (1.862584ms)
+✔ rename editors and composition do not activate folders; F2 and Shift+F10 still reach the surface (1.170458ms)
+✔ assistive button activation opens once and pointer cancellation cannot activate (0.6385ms)
+✖ actual peace callback renders ConfettiBurst and the peace detection badge (5.299375ms)
+✖ actual thumbs-up callback renders FloatingLikes and the thumbs-up detection badge (2.664958ms)
+✖ reduced motion retains the correct detection badge while suppressing both animated effects (2.150292ms)
+✖ a new camera generation hides old effects and labels and cancels their pending label timer (0.893416ms)
+✖ pause, minimize, close and native hidden snapshots suppress effects and disable the detector (1.324958ms)
+✖ manual preview control produces confetti without claiming a detected gesture and is ignored while paused (2.216375ms)
+✖ effects off pauses inference and enabling it cannot replay a prior burst (1.325667ms)
+✔ file drag preserves the true grab offset of a right-side icon under perspective (62.8955ms)
+✔ unavailable projection does not start a drag with mixed client/local offsets (18.092291ms)
+✔ dock panel blocks drops through to a window behind it while empty side strips remain usable (35.767208ms)
+▶ folder identity and names
+  ✔ rapid creation uses unique stable IDs and destination-local automatic numbering (23.35025ms)
+  ✔ new desktop folders avoid manual and trashed positions without moving existing icons (4.161166ms)
+  ✔ a full desktop still creates a folder at a reachable bounded position (0.59675ms)
+  ✔ create normalizes explicit names and rejects blanks, invalid names and duplicate siblings without history (0.8955ms)
+  ✔ renaming changes only folder metadata and preserves nested IDs and associations (1.103709ms)
+  ✔ rename rejects invalid, duplicate and non-folder targets without changing history (0.983292ms)
+  ✔ default names fill the first available number and ignore names currently in Bin (0.390792ms)
+  ✔ create and rename undo/redo preserve identity and a new action clears redo (1.663875ms)
+✔ folder identity and names (34.564083ms)
+▶ trash subtree ownership and restoration
+  ✔ restoring the initial Projects folder restores its three real project files without restoring unrelated trash (0.82975ms)
+  ✔ create → rename → nest → rename parent → move → trash → restore retains every identity and child (2.811417ms)
+  ✔ parent restore leaves independently trashed descendants and unrelated items in Bin (2.9235ms)
+  ✔ restore conflict chooses an available sibling name without changing IDs or children (0.396916ms)
+  ✔ undo/redo trash and restore also restores ownership metadata for future actions (0.437375ms)
+  ✔ Bin and hidden/deleted destinations reject create, rename and moves without adding history (0.542917ms)
+  ✔ moving a folder cannot create cycles or duplicate visible names (45.269041ms)
+✔ trash subtree ownership and restoration (53.53925ms)
+▶ Finder window identities and navigation
+  ✔ opening a Finder uses its opaque folder ID rather than its display title (9.588667ms)
+  ✔ navigation, back and forward retain IDs and a new branch truncates only forward history (0.78ms)
+  ✔ a renamed location updates its title without appending or rewriting history IDs (1.764ms)
+  ✔ two Finder windows can show the same real folder with independent navigation (1.139ms)
+  ✔ reopening an existing Finder returns to the requested ID after previous navigation (3.272334ms)
+  ✔ Finder location updates do not alter other app windows or missing windows (3.2195ms)
+✔ Finder window identities and navigation (20.054834ms)
+✔ controlled peace/thumbs-up fixtures and horizontal mirrors have identical classifications (1.884375ms)
+✔ the recognized fixtures remain stable under scale and image-position changes (0.306542ms)
+✔ fist, open palm, no hand, and a sideways thumb do not produce a supported gesture (0.723292ms)
+✔ peace deliberately tolerates either thumb resting position but not an extended ring finger (0.195834ms)
+✔ finger extension uses the strict 1.15 wrist-distance margin (0.677833ms)
+✔ incomplete/non-finite detections safely reset to none instead of throwing or partially classifying (0.624333ms)
+✔ a recognized held pose fires once even after many cooldown intervals (4.191917ms)
+✔ no-hand releases a held pose without bypassing the global cooldown (0.456834ms)
+✔ a different pose entered during cooldown fires once when eligible while held (1.486458ms)
+✔ a short pose that disappears during cooldown does not fire later (0.223542ms)
+✔ reset removes stale pose and cooldown state on a new camera/inference session (0.471708ms)
+✔ cooldown is configurable and invalid clock samples cannot produce effects (0.189666ms)
+✔ model creation does not claim ready until inference succeeds; callback rerenders keep one task (501.974542ms)
+✔ GPU initialization refusal uses CPU and only a successful CPU frame becomes ready (142.733208ms)
+✔ GPU context loss uses the existing CPU replacement path; failed CPU inference stops the loop (127.2085ms)
+✔ failed asset loading never starts native initialization and a changed retry key recovers (88.617708ms)
+✔ initialization watchdog reports failure, preserves exclusivity, and closes a late task before retry (73.478875ms)
+✔ minimize/restore during pending creation cannot run two tasks or publish stale readiness (118.639417ms)
+✔ waiting for a never-settling previous task also has a bounded, truthful retry status (88.413666ms)
+✔ completed owned runtime loader tags and their callbacks do not accumulate (119.427ms)
+✔ one active detector; a queued owner automatically resumes after release (2.86625ms)
+✔ GPU initialization failure falls back once to CPU and reports the actual delegate (0.925834ms)
+✔ asset failures skip irrelevant GPU retry, and initialization rejection is retryable (7.811666ms)
+✔ failed GPU and CPU initialization does not cache a poisoned promise (0.758333ms)
+✔ abort during uncancellable initialization closes its late task before starting the next (43.293125ms)
+✔ a waiting minimized/closed owner is removed without creating a task (6.9765ms)
+✔ runtime GPU failure closes GPU before replacing with CPU, while waiters remain queued (5.855125ms)
+✔ abort during GPU→CPU replacement closes the late CPU task and never revives the owner (0.746584ms)
+✔ failed runtime CPU replacement releases ownership and permits a fresh retry (0.965958ms)
+▶ on-demand native Music playback
+  ✔ mount neither requests nor plays audio and starts synchronously only on intent (1.647167ms)
+  ✔ metadata owns duration, seeking works beyond two minutes and clamps safely (0.632042ms)
+  ✔ a rejected old play promise cannot replace the newer selection's state (2.546583ms)
+  ✔ pause while Play is pending prevents late completion/events from resuming (0.573542ms)
+  ✔ a blocked play promise remains actionable after late metadata; Play retries (0.746875ms)
+  ✔ loading has a finite deadline, cancels the request, and Retry restores position (0.264084ms)
+  ✔ a saved resume survives timeout before metadata and a subsequent retry (0.135458ms)
+  ✔ pause and close before metadata preserve the unapplied resume/seek position (0.09825ms)
+  ✔ repeated waiting events cannot extend a buffering deadline indefinitely (0.162208ms)
+  ✔ a network stall with sufficient buffered media keeps playing without a timeout (0.147125ms)
+  ✔ fetch/decode failures never leave playback loading and can be retried (0.234542ms)
+  ✔ unsupported audio reports an error without claiming playback (0.198667ms)
+  ✔ ended advances only once, and a restarted track can end again (0.307708ms)
+  ✔ queued events from a replaced source cannot mark its replacement as playing, ended or failed (0.145875ms)
+  ✔ close pauses, releases src/listeners/timer, and ignores late play outcomes (1.549417ms)
+  ✔ volume is clamped and user values survive source changes (0.1725ms)
+✔ on-demand native Music playback (10.832625ms)
+▶ Music store and app lifecycle
+  ✔ commands cannot invent a playing state without a mounted player (0.199ms)
+  ✔ only one live player survives a replacement; stale cleanup leaves it intact (0.509333ms)
+  ✔ close releases immediately; reopening keeps position without autoplay or requests (0.359833ms)
+  ✔ closing a resumed player before its new metadata arrives retains the saved position (0.221375ms)
+  ✔ Next preserves pause; shuffle excludes the current track and Previous follows history (0.447875ms)
+  ✔ real endings advance automatically; repeat reloads the same complete track (0.514916ms)
+  ✔ late old-source metadata cannot contaminate a newer track's measured duration (0.701583ms)
+✔ Music store and app lifecycle (3.074083ms)
+✔ pixel, line and page wheel units preserve fractional values and device direction (0.774875ms)
+✔ one event scrolls only the actual app region, never the projection wrapper (3.744917ms)
+✔ small rounded trackpad deltas accumulate and reverse without a smoothing tail (9.05ms)
+✔ keyboard/history scroll changes invalidate fractional carry (1.153209ms)
+✔ nested regions pass only unconsumed distance to an actual ancestor scroller (0.680042ms)
+✔ overscroll containment stops chaining at a nested app region (0.195875ms)
+✔ bounds consume excess momentum without retaining it for the next direction (0.508292ms)
+✔ current pointer hit takes priority over a stale wheel-transaction target (0.4545ms)
+✔ pinch, modified, canceled and uncancelable events remain untouched (0.592834ms)
+✔ horizontal and diagonal wheel input uses the matching axes without remapping (0.697458ms)
+✔ line/page input uses the region's dimensions and line height (0.366333ms)
+✔ outside the desktop and non-overflowing content do not acquire wheel ownership (0.6505ms)
+✔ flat desktop uses native scrolling and disposal removes the sole listener (3.431458ms)
+✔ a high-frequency burst is applied once per frame with no lost input (0.851458ms)
+✔ reversals cancel pending distance immediately and chain using unpainted positions (0.15ms)
+✔ native movement between input and painting is not overwritten by a stale base (0.097417ms)
+✔ closing/unmounting cancels pending painting and detached panes are not retained (0.116792ms)
+✔ A and B keep independent URLs, histories, cursors and titles across repeated activation (5.210833ms)
+✔ activation never navigates and invalid IDs or repeated activation are no-ops (0.161458ms)
+✔ same-URL submission retains forward history; branching trims only that tab (0.327125ms)
+✔ address drafts and reload update only the intended tab without growing history (0.644875ms)
+✔ close active chooses its left neighbor, then right; close inactive preserves focus (0.510375ms)
+✔ stale close, navigate, draft or reload cannot reset the final tab or mutate its replacement (0.716458ms)
+✔ history entries retain separate scroll/disclosure state through back and forward (0.555458ms)
+✔ late view saves target only their own retained entry; stale feedback cannot overwrite a newer page (0.372708ms)
+✔ private mode isolates all tabs, history, address drafts, reload and views from normal (1.177833ms)
+✔ ending private on app close releases the session and preserves ordinary tabs (1.192583ms)
+✔ session policy is memory only; page reload/module initialization starts clean (96.242084ms)
+✔ validation rejects unsupported protocols, missing projects, malformed hosts and credentials without navigation (5.42225ms)
+✔ validated HTTP links are only link-preview history entries; internal titles are truthful (2.309417ms)
+✔ invalid new-tab requests do not create fake successful pages (0.818167ms)
+✔ normal view cleanup during Private entry saves to its own session; ended Private cleanup is discarded (0.143833ms)
+✔ built-in About Me opens populated app identity from every shared launcher (9.670625ms)
+✔ a visitor folder merely named About Me remains a real folder and navigates normally (1.552042ms)
+✔ existing project file identities retain their populated detail routes; placeholders are not invented (0.879ms)
+✔ About This Mac selects About on a new, existing, or minimized Settings window (0.82ms)
+✔ Settings section updates are local and respect closing lifecycle (0.6955ms)
+✔ About This Portfolio has a stable portfolio-specific route (0.486458ms)
+✔ a nullable email-app launch retains the exact draft and composer, without recording Sent (2.987917ms)
+✔ email-app errors preserve the draft and give useful truthful feedback (0.347292ms)
+✔ empty and whitespace-only drafts never request a mail handoff (0.168459ms)
+✔ legacy mail migrations preserve copies, inbox, identifiers and unknown message content without claiming delivery (0.231709ms)
+✔ persistence retains legacy copies but does not silently start storing visitor drafts or handoff status (0.14325ms)
+✔ filesystem undo shortcuts remain scoped and never replace editor or browser/OS commands (0.138583ms)
+✔ 78 measured key regions are unique, disjoint, and map browser physical positions (0.85125ms)
+✔ every actual keycap/legend/Touch ID vertex is mapped; no triangle spans two keys (106.51325ms)
+✔ shader displaces originals along the model's downward axis with a shared small uniform (17.270042ms)
+✔ travel is bounded, frame-rate independent, quick down and settled on release (0.225875ms)
+✔ quick taps latch long enough to render, held chords/repeats keep independent state (0.947125ms)
+✔ Command release, blur and hiding prevent stuck keys; cleanup removes all observers (0.200292ms)
+✔ input drives only its matched caps/legends, supports chords, and settles with no perpetual invalidation (25.5815ms)
+✔ the mounted video source is installed before deferred camera activation (8.888417ms)
+✔ pagehide before deferred startup cannot reactivate a suspended visible-looking page (3.145917ms)
+✔ pageshow reconciles the camera without requiring an intervening React render (3.8485ms)
+✔ visibility hides release synchronously before effects; visibility restore resumes when allowed (7.217708ms)
+✔ a minimized/closing window cannot resume from page or visibility events (2.974792ms)
+✔ cleanup removes all native listeners, cancels deferred startup, and releases immediately (4.636917ms)
+✔ StrictMode setup/cleanup rehearsal cancels the first timer and activates only once (3.582833ms)
+✔ an initially hidden or minimized window never activates during deferred startup (2.425ms)
+✔ new video frames drive inference at the measured 10 fps cap (12.212583ms)
+✔ duplicate frame metadata cannot run another inference even after the cap expires (3.286375ms)
+✔ the RAF fallback only processes changed currentTime and cleans up (3.526958ms)
+✔ hidden, paused, ended and unready video frames are skipped (1.868083ms)
+✔ a pending inference/recovery has backpressure and cannot restart after cleanup (4.17875ms)
+✔ cleanup cancels the callback on the owning video, and late callbacks are harmless (2.281625ms)
+(node:35236) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/Om/Om%20Main%20Portfolio/src/data/wallpapers.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /Users/Om/Om Main Portfolio/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+▶ wallpaper catalog and appearance preferences
+  ✔ six unique pairs have twelve distinct desktop URLs and dedicated previews (1.533833ms)
+  ✔ all 24 assets decode with the intended dimensions and small dedicated thumbnails (451.382208ms)
+  ✔ explicit wallpaper modes ignore UI theme, while auto follows it for every option (1.618417ms)
+  ✔ normalizes current ids/names and migrates earlier wallpaper names (0.188708ms)
+  ✔ corrupt, malformed and unknown saved preferences safely resolve defaults (1.251291ms)
+  ✔ reads direct preferences and old Zustand-style envelopes without restoring unrelated state (0.167292ms)
+  ✔ serializes only appearance fields and a normalized wallpaper id (0.088166ms)
+✔ wallpaper catalog and appearance preferences (457.990917ms)
+▶ shared wallpaper loading
+  ✔ deduplicates a selected URL and waits for decode before resolving or caching success (0.384834ms)
+  ✔ a network failure rejects and leaves the same URL retryable (0.372875ms)
+  ✔ a decode failure also remains retryable (0.259166ms)
+  ✔ an already downloaded image is still decoded before it becomes usable (0.149625ms)
+  ✔ a stalled request times out, clears handlers, and can be retried without waiting eight seconds (0.130333ms)
+✔ shared wallpaper loading (1.447667ms)
+✔ closing is synchronous and repeated close requests have one owner (2.447334ms)
+✔ rapid close/minimize/maximize/focus/launch combinations cannot revive an exiting window (1.200083ms)
+✔ closing single-instance Music cannot spawn a second player via a different launcher ID (1.106167ms)
+✔ an old exit completion cannot close a replacement with the same window ID (0.238875ms)
+✔ focus is a no-op for the already focused window, avoiding a rerender for every button press (0.213542ms)
+✔ minimize/restore/maximize combinations retain normal geometry and a valid focus (0.73475ms)
+✔ closing focus excludes other closing/minimized windows and bring-all cannot resurrect them (0.25675ms)
+✔ events arriving after removal cannot create a ghost window or publish redundant updates (0.584292ms)
+✔ restoring a minimized window publishes active, visible and frontmost together (0.328625ms)
+✔ launching a minimized single-instance app restores and raises its actual ID atomically (0.327375ms)
+✔ stack ranks stay compact through repeated focus, restore, close and bring-all actions (8.518792ms)
+✔ maximize captures the exact outer rectangle and restores it after repeated cycles (0.748708ms)
+✔ desktop resize fits restored windows but leaves a maximized snapshot intact until restore (0.32525ms)
+✔ position updates clamp every edge in desktop units without changing window size (0.110458ms)
+✔ normal windows move behind the dock to the actual screen edge and restore there (0.083542ms)
+✔ changing dock size affects maximize but does not push a normal window away from the screen edge (0.083708ms)
+✔ maximize reserves the measured menu and visible dock footprint in virtual desktop units (0.888417ms)
+✔ work area responds to dock size and dock visibility without browser dimensions (0.130875ms)
+✔ drag clamping keeps the complete frame reachable at each edge (0.130833ms)
+✔ restore fits changed bounds without overwriting the remembered rectangle (0.121417ms)
+✔ content and outer geometry round trip without a title bar or border overflow (0.101167ms)
+✔ invalid measurements and exhausted insets never produce NaN or inverted work areas (0.100666ms)
+✔ fitting across many desktop sizes always keeps all frame edges within the work area (0.940875ms)
+(node:35239) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/Om/Om%20Main%20Portfolio/src/data/workspaces.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /Users/Om/Om Main Portfolio/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ catalog contains two HD live views, three non-landscape PNGs and six zero-request solid colors (276.901666ms)
+✔ corrupt/unknown preferences use Beach; a saved location is independent of theme (0.629ms)
+✔ serialization saves only a version and environment, never drag/media/window/pause state (0.139875ms)
+✔ the first usable destination arrives without a travel animation (0.236917ms)
+✔ the outgoing location remains active until the new media and travel finish (0.18475ms)
+✔ late readiness and failures from superseded requests cannot change the latest selection (0.113875ms)
+✔ rapid choices during travel form a bounded latest-only queue (0.119458ms)
+✔ failure preserves the old scene and an actionable failed destination (0.125583ms)
+✔ selecting the current location cancels a pending destination (0.076583ms)
+✔ reduced motion settles immediately and stale completion cannot disturb it (0.129667ms)
+✔ repeated changes and stale motion callbacks retain no retired layers (0.402917ms)
+✔ color and PNG selections use the same latest-only readiness path and persist independently (0.280209ms)
+ℹ tests 229
+ℹ suites 7
+ℹ pass 222
+ℹ fail 7
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 4103.1355
+
+✖ failing tests:
+
+test at tests/facetime-effects.test.mjs:115:1
+✖ actual peace callback renders ConfettiBurst and the peace detection badge (5.299375ms)
+  file:///Users/Om/Om%20Main%20Portfolio/tests/facetime-effects.test.mjs:72
+        if (!(specifier in dependencies)) throw new Error(`Unexpected dependency ${specifier}`);
+                                          ^
+  
+  Error: Unexpected dependency ../webcam/cameraPreview
+      at require (file:///Users/Om/Om%20Main%20Portfolio/tests/facetime-effects.test.mjs:72:47)
+      at /Users/Om/Om Main Portfolio/src/components/desktop/FaceTimeApp.tsx:50:25
+      at /Users/Om/Om Main Portfolio/src/components/desktop/FaceTimeApp.tsx:179:3
+      at Script.runInContext (node:vm:149:12)
+      at Script.runInNewContext (node:vm:154:17)
+      at runInNewContext (node:vm:310:38)
+      at harness (file:///Users/Om/Om%20Main%20Portfolio/tests/facetime-effects.test.mjs:69:3)
+      at TestContext.<anonymous> (file:///Users/Om/Om%20Main%20Portfolio/tests/facetime-effects.test.mjs:116:13)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1325:25)
+
+test at tests/facetime-effects.test.mjs:128:1
+✖ actual thumbs-up callback renders FloatingLikes and the thumbs-up detection badge (2.664958ms)
+  file:///Users/Om/Om%20Main%20Portfolio/tests/facetime-effects.test.mjs:72
+        if (!(specifier in dependencies)) throw new Error(`Unexpected dependency ${specifier}`);
+                                          ^
+  
+  Error: Unexpected dependency ../webcam/cameraPreview
+      at require (file:///Users/Om/Om%20Main%20Portfolio/tests/facetime-effects.test.mjs:72:47)
+      at /Users/Om/Om Main Portfolio/src/components/desktop/FaceTimeApp.tsx:50:25
+      at /Users/Om/Om Main Portfolio/src/components/desktop/FaceTimeApp.tsx:179:3
+      at Script.runInContext (node:vm:149:12)
+      at Script.runInNewContext (node:vm:154:17)
+      at runInNewContext (node:vm:310:38)
+      at harness (file:///Users/Om/Om%20Main%20Portfolio/tests/facetime-effects.test.mjs:69:3)
+      at TestContext.<anonymous> (file:///Users/Om/Om%20Main%20Portfolio/tests/facetime-effects.test.mjs:129:13)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1325:25)
+
+test at tests/facetime-effects.test.mjs:140:1
+✖ reduced motion retains the correct detection badge while suppressing both animated effects (2.150292ms)
+  file:///Users/Om/Om%20Main%20Portfolio/tests/facetime-effects.test.mjs:72
+        if (!(specifier in dependencies)) throw new Error(`Unexpected dependency ${specifier}`);
+                                          ^
+  
+  Error: Unexpected dependency ../webcam/cameraPreview
+      at require (file:///Users/Om/Om%20Main%20Portfolio/tests/facetime-effects.test.mjs:72:47)
+      at /Users/Om/Om Main Portfolio/src/components/desktop/FaceTimeApp.tsx:50:25
+      at /Users/Om/Om Main Portfolio/src/components/desktop/FaceTimeApp.tsx:179:3
+      at Script.runInContext (node:vm:149:12)
+      at Script.runInNewContext (node:vm:154:17)
+      at runInNewContext (node:vm:310:38)
+      at harness (file:///Users/Om/Om%20Main%20Portfolio/tests/facetime-effects.test.mjs:69:3)
+      at TestContext.<anonymous> (file:///Users/Om/Om%20Main%20Portfolio/tests/facetime-effects.test.mjs:142:15)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1325:25)
+
+test at tests/facetime-effects.test.mjs:154:1
+✖ a new camera generation hides old effects and labels and cancels their pending label timer (0.893416ms)
+  file:///Users/Om/Om%20Main%20Portfolio/tests/facetime-effects.test.mjs:72
+        if (!(specifier in dependencies)) throw new Error(`Unexpected dependency ${specifier}`);
+                                          ^
+  
+  Error: Unexpected dependency ../webcam/cameraPreview
+      at require (file:///Users/Om/Om%20Main%20Portfolio/tests/facetime-effects.test.mjs:72:47)
+      at /Users/Om/Om Main Portfolio/src/components/desktop/FaceTimeApp.tsx:50:25
+      at /Users/Om/Om Main Portfolio/src/components/desktop/FaceTimeApp.tsx:179:3
+      at Script.runInContext (node:vm:149:12)
+      at Script.runInNewContext (node:vm:154:17)
+      at runInNewContext (node:vm:310:38)
+      at harness (file:///Users/Om/Om%20Main%20Portfolio/tests/facetime-effects.test.mjs:69:3)
+      at TestContext.<anonymous> (file:///Users/Om/Om%20Main%20Portfolio/tests/facetime-effects.test.mjs:155:13)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1325:25)
+
+test at tests/facetime-effects.test.mjs:170:1
+✖ pause, minimize, close and native hidden snapshots suppress effects and disable the detector (1.324958ms)
+  file:///Users/Om/Om%20Main%20Portfolio/tests/facetime-effects.test.mjs:72
+        if (!(specifier in dependencies)) throw new Error(`Unexpected dependency ${specifier}`);
+                                          ^
+  
+  Error: Unexpected dependency ../webcam/cameraPreview
+      at require (file:///Users/Om/Om%20Main%20Portfolio/tests/facetime-effects.test.mjs:72:47)
+      at /Users/Om/Om Main Portfolio/src/components/desktop/FaceTimeApp.tsx:50:25
+      at /Users/Om/Om Main Portfolio/src/components/desktop/FaceTimeApp.tsx:179:3
+      at Script.runInContext (node:vm:149:12)
+      at Script.runInNewContext (node:vm:154:17)
+      at runInNewContext (node:vm:310:38)
+      at harness (file:///Users/Om/Om%20Main%20Portfolio/tests/facetime-effects.test.mjs:69:3)
+      at TestContext.<anonymous> (file:///Users/Om/Om%20Main%20Portfolio/tests/facetime-effects.test.mjs:172:15)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1325:25)
+
+test at tests/facetime-effects.test.mjs:187:1
+✖ manual preview control produces confetti without claiming a detected gesture and is ignored while paused (2.216375ms)
+  file:///Users/Om/Om%20Main%20Portfolio/tests/facetime-effects.test.mjs:72
+        if (!(specifier in dependencies)) throw new Error(`Unexpected dependency ${specifier}`);
+                                          ^
+  
+  Error: Unexpected dependency ../webcam/cameraPreview
+      at require (file:///Users/Om/Om%20Main%20Portfolio/tests/facetime-effects.test.mjs:72:47)
+      at /Users/Om/Om Main Portfolio/src/components/desktop/FaceTimeApp.tsx:50:25
+      at /Users/Om/Om Main Portfolio/src/components/desktop/FaceTimeApp.tsx:179:3
+      at Script.runInContext (node:vm:149:12)
+      at Script.runInNewContext (node:vm:154:17)
+      at runInNewContext (node:vm:310:38)
+      at harness (file:///Users/Om/Om%20Main%20Portfolio/tests/facetime-effects.test.mjs:69:3)
+      at TestContext.<anonymous> (file:///Users/Om/Om%20Main%20Portfolio/tests/facetime-effects.test.mjs:188:13)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1325:25)
+
+test at tests/facetime-effects.test.mjs:205:1
+✖ effects off pauses inference and enabling it cannot replay a prior burst (1.325667ms)
+  file:///Users/Om/Om%20Main%20Portfolio/tests/facetime-effects.test.mjs:72
+        if (!(specifier in dependencies)) throw new Error(`Unexpected dependency ${specifier}`);
+                                          ^
+  
+  Error: Unexpected dependency ../webcam/cameraPreview
+      at require (file:///Users/Om/Om%20Main%20Portfolio/tests/facetime-effects.test.mjs:72:47)
+      at /Users/Om/Om Main Portfolio/src/components/desktop/FaceTimeApp.tsx:50:25
+      at /Users/Om/Om Main Portfolio/src/components/desktop/FaceTimeApp.tsx:179:3
+      at Script.runInContext (node:vm:149:12)
+      at Script.runInNewContext (node:vm:154:17)
+      at runInNewContext (node:vm:310:38)
+      at harness (file:///Users/Om/Om%20Main%20Portfolio/tests/facetime-effects.test.mjs:69:3)
+      at TestContext.<anonymous> (file:///Users/Om/Om%20Main%20Portfolio/tests/facetime-effects.test.mjs:206:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1325:25)

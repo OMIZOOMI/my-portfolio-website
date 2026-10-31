@@ -1,0 +1,234 @@
+{
+  "profile": "Creamy, rounded ASMR clicks",
+  "creator": "Thomas Lai (tplai)",
+  "sourceUrl": "https://github.com/tplai/kbsim/tree/ba103f3b0afa9dab80447aa2e7e2ed80b6bd80e4/src/assets/audio/cream",
+  "sourceCommit": "ba103f3b0afa9dab80447aa2e7e2ed80b6bd80e4",
+  "license": "MIT",
+  "licenseUrl": "https://github.com/tplai/kbsim/blob/ba103f3b0afa9dab80447aa2e7e2ed80b6bd80e4/LICENSE.md",
+  "licenseFile": "/sounds/keyboard/LICENSE.txt",
+  "verifiedAt": "2026-10-31",
+  "licenseEvidence": "Original repository license covers the audio assets; the Thock per-pack registry independently identifies the Cream recordings as tplai / MIT. Full copyright and permission notice accompanies assets and inline PCM module.",
+  "recording": "NovelKeys Cream switches, five generic row variants and separate Space / Enter / Backspace press and release recordings",
+  "changes": "Mono 24kHz PCM; lead/trailing silence cropped at 0.8% source peak with padding; 90Hz high-pass / 6.5kHz low-pass; tiny onset fade / 6ms end fade. Press peak capped at 0.48 (0.44 wide keys); releases retain their source relative level with an additional 0.30 attenuation. Runtime master gain 0.16. No synthesized tones or reverb.",
+  "totalAssetBytes": 41740,
+  "totalInlinePcmBytes": 41212,
+  "assets": [
+    {
+      "role": "default",
+      "phase": "press",
+      "variant": 0,
+      "sourcePath": "src/assets/audio/cream/press/GENERIC_R0.mp3",
+      "sourceUrl": "https://raw.githubusercontent.com/tplai/kbsim/ba103f3b0afa9dab80447aa2e7e2ed80b6bd80e4/src/assets/audio/cream/press/GENERIC_R0.mp3",
+      "sourceSha256": "8e3256ddb5a1aed42960a68ba632b3badecce0d60ff3ae61a1ac85e45e343451",
+      "sourceTrimSeconds": [
+        0.0,
+        0.0715
+      ],
+      "asset": "/sounds/keyboard/cream-default-press-1.wav",
+      "bytes": 3476,
+      "pcmBytes": 3432,
+      "durationSeconds": 0.0715,
+      "samplePeak": 0.47999998927116394,
+      "sha256": "15d1b6642562fae247397d6dd015b06e9d1f0042598360a430a559b9066fe5e8"
+    },
+    {
+      "role": "default",
+      "phase": "press",
+      "variant": 1,
+      "sourcePath": "src/assets/audio/cream/press/GENERIC_R1.mp3",
+      "sourceUrl": "https://raw.githubusercontent.com/tplai/kbsim/ba103f3b0afa9dab80447aa2e7e2ed80b6bd80e4/src/assets/audio/cream/press/GENERIC_R1.mp3",
+      "sourceSha256": "a45a8f73ce8698705205c80f531e87360737084746b95cb0e47c980e0f86a0b9",
+      "sourceTrimSeconds": [
+        0.000125,
+        0.0715
+      ],
+      "asset": "/sounds/keyboard/cream-default-press-2.wav",
+      "bytes": 3470,
+      "pcmBytes": 3426,
+      "durationSeconds": 0.071375,
+      "samplePeak": 0.47999998927116394,
+      "sha256": "8439bf001229253f09b10a18cc47a1b693ef2cb9b8e8f89f2955d7008b58bc83"
+    },
+    {
+      "role": "default",
+      "phase": "press",
+      "variant": 2,
+      "sourcePath": "src/assets/audio/cream/press/GENERIC_R2.mp3",
+      "sourceUrl": "https://raw.githubusercontent.com/tplai/kbsim/ba103f3b0afa9dab80447aa2e7e2ed80b6bd80e4/src/assets/audio/cream/press/GENERIC_R2.mp3",
+      "sourceSha256": "9a54ada9209a4ecabd38616421de1a495df04bee3f0ec7b5247e2d8a507ac70f",
+      "sourceTrimSeconds": [
+        0.0,
+        0.0715
+      ],
+      "asset": "/sounds/keyboard/cream-default-press-3.wav",
+      "bytes": 3476,
+      "pcmBytes": 3432,
+      "durationSeconds": 0.0715,
+      "samplePeak": 0.47999998927116394,
+      "sha256": "5079852405b95a51616060feb3ed14121a0f5215725ab04ae2485c0464dec11e"
+    },
+    {
+      "role": "default",
+      "phase": "press",
+      "variant": 3,
+      "sourcePath": "src/assets/audio/cream/press/GENERIC_R3.mp3",
+      "sourceUrl": "https://raw.githubusercontent.com/tplai/kbsim/ba103f3b0afa9dab80447aa2e7e2ed80b6bd80e4/src/assets/audio/cream/press/GENERIC_R3.mp3",
+      "sourceSha256": "b7100272f9a80f7016c10da021e45550f3fcd817c21c172236f6e392881d0c93",
+      "sourceTrimSeconds": [
+        0.0005,
+        0.0715
+      ],
+      "asset": "/sounds/keyboard/cream-default-press-4.wav",
+      "bytes": 3452,
+      "pcmBytes": 3408,
+      "durationSeconds": 0.071,
+      "samplePeak": 0.48000001907348633,
+      "sha256": "18fe69f319f6699a93bbc39434928dd1b8a6f4c16a8c57af3cde1225422c2d93"
+    },
+    {
+      "role": "default",
+      "phase": "press",
+      "variant": 4,
+      "sourcePath": "src/assets/audio/cream/press/GENERIC_R4.mp3",
+      "sourceUrl": "https://raw.githubusercontent.com/tplai/kbsim/ba103f3b0afa9dab80447aa2e7e2ed80b6bd80e4/src/assets/audio/cream/press/GENERIC_R4.mp3",
+      "sourceSha256": "5472497fae5cd4ca1a70e7861ba990296a708dbd2402a1fab5e1f0f5e8ab92bf",
+      "sourceTrimSeconds": [
+        0.0,
+        0.0715
+      ],
+      "asset": "/sounds/keyboard/cream-default-press-5.wav",
+      "bytes": 3476,
+      "pcmBytes": 3432,
+      "durationSeconds": 0.0715,
+      "samplePeak": 0.48000001907348633,
+      "sha256": "ff76eb6a897fa2265ee534baeaabfd19a6ea05242cfad77bfd99e44d31ceafac"
+    },
+    {
+      "role": "default",
+      "phase": "release",
+      "variant": 0,
+      "sourcePath": "src/assets/audio/cream/release/GENERIC.mp3",
+      "sourceUrl": "https://raw.githubusercontent.com/tplai/kbsim/ba103f3b0afa9dab80447aa2e7e2ed80b6bd80e4/src/assets/audio/cream/release/GENERIC.mp3",
+      "sourceSha256": "cbf79b16855fc3461ca1ff9a9e9a4134bcc09d093f7d98c5f6fdb3a2e0a94fad",
+      "sourceTrimSeconds": [
+        0.0,
+        0.065333
+      ],
+      "asset": "/sounds/keyboard/cream-default-release-1.wav",
+      "bytes": 3180,
+      "pcmBytes": 3136,
+      "durationSeconds": 0.06533333333333333,
+      "samplePeak": 0.11239232122898102,
+      "sha256": "8c211e16f729a1438ef2d45da45ef22716f85b67688ba991f22bc38757d018a3"
+    },
+    {
+      "role": "space",
+      "phase": "press",
+      "variant": 0,
+      "sourcePath": "src/assets/audio/cream/press/SPACE.mp3",
+      "sourceUrl": "https://raw.githubusercontent.com/tplai/kbsim/ba103f3b0afa9dab80447aa2e7e2ed80b6bd80e4/src/assets/audio/cream/press/SPACE.mp3",
+      "sourceSha256": "72f7101819fbd08cef4e2623e41e4979a7923ed15f94467796f92612eda4db7b",
+      "sourceTrimSeconds": [
+        0.000292,
+        0.068708
+      ],
+      "asset": "/sounds/keyboard/cream-space-press-1.wav",
+      "bytes": 3328,
+      "pcmBytes": 3284,
+      "durationSeconds": 0.06841666666666667,
+      "samplePeak": 0.4399999976158142,
+      "sha256": "932ff313e9d63a4a4ea577f7d39c800969b2ebcc7f197125db6c875c70535907"
+    },
+    {
+      "role": "space",
+      "phase": "release",
+      "variant": 0,
+      "sourcePath": "src/assets/audio/cream/release/SPACE.mp3",
+      "sourceUrl": "https://raw.githubusercontent.com/tplai/kbsim/ba103f3b0afa9dab80447aa2e7e2ed80b6bd80e4/src/assets/audio/cream/release/SPACE.mp3",
+      "sourceSha256": "5a680831d4d67f8d36d459c0fd1ce00e1e3e2b2126de8481851f847133a3ed91",
+      "sourceTrimSeconds": [
+        0.0,
+        0.07175
+      ],
+      "asset": "/sounds/keyboard/cream-space-release-1.wav",
+      "bytes": 3488,
+      "pcmBytes": 3444,
+      "durationSeconds": 0.07175,
+      "samplePeak": 0.05654009431600571,
+      "sha256": "72e70165f20ee18d2445fe49bcd807eeb9d45f549d66fc22254ab5e8feacc6b9"
+    },
+    {
+      "role": "enter",
+      "phase": "press",
+      "variant": 0,
+      "sourcePath": "src/assets/audio/cream/press/ENTER.mp3",
+      "sourceUrl": "https://raw.githubusercontent.com/tplai/kbsim/ba103f3b0afa9dab80447aa2e7e2ed80b6bd80e4/src/assets/audio/cream/press/ENTER.mp3",
+      "sourceSha256": "78947470c4f3c7577b2df3dacc3d1ec414545b4b7ffe19fd0fe208bf6787aeb1",
+      "sourceTrimSeconds": [
+        0.0,
+        0.076958
+      ],
+      "asset": "/sounds/keyboard/cream-enter-press-1.wav",
+      "bytes": 3738,
+      "pcmBytes": 3694,
+      "durationSeconds": 0.07695833333333334,
+      "samplePeak": 0.4399999976158142,
+      "sha256": "6aa074b4f23e4251f44bda99f9f33cbc17e98c64fe7d512b811b94cbb91012ba"
+    },
+    {
+      "role": "enter",
+      "phase": "release",
+      "variant": 0,
+      "sourcePath": "src/assets/audio/cream/release/ENTER.mp3",
+      "sourceUrl": "https://raw.githubusercontent.com/tplai/kbsim/ba103f3b0afa9dab80447aa2e7e2ed80b6bd80e4/src/assets/audio/cream/release/ENTER.mp3",
+      "sourceSha256": "610aa949f67fb72bb86364c11d6a78b5fff75ca8e859dfc2c57b4a3ca728877f",
+      "sourceTrimSeconds": [
+        0.0,
+        0.073917
+      ],
+      "asset": "/sounds/keyboard/cream-enter-release-1.wav",
+      "bytes": 3592,
+      "pcmBytes": 3548,
+      "durationSeconds": 0.07391666666666667,
+      "samplePeak": 0.010303059592843056,
+      "sha256": "ab36e967bb512b5375a92b406841753f29c6acbc818c433346f81dfad69c0b6e"
+    },
+    {
+      "role": "backspace",
+      "phase": "press",
+      "variant": 0,
+      "sourcePath": "src/assets/audio/cream/press/BACKSPACE.mp3",
+      "sourceUrl": "https://raw.githubusercontent.com/tplai/kbsim/ba103f3b0afa9dab80447aa2e7e2ed80b6bd80e4/src/assets/audio/cream/press/BACKSPACE.mp3",
+      "sourceSha256": "cb9512dd65874137874469ae3efaddf37ab2a0b1c66815217cc263a9ba201305",
+      "sourceTrimSeconds": [
+        0.021167,
+        0.099375
+      ],
+      "asset": "/sounds/keyboard/cream-backspace-press-1.wav",
+      "bytes": 3798,
+      "pcmBytes": 3754,
+      "durationSeconds": 0.07820833333333334,
+      "samplePeak": 0.4399999976158142,
+      "sha256": "bf5eae399d936ff465b8fdd831757f3da8adfa41343afd2706612d64f9018e0b"
+    },
+    {
+      "role": "backspace",
+      "phase": "release",
+      "variant": 0,
+      "sourcePath": "src/assets/audio/cream/release/BACKSPACE.mp3",
+      "sourceUrl": "https://raw.githubusercontent.com/tplai/kbsim/ba103f3b0afa9dab80447aa2e7e2ed80b6bd80e4/src/assets/audio/cream/release/BACKSPACE.mp3",
+      "sourceSha256": "331c4a71da8fbdb8f7c08362270350fc4fc7dbff5f97b0d2901c5b08c59cd1e7",
+      "sourceTrimSeconds": [
+        0.0,
+        0.067125
+      ],
+      "asset": "/sounds/keyboard/cream-backspace-release-1.wav",
+      "bytes": 3266,
+      "pcmBytes": 3222,
+      "durationSeconds": 0.067125,
+      "samplePeak": 0.027654701843857765,
+      "sha256": "ea5c8a1668dde47cc1d92b00754c14f000bff06f911218c80f7b87cfc46f6770"
+    }
+  ],
+  "subjectiveReview": "Creamy/rounded profile selected by user. Actual listening acceptance pending."
+}

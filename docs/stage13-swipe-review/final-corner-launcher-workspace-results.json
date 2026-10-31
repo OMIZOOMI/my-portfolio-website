@@ -1,0 +1,38 @@
+{
+  "phase": "final",
+  "explicitColdCache": false,
+  "startedAt": "2026-10-30T16:31:43.867Z",
+  "buildId": "tzLjDbWpdyQ5J2PwXlxdh",
+  "browser": "Chrome/156.0.8078.76",
+  "host": {
+    "model": "MacBookAir10,1",
+    "chip": "Apple M1",
+    "ramGiB": 8,
+    "os": "macOS 27.2",
+    "darwin": "27.2.0",
+    "arch": "arm64"
+  },
+  "viewport": {
+    "width": 1440,
+    "height": 1000,
+    "dpr": 1
+  },
+  "conditions": "Production localhost; isolated headless Chrome with ANGLE Metal. CDP wheel/touch/keyboard and controlled visibility/playback fixtures are not physical hardware coverage. rAF/Event Timing are local probes, not field INP or presented FPS.",
+  "scenarios": [
+    {
+      "name": "corner-launcher-idle-hover-click-keyboard-and-touch",
+      "collapsed": {
+        "x": 18,
+        "y": 934,
+        "w": 48,
+        "h": 48,
+        "bottom": 18
+      },
+      "touchOpened": true,
+      "status": "PASS",
+      "elapsedMs": 18657
+    }
+  ],
+  "elapsedMs": 19317,
+  "finishedAt": "2026-10-30T16:32:03.184Z"
+}

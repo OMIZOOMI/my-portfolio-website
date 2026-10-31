@@ -1,0 +1,1974 @@
+[
+  {
+    "label": "settings-down-1",
+    "desktopY": 38.735557556152344,
+    "portal": [
+      {
+        "left": 0,
+        "top": 0
+      }
+    ],
+    "surfaces": [
+      {
+        "containers": [
+          {
+            "className": "WindowFrame-module__OfJBba__content",
+            "limit": 0,
+            "top": 0
+          },
+          {
+            "className": "SettingsApp-module__vQt40W__sidebar w-48 shrink-0 h-full bg-[#ebebeb] dark:bg-black/30 backdrop-blur-xl border-r border-gray-300 dark:border-white/10 p-2 flex flex-col gap-1 overflow-y-auto transition-colors duration-1000 ease-in-out",
+            "limit": 0,
+            "top": 0
+          },
+          {
+            "className": "SettingsApp-module__vQt40W__content flex-1 p-8 overflow-y-auto min-w-0 min-h-0 transition-colors duration-1000 ease-in-out",
+            "limit": 365,
+            "top": 364.5
+          }
+        ],
+        "id": "app-settings"
+      }
+    ]
+  },
+  {
+    "label": "settings-up-small",
+    "desktopY": 38.735557556152344,
+    "portal": [
+      {
+        "left": 0,
+        "top": 0
+      }
+    ],
+    "surfaces": [
+      {
+        "containers": [
+          {
+            "className": "WindowFrame-module__OfJBba__content",
+            "limit": 0,
+            "top": 0
+          },
+          {
+            "className": "SettingsApp-module__vQt40W__sidebar w-48 shrink-0 h-full bg-[#ebebeb] dark:bg-black/30 backdrop-blur-xl border-r border-gray-300 dark:border-white/10 p-2 flex flex-col gap-1 overflow-y-auto transition-colors duration-1000 ease-in-out",
+            "limit": 0,
+            "top": 0
+          },
+          {
+            "className": "SettingsApp-module__vQt40W__content flex-1 p-8 overflow-y-auto min-w-0 min-h-0 transition-colors duration-1000 ease-in-out",
+            "limit": 365,
+            "top": 139.5
+          }
+        ],
+        "id": "app-settings"
+      }
+    ]
+  },
+  {
+    "label": "settings-down-small",
+    "desktopY": 38.735557556152344,
+    "portal": [
+      {
+        "left": 0,
+        "top": 0
+      }
+    ],
+    "surfaces": [
+      {
+        "containers": [
+          {
+            "className": "WindowFrame-module__OfJBba__content",
+            "limit": 0,
+            "top": 0
+          },
+          {
+            "className": "SettingsApp-module__vQt40W__sidebar w-48 shrink-0 h-full bg-[#ebebeb] dark:bg-black/30 backdrop-blur-xl border-r border-gray-300 dark:border-white/10 p-2 flex flex-col gap-1 overflow-y-auto transition-colors duration-1000 ease-in-out",
+            "limit": 0,
+            "top": 0
+          },
+          {
+            "className": "SettingsApp-module__vQt40W__content flex-1 p-8 overflow-y-auto min-w-0 min-h-0 transition-colors duration-1000 ease-in-out",
+            "limit": 365,
+            "top": 274.5
+          }
+        ],
+        "id": "app-settings"
+      }
+    ]
+  },
+  {
+    "label": "fixed-after-settings-locator-click",
+    "desktopY": 38.735557556152344,
+    "portal": [
+      {
+        "left": 0,
+        "top": 0
+      }
+    ],
+    "surfaces": [
+      {
+        "containers": [
+          {
+            "className": "WindowFrame-module__OfJBba__content",
+            "limit": 0,
+            "top": 0
+          },
+          {
+            "className": "SettingsApp-module__vQt40W__sidebar w-48 shrink-0 h-full bg-[#ebebeb] dark:bg-black/30 backdrop-blur-xl border-r border-gray-300 dark:border-white/10 p-2 flex flex-col gap-1 overflow-y-auto transition-colors duration-1000 ease-in-out",
+            "limit": 0,
+            "top": 0
+          },
+          {
+            "className": "SettingsApp-module__vQt40W__content flex-1 p-8 overflow-y-auto min-w-0 min-h-0 transition-colors duration-1000 ease-in-out",
+            "limit": 365,
+            "top": 0
+          }
+        ],
+        "id": "app-settings"
+      }
+    ]
+  },
+  {
+    "label": "fixed-settings-small-reversals",
+    "values": [
+      {
+        "direction": "down",
+        "desktopY": 38.735557556152344,
+        "portal": [
+          0
+        ],
+        "scroll": [
+          {
+            "id": "app-settings",
+            "max": 365,
+            "top": 27
+          }
+        ]
+      },
+      {
+        "direction": "down",
+        "desktopY": 38.735557556152344,
+        "portal": [
+          0
+        ],
+        "scroll": [
+          {
+            "id": "app-settings",
+            "max": 365,
+            "top": 54
+          }
+        ]
+      },
+      {
+        "direction": "down",
+        "desktopY": 38.735557556152344,
+        "portal": [
+          0
+        ],
+        "scroll": [
+          {
+            "id": "app-settings",
+            "max": 365,
+            "top": 81
+          }
+        ]
+      },
+      {
+        "direction": "up",
+        "desktopY": 38.735557556152344,
+        "portal": [
+          0
+        ],
+        "scroll": [
+          {
+            "id": "app-settings",
+            "max": 365,
+            "top": 54
+          }
+        ]
+      },
+      {
+        "direction": "up",
+        "desktopY": 38.735557556152344,
+        "portal": [
+          0
+        ],
+        "scroll": [
+          {
+            "id": "app-settings",
+            "max": 365,
+            "top": 27
+          }
+        ]
+      },
+      {
+        "direction": "down",
+        "desktopY": 38.735557556152344,
+        "portal": [
+          0
+        ],
+        "scroll": [
+          {
+            "id": "app-settings",
+            "max": 365,
+            "top": 54
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "label": "fixed-safari-small-reversals",
+    "values": [
+      {
+        "direction": "down",
+        "desktopY": 38.735557556152344,
+        "portal": [
+          0
+        ],
+        "scroll": [
+          {
+            "id": "app-safari",
+            "max": 792,
+            "top": 27
+          }
+        ]
+      },
+      {
+        "direction": "down",
+        "desktopY": 38.735557556152344,
+        "portal": [
+          0
+        ],
+        "scroll": [
+          {
+            "id": "app-safari",
+            "max": 792,
+            "top": 54
+          }
+        ]
+      },
+      {
+        "direction": "down",
+        "desktopY": 38.735557556152344,
+        "portal": [
+          0
+        ],
+        "scroll": [
+          {
+            "id": "app-safari",
+            "max": 792,
+            "top": 81
+          }
+        ]
+      },
+      {
+        "direction": "up",
+        "desktopY": 38.735557556152344,
+        "portal": [
+          0
+        ],
+        "scroll": [
+          {
+            "id": "app-safari",
+            "max": 792,
+            "top": 54
+          }
+        ]
+      },
+      {
+        "direction": "up",
+        "desktopY": 38.735557556152344,
+        "portal": [
+          0
+        ],
+        "scroll": [
+          {
+            "id": "app-safari",
+            "max": 792,
+            "top": 27
+          }
+        ]
+      },
+      {
+        "direction": "down",
+        "desktopY": 38.735557556152344,
+        "portal": [
+          0
+        ],
+        "scroll": [
+          {
+            "id": "app-safari",
+            "max": 792,
+            "top": 54
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "label": "fixed-safari-address-focus",
+    "desktopY": 38.735557556152344,
+    "portal": [
+      {
+        "left": 0,
+        "top": 0
+      }
+    ],
+    "surfaces": [
+      {
+        "containers": [
+          {
+            "className": "WindowFrame-module__OfJBba__content",
+            "limit": 0,
+            "top": 0
+          },
+          {
+            "className": "relative flex min-w-0 flex-1 items-center gap-2 overflow-x-auto",
+            "limit": 0,
+            "top": 0
+          },
+          {
+            "className": "relative min-h-0 flex-1 overflow-y-auto",
+            "limit": 792,
+            "top": 54
+          }
+        ],
+        "id": "app-safari"
+      }
+    ]
+  },
+  {
+    "label": "fixed-music-small-reversals",
+    "values": [
+      {
+        "direction": "down",
+        "desktopY": 38.735557556152344,
+        "portal": [
+          0
+        ],
+        "scroll": [
+          {
+            "id": "app-music",
+            "max": 418,
+            "top": 27
+          }
+        ]
+      },
+      {
+        "direction": "down",
+        "desktopY": 38.735557556152344,
+        "portal": [
+          0
+        ],
+        "scroll": [
+          {
+            "id": "app-music",
+            "max": 418,
+            "top": 54
+          }
+        ]
+      },
+      {
+        "direction": "down",
+        "desktopY": 38.735557556152344,
+        "portal": [
+          0
+        ],
+        "scroll": [
+          {
+            "id": "app-music",
+            "max": 418,
+            "top": 81
+          }
+        ]
+      },
+      {
+        "direction": "up",
+        "desktopY": 38.735557556152344,
+        "portal": [
+          0
+        ],
+        "scroll": [
+          {
+            "id": "app-music",
+            "max": 418,
+            "top": 54
+          }
+        ]
+      },
+      {
+        "direction": "up",
+        "desktopY": 38.735557556152344,
+        "portal": [
+          0
+        ],
+        "scroll": [
+          {
+            "id": "app-music",
+            "max": 418,
+            "top": 27
+          }
+        ]
+      },
+      {
+        "direction": "down",
+        "desktopY": 38.735557556152344,
+        "portal": [
+          0
+        ],
+        "scroll": [
+          {
+            "id": "app-music",
+            "max": 418,
+            "top": 54
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "label": "fixed-notes-small-reversals",
+    "values": [
+      {
+        "direction": "down",
+        "desktopY": 38.735557556152344,
+        "portal": [
+          0
+        ],
+        "scroll": [
+          {
+            "id": "app-notes",
+            "max": 598,
+            "top": 27
+          }
+        ]
+      },
+      {
+        "direction": "down",
+        "desktopY": 38.735557556152344,
+        "portal": [
+          0
+        ],
+        "scroll": [
+          {
+            "id": "app-notes",
+            "max": 598,
+            "top": 54
+          }
+        ]
+      },
+      {
+        "direction": "down",
+        "desktopY": 38.735557556152344,
+        "portal": [
+          0
+        ],
+        "scroll": [
+          {
+            "id": "app-notes",
+            "max": 598,
+            "top": 81
+          }
+        ]
+      },
+      {
+        "direction": "up",
+        "desktopY": 38.735557556152344,
+        "portal": [
+          0
+        ],
+        "scroll": [
+          {
+            "id": "app-notes",
+            "max": 598,
+            "top": 54
+          }
+        ]
+      },
+      {
+        "direction": "up",
+        "desktopY": 38.735557556152344,
+        "portal": [
+          0
+        ],
+        "scroll": [
+          {
+            "id": "app-notes",
+            "max": 598,
+            "top": 27
+          }
+        ]
+      },
+      {
+        "direction": "down",
+        "desktopY": 38.735557556152344,
+        "portal": [
+          0
+        ],
+        "scroll": [
+          {
+            "id": "app-notes",
+            "max": 598,
+            "top": 54
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "label": "fixed-notes-bottom-boundary",
+    "desktopY": 38.735557556152344,
+    "portal": [
+      {
+        "left": 0,
+        "top": 0
+      }
+    ],
+    "surfaces": [
+      {
+        "containers": [
+          {
+            "className": "WindowFrame-module__OfJBba__content",
+            "limit": 0,
+            "top": 0
+          },
+          {
+            "className": "NotesApp-module___4LvZG__noteList",
+            "limit": 0,
+            "top": 0
+          },
+          {
+            "className": "NotesApp-module___4LvZG__scroller",
+            "limit": 598,
+            "top": 597.5
+          }
+        ],
+        "id": "app-notes"
+      }
+    ]
+  },
+  {
+    "label": "fixed-notes-bottom-repeat",
+    "desktopY": 38.735557556152344,
+    "portal": [
+      {
+        "left": 0,
+        "top": 0
+      }
+    ],
+    "surfaces": [
+      {
+        "containers": [
+          {
+            "className": "WindowFrame-module__OfJBba__content",
+            "limit": 0,
+            "top": 0
+          },
+          {
+            "className": "NotesApp-module___4LvZG__noteList",
+            "limit": 0,
+            "top": 0
+          },
+          {
+            "className": "NotesApp-module___4LvZG__scroller",
+            "limit": 598,
+            "top": 597.5
+          }
+        ],
+        "id": "app-notes"
+      }
+    ]
+  },
+  {
+    "label": "fixed-notes-top-boundary",
+    "desktopY": 38.735557556152344,
+    "portal": [
+      {
+        "left": 0,
+        "top": 0
+      }
+    ],
+    "surfaces": [
+      {
+        "containers": [
+          {
+            "className": "WindowFrame-module__OfJBba__content",
+            "limit": 0,
+            "top": 0
+          },
+          {
+            "className": "NotesApp-module___4LvZG__noteList",
+            "limit": 0,
+            "top": 0
+          },
+          {
+            "className": "NotesApp-module___4LvZG__scroller",
+            "limit": 598,
+            "top": 0
+          }
+        ],
+        "id": "app-notes"
+      }
+    ]
+  },
+  {
+    "label": "fixed-safari-after-long-scroll",
+    "desktopY": 38.735557556152344,
+    "portal": [
+      {
+        "left": 0,
+        "top": 0
+      }
+    ],
+    "surfaces": [
+      {
+        "containers": [
+          {
+            "className": "WindowFrame-module__OfJBba__content",
+            "limit": 0,
+            "top": 0
+          },
+          {
+            "className": "relative flex min-w-0 flex-1 items-center gap-2 overflow-x-auto",
+            "limit": 0,
+            "top": 0
+          },
+          {
+            "className": "relative min-h-0 flex-1 overflow-y-auto",
+            "limit": 792,
+            "top": 324
+          }
+        ],
+        "id": "app-safari"
+      }
+    ]
+  },
+  {
+    "label": "shared handler: Settings reversals",
+    "values": [
+      {
+        "direction": "down",
+        "desktopY": 38.735557556152344,
+        "portal": [
+          0
+        ],
+        "scroll": [
+          {
+            "id": "app-settings",
+            "max": 365,
+            "top": 27
+          }
+        ]
+      },
+      {
+        "direction": "down",
+        "desktopY": 38.735557556152344,
+        "portal": [
+          0
+        ],
+        "scroll": [
+          {
+            "id": "app-settings",
+            "max": 365,
+            "top": 54
+          }
+        ]
+      },
+      {
+        "direction": "down",
+        "desktopY": 38.735557556152344,
+        "portal": [
+          0
+        ],
+        "scroll": [
+          {
+            "id": "app-settings",
+            "max": 365,
+            "top": 81
+          }
+        ]
+      },
+      {
+        "direction": "up",
+        "desktopY": 38.735557556152344,
+        "portal": [
+          0
+        ],
+        "scroll": [
+          {
+            "id": "app-settings",
+            "max": 365,
+            "top": 54
+          }
+        ]
+      },
+      {
+        "direction": "up",
+        "desktopY": 38.735557556152344,
+        "portal": [
+          0
+        ],
+        "scroll": [
+          {
+            "id": "app-settings",
+            "max": 365,
+            "top": 27
+          }
+        ]
+      },
+      {
+        "direction": "down",
+        "desktopY": 38.735557556152344,
+        "portal": [
+          0
+        ],
+        "scroll": [
+          {
+            "id": "app-settings",
+            "max": 365,
+            "top": 54
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "label": "shared handler: Safari reversals",
+    "values": [
+      {
+        "direction": "down",
+        "desktopY": 38.735557556152344,
+        "portal": [
+          0
+        ],
+        "scroll": [
+          {
+            "id": "app-settings",
+            "max": 365,
+            "top": 54
+          },
+          {
+            "id": "app-safari",
+            "max": 792,
+            "top": 27
+          }
+        ]
+      },
+      {
+        "direction": "down",
+        "desktopY": 38.735557556152344,
+        "portal": [
+          0
+        ],
+        "scroll": [
+          {
+            "id": "app-settings",
+            "max": 365,
+            "top": 54
+          },
+          {
+            "id": "app-safari",
+            "max": 792,
+            "top": 54
+          }
+        ]
+      },
+      {
+        "direction": "down",
+        "desktopY": 38.735557556152344,
+        "portal": [
+          0
+        ],
+        "scroll": [
+          {
+            "id": "app-settings",
+            "max": 365,
+            "top": 54
+          },
+          {
+            "id": "app-safari",
+            "max": 792,
+            "top": 81
+          }
+        ]
+      },
+      {
+        "direction": "up",
+        "desktopY": 38.735557556152344,
+        "portal": [
+          0
+        ],
+        "scroll": [
+          {
+            "id": "app-settings",
+            "max": 365,
+            "top": 54
+          },
+          {
+            "id": "app-safari",
+            "max": 792,
+            "top": 54
+          }
+        ]
+      },
+      {
+        "direction": "up",
+        "desktopY": 38.735557556152344,
+        "portal": [
+          0
+        ],
+        "scroll": [
+          {
+            "id": "app-settings",
+            "max": 365,
+            "top": 54
+          },
+          {
+            "id": "app-safari",
+            "max": 792,
+            "top": 27
+          }
+        ]
+      },
+      {
+        "direction": "down",
+        "desktopY": 38.735557556152344,
+        "portal": [
+          0
+        ],
+        "scroll": [
+          {
+            "id": "app-settings",
+            "max": 365,
+            "top": 54
+          },
+          {
+            "id": "app-safari",
+            "max": 792,
+            "top": 54
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "label": "shared handler: Music reversals",
+    "values": [
+      {
+        "direction": "down",
+        "desktopY": 38.735557556152344,
+        "portal": [
+          0
+        ],
+        "scroll": [
+          {
+            "id": "app-settings",
+            "max": 365,
+            "top": 54
+          },
+          {
+            "id": "app-safari",
+            "max": 792,
+            "top": 54
+          },
+          {
+            "id": "app-music",
+            "max": 418,
+            "top": 27
+          }
+        ]
+      },
+      {
+        "direction": "down",
+        "desktopY": 38.735557556152344,
+        "portal": [
+          0
+        ],
+        "scroll": [
+          {
+            "id": "app-settings",
+            "max": 365,
+            "top": 54
+          },
+          {
+            "id": "app-safari",
+            "max": 792,
+            "top": 54
+          },
+          {
+            "id": "app-music",
+            "max": 418,
+            "top": 54
+          }
+        ]
+      },
+      {
+        "direction": "down",
+        "desktopY": 38.735557556152344,
+        "portal": [
+          0
+        ],
+        "scroll": [
+          {
+            "id": "app-settings",
+            "max": 365,
+            "top": 54
+          },
+          {
+            "id": "app-safari",
+            "max": 792,
+            "top": 54
+          },
+          {
+            "id": "app-music",
+            "max": 418,
+            "top": 81
+          }
+        ]
+      },
+      {
+        "direction": "up",
+        "desktopY": 38.735557556152344,
+        "portal": [
+          0
+        ],
+        "scroll": [
+          {
+            "id": "app-settings",
+            "max": 365,
+            "top": 54
+          },
+          {
+            "id": "app-safari",
+            "max": 792,
+            "top": 54
+          },
+          {
+            "id": "app-music",
+            "max": 418,
+            "top": 54
+          }
+        ]
+      },
+      {
+        "direction": "up",
+        "desktopY": 38.735557556152344,
+        "portal": [
+          0
+        ],
+        "scroll": [
+          {
+            "id": "app-settings",
+            "max": 365,
+            "top": 54
+          },
+          {
+            "id": "app-safari",
+            "max": 792,
+            "top": 54
+          },
+          {
+            "id": "app-music",
+            "max": 418,
+            "top": 27
+          }
+        ]
+      },
+      {
+        "direction": "down",
+        "desktopY": 38.735557556152344,
+        "portal": [
+          0
+        ],
+        "scroll": [
+          {
+            "id": "app-settings",
+            "max": 365,
+            "top": 54
+          },
+          {
+            "id": "app-safari",
+            "max": 792,
+            "top": 54
+          },
+          {
+            "id": "app-music",
+            "max": 418,
+            "top": 54
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "label": "shared handler: Notes reversals",
+    "values": [
+      {
+        "direction": "down",
+        "desktopY": 38.735557556152344,
+        "portal": [
+          0
+        ],
+        "scroll": [
+          {
+            "id": "app-settings",
+            "max": 365,
+            "top": 54
+          },
+          {
+            "id": "app-safari",
+            "max": 792,
+            "top": 54
+          },
+          {
+            "id": "app-music",
+            "max": 418,
+            "top": 54
+          },
+          {
+            "id": "app-notes",
+            "max": 598,
+            "top": 27
+          }
+        ]
+      },
+      {
+        "direction": "down",
+        "desktopY": 38.735557556152344,
+        "portal": [
+          0
+        ],
+        "scroll": [
+          {
+            "id": "app-settings",
+            "max": 365,
+            "top": 54
+          },
+          {
+            "id": "app-safari",
+            "max": 792,
+            "top": 54
+          },
+          {
+            "id": "app-music",
+            "max": 418,
+            "top": 54
+          },
+          {
+            "id": "app-notes",
+            "max": 598,
+            "top": 54
+          }
+        ]
+      },
+      {
+        "direction": "down",
+        "desktopY": 38.735557556152344,
+        "portal": [
+          0
+        ],
+        "scroll": [
+          {
+            "id": "app-settings",
+            "max": 365,
+            "top": 54
+          },
+          {
+            "id": "app-safari",
+            "max": 792,
+            "top": 54
+          },
+          {
+            "id": "app-music",
+            "max": 418,
+            "top": 54
+          },
+          {
+            "id": "app-notes",
+            "max": 598,
+            "top": 81
+          }
+        ]
+      },
+      {
+        "direction": "up",
+        "desktopY": 38.735557556152344,
+        "portal": [
+          0
+        ],
+        "scroll": [
+          {
+            "id": "app-settings",
+            "max": 365,
+            "top": 54
+          },
+          {
+            "id": "app-safari",
+            "max": 792,
+            "top": 54
+          },
+          {
+            "id": "app-music",
+            "max": 418,
+            "top": 54
+          },
+          {
+            "id": "app-notes",
+            "max": 598,
+            "top": 54
+          }
+        ]
+      },
+      {
+        "direction": "up",
+        "desktopY": 38.735557556152344,
+        "portal": [
+          0
+        ],
+        "scroll": [
+          {
+            "id": "app-settings",
+            "max": 365,
+            "top": 54
+          },
+          {
+            "id": "app-safari",
+            "max": 792,
+            "top": 54
+          },
+          {
+            "id": "app-music",
+            "max": 418,
+            "top": 54
+          },
+          {
+            "id": "app-notes",
+            "max": 598,
+            "top": 27
+          }
+        ]
+      },
+      {
+        "direction": "down",
+        "desktopY": 38.735557556152344,
+        "portal": [
+          0
+        ],
+        "scroll": [
+          {
+            "id": "app-settings",
+            "max": 365,
+            "top": 54
+          },
+          {
+            "id": "app-safari",
+            "max": 792,
+            "top": 54
+          },
+          {
+            "id": "app-music",
+            "max": 418,
+            "top": 54
+          },
+          {
+            "id": "app-notes",
+            "max": 598,
+            "top": 54
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "label": "shared handler: Notes bottom",
+    "desktopY": 38.735557556152344,
+    "portal": [
+      {
+        "left": 0,
+        "top": 0
+      }
+    ],
+    "surfaces": [
+      {
+        "containers": [
+          {
+            "className": "WindowFrame-module__OfJBba__content",
+            "limit": 0,
+            "top": 0
+          },
+          {
+            "className": "SettingsApp-module__vQt40W__sidebar w-48 shrink-0 h-full bg-[#ebebeb] dark:bg-black/30 backdrop-blur-xl border-r border-gray-300 dark:border-white/10 p-2 flex flex-col gap-1 overflow-y-auto transition-colors duration-1000 ease-in-out",
+            "limit": 0,
+            "top": 0
+          },
+          {
+            "className": "SettingsApp-module__vQt40W__content flex-1 p-8 overflow-y-auto min-w-0 min-h-0 transition-colors duration-1000 ease-in-out",
+            "limit": 365,
+            "top": 54
+          }
+        ],
+        "id": "app-settings"
+      },
+      {
+        "containers": [
+          {
+            "className": "WindowFrame-module__OfJBba__content",
+            "limit": 0,
+            "top": 0
+          },
+          {
+            "className": "relative flex min-w-0 flex-1 items-center gap-2 overflow-x-auto",
+            "limit": 0,
+            "top": 0
+          },
+          {
+            "className": "relative min-h-0 flex-1 overflow-y-auto",
+            "limit": 792,
+            "top": 54
+          }
+        ],
+        "id": "app-safari"
+      },
+      {
+        "containers": [
+          {
+            "className": "WindowFrame-module__OfJBba__content",
+            "limit": 0,
+            "top": 0
+          },
+          {
+            "className": "MusicApp-module__rfWfMW__sidebar flex w-48 shrink-0 flex-col border-r border-gray-200 bg-[#ededf0] p-3 dark:border-white/10 dark:bg-black/20",
+            "limit": 0,
+            "top": 0
+          },
+          {
+            "className": "MusicApp-module__rfWfMW__library min-h-0 flex-1 overflow-y-auto px-5 py-5",
+            "limit": 418,
+            "top": 54
+          }
+        ],
+        "id": "app-music"
+      },
+      {
+        "containers": [
+          {
+            "className": "WindowFrame-module__OfJBba__content",
+            "limit": 0,
+            "top": 0
+          },
+          {
+            "className": "NotesApp-module___4LvZG__noteList",
+            "limit": 0,
+            "top": 0
+          },
+          {
+            "className": "NotesApp-module___4LvZG__scroller",
+            "limit": 598,
+            "top": 597.5
+          }
+        ],
+        "id": "app-notes"
+      }
+    ]
+  },
+  {
+    "label": "shared handler: Notes bottom held",
+    "desktopY": 38.735557556152344,
+    "portal": [
+      {
+        "left": 0,
+        "top": 0
+      }
+    ],
+    "surfaces": [
+      {
+        "containers": [
+          {
+            "className": "WindowFrame-module__OfJBba__content",
+            "limit": 0,
+            "top": 0
+          },
+          {
+            "className": "SettingsApp-module__vQt40W__sidebar w-48 shrink-0 h-full bg-[#ebebeb] dark:bg-black/30 backdrop-blur-xl border-r border-gray-300 dark:border-white/10 p-2 flex flex-col gap-1 overflow-y-auto transition-colors duration-1000 ease-in-out",
+            "limit": 0,
+            "top": 0
+          },
+          {
+            "className": "SettingsApp-module__vQt40W__content flex-1 p-8 overflow-y-auto min-w-0 min-h-0 transition-colors duration-1000 ease-in-out",
+            "limit": 365,
+            "top": 54
+          }
+        ],
+        "id": "app-settings"
+      },
+      {
+        "containers": [
+          {
+            "className": "WindowFrame-module__OfJBba__content",
+            "limit": 0,
+            "top": 0
+          },
+          {
+            "className": "relative flex min-w-0 flex-1 items-center gap-2 overflow-x-auto",
+            "limit": 0,
+            "top": 0
+          },
+          {
+            "className": "relative min-h-0 flex-1 overflow-y-auto",
+            "limit": 792,
+            "top": 54
+          }
+        ],
+        "id": "app-safari"
+      },
+      {
+        "containers": [
+          {
+            "className": "WindowFrame-module__OfJBba__content",
+            "limit": 0,
+            "top": 0
+          },
+          {
+            "className": "MusicApp-module__rfWfMW__sidebar flex w-48 shrink-0 flex-col border-r border-gray-200 bg-[#ededf0] p-3 dark:border-white/10 dark:bg-black/20",
+            "limit": 0,
+            "top": 0
+          },
+          {
+            "className": "MusicApp-module__rfWfMW__library min-h-0 flex-1 overflow-y-auto px-5 py-5",
+            "limit": 418,
+            "top": 54
+          }
+        ],
+        "id": "app-music"
+      },
+      {
+        "containers": [
+          {
+            "className": "WindowFrame-module__OfJBba__content",
+            "limit": 0,
+            "top": 0
+          },
+          {
+            "className": "NotesApp-module___4LvZG__noteList",
+            "limit": 0,
+            "top": 0
+          },
+          {
+            "className": "NotesApp-module___4LvZG__scroller",
+            "limit": 598,
+            "top": 597.5
+          }
+        ],
+        "id": "app-notes"
+      }
+    ]
+  },
+  {
+    "label": "shared handler: Notes back at top",
+    "desktopY": 38.735557556152344,
+    "portal": [
+      {
+        "left": 0,
+        "top": 0
+      }
+    ],
+    "surfaces": [
+      {
+        "containers": [
+          {
+            "className": "WindowFrame-module__OfJBba__content",
+            "limit": 0,
+            "top": 0
+          },
+          {
+            "className": "SettingsApp-module__vQt40W__sidebar w-48 shrink-0 h-full bg-[#ebebeb] dark:bg-black/30 backdrop-blur-xl border-r border-gray-300 dark:border-white/10 p-2 flex flex-col gap-1 overflow-y-auto transition-colors duration-1000 ease-in-out",
+            "limit": 0,
+            "top": 0
+          },
+          {
+            "className": "SettingsApp-module__vQt40W__content flex-1 p-8 overflow-y-auto min-w-0 min-h-0 transition-colors duration-1000 ease-in-out",
+            "limit": 365,
+            "top": 54
+          }
+        ],
+        "id": "app-settings"
+      },
+      {
+        "containers": [
+          {
+            "className": "WindowFrame-module__OfJBba__content",
+            "limit": 0,
+            "top": 0
+          },
+          {
+            "className": "relative flex min-w-0 flex-1 items-center gap-2 overflow-x-auto",
+            "limit": 0,
+            "top": 0
+          },
+          {
+            "className": "relative min-h-0 flex-1 overflow-y-auto",
+            "limit": 792,
+            "top": 54
+          }
+        ],
+        "id": "app-safari"
+      },
+      {
+        "containers": [
+          {
+            "className": "WindowFrame-module__OfJBba__content",
+            "limit": 0,
+            "top": 0
+          },
+          {
+            "className": "MusicApp-module__rfWfMW__sidebar flex w-48 shrink-0 flex-col border-r border-gray-200 bg-[#ededf0] p-3 dark:border-white/10 dark:bg-black/20",
+            "limit": 0,
+            "top": 0
+          },
+          {
+            "className": "MusicApp-module__rfWfMW__library min-h-0 flex-1 overflow-y-auto px-5 py-5",
+            "limit": 418,
+            "top": 54
+          }
+        ],
+        "id": "app-music"
+      },
+      {
+        "containers": [
+          {
+            "className": "WindowFrame-module__OfJBba__content",
+            "limit": 0,
+            "top": 0
+          },
+          {
+            "className": "NotesApp-module___4LvZG__noteList",
+            "limit": 0,
+            "top": 0
+          },
+          {
+            "className": "NotesApp-module___4LvZG__scroller",
+            "limit": 598,
+            "top": 0
+          }
+        ],
+        "id": "app-notes"
+      }
+    ]
+  },
+  {
+    "label": "shared handler: Settings lower controls reachable",
+    "desktopY": 38.735557556152344,
+    "portal": [
+      {
+        "left": 0,
+        "top": 0
+      }
+    ],
+    "surfaces": [
+      {
+        "containers": [
+          {
+            "className": "WindowFrame-module__OfJBba__content",
+            "limit": 0,
+            "top": 0
+          },
+          {
+            "className": "SettingsApp-module__vQt40W__sidebar w-48 shrink-0 h-full bg-[#ebebeb] dark:bg-black/30 backdrop-blur-xl border-r border-gray-300 dark:border-white/10 p-2 flex flex-col gap-1 overflow-y-auto transition-colors duration-1000 ease-in-out",
+            "limit": 0,
+            "top": 0
+          },
+          {
+            "className": "SettingsApp-module__vQt40W__content flex-1 p-8 overflow-y-auto min-w-0 min-h-0 transition-colors duration-1000 ease-in-out",
+            "limit": 365,
+            "top": 364.5
+          }
+        ],
+        "id": "app-settings"
+      },
+      {
+        "containers": [
+          {
+            "className": "WindowFrame-module__OfJBba__content",
+            "limit": 0,
+            "top": 0
+          },
+          {
+            "className": "relative flex min-w-0 flex-1 items-center gap-2 overflow-x-auto",
+            "limit": 0,
+            "top": 0
+          },
+          {
+            "className": "relative min-h-0 flex-1 overflow-y-auto",
+            "limit": 792,
+            "top": 54
+          }
+        ],
+        "id": "app-safari"
+      },
+      {
+        "containers": [
+          {
+            "className": "WindowFrame-module__OfJBba__content",
+            "limit": 0,
+            "top": 0
+          },
+          {
+            "className": "MusicApp-module__rfWfMW__sidebar flex w-48 shrink-0 flex-col border-r border-gray-200 bg-[#ededf0] p-3 dark:border-white/10 dark:bg-black/20",
+            "limit": 0,
+            "top": 0
+          },
+          {
+            "className": "MusicApp-module__rfWfMW__library min-h-0 flex-1 overflow-y-auto px-5 py-5",
+            "limit": 418,
+            "top": 54
+          }
+        ],
+        "id": "app-music"
+      },
+      {
+        "containers": [
+          {
+            "className": "WindowFrame-module__OfJBba__content",
+            "limit": 0,
+            "top": 0
+          },
+          {
+            "className": "NotesApp-module___4LvZG__noteList",
+            "limit": 0,
+            "top": 0
+          },
+          {
+            "className": "NotesApp-module___4LvZG__scroller",
+            "limit": 598,
+            "top": 0
+          }
+        ],
+        "id": "app-notes"
+      }
+    ]
+  },
+  {
+    "label": "frame-aligned: Settings reversals",
+    "values": [
+      {
+        "direction": "down",
+        "desktopY": 38.735557556152344,
+        "portal": [
+          0
+        ],
+        "scroll": [
+          {
+            "id": "app-settings",
+            "max": 365,
+            "top": 27
+          }
+        ]
+      },
+      {
+        "direction": "down",
+        "desktopY": 38.735557556152344,
+        "portal": [
+          0
+        ],
+        "scroll": [
+          {
+            "id": "app-settings",
+            "max": 365,
+            "top": 54
+          }
+        ]
+      },
+      {
+        "direction": "down",
+        "desktopY": 38.735557556152344,
+        "portal": [
+          0
+        ],
+        "scroll": [
+          {
+            "id": "app-settings",
+            "max": 365,
+            "top": 81
+          }
+        ]
+      },
+      {
+        "direction": "up",
+        "desktopY": 38.735557556152344,
+        "portal": [
+          0
+        ],
+        "scroll": [
+          {
+            "id": "app-settings",
+            "max": 365,
+            "top": 54
+          }
+        ]
+      },
+      {
+        "direction": "up",
+        "desktopY": 38.735557556152344,
+        "portal": [
+          0
+        ],
+        "scroll": [
+          {
+            "id": "app-settings",
+            "max": 365,
+            "top": 27
+          }
+        ]
+      },
+      {
+        "direction": "down",
+        "desktopY": 38.735557556152344,
+        "portal": [
+          0
+        ],
+        "scroll": [
+          {
+            "id": "app-settings",
+            "max": 365,
+            "top": 54
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "label": "frame-aligned: Settings bottom",
+    "desktopY": 38.735557556152344,
+    "portal": [
+      {
+        "left": 0,
+        "top": 0
+      }
+    ],
+    "surfaces": [
+      {
+        "containers": [
+          {
+            "className": "WindowFrame-module__OfJBba__content",
+            "limit": 0,
+            "top": 0
+          },
+          {
+            "className": "SettingsApp-module__vQt40W__sidebar w-48 shrink-0 h-full bg-[#ebebeb] dark:bg-black/30 backdrop-blur-xl border-r border-gray-300 dark:border-white/10 p-2 flex flex-col gap-1 overflow-y-auto transition-colors duration-1000 ease-in-out",
+            "limit": 0,
+            "top": 0
+          },
+          {
+            "className": "SettingsApp-module__vQt40W__content flex-1 p-8 overflow-y-auto min-w-0 min-h-0 transition-colors duration-1000 ease-in-out",
+            "limit": 365,
+            "top": 364.5
+          }
+        ],
+        "id": "app-settings"
+      }
+    ]
+  },
+  {
+    "label": "frame-aligned: Safari reversals",
+    "values": [
+      {
+        "direction": "down",
+        "desktopY": 38.735557556152344,
+        "portal": [
+          0
+        ],
+        "scroll": [
+          {
+            "id": "app-settings",
+            "max": 365,
+            "top": 364.5
+          },
+          {
+            "id": "app-safari",
+            "max": 792,
+            "top": 27
+          }
+        ]
+      },
+      {
+        "direction": "down",
+        "desktopY": 38.735557556152344,
+        "portal": [
+          0
+        ],
+        "scroll": [
+          {
+            "id": "app-settings",
+            "max": 365,
+            "top": 364.5
+          },
+          {
+            "id": "app-safari",
+            "max": 792,
+            "top": 54
+          }
+        ]
+      },
+      {
+        "direction": "up",
+        "desktopY": 38.735557556152344,
+        "portal": [
+          0
+        ],
+        "scroll": [
+          {
+            "id": "app-settings",
+            "max": 365,
+            "top": 364.5
+          },
+          {
+            "id": "app-safari",
+            "max": 792,
+            "top": 27
+          }
+        ]
+      },
+      {
+        "direction": "down",
+        "desktopY": 38.735557556152344,
+        "portal": [
+          0
+        ],
+        "scroll": [
+          {
+            "id": "app-settings",
+            "max": 365,
+            "top": 364.5
+          },
+          {
+            "id": "app-safari",
+            "max": 792,
+            "top": 54
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "label": "frame-aligned: Music reversals",
+    "values": [
+      {
+        "direction": "down",
+        "desktopY": 38.735557556152344,
+        "portal": [
+          0
+        ],
+        "scroll": [
+          {
+            "id": "app-settings",
+            "max": 365,
+            "top": 364.5
+          },
+          {
+            "id": "app-safari",
+            "max": 792,
+            "top": 54
+          },
+          {
+            "id": "app-music",
+            "max": 418,
+            "top": 27
+          }
+        ]
+      },
+      {
+        "direction": "down",
+        "desktopY": 38.735557556152344,
+        "portal": [
+          0
+        ],
+        "scroll": [
+          {
+            "id": "app-settings",
+            "max": 365,
+            "top": 364.5
+          },
+          {
+            "id": "app-safari",
+            "max": 792,
+            "top": 54
+          },
+          {
+            "id": "app-music",
+            "max": 418,
+            "top": 54
+          }
+        ]
+      },
+      {
+        "direction": "up",
+        "desktopY": 38.735557556152344,
+        "portal": [
+          0
+        ],
+        "scroll": [
+          {
+            "id": "app-settings",
+            "max": 365,
+            "top": 364.5
+          },
+          {
+            "id": "app-safari",
+            "max": 792,
+            "top": 54
+          },
+          {
+            "id": "app-music",
+            "max": 418,
+            "top": 27
+          }
+        ]
+      },
+      {
+        "direction": "down",
+        "desktopY": 38.735557556152344,
+        "portal": [
+          0
+        ],
+        "scroll": [
+          {
+            "id": "app-settings",
+            "max": 365,
+            "top": 364.5
+          },
+          {
+            "id": "app-safari",
+            "max": 792,
+            "top": 54
+          },
+          {
+            "id": "app-music",
+            "max": 418,
+            "top": 54
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "label": "frame-aligned: Notes reversals",
+    "values": [
+      {
+        "direction": "down",
+        "desktopY": 38.735557556152344,
+        "portal": [
+          0
+        ],
+        "scroll": [
+          {
+            "id": "app-settings",
+            "max": 365,
+            "top": 364.5
+          },
+          {
+            "id": "app-safari",
+            "max": 792,
+            "top": 54
+          },
+          {
+            "id": "app-music",
+            "max": 418,
+            "top": 54
+          },
+          {
+            "id": "app-notes",
+            "max": 598,
+            "top": 27
+          }
+        ]
+      },
+      {
+        "direction": "down",
+        "desktopY": 38.735557556152344,
+        "portal": [
+          0
+        ],
+        "scroll": [
+          {
+            "id": "app-settings",
+            "max": 365,
+            "top": 364.5
+          },
+          {
+            "id": "app-safari",
+            "max": 792,
+            "top": 54
+          },
+          {
+            "id": "app-music",
+            "max": 418,
+            "top": 54
+          },
+          {
+            "id": "app-notes",
+            "max": 598,
+            "top": 54
+          }
+        ]
+      },
+      {
+        "direction": "up",
+        "desktopY": 38.735557556152344,
+        "portal": [
+          0
+        ],
+        "scroll": [
+          {
+            "id": "app-settings",
+            "max": 365,
+            "top": 364.5
+          },
+          {
+            "id": "app-safari",
+            "max": 792,
+            "top": 54
+          },
+          {
+            "id": "app-music",
+            "max": 418,
+            "top": 54
+          },
+          {
+            "id": "app-notes",
+            "max": 598,
+            "top": 27
+          }
+        ]
+      },
+      {
+        "direction": "down",
+        "desktopY": 38.735557556152344,
+        "portal": [
+          0
+        ],
+        "scroll": [
+          {
+            "id": "app-settings",
+            "max": 365,
+            "top": 364.5
+          },
+          {
+            "id": "app-safari",
+            "max": 792,
+            "top": 54
+          },
+          {
+            "id": "app-music",
+            "max": 418,
+            "top": 54
+          },
+          {
+            "id": "app-notes",
+            "max": 598,
+            "top": 54
+          }
+        ]
+      }
+    ]
+  }
+]

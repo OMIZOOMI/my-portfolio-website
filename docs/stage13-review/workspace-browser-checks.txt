@@ -1,0 +1,8 @@
+PASS entry-assets-three-places-and-laptop-continuity
+PASS rapid-selection-late-requests-and-bounded-travel
+PASS failed-image-and-video-recovery
+PASS autoplay-rejection-still-fallback-and-retry
+PASS motion-pause-visibility-reduced-motion-and-loop-ending
+PASS keyboard-touch-and-narrow-selector
+PASS video-idle-and-travel-frame-observations
+PASS eight-switch-cycles-and-retired-media-cleanup

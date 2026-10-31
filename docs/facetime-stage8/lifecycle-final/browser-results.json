@@ -1,0 +1,73 @@
+{
+  "testedAt": "2026-10-29T11:01:23.853Z",
+  "site": "http://127.0.0.1:3001",
+  "buildId": "7P8-4GEd2kjkGIxVQrvK7",
+  "browser": "Chrome/156.0.8078.48",
+  "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36",
+  "os": "darwin 25.6.0 arm64",
+  "macOS": "26.6.1",
+  "device": "MacBookAir10,1\nApple M1",
+  "environment": "Isolated headless Chromium on the OS above. Canvas MediaStream and synthetic permission/playback failures. No physical camera or native permission-prompt evidence; this run does not establish parity with an untested OS/browser.",
+  "scenarios": [
+    {
+      "name": "real-gpu-initialization-refusal-falls-back-to-cpu",
+      "fixture": {},
+      "delegate": "CPU",
+      "refusedContexts": 6,
+      "confetti": {
+        "particles": 70,
+        "canvases": 0,
+        "camera": "live"
+      },
+      "status": "PASS",
+      "runtimeErrors": [],
+      "elapsedMs": 9707
+    },
+    {
+      "name": "gpu-context-loss-after-inference-rebuilds-one-cpu-detector",
+      "fixture": {},
+      "initialDelegate": "GPU",
+      "loss": {
+        "method": "WEBGL_lose_context",
+        "contexts": 3
+      },
+      "final": {
+        "delegate": "CPU",
+        "status": "ready"
+      },
+      "status": "PASS",
+      "runtimeErrors": [],
+      "elapsedMs": 5991
+    }
+  ],
+  "gpu": {
+    "devices": [
+      {
+        "vendorId": 4203,
+        "deviceId": 0,
+        "vendorString": "Google Inc. (Apple)",
+        "deviceString": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Version 26.6.1 (Build 25G76))",
+        "driverVendor": "Apple",
+        "driverVersion": "26.6.1"
+      }
+    ],
+    "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Version 26.6.1 (Build 25G76))",
+    "vendor": "Google Inc. (Apple)",
+    "featureStatus": {
+      "2d_canvas": "enabled",
+      "direct_rendering_display_compositor": "disabled_off_ok",
+      "gpu_compositing": "enabled",
+      "multiple_raster_threads": "enabled_on",
+      "opengl": "enabled_on",
+      "rasterization": "enabled",
+      "raw_draw": "disabled_off_ok",
+      "skia_graphite": "enabled_on",
+      "trees_in_viz": "disabled_off",
+      "video_decode": "enabled",
+      "video_encode": "enabled",
+      "webgl": "enabled",
+      "webgpu": "enabled",
+      "webnn": "disabled_off"
+    }
+  }
+}

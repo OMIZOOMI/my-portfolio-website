@@ -60,7 +60,7 @@ export default function Dock() {
 
   const handleAppClick = (appId: string) => {
     if (appId === "finder") {
-      useWindowStore.getState().openWindow({ id: "finder-desktop", kind: "finder", title: "Desktop" });
+      useWindowStore.getState().openWindow({ id: "finder-desktop", kind: "finder", title: "Desktop", folderId: "desktop" });
     } else {
       const appData = dockApps.find(a => a.id === appId);
       useWindowStore.getState().openWindow({ id: `app-${appId}`, kind: appId, title: appData?.name || "Application" });
@@ -77,12 +77,12 @@ export default function Dock() {
   };
 
   return (
-    <div data-dock="true" className="absolute bottom-4 w-full flex justify-center z-[9990]">
-      <div className="flex items-end gap-2 px-3 pb-2 pt-2 bg-white/10 dark:bg-black/20 backdrop-blur-md border border-white/20 dark:border-white/10 rounded-2xl shadow-2xl">
+    <div data-dock="true" className="absolute bottom-4 w-full flex justify-center z-[9990] pointer-events-none">
+      <div data-dock-surface className="flex items-end gap-2 px-3 pb-2 pt-2 bg-white/10 dark:bg-black/20 backdrop-blur-md border border-white/20 dark:border-white/10 rounded-2xl shadow-2xl pointer-events-auto">
         
         {dockApps.map((app) => (
           <motion.div key={app.id} data-dock-app={app.id} whileHover={magnify} transition={{ type: "spring", stiffness: 300, damping: 20 }} className="relative group cursor-pointer flex items-center justify-center" onClick={() => handleAppClick(app.id)}>
-            <Image src={app.icon} alt={app.name} width={iconPx} height={iconPx} unoptimized loading="eager" draggable={false} style={iconStyle} className="drop-shadow-md pointer-events-none select-none object-contain" />
+            <Image src={app.icon} alt={app.name} width={iconPx} height={iconPx} loading="eager" draggable={false} style={iconStyle} className="drop-shadow-md pointer-events-none select-none object-contain" />
             <span className="absolute -top-10 left-1/2 -translate-x-1/2 px-3 py-1 bg-gray-900/80 text-white text-xs rounded-md opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-50">
               {app.name}
             </span>
@@ -92,7 +92,7 @@ export default function Dock() {
         <div className="w-[1px] h-12 bg-white/30 mx-1 rounded-full"></div>
 
         {minimizedWindows.map((win) => (
-          <motion.div key={win.id} whileHover={magnify} transition={{ type: "spring", stiffness: 300, damping: 20 }} className="relative group cursor-pointer flex items-center justify-center" onClick={() => toggleMinimize(win.id)}>
+          <motion.div key={win.id} data-dock-minimized-window={win.id} whileHover={magnify} transition={{ type: "spring", stiffness: 300, damping: 20 }} className="relative group cursor-pointer flex items-center justify-center" onClick={() => toggleMinimize(win.id)}>
             <div className="bg-[#1e1e1e]/90 backdrop-blur-md border border-white/20 rounded-lg flex flex-col overflow-hidden shadow-lg object-contain" style={iconStyle}>
               <div className="h-3 w-full bg-white/10 flex items-center px-1 gap-[2px]">
                 <div className="w-1 h-1 rounded-full bg-[#ff5f56]" />
@@ -117,7 +117,7 @@ export default function Dock() {
           className={`relative group cursor-pointer rounded-xl ${isTrashHover ? "bg-white/20 ring-2 ring-red-400/70" : ""}`}
           onClick={handleBinClick}
         >
-            <Image src={getBinIcon()} alt="Bin" width={iconPx} height={iconPx} unoptimized loading="eager" draggable={false} style={iconStyle} className="drop-shadow-md pointer-events-none select-none object-contain" />
+            <Image src={getBinIcon()} alt="Bin" width={iconPx} height={iconPx} loading="eager" draggable={false} style={iconStyle} className="drop-shadow-md pointer-events-none select-none object-contain" />
           <span className="absolute -top-10 left-1/2 -translate-x-1/2 px-3 py-1 bg-gray-900/80 text-white text-xs rounded-md opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-50">
             Bin
           </span>
