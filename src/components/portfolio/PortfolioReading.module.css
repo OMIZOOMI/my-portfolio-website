@@ -93,9 +93,9 @@
 .page [id] { scroll-margin-block: 1.25rem; }
 .page :is(a, button):focus-visible, .intro h1:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 .guide { margin-bottom: 1.6rem; padding: .9rem 1rem; border: 1px solid var(--line); border-radius: 1.3rem; }
-.guide .laptopTip { display: flex; align-items: flex-start; gap: .6rem; color: var(--muted); font-size: .9rem; }
+.laptopTip { display: none; align-items: flex-start; gap: .6rem; color: var(--muted); font-size: .9rem; }
 .laptopTip svg { flex: none; margin-top: .13rem; color: var(--accent); }
-.guide h2 { font-size: 1.05rem; font-weight: 650; margin-top: .75rem; }
+.guide h2 { font-size: 1.05rem; font-weight: 650; }
 .guide p { margin: .2rem 0 0; }
 .guideActions { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem; margin-top: .55rem; }
 .guide :is(.secondary, .quietButton) { font-size: .9rem; cursor: pointer; }
@@ -105,6 +105,10 @@
 .guideLinks a { display: grid; min-height: 44px; padding: .55rem .7rem; border: 1px solid var(--line); border-radius: .85rem; }
 .guideLinks strong { display: flex; align-items: center; justify-content: space-between; gap: .55rem; color: var(--accent); }
 .guideLinks span { color: var(--muted); font-size: .875rem; }
+@media (max-width: 767px), (pointer: coarse) {
+  .laptopTip { display: flex; }
+  .guide h2 { margin-top: .75rem; }
+}
 @media (max-width: 767px) {
   .intro { padding-block: 1.35rem 1rem; }
   .longIntro { display: none; }

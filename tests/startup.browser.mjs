@@ -323,6 +323,19 @@ try {
       assert.deepEqual(page.errors, []);
     });
   }
+  await scenario("reading-guide-wide", {
+    init: `localStorage.setItem("portfolio-introduction", JSON.stringify({ status: "skipped" }));`,
+  }, async page => {
+    await page.send("Page.navigate", { url: new URL("/?view=reading", site).href });
+    const guideButton = '#reading-guide [aria-expanded="false"]';
+    await page.wait(`document.querySelector('[data-portfolio-route="reading"]') && document.querySelector('${guideButton}')?.textContent === 'Open guide' && !!document.querySelector('${guideButton}')?.getClientRects().length`, "Quick Guide on the wide reading view", 10000);
+    assert.equal(await page.evaluate(`!!document.querySelector('#reading-guide p')?.getClientRects().length`), false, "Laptop advice is hidden on a wide pointer-driven display");
+    await page.evaluate(`document.querySelector('${guideButton}').focus()`);
+    await page.send("Input.dispatchKeyEvent", { type: "keyDown", key: "Enter", code: "Enter", windowsVirtualKeyCode: 13, text: "\r", unmodifiedText: "\r" });
+    await page.send("Input.dispatchKeyEvent", { type: "keyUp", key: "Enter", code: "Enter", windowsVirtualKeyCode: 13 });
+    await page.wait(`!!document.querySelector('#reading-guide [aria-expanded="true"]') && !!document.querySelector('#reading-guide a[href="#reading-projects"]')?.getClientRects().length`, "Keyboard opens the Quick Guide", 5000);
+    assert.deepEqual(page.errors, []);
+  });
   await scenario("cold-and-warm-handoff", { cold: true }, async (page) => {
     await page.navigate();
     await handoff(page);

@@ -21,7 +21,7 @@ export function ReadingGuide() {
     button.current?.focus({ preventScroll: true });
   };
 
-  return <aside className={`touch-portfolio-only ${styles.guide}`} id="reading-guide" aria-labelledby="reading-guide-title">
+  return <aside className={styles.guide} id="reading-guide" aria-labelledby="reading-guide-title">
     <p className={styles.laptopTip}><Laptop size={19} aria-hidden="true" /> <span>For the full 3D experience, use a laptop or desktop.</span></p>
     <h2 id="reading-guide-title">Quick guide</h2>
     <div className={styles.guideActions}>
