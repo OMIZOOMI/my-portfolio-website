@@ -235,18 +235,19 @@ async function scenario(name, options, run) {
 }
 
 try {
-  for (const [label, width, height] of [["small-phone", 320, 740], ["phone", 390, 844], ["phone-landscape", 844, 390], ["tablet", 768, 1024], ["large-tablet", 1366, 1024]]) {
+  for (const [label, width, height] of [["small-phone", 320, 568], ["phone", 390, 844], ["large-phone", 430, 932], ["small-phone-landscape", 568, 320], ["phone-landscape", 844, 390], ["tablet", 768, 1024], ["tablet-landscape", 1024, 768], ["large-tablet", 1376, 1032]]) {
     await scenario(`responsive-${label}`, { reduced: true }, async page => {
       await touchViewport(page, width, height);
       await page.navigate();
       await page.wait(`document.querySelector('[data-portfolio-route="reading"]') && document.querySelector('[data-portfolio-reading] h1')?.textContent === 'Om Sawkare'`, "readable landing");
-      const landing = await page.evaluate(`(() => {
+      const landing = await page.evaluate(String.raw`(() => {
         const root = document.querySelector('[data-portfolio-reading]');
         return { width: root.clientWidth, hasOverflow: root.scrollWidth > root.clientWidth,
           touch: matchMedia('(pointer: coarse)').matches,
           routes: [...root.querySelectorAll('a[href^="/projects/"]')].map(link => link.getAttribute('href')),
-          targets: [...root.querySelectorAll('a')].every(link => link.getBoundingClientRect().height >= 44),
-          heavy: performance.getEntriesByType('resource').filter(item => /macbook\.glb|mediapipe|\.hdr|\.mp4/.test(item.name)).length,
+          targets: [...root.querySelectorAll('a')].filter(link => link.getClientRects().length).every(link => link.getBoundingClientRect().height >= 44),
+          guide: root.querySelector('#reading-guide')?.getBoundingClientRect().height > 0 && root.querySelector('#reading-guide')?.getBoundingClientRect().top < innerHeight - 100 && root.querySelector('#reading-guide')?.textContent.includes('laptop or desktop'),
+          heavy: performance.getEntriesByType('resource').filter(item => /macbook\.glb|mediapipe|\.hdr|\.mp4|wallpapers\/touch/.test(item.name)).length,
           desktop: !!document.querySelector('#desktop-root,canvas') };
       })()`);
       assert.equal(landing.width, width);
@@ -254,10 +255,26 @@ try {
       assert.equal(landing.touch, true);
       assert.deepEqual(landing.routes, ["/projects/veyra", "/projects/adobe-brand-audit"]);
       assert.equal(landing.targets, true);
+      assert.equal(landing.guide, true);
       assert.equal(landing.heavy, 0);
       assert.equal(landing.desktop, false);
       await page.screenshot(`responsive-${label}-landing`);
-      if (label !== "phone") return;
+      if (label === "small-phone") {
+        await tap(page, '#reading-guide button:not([aria-expanded])');
+        await page.wait(`JSON.parse(localStorage.getItem('portfolio-introduction'))?.status === 'skipped'`, "Skip remembers the visitor's choice");
+      }
+      await tap(page, '#reading-guide [aria-expanded="false"]');
+      await page.wait(`document.querySelector('#reading-guide [aria-expanded="true"]')?.textContent === 'Hide guide'`, "Quick guide opens by touch");
+      if (label !== "phone") {
+        await tap(page, '#reading-guide a[href="/?view=desktop"]');
+        const coast = width < height ? "/wallpapers/touch/coast-portrait.webp" : "/wallpapers/coast-light.webp";
+        await page.wait(`document.querySelector('#desktop-root[data-compact-desktop] [data-wallpaper-current]')?.dataset.wallpaperCurrent === '${coast}'`, "Coast fits the device orientation");
+        assert.equal(await page.evaluate(`!!document.querySelector('canvas')`), false);
+        return;
+      }
+      await page.screenshot("responsive-phone-guide");
+      await tap(page, '#reading-guide div[id] > button');
+      await page.wait(`document.querySelector('#reading-guide [aria-expanded="false"]')?.textContent === 'Open guide' && JSON.parse(localStorage.getItem('portfolio-introduction'))?.status === 'completed'`, "completed guide stays available to reopen");
 
       await tap(page, '[data-portfolio-reading] nav a[href="#reading-contact"]');
       await page.wait(`location.hash === '#reading-contact' && document.querySelector('[data-portfolio-reading]').scrollTop > 0`, "contact anchors on mobile");
@@ -271,6 +288,7 @@ try {
       await tap(page, '[data-public-project] a[href*="?project="]');
       await page.wait(`!!document.querySelector('#desktop-root[data-compact-desktop]') && !!document.querySelector('[data-window-frame]')`, "deep link opens a case study in the touch desktop");
       assert.equal(await page.evaluate(`!!document.querySelector('canvas,[data-menu-notch]')`), false);
+      await page.wait(`document.querySelector('[data-wallpaper-current]')?.dataset.wallpaperCurrent === '/wallpapers/touch/coast-portrait.webp'`, "Coast starts with the portrait asset");
       await tap(page, '[data-window-frame="file-adobe-brand-audit"] [data-window-control="close"]');
       await page.wait(`!document.querySelector('[data-window-frame="file-adobe-brand-audit"]')`, "case study window closes by touch");
       await tap(page, '[data-file-surface="desktop"] [aria-label="Open Projects"]');
@@ -291,6 +309,17 @@ try {
       await page.wait(`document.querySelector('[data-portfolio-route="desktop"]') && document.querySelector('[data-notes-app]') === window.__responsiveNotes`, "browser Forward restores the same Notes window");
       await touchViewport(page, height, width);
       await page.wait(`document.querySelector('#desktop-root').getBoundingClientRect().width === ${height}`, "rotation resizes the desktop without changing modes");
+      await page.wait(`document.querySelector('[data-wallpaper-current]')?.dataset.wallpaperCurrent === '/wallpapers/coast-light.webp'`, "rotation switches to the landscape asset");
+      await tap(page, '[data-dock-app="settings"]');
+      await page.wait(`document.querySelectorAll('[data-wallpaper-option]').length === 2`, "touch Settings has two wallpaper options");
+      assert.equal(await page.evaluate(`!!document.querySelector('[data-wallpaper-mode]')`), false);
+      await tap(page, '[data-wallpaper-option="dunes"]');
+      await page.wait(`document.querySelector('[data-wallpaper-current]')?.dataset.wallpaperCurrent === '/wallpapers/dunes-light.webp'`, "Dunes fits landscape");
+      await touchViewport(page, width, height);
+      await page.wait(`document.querySelector('[data-wallpaper-current]')?.dataset.wallpaperCurrent === '/wallpapers/touch/dunes-portrait.webp'`, "Dunes switches to portrait on rotation");
+      await tap(page, '[data-window-frame="app-settings"] [data-window-control="close"]');
+      await page.send("Page.reload");
+      await page.wait(`document.querySelector('[data-wallpaper-current]')?.dataset.wallpaperCurrent === '/wallpapers/touch/dunes-portrait.webp'`, "Dunes persists on reload");
       assert.deepEqual(page.errors, []);
     });
   }

@@ -223,7 +223,8 @@ try {
     touch: true,
     init: baseInit,
   }, async page => {
-    await boot(page);
+    await page.send("Page.navigate", { url: site + "/?view=desktop" });
+    await page.wait(`!!document.querySelector('#desktop-root[data-compact-desktop]')`, "compact touch desktop");
     const view = await menuMetrics(page, "View", true, "menu-density-touch-view");
     assert.equal(view.coarse, true, "Touch coverage must use a coarse pointer");
     assert.ok(view.items.every(item => Number.parseFloat(item.minHeight) >= 44), `Touch menu items must retain 44px targets (${JSON.stringify(view.items)})`);

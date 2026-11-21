@@ -12,7 +12,7 @@ export function PublicProjectPage({ project }: { project: ProjectData }) {
         aria-current={item.id === project.id ? "page" : undefined}>{item.key === "adobe" ? "Adobe hackathon" : item.name}</Link>)}</div>
     </nav>
     <div className={styles.entry}>
-      <p>A readable look at the work, evidence, and what comes next.</p>
+      <p className="touch-portfolio-only">For the full 3D experience, open the portfolio on a laptop or desktop.</p>
       <Link href={projectPortfolioPath(project.id)!} scroll={false}>Explore this project in the portfolio <span aria-hidden="true">↗</span></Link>
     </div>
     <ProjectCaseStudy project={project} publicPage />

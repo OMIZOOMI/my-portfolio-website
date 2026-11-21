@@ -32,6 +32,16 @@ export const DEFAULT_WALLPAPER_THEME = "coast";
 export const DEFAULT_WALLPAPER_MODE: WallpaperMode = "light";
 export const APPEARANCE_STORAGE_KEY = "portfolio-appearance";
 
+export const TOUCH_WALLPAPERS = [
+  { id: "coast", name: "Coast", portrait: "/wallpapers/touch/coast-portrait.webp", landscape: "/wallpapers/coast-light.webp", thumbnail: "/wallpapers/touch/coast-thumb.webp" },
+  { id: "dunes", name: "Dunes", portrait: "/wallpapers/touch/dunes-portrait.webp", landscape: "/wallpapers/dunes-light.webp", thumbnail: "/wallpapers/touch/dunes-thumb.webp" },
+] as const;
+export type TouchWallpaper = typeof TOUCH_WALLPAPERS[number]["id"];
+
+export function getTouchWallpaper(id: unknown) {
+  return TOUCH_WALLPAPERS.find(wallpaper => wallpaper.id === id) ?? TOUCH_WALLPAPERS[0];
+}
+
 const legacyThemes: Record<string, string> = {
   "big sur": "coast",
   "big-sur": "coast",
@@ -60,15 +70,17 @@ export interface AppearancePreferences {
   theme: "light" | "dark";
   wallpaper: string;
   wallpaperMode: WallpaperMode;
+  touchWallpaper: TouchWallpaper;
 }
 
 export const DEFAULT_APPEARANCE: AppearancePreferences = {
   theme: "dark",
   wallpaper: DEFAULT_WALLPAPER_THEME,
   wallpaperMode: DEFAULT_WALLPAPER_MODE,
+  touchWallpaper: TOUCH_WALLPAPERS[0].id,
 };
 
-/** Read only the three appearance fields, including earlier persisted names. */
+/** Read the owned appearance fields, including earlier persisted names. */
 export function parseAppearancePreferences(raw: string | null): AppearancePreferences {
   try {
     const parsed = raw ? JSON.parse(raw) : {};
@@ -78,6 +90,7 @@ export function parseAppearancePreferences(raw: string | null): AppearancePrefer
       wallpaper: getWallpaperTheme(data?.wallpaper).id,
       wallpaperMode: ["auto", "light", "dark"].includes(data?.wallpaperMode)
         ? data.wallpaperMode : DEFAULT_WALLPAPER_MODE,
+      touchWallpaper: getTouchWallpaper(data?.touchWallpaper).id,
     };
   } catch {
     return { ...DEFAULT_APPEARANCE };
@@ -89,5 +102,6 @@ export function serializeAppearancePreferences(state: AppearancePreferences): st
     theme: state.theme,
     wallpaper: getWallpaperTheme(state.wallpaper).id,
     wallpaperMode: state.wallpaperMode,
+    touchWallpaper: getTouchWallpaper(state.touchWallpaper).id,
   } });
 }

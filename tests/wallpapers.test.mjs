@@ -109,8 +109,8 @@ describe("wallpaper catalog and appearance preferences", () => {
   });
 
   test("reads direct preferences and old Zustand-style envelopes without restoring unrelated state", () => {
-    const preference = { theme: "light", wallpaper: "lake", wallpaperMode: "auto" };
-    assert.deepEqual(parseAppearancePreferences(JSON.stringify(preference)), preference);
+    const preference = { theme: "light", wallpaper: "lake", wallpaperMode: "auto", touchWallpaper: "coast" };
+    assert.deepEqual(parseAppearancePreferences(JSON.stringify({ ...preference, touchWallpaper: "dunes" })), { ...preference, touchWallpaper: "dunes" });
     assert.deepEqual(
       parseAppearancePreferences(JSON.stringify({
         version: 0,
@@ -118,6 +118,7 @@ describe("wallpaper catalog and appearance preferences", () => {
           theme: "light",
           wallpaper: " Monterey ",
           wallpaperMode: "auto",
+          touchWallpaper: "unknown",
           fileSystem: { privateFolder: true },
           draggingWindow: "finder",
           windows: [{ x: 10, y: 15 }],
@@ -132,16 +133,17 @@ describe("wallpaper catalog and appearance preferences", () => {
       theme: "light",
       wallpaper: "Big Sur",
       wallpaperMode: "dark",
+      touchWallpaper: "dunes",
       fileSystem: { folders: ["temporary"] },
       draggingWindow: "finder",
       windows: [{ id: "settings", x: 120 }],
     });
     assert.deepEqual(JSON.parse(serialized), {
       version: 1,
-      state: { theme: "light", wallpaper: "coast", wallpaperMode: "dark" },
+      state: { theme: "light", wallpaper: "coast", wallpaperMode: "dark", touchWallpaper: "dunes" },
     });
     assert.deepEqual(parseAppearancePreferences(serialized), {
-      theme: "light", wallpaper: "coast", wallpaperMode: "dark",
+      theme: "light", wallpaper: "coast", wallpaperMode: "dark", touchWallpaper: "dunes",
     });
   });
 });

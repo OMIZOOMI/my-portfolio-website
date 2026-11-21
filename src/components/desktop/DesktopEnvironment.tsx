@@ -182,7 +182,7 @@ export function DesktopEnvironment({ introduction, compact = false }: { introduc
       className="w-full h-full relative isolate overflow-clip select-none bg-cover bg-center"
        style={{ backgroundColor: "#1e1e1e", width: `${100 / interfaceScale}%`, height: `${100 / interfaceScale}%`, transform: interfaceScale === 1 ? "none" : `scale(${interfaceScale})`, transformOrigin: "0 0", "--desktop-icon-scale": iconScale, "--desktop-icon-column-space": `${DESKTOP_ICON_W * iconScale + 28}px`, "--desktop-introduction-right": `${DESKTOP_ICON_W * iconScale + 28}px`, "--desktop-menu-height": `${desktopSize.menuHeight}px`, "--desktop-dock-inset": `${desktopSize.dockInset}px`, container: "desktop / inline-size" } as React.CSSProperties}
     >
-      <WallpaperBackground />
+      <WallpaperBackground compact={compact} />
       <MenuBar compact={compact} />
 
       <div ref={iconsRef} data-desktop-icons data-top-inset={iconLayout.metrics.top} data-bottom-inset={iconBottomInset} className={iconStyles.desktopItems}
@@ -210,6 +210,7 @@ export function DesktopEnvironment({ introduction, compact = false }: { introduc
       </div>
 
       <WindowManager
+        compact={compact}
         dragConstraintsRef={desktopRef as React.RefObject<HTMLDivElement>}
         onActivateGameMenu={() => setGameMenuOpen(true)}
       />

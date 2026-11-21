@@ -5,6 +5,7 @@ import styles from "./PortfolioEntry.module.css";
 import { ProjectPublicLink } from "./ProjectPublicLink";
 import pageStyles from "./PortfolioReading.module.css";
 import { OmMark } from "./OmMark";
+import { ReadingGuide } from "./ReadingGuide";
 
 /** Server-rendered core content remains available independently of WebGL and scene assets. */
 export function PortfolioOverview({ page = false }: { page?: boolean } = {}) {
@@ -21,12 +22,13 @@ export function PortfolioOverview({ page = false }: { page?: boolean } = {}) {
       <section className={pageStyles.intro} aria-labelledby="reading-title">
         <h1 id="reading-title" tabIndex={-1}>{profile.name}</h1>
         <p className={pageStyles.role}>{profile.role}</p>
-        <p>{profile.education} {profile.introduction}</p>
+        <p>{profile.education} <span className={pageStyles.longIntro}>{profile.introduction}</span></p>
         <div className={pageStyles.actions}>
           <a className={pageStyles.primary} href="#reading-projects">See my work <ArrowDownRight size={18} aria-hidden="true" /></a>
           <Link className={pageStyles.secondary} href="/?view=desktop" prefetch={false} scroll={false}><Monitor size={18} aria-hidden="true" /> Open interactive desktop</Link>
         </div>
       </section>
+      <ReadingGuide />
       <section className={pageStyles.section} id="reading-projects" tabIndex={-1} aria-labelledby="reading-projects-title">
         <h2 id="reading-projects-title">Selected work</h2>
         <div className={pageStyles.projects}>

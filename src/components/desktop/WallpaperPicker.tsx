@@ -2,12 +2,14 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Check, ImageOff, Moon, Sun } from "lucide-react";
-import { WALLPAPER_THEMES, resolveWallpaperVariant, type WallpaperTheme } from "../../data/wallpapers";
+import { TOUCH_WALLPAPERS, WALLPAPER_THEMES, resolveWallpaperVariant, type WallpaperVariant } from "../../data/wallpapers";
 import { useSystemStore } from "../window-manager/useSystemStore";
 
-function WallpaperOption({ pair, variant, selected, accent, onSelect }: {
-  pair: WallpaperTheme;
-  variant: "light" | "dark";
+function WallpaperOption({ id, name, thumbnail, variant, selected, accent, onSelect }: {
+  id: string;
+  name: string;
+  thumbnail: string;
+  variant?: WallpaperVariant;
   selected: boolean;
   accent: string;
   onSelect: () => void;
@@ -15,7 +17,6 @@ function WallpaperOption({ pair, variant, selected, accent, onSelect }: {
   const [status, setStatus] = useState<"loading" | "ready" | "error">("loading");
   const [attempt, setAttempt] = useState(0);
   const imageRef = useRef<HTMLImageElement | null>(null);
-  const thumbnail = variant === "dark" ? pair.darkThumbnailUrl : pair.lightThumbnailUrl;
   const source = attempt ? `${thumbnail}?retry=${attempt}` : thumbnail;
   const attachImage = useCallback((image: HTMLImageElement | null) => {
     imageRef.current = image;
@@ -35,7 +36,7 @@ function WallpaperOption({ pair, variant, selected, accent, onSelect }: {
 
   return (
     <div className="min-w-0">
-      <button type="button" onClick={onSelect} data-wallpaper-option={pair.id} aria-pressed={selected} aria-label={`${pair.name}, ${variant} wallpaper`} className="group block w-full rounded-xl text-left outline-offset-4 focus-visible:outline-2 focus-visible:outline-[var(--system-accent)]">
+      <button type="button" onClick={onSelect} data-wallpaper-option={id} aria-pressed={selected} aria-label={variant ? `${name}, ${variant} wallpaper` : `${name} wallpaper`} className="group block w-full rounded-xl text-left outline-offset-4 focus-visible:outline-2 focus-visible:outline-[var(--system-accent)]">
         <span className="relative block overflow-hidden rounded-xl border-2 bg-[#d9dde0] dark:bg-[#34373b]" style={{ aspectRatio: "8 / 5", borderColor: selected ? accent : "transparent" }}>
           {status === "loading" && <span aria-hidden="true" className="absolute inset-0 motion-safe:animate-pulse bg-black/5 dark:bg-white/5" />}
           {/* Pre-sized local previews load only when Settings mounts. Native load avoids an extra decode gate inside the transformed desktop. */}
@@ -49,7 +50,7 @@ function WallpaperOption({ pair, variant, selected, accent, onSelect }: {
             loading="eager"
             decoding="async"
             alt=""
-            data-wallpaper-thumbnail={pair.id}
+            data-wallpaper-thumbnail={id}
             data-thumbnail-status={status}
             onLoad={() => setStatus("ready")}
             onError={() => setStatus("error")}
@@ -59,28 +60,32 @@ function WallpaperOption({ pair, variant, selected, accent, onSelect }: {
           {selected && <span className="absolute bottom-1.5 right-1.5 flex h-5 w-5 items-center justify-center rounded-full text-white shadow" style={{ background: accent }}><Check size={12} strokeWidth={3} /></span>}
         </span>
         <span className="mt-2 flex items-center justify-between gap-1 px-0.5 text-xs text-gray-700 dark:text-gray-300">
-          <span className="truncate">{pair.name}</span>
-          {variant === "dark" ? <Moon size={11} className="shrink-0 text-gray-400" /> : <Sun size={11} className="shrink-0 text-gray-400" />}
+          <span className="truncate">{name}</span>
+          {variant === "dark" && <Moon size={11} className="shrink-0 text-gray-400" />}
+          {variant === "light" && <Sun size={11} className="shrink-0 text-gray-400" />}
         </span>
       </button>
       <div className="h-5 px-0.5">
-        {status === "error" && <button type="button" data-wallpaper-thumbnail-retry={pair.id} className="text-[10px] text-[var(--system-accent)] hover:underline" onClick={() => { setStatus("loading"); setAttempt((n) => n + 1); }}>Retry preview</button>}
+        {status === "error" && <button type="button" data-wallpaper-thumbnail-retry={id} className="text-[10px] text-[var(--system-accent)] hover:underline" onClick={() => { setStatus("loading"); setAttempt((n) => n + 1); }}>Retry preview</button>}
       </div>
     </div>
   );
 }
 
-export function WallpaperPicker({ accent }: { accent: string }) {
+export function WallpaperPicker({ accent, compact = false }: { accent: string; compact?: boolean }) {
   const wallpaper = useSystemStore((s) => s.wallpaper);
   const setWallpaper = useSystemStore((s) => s.setWallpaper);
   const mode = useSystemStore((s) => s.wallpaperMode);
   const theme = useSystemStore((s) => s.theme);
+  const touchWallpaper = useSystemStore((s) => s.touchWallpaper);
+  const setTouchWallpaper = useSystemStore((s) => s.setTouchWallpaper);
   const variant = resolveWallpaperVariant(mode, theme);
   return (
-    <div className="mb-5" data-wallpaper-picker data-wallpaper-variant={variant}>
-      <p className="mb-4 text-xs leading-5 text-gray-500 dark:text-gray-400">Six landscapes. The same view, from daylight to blue hour.</p>
+    <div className="mb-5" data-wallpaper-picker data-wallpaper-variant={compact ? undefined : variant}>
+      <p className="mb-4 text-xs leading-5 text-gray-500 dark:text-gray-400">{compact ? "Both wallpapers fit portrait and landscape screens." : "Six landscapes. The same view, from daylight to blue hour."}</p>
       <div className="grid gap-x-4 gap-y-1" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(min(112px, 100%), 1fr))" }}>
-        {WALLPAPER_THEMES.map((pair) => <WallpaperOption key={`${pair.id}-${variant}`} pair={pair} variant={variant} selected={wallpaper === pair.id} accent={accent} onSelect={() => setWallpaper(pair.id)} />)}
+        {compact ? TOUCH_WALLPAPERS.map(option => <WallpaperOption key={option.id} id={option.id} name={option.name} thumbnail={option.thumbnail} selected={touchWallpaper === option.id} accent={accent} onSelect={() => setTouchWallpaper(option.id)} />)
+          : WALLPAPER_THEMES.map(pair => <WallpaperOption key={`${pair.id}-${variant}`} id={pair.id} name={pair.name} thumbnail={variant === "dark" ? pair.darkThumbnailUrl : pair.lightThumbnailUrl} variant={variant} selected={wallpaper === pair.id} accent={accent} onSelect={() => setWallpaper(pair.id)} />)}
       </div>
     </div>
   );

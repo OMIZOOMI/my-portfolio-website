@@ -20,6 +20,7 @@ interface IntroductionState {
   back: (expected: IntroductionStep) => void;
   skip: () => void;
   finish: (view: "screen" | "laptop") => void;
+  finishReadingGuide: (status: IntroductionStatus) => void;
 }
 
 export const useIntroductionStore = create<IntroductionState>((set, get) => {
@@ -29,8 +30,7 @@ export const useIntroductionStore = create<IntroductionState>((set, get) => {
     let storageAvailable = get().storageAvailable;
     try { window.localStorage.setItem(INTRODUCTION_STORAGE_KEY, JSON.stringify({ status: finalStatus })); }
     catch { storageAvailable = false; }
-    if (status === "skipped") useDisplayStore.getState().endViewPreview(true);
-    set({ phase: "dismissed", status: finalStatus, storageAvailable });
+    set({ hydrated: true, phase: "dismissed", status: finalStatus, storageAvailable });
   };
   const showStep = (step: IntroductionStep) => {
     const display = useDisplayStore.getState();
@@ -73,12 +73,17 @@ export const useIntroductionStore = create<IntroductionState>((set, get) => {
       }
       showStep(INTRODUCTION_STEPS[index - 1]);
     },
-    skip: () => { if (get().phase === "welcome" || get().phase === "active") settle("skipped"); },
+    skip: () => {
+      if (get().phase !== "welcome" && get().phase !== "active") return;
+      useDisplayStore.getState().endViewPreview(true);
+      settle("skipped");
+    },
     finish: view => {
       const state = get();
       if (state.phase !== "active" || state.step !== "finish" || (view !== "screen" && view !== "laptop") || (view === "laptop" && !state.laptopAvailable)) return;
       useDisplayStore.getState().setDefaultView(view);
       settle("completed");
     },
+    finishReadingGuide: settle,
   };
 });

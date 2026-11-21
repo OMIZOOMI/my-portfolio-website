@@ -97,3 +97,8 @@ nav[aria-label="Portfolio menu bar"] { height: var(--portfolio-menu-row) !import
 }
 @media (pointer: coarse) { #desktop-root { --portfolio-menu-row: 44px; } }
 [data-compact-desktop] [data-laptop-setting] { display: none; }
+
+.touch-portfolio-only { display: none; }
+@media (max-width: 767px), (pointer: coarse) {
+  .touch-portfolio-only { display: block; }
+}

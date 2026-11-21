@@ -1,8 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useReducedMotion } from "framer-motion";
 import { useSystemStore } from "../window-manager/useSystemStore";
-import { getWallpaperUrl } from "../../data/wallpapers";
+import { getTouchWallpaper, getWallpaperUrl } from "../../data/wallpapers";
 import { loadWallpaper } from "./wallpaperLoader";
 import styles from "./WallpaperBackground.module.css";
 
@@ -14,17 +15,33 @@ interface DisplayedWallpaper {
   error: string | null;
 }
 
-export function WallpaperBackground() {
+const portraitQuery = "(orientation: portrait)";
+
+export function WallpaperBackground({ compact = false }: { compact?: boolean }) {
   const wallpaper = useSystemStore((s) => s.wallpaper);
   const wallpaperMode = useSystemStore((s) => s.wallpaperMode);
+  const touchWallpaper = useSystemStore((s) => s.touchWallpaper);
   const theme = useSystemStore((s) => s.theme);
   const hydrated = useSystemStore((s) => s.appearanceHydrated);
-  const reduceMotion = useSystemStore((s) => s.reduceMotion);
-  const requested = getWallpaperUrl(wallpaper, wallpaperMode, theme);
+  const motionSetting = useSystemStore((s) => s.reduceMotion);
+  const prefersReducedMotion = useReducedMotion();
+  const reduceMotion = motionSetting || prefersReducedMotion;
+  const [portrait, setPortrait] = useState(() => typeof window !== "undefined" && window.matchMedia(portraitQuery).matches);
+  const touchTheme = getTouchWallpaper(touchWallpaper);
+  const requested = compact ? touchTheme[portrait ? "portrait" : "landscape"] : getWallpaperUrl(wallpaper, wallpaperMode, theme);
   const [attempt, setAttempt] = useState(0);
   const [displayed, setDisplayed] = useState<DisplayedWallpaper>({
     current: null, previous: null, requested: null, attempt: -1, error: null,
   });
+
+  useEffect(() => {
+    if (!compact) return;
+    const query = window.matchMedia(portraitQuery);
+    const updateOrientation = () => setPortrait(query.matches);
+    updateOrientation();
+    query.addEventListener("change", updateOrientation);
+    return () => query.removeEventListener("change", updateOrientation);
+  }, [compact]);
 
   useEffect(() => {
     if (!hydrated) return;
@@ -48,8 +65,8 @@ export function WallpaperBackground() {
 
   return (
     <>
-      <div className={styles.background} aria-hidden="true" data-wallpaper-current={displayed.current ?? ""} data-wallpaper-status={pending ? "loading" : error ? "error" : "ready"}>
-        {displayed.previous && <div className={styles.layer} style={{ backgroundImage: `url("${displayed.previous}")` }} />}
+      <div className={styles.background} aria-hidden="true" data-touch-wallpaper={compact || undefined} data-wallpaper-current={displayed.current ?? ""} data-wallpaper-status={pending ? "loading" : error ? "error" : "ready"}>
+        {displayed.previous && !reduceMotion && <div className={styles.layer} style={{ backgroundImage: `url("${displayed.previous}")` }} />}
         {displayed.current && (
           <div
             key={displayed.current}

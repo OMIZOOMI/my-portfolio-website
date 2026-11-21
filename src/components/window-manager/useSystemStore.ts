@@ -2,10 +2,12 @@ import { create } from "zustand";
 import {
   APPEARANCE_STORAGE_KEY,
   DEFAULT_APPEARANCE,
+  getTouchWallpaper,
   getWallpaperTheme,
   parseAppearancePreferences,
   serializeAppearancePreferences,
   type WallpaperMode,
+  type TouchWallpaper,
 } from "../../data/wallpapers";
 import { FILE_SYSTEM, type FileItem } from "../../data/fileSystem";
 import {
@@ -67,6 +69,7 @@ interface SystemState {
   theme: "dark" | "light";
   wallpaper: string;
   wallpaperMode: WallpaperMode;
+  touchWallpaper: TouchWallpaper;
   accent: AccentName;
   reduceMotion: boolean;
   dockMagnification: boolean;
@@ -94,6 +97,7 @@ interface SystemState {
   setTheme: (theme: "dark" | "light") => void;
   /** Wallpaper THEME name (see WALLPAPER_THEMES); resolved per color scheme. */
   setWallpaper: (themeName: string) => void;
+  setTouchWallpaper: (wallpaper: TouchWallpaper) => void;
   setWallpaperMode: (mode: WallpaperMode) => void;
   setAccent: (accent: AccentName) => void;
   setReduceMotion: (on: boolean) => void;
@@ -294,6 +298,7 @@ export const useSystemStore = create<SystemState>((set, get) => ({
   ...EMPTY_DRAG,
   setTheme: (theme) => set({ theme }),
   setWallpaper: (wallpaper) => set({ wallpaper: getWallpaperTheme(wallpaper).id }),
+  setTouchWallpaper: (wallpaper) => set({ touchWallpaper: getTouchWallpaper(wallpaper).id }),
   setWallpaperMode: (wallpaperMode) => set({ wallpaperMode }),
   setAccent: (accent) => set({ accent }),
   setReduceMotion: (reduceMotion) => set({ reduceMotion }),
@@ -625,7 +630,8 @@ export const useSystemStore = create<SystemState>((set, get) => ({
 useSystemStore.subscribe((state, previous) => {
   if (!state.appearanceHydrated || typeof window === "undefined") return;
   if (previous.appearanceHydrated && state.theme === previous.theme &&
-      state.wallpaper === previous.wallpaper && state.wallpaperMode === previous.wallpaperMode) return;
+      state.wallpaper === previous.wallpaper && state.wallpaperMode === previous.wallpaperMode &&
+      state.touchWallpaper === previous.touchWallpaper) return;
   try {
     window.localStorage.setItem(APPEARANCE_STORAGE_KEY, serializeAppearancePreferences(state));
   } catch { /* Appearance remains usable when storage is unavailable. */ }

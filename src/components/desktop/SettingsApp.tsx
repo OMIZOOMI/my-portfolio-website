@@ -25,6 +25,7 @@ import { useNotesStore } from "./NotesApp";
 import { useMailStore } from "../window-manager/useMailStore";
 import { useWindowStore, type WindowState } from "../window-manager/useWindowStore";
 import { WallpaperPicker } from "./WallpaperPicker";
+import type { WindowContext } from "../window-manager/WindowManager";
 import styles from "./SettingsApp.module.css";
 import { DISPLAY_SIZES, ICON_SIZES, useDisplayStore } from "../window-manager/useDisplayStore";
 import { useWorkspaceStore } from "../workspace/useWorkspaceStore";
@@ -75,7 +76,8 @@ function Toggle({
     className={styles.glassToggle} style={{ "--lg-on": accent } as React.CSSProperties} />;
 }
 
-export function SettingsApp({ window }: { window: WindowState }) {
+export function SettingsApp({ window, context }: { window: WindowState; context?: WindowContext }) {
+  const compact = context?.compact ?? false;
   const [resetOpen, setResetOpen] = React.useState(false);
   const [resetStatus, setResetStatus] = React.useState("");
   const resetButton = React.useRef<HTMLButtonElement>(null);
@@ -213,11 +215,11 @@ export function SettingsApp({ window }: { window: WindowState }) {
             </div>
 
             <div className="mb-6">
-              <SectionTitle>Wallpaper Theme</SectionTitle>
-              <WallpaperPicker accent={accentHex} />
+              <SectionTitle>{compact ? "Wallpaper" : "Wallpaper Theme"}</SectionTitle>
+              <WallpaperPicker accent={accentHex} compact={compact} />
             </div>
 
-            <div>
+            {!compact && <div>
               <SectionTitle>Wallpaper Mode</SectionTitle>
               <div className={`${styles.wallpaperModes} flex flex-wrap gap-3`}>
                 {(["auto", "light", "dark"] as WallpaperMode[]).map((mode) => (
@@ -237,7 +239,7 @@ export function SettingsApp({ window }: { window: WindowState }) {
                 ))}
               </div>
               <p className="mt-3 text-xs leading-5 text-gray-500 dark:text-gray-400">Auto follows Appearance. Light and Dark keep their own lighting.</p>
-            </div>
+            </div>}
           </div>
         )}
 

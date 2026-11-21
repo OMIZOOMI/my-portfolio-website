@@ -43,6 +43,18 @@ test("fresh welcome is optional; completed/skipped choices survive release metad
   }
   for (const raw of [null, "bad", "[]", '"completed"', '{"status":"active"}', '{"status":true}']) assert.equal(parseIntroductionStatus(raw), null);
 });
+test("finishing the touch guide remembers completion without changing the saved desktop view", () => {
+  values.set("portfolio-readability", JSON.stringify({ defaultView: "laptop" }));
+  display.getState().hydrate();
+  tour.getState().hydrate();
+  tour.getState().finishReadingGuide("completed");
+  assert.deepEqual(writes, [key]);
+  assert.equal(display.getState().screenView, false);
+  assert.equal(display.getState().previewReturnView, null);
+  tour.setState(tour.getInitialState(), true);
+  tour.getState().hydrate();
+  assert.equal(tour.getState().status, "completed");
+});
 test("skip at welcome and every step restores only the temporary view and writes only its own status", () => {
   for (const stop of ["welcome", ...steps]) {
     tour.setState(tour.getInitialState(), true); display.setState(display.getInitialState(), true); values.clear(); writes.length = 0;

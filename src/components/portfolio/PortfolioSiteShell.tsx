@@ -9,7 +9,7 @@ import { registerPublicProjectNavigator } from "./publicProjectNavigation";
 
 // Public reading pages do not instantiate or request the desktop's scene assets.
 const PortfolioEntry = dynamic(() => import("./PortfolioEntry").then(module => module.PortfolioEntry));
-const compactViewport = "(max-width: 767px), (pointer: coarse) and (max-width: 1366px)";
+const compactViewport = "(max-width: 767px), (pointer: coarse)";
 
 function subscribeToViewport(change: () => void) {
   const query = window.matchMedia(compactViewport);
