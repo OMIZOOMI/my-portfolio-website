@@ -33,29 +33,32 @@ const FRAMED_LOOK_AT_Y = 0.87;
 const ELEVATION = 1.3;
 const INITIAL_CAMERA_POS: [number, number, number] = [0, FRAMED_LOOK_AT_Y + 1.5, FRAMED_DISTANCE + 4.0];
 const FRAMED_CAMERA_POS: [number, number, number] = [0, FRAMED_LOOK_AT_Y + ELEVATION, FRAMED_DISTANCE];
-const LOOK_AT: [number, number, number] = [0, FRAMED_LOOK_AT_Y, 0];
+const LOOK_AT = new THREE.Vector3(0, FRAMED_LOOK_AT_Y, 0);
+const INITIAL_CAMERA_TARGET = new THREE.Vector3(...INITIAL_CAMERA_POS);
+const FRAMED_CAMERA_TARGET = new THREE.Vector3(...FRAMED_CAMERA_POS);
 const CAMERA_DAMP_LAMBDA = 2.4;
 const SCENE_STALL_DEADLINE_MS = 30000;
 
-function dampCamera(camera: THREE.Camera, target: [number, number, number], lookAtTarget: THREE.Vector3, delta: number) {
-  camera.position.x = THREE.MathUtils.damp(camera.position.x, target[0], CAMERA_DAMP_LAMBDA, delta);
-  camera.position.y = THREE.MathUtils.damp(camera.position.y, target[1], CAMERA_DAMP_LAMBDA, delta);
-  camera.position.z = THREE.MathUtils.damp(camera.position.z, target[2], CAMERA_DAMP_LAMBDA, delta);
-  camera.lookAt(lookAtTarget);
-}
-
 function CameraRig({ phase, reduceMotion }: { phase: ScenePhase; reduceMotion: boolean }) {
-  const { camera } = useThree();
-  const lookAtTarget = useMemo(() => new THREE.Vector3(...LOOK_AT), []);
+  const invalidate = useThree(state => state.invalidate);
+  const screenView = useDisplayStore(state => state.screenView);
+  const previousTarget = useRef<THREE.Vector3 | null>(null);
+  useEffect(() => { invalidate(); }, [invalidate, phase, reduceMotion, screenView]);
 
-  useFrame((_, delta) => {
-    const target = phase === "closed" ? INITIAL_CAMERA_POS : FRAMED_CAMERA_POS;
-    if (reduceMotion) {
-      camera.position.set(...target);
-      camera.lookAt(lookAtTarget);
-      return;
+  useFrame(({ camera }, delta) => {
+    const target = phase === "closed" ? INITIAL_CAMERA_TARGET : FRAMED_CAMERA_TARGET;
+    const targetChanged = previousTarget.current !== target;
+    previousTarget.current = target;
+    if (reduceMotion || screenView || camera.position.distanceToSquared(target) <= .0001) {
+      camera.position.copy(target);
+    } else {
+      // The clock also counts idle time between demand frames. Limit that
+      // first step without stretching the movement on slower graphics cards.
+      const time = targetChanged ? Math.min(delta, .05) : delta;
+      camera.position.lerp(target, 1 - Math.exp(-time * CAMERA_DAMP_LAMBDA));
+      invalidate();
     }
-    dampCamera(camera, target, lookAtTarget, delta);
+    camera.lookAt(LOOK_AT);
   });
 
   return null;
@@ -70,17 +73,19 @@ function CriticalEnvironment({ onReady }: { onReady: () => void }) {
 }
 
 function FirstRenderProbe({ ready, onReady }: { ready: boolean; onReady: () => void }) {
+  const invalidate = useThree(state => state.invalidate);
   const reportedRef = useRef(false);
   const frameRef = useRef<number | null>(null);
 
   useEffect(() => {
     if (!ready) reportedRef.current = false;
+    else invalidate();
     return () => {
       if (frameRef.current !== null) globalThis.cancelAnimationFrame(frameRef.current);
       frameRef.current = null;
       reportedRef.current = false;
     };
-  }, [ready]);
+  }, [invalidate, ready]);
 
   useFrame(() => {
     if (!ready || reportedRef.current) return;
@@ -266,6 +271,7 @@ export function MacBookScene({ debugOrbit = false, active = true, onDesktopAvail
   const [modelReady, setModelReady] = useState(false);
   const [environmentReady, setEnvironmentReady] = useState(false);
   const [firstRenderReady, setFirstRenderReady] = useState(false);
+  const [workspaceBackdropSettled, setWorkspaceBackdropSettled] = useState(false);
   const [startupComplete, setStartupComplete] = useState(false);
   const canvasCleanupRef = useRef<(() => void) | null>(null);
 
@@ -275,6 +281,7 @@ export function MacBookScene({ debugOrbit = false, active = true, onDesktopAvail
   const reduceMotionSetting = useSystemStore((state) => state.reduceMotion);
   const appearanceHydrated = useSystemStore((state) => state.appearanceHydrated);
   const displayHydrated = useDisplayStore((state) => state.hydrated);
+  const screenView = useDisplayStore((state) => state.screenView);
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(() =>
     typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches
   );
@@ -346,14 +353,15 @@ export function MacBookScene({ debugOrbit = false, active = true, onDesktopAvail
       wallpaperReady: wallpaperState === "ready",
       wallpaperFailed: wallpaperState === "failed",
       firstRenderReady,
+      backdropReady: screenView || workspaceBackdropSettled || startupComplete,
     }),
-    [environmentReady, firstRenderReady, modelReady, rendererReady, wallpaperState]
+    [environmentReady, firstRenderReady, modelReady, rendererReady, screenView, startupComplete, wallpaperState, workspaceBackdropSettled]
   );
   const effectiveSceneError = sceneError ?? (
     webglSupported === false ? "WebGL is unavailable, so the 3D MacBook cannot start here." : null
   );
   const sceneReady = isCriticalSceneReady(readiness) && !effectiveSceneError && webglSupported === true;
-  const loadingStatus = getSceneLoadingStatus(readiness, wallpaperState === "loading");
+  const loadingStatus = getSceneLoadingStatus(readiness);
   useEffect(() => {
     if (!active || sceneMode !== "3d" || sceneReady || effectiveSceneError) return;
 
@@ -385,6 +393,7 @@ export function MacBookScene({ debugOrbit = false, active = true, onDesktopAvail
     onDesktopAvailabilityChange?.(desktopAvailable);
   }, [desktopAvailable, onDesktopAvailabilityChange]);
   const handleStartupComplete = useCallback(() => setStartupComplete(true), []);
+  const handleBackdropSettled = useCallback(() => setWorkspaceBackdropSettled(true), []);
 
   return (
     <div style={{ position: "fixed", inset: 0, top: "var(--portfolio-header-offset, 0px)", background: "#283b3d", isolation: "isolate", overflow: "clip" }}>
@@ -392,12 +401,12 @@ export function MacBookScene({ debugOrbit = false, active = true, onDesktopAvail
         <FlatDesktopFallback onRetry={retryScene} introduction={introduction} />
       ) : (
         <>
-          <WorkspaceEnvironment sceneUsable={sceneReady} reduceMotion={reduceMotion} />
+          <WorkspaceEnvironment sceneUsable={desktopAvailable} reduceMotion={reduceMotion} onBackdropSettled={handleBackdropSettled} />
           <ProjectionViewport>
           {webglSupported === true && appearanceHydrated && displayHydrated && (
             <SceneErrorBoundary key={`scene-${canvasKey}`} resetKey={canvasKey} onError={setSceneFailure}>
               <Canvas
-                frameloop={active ? "always" : "never"}
+                frameloop={active ? "demand" : "never"}
                 shadows
                 resize={{ offsetSize: true }}
                 dpr={[1, 2]}
@@ -416,7 +425,7 @@ export function MacBookScene({ debugOrbit = false, active = true, onDesktopAvail
                   reduceMotion={reduceMotion}
                   introduction={introduction}
                 />
-                {debugOrbit && <OrbitControls target={LOOK_AT} />}
+                {debugOrbit && <OrbitControls target={[0, FRAMED_LOOK_AT_Y, 0]} />}
               </Canvas>
             </SceneErrorBoundary>
           )}
@@ -430,7 +439,10 @@ export function MacBookScene({ debugOrbit = false, active = true, onDesktopAvail
             reduceMotion={reduceMotion}
             error={effectiveSceneError}
             onRetry={retryScene}
-            onUseFallback={() => setSceneMode("flat")}
+            onUseFallback={() => {
+              setWorkspaceBackdropSettled(false);
+              setSceneMode("flat");
+            }}
             onComplete={handleStartupComplete}
           />
         </>

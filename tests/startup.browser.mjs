@@ -336,6 +336,50 @@ try {
     await page.wait(`!!document.querySelector('#reading-guide [aria-expanded="true"]') && !!document.querySelector('#reading-guide a[href="#reading-projects"]')?.getClientRects().length`, "Keyboard opens the Quick Guide", 5000);
     assert.deepEqual(page.errors, []);
   });
+  await scenario("laptop-loads-still-and-renders-on-demand", {
+    init: `
+      localStorage.setItem('portfolio-readability', '{"defaultView":"laptop"}');
+      localStorage.setItem('portfolio-introduction', '{"status":"skipped"}');
+      window.__laptopClears = 0;
+      for (const Context of [WebGLRenderingContext, WebGL2RenderingContext]) {
+        const clear = Context.prototype.clear;
+        Context.prototype.clear = function(...args) {
+          if (this.canvas.closest?.('[data-laptop-scene]')) window.__laptopClears++;
+          return clear.apply(this, args);
+        };
+      }
+    `,
+  }, async page => {
+    let posterRequest;
+    const intercept = message => {
+      if (message.method === "Fetch.requestPaused" && message.params.request.url.endsWith("/workspaces/beach-hd.webp")) {
+        posterRequest = message.params.requestId;
+      }
+    };
+    listeners.add(intercept);
+    try {
+      await page.send("Fetch.enable", { patterns: [{ urlPattern: "*/workspaces/beach-hd.webp", requestStage: "Request" }] });
+      await page.navigate();
+      await page.wait(`document.querySelector('[data-startup-overlay]')?.textContent.includes('Preparing the workspace background')`, "the loader waits for the visible still background", 10000);
+      assert.ok(posterRequest);
+      assert.equal(await page.evaluate(`!!document.querySelector('[data-workspace-video][src]')`), false, "The video stays out of the loading path");
+      await page.send("Fetch.continueRequest", { requestId: posterRequest });
+    } finally {
+      listeners.delete(intercept);
+      await page.send("Fetch.disable");
+    }
+    await handoff(page);
+    assert.equal(await page.evaluate(`!!document.querySelector('[data-workspace-role="active"] img')?.naturalWidth`), true, "The still image is ready at handoff");
+    await sleep(3000);
+    const clears = await page.evaluate("window.__laptopClears");
+    assert.ok(clears > 0, "The scene rendered during entry");
+    await sleep(750);
+    assert.equal(await page.evaluate("window.__laptopClears"), clears, "A settled laptop stops redrawing");
+    await page.send("Input.dispatchKeyEvent", { type: "keyDown", key: "a", code: "KeyA" });
+    await page.send("Input.dispatchKeyEvent", { type: "keyUp", key: "a", code: "KeyA" });
+    await page.wait(`window.__laptopClears > ${clears}`, "Keyboard input wakes the scene");
+    assert.deepEqual(page.errors, []);
+  });
   await scenario("cold-and-warm-handoff", { cold: true }, async (page) => {
     await page.navigate();
     await handoff(page);

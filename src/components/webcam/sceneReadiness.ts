@@ -5,13 +5,13 @@ export interface SceneReadiness {
   wallpaperReady: boolean;
   wallpaperFailed: boolean;
   firstRenderReady: boolean;
+  backdropReady: boolean;
 }
 
 /**
  * The scene may enter its presentation only after the renderer has produced a
- * usable frame. A failed wallpaper is allowed through this gate because the
- * desktop has a solid fallback background; a failed 3D asset is handled by
- * the scene error boundary instead of being treated as ready.
+ * usable frame and the visible still backdrop is ready or has fallen back.
+ * A failed 3D asset is handled by the scene error boundary.
  */
 export function isCriticalSceneReady(readiness: SceneReadiness): boolean {
   return (
@@ -19,25 +19,24 @@ export function isCriticalSceneReady(readiness: SceneReadiness): boolean {
     readiness.modelReady &&
     readiness.environmentReady &&
     readiness.firstRenderReady &&
+    readiness.backdropReady &&
     (readiness.wallpaperReady || readiness.wallpaperFailed)
   );
 }
 
-export function getSceneLoadingStatus(
-  readiness: SceneReadiness,
-  wallpaperLoading: boolean
-): string {
-  if (!readiness.rendererReady) return "Preparing your workspace…";
-  if (!readiness.modelReady) return "Getting everything ready…";
-  if (!readiness.environmentReady) return "Adding the finishing touches…";
-  if (wallpaperLoading) return "Preparing your desktop…";
-  if (!readiness.firstRenderReady) return "Opening your workspace…";
-  if (readiness.wallpaperFailed) return "Wallpaper unavailable — using a simple fallback.";
+export function getSceneLoadingStatus(readiness: SceneReadiness): string {
+  if (!readiness.rendererReady) return "Starting 3D graphics…";
+  if (!readiness.modelReady) return "Loading the laptop model…";
+  if (!readiness.environmentReady) return "Loading the workspace lighting…";
+  if (!readiness.wallpaperReady && !readiness.wallpaperFailed) return "Preparing the desktop wallpaper…";
+  if (!readiness.firstRenderReady) return "Rendering the first frame…";
+  if (!readiness.backdropReady) return "Preparing the workspace background…";
+  if (readiness.wallpaperFailed) return "Opening with the fallback wallpaper.";
   return "Welcome.";
 }
 
 /** Actual completed preparation steps, not estimated download percentages. */
 export function getScenePreparationProgress(readiness: SceneReadiness): number {
   return [readiness.rendererReady, readiness.modelReady, readiness.environmentReady,
-    readiness.wallpaperReady || readiness.wallpaperFailed, readiness.firstRenderReady].filter(Boolean).length;
+    readiness.wallpaperReady || readiness.wallpaperFailed, readiness.firstRenderReady && readiness.backdropReady].filter(Boolean).length;
 }

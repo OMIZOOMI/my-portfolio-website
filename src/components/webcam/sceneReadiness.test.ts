@@ -11,6 +11,7 @@ const ready: SceneReadiness = {
   wallpaperReady: true,
   wallpaperFailed: false,
   firstRenderReady: true,
+  backdropReady: true,
 };
 
 test("does not reveal before the first usable render", () => {
@@ -24,14 +25,21 @@ test("allows a failed wallpaper to use the desktop fallback", () => {
     true
   );
   assert.match(
-    getSceneLoadingStatus({ ...ready, wallpaperReady: false, wallpaperFailed: true }, false),
+    getSceneLoadingStatus({ ...ready, wallpaperReady: false, wallpaperFailed: true }),
     /fallback/
   );
 });
 
 test("reports the first missing critical stage without percentages", () => {
-  assert.equal(getSceneLoadingStatus({ ...ready, modelReady: false }, false), "Getting everything ready…");
-  assert.equal(getSceneLoadingStatus(ready, true), "Preparing your desktop…");
+  assert.equal(getSceneLoadingStatus({ ...ready, modelReady: false }), "Loading the laptop model…");
+  assert.equal(getSceneLoadingStatus({ ...ready, wallpaperReady: false }), "Preparing the desktop wallpaper…");
+});
+
+test("does not reveal a saved Laptop view while its still backdrop is pending", () => {
+  const pendingBackdrop = { ...ready, backdropReady: false };
+  assert.equal(isCriticalSceneReady(pendingBackdrop), false);
+  assert.equal(getScenePreparationProgress(pendingBackdrop), 4);
+  assert.equal(getSceneLoadingStatus(pendingBackdrop), "Preparing the workspace background…");
 });
 
 test("progress bar counts completed readiness steps including a wallpaper fallback", () => {

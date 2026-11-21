@@ -155,7 +155,7 @@ export function BootSequence({
               <div className={styles.progress} role="progressbar" aria-label="Opening Om’s portfolio" aria-valuemin={0} aria-valuemax={5} aria-valuenow={progress} aria-valuetext={`${progress} of 5 preparation steps complete`} data-startup-progress>
                 <span className={styles.progressFill} style={{ width: `${progress * 20}%`, transition: reduceMotion ? "none" : undefined }} />
               </div>
-              <p className={styles.status}>Loading Om’s portfolio</p>
+              <p className={styles.status} aria-hidden="true">{status}</p>
             </div>
           )}
           {error && (

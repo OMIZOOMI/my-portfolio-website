@@ -15,7 +15,11 @@ import { usePortfolioActivity } from "../portfolio/usePortfolioActivity";
 
 const CONTROL_IDLE_MS = 3000;
 
-export function WorkspaceEnvironment({ sceneUsable, reduceMotion }: { sceneUsable: boolean; reduceMotion: boolean }) {
+export function WorkspaceEnvironment({ sceneUsable, reduceMotion, onBackdropSettled }: {
+  sceneUsable: boolean;
+  reduceMotion: boolean;
+  onBackdropSettled: () => void;
+}) {
   const desktopActive = usePortfolioActivity(s => s.desktopActive);
   const [state, dispatch] = useReducer(workspaceTransition, EMPTY_WORKSPACE);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -89,6 +93,11 @@ export function WorkspaceEnvironment({ sceneUsable, reduceMotion }: { sceneUsabl
     initialized.current = true;
     choose(useWorkspaceStore.getState().environment);
   }, [choose, hydrated]);
+  useEffect(() => {
+    // A decoded still (or the neutral fallback on failure) is enough for
+    // the entrance. Video starts only after the desktop becomes usable.
+    if (state.active !== null || state.error) onBackdropSettled();
+  }, [onBackdropSettled, state.active, state.error]);
   useEffect(() => {
     if (!hydrated || handledReset.current === resetRevision) return;
     handledReset.current = resetRevision;
