@@ -44,7 +44,7 @@
   margin-top: 2px;
   padding: 7px 10px;
   border: 0;
-  border-radius: 7px;
+  border-radius: 9px;
   background: transparent;
   color: inherit;
   text-align: left;
@@ -55,31 +55,42 @@
 }
 .location > svg { flex-shrink: 0; color: var(--system-accent); }
 /* Interaction paint has its own layer; theme colors never slow hover. */
-.location::before { content: ""; position: absolute; inset: 0; border-radius: inherit; background: var(--finder-hover); opacity: 0; pointer-events: none; transition: opacity 100ms ease-out; }
+.location::before { content: ""; position: absolute; inset: 0; border-radius: inherit; background: var(--finder-hover); box-shadow: var(--lg-rim-highlight); opacity: 0; pointer-events: none; transition: opacity 100ms ease-out; }
 .location:hover::before { opacity: 1; }
-.location[aria-current="page"] { background: var(--finder-selection); color: var(--finder-selection-text); font-weight: 600; }
+.location[aria-current="page"] { background: var(--lg-pill-bg, var(--finder-selection)); box-shadow: var(--lg-pill-shadow); color: var(--finder-selection-text); font-weight: 600; }
 .location[aria-current="page"]::before { opacity: 0; }
 .location[data-drop-target] { outline: 2px dashed var(--system-accent); outline-offset: -2px; background: color-mix(in srgb, var(--system-accent) 14%, transparent); }
 .badge { margin-left: auto; font-size: 11px; color: var(--finder-muted); font-variant-numeric: tabular-nums; }
 .main { display: flex; flex: 1; flex-direction: column; min-width: 0; min-height: 0; background: var(--finder-surface); }
-.toolbar { display: flex; align-items: center; gap: 10px; flex-shrink: 0; height: 58px; padding: 0 16px; border-bottom: 1px solid var(--finder-divider); background: var(--finder-toolbar); }
-.toolButton, .emptyButton { display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; height: 32px; border: 0; border-radius: 6px; background: transparent; color: inherit; cursor: pointer; transition: background-color 100ms ease-out; }
-.toolButton { width: 30px; }
-.toolButton:hover:not(:disabled), .emptyButton:hover:not(:disabled) { background: var(--finder-hover); }
+.toolbar { display: flex; align-items: center; gap: 10px; flex-shrink: 0; height: 58px; padding: 0 16px; border-bottom: 1px solid var(--finder-divider); background: var(--finder-toolbar); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.55); }
+:global(.dark) .toolbar { box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1); }
+.toolButton, .emptyButton { display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; height: 32px; border: 0; border-radius: 999px; background: transparent; color: inherit; cursor: pointer; transition: background-color 110ms ease-out, box-shadow 110ms ease-out, transform 110ms cubic-bezier(0.22, 1, 0.36, 1); }
+.toolButton { width: 32px; }
+.finder .toolButton { min-height: 32px; height: 32px; padding: 5px; }
+.finder .emptyButton { min-height: 28px; padding: 5px 12px; }
+.toolButton:hover:not(:disabled), .emptyButton:hover:not(:disabled) { background: var(--lg-pill-bg, var(--finder-hover)); box-shadow: var(--lg-pill-shadow); transform: translateY(-0.5px); }
 .toolButton:disabled, .emptyButton:disabled { opacity: .3; cursor: default; }
-.toolButton:active:not(:disabled) { background: var(--finder-selection); }
-.history { display: flex; flex-shrink: 0; gap: 1px; padding-right: 10px; border-right: 1px solid var(--finder-divider); }
-.fileActions { display: flex; flex-shrink: 0; gap: 2px; }
+.toolButton:active:not(:disabled), .emptyButton:active:not(:disabled) { background: var(--finder-selection); transform: scale(0.96); }
+.history { display: flex; flex-shrink: 0; gap: 2px; padding-right: 10px; border-right: 1px solid var(--finder-divider); }
+.fileActions { display: flex; flex-shrink: 0; gap: 3px; }
 .finder[data-in-bin] .fileActions { display: none; }
 .title { flex: 1; min-width: 0; margin: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 18px; line-height: 24px; font-weight: 650; letter-spacing: -.4px; }
-.emptyButton { padding: 0 10px; min-height: 28px; font-size: 12px; font-weight: 500; box-shadow: inset 0 0 0 1px var(--finder-divider); }
+.emptyButton { padding: 0 12px; min-height: 28px; font-size: 12px; font-weight: 550; background: var(--lg-pill-bg); box-shadow: var(--lg-pill-shadow); }
 .content { position: relative; flex: 1; min-width: 0; min-height: 0; overflow: auto; overscroll-behavior: contain; }
 .content:focus-visible { outline: 2px solid var(--system-accent); outline-offset: -3px; }
 .content[data-drop-target] { box-shadow: inset 0 0 0 2px var(--system-accent); background: color-mix(in srgb, var(--system-accent) 5%, var(--finder-surface)); }
-.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(108px, 100%), 1fr)); align-content: start; justify-items: center; gap: 18px 10px; padding: 24px 20px; }
-.item { position: relative; width: 108px; max-width: 100%; min-width: 0; border-radius: 9px; cursor: grab; touch-action: none; transition: opacity 100ms ease-out; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(calc(108px * var(--desktop-icon-scale, 1)), 100%), 1fr)); align-content: start; justify-items: center; gap: 18px 10px; padding: 24px 20px; }
+.item { position: relative; width: calc(108px * var(--desktop-icon-scale, 1)); max-width: 100%; min-width: 0; border-radius: 9px; cursor: grab; touch-action: none; transition: opacity 100ms ease-out; }
 .item[data-dragging] { opacity: .4; }
 .item[data-drop-target] { outline: 2px dashed var(--system-accent); outline-offset: 1px; background: color-mix(in srgb, var(--system-accent) 12%, transparent); }
+.appGrid { row-gap: 7px; padding-block: 8px; }
+.appItem { width: calc(108px * var(--desktop-icon-scale, 1)); max-width: 100%; min-width: 0; }
+.appLauncher { display: grid; justify-items: center; align-content: start; gap: 5px; width: 100%; min-height: 92px; padding: 4px 5px; border: 0; border-radius: 10px; background: transparent; color: var(--finder-text); cursor: pointer; touch-action: manipulation; transition: background-color 100ms ease-out; }
+.appLauncher:hover { background: rgb(128 128 128 / 10%); }
+.appLauncher:active { background: rgb(128 128 128 / 18%); }
+.appLauncher img { width: calc(64px * var(--desktop-icon-scale, 1)); height: auto; max-width: 100%; aspect-ratio: 1; object-fit: contain; pointer-events: none; user-select: none; }
+.appLauncher span { font-size: calc(14px * var(--desktop-icon-scale, 1)); line-height: 1.25; text-align: center; overflow-wrap: anywhere; }
+.finder[data-reduced-motion] .appLauncher { transition: none; }
 .emptyState { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100%; padding: 24px; gap: 10px; text-align: center; color: var(--finder-muted); }
 .emptyState p { margin: 3px 0 0; color: var(--finder-text); font-size: 14px; font-weight: 600; }
 .emptyState > span { max-width: 28ch; font-size: 12px; line-height: 18px; }
@@ -124,4 +135,5 @@
   .grid { padding-inline: 5px; }
 }
 .finder[data-reduced-motion] *, .finder[data-reduced-motion] *::before { transition: none; }
-@media (prefers-reduced-motion: reduce) { .finder *, .finder *::before { transition: none; } }
+.finder[data-reduced-motion] :is(.toolButton, .emptyButton):hover:not(:disabled) { transform: none; }
+@media (prefers-reduced-motion: reduce) { .finder *, .finder *::before { transition: none; } .toolButton:hover:not(:disabled), .emptyButton:hover:not(:disabled) { transform: none; } }

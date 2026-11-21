@@ -1,7 +1,30 @@
-/* Drei's Html projection wrapper sets overflow:hidden inline. That creates
-   a scroll container for the large intermediate perspective transforms:
-   focus/scroll-into-view can scroll the wrapper and move the entire screen.
-   This layer clips the projection; only the app's own scroll regions scroll. */
 .screenPortal {
-  overflow: clip !important;
+  width: 100%;
+  height: 100%;
+  transform: none !important;
+  pointer-events: none;
 }
+.projection {
+  /* Drei's non-transform host writes an inline transform: none. */
+  transform: var(--laptop-screen-transform, scale(0)) !important;
+  transform-origin: 0 0;
+  pointer-events: auto;
+}
+.projection > [data-desktop-projection] { width: 100%; height: 100%; }
+.screenSurface {
+  width: 100%;
+  height: 100%;
+  transform-origin: 0 0;
+  overflow: clip;
+  border-radius: 16px;
+}
+.screenSurface[data-transitioning] { pointer-events: none; will-change: transform; }
+.screenFocused {
+  position: fixed !important; inset: 0 !important; width: 100dvw !important; height: 100dvh !important;
+}
+.screenFocused > .projection {
+  transform: none !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+.screenFocused .screenSurface { border-radius: 0; }

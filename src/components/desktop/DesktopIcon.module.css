@@ -1,18 +1,25 @@
 .iconShell {
     position: relative;
-    width: 84px;
+    width: calc(84px * var(--desktop-icon-scale, 1));
     max-width: 100%;
   }
-  .finderShell { width: 108px; }
-  .finderShell [data-file-rename-editor] { top: 77px; }
-  .finderShell [data-file-rename-editor] input { font-size: 14px; line-height: 18px; }
+  .desktopItems { position: absolute; inset: 0; z-index: 1; overflow-y: auto; overflow-x: clip; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: #ffffff66 transparent; scroll-padding-bottom: 16px; }
+  .desktopItems::-webkit-scrollbar { width: 8px; }
+  .desktopItems::-webkit-scrollbar-thumb { background: #ffffff66; border-radius: 5px; }
+  .desktopCanvas { position: relative; min-height: 100%; }
+  .desktopShell, .desktopShell .icon { height: calc(116px * var(--desktop-icon-scale, 1)); }
+  .desktopShell .icon { padding: calc(8px * var(--desktop-icon-scale, 1)) calc(6px * var(--desktop-icon-scale, 1)); gap: calc(6px * var(--desktop-icon-scale, 1)); }
+  .desktopShell .label { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; padding: calc(2px * var(--desktop-icon-scale, 1)) calc(6px * var(--desktop-icon-scale, 1)); }
+  .finderShell { width: calc(108px * var(--desktop-icon-scale, 1)); }
+  .finderShell [data-file-rename-editor] { top: calc(77px * var(--desktop-icon-scale, 1)); }
+  .finderShell [data-file-rename-editor] input { font-size: calc(14px * var(--desktop-icon-scale, 1)); line-height: calc(18px * var(--desktop-icon-scale, 1)); }
   .icon[data-editing] .label { visibility: hidden; }
   .icon {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 6px;
-    width: 84px;
+    width: calc(84px * var(--desktop-icon-scale, 1));
     padding: 8px 6px;
     border: none;
     border-radius: 8px;
@@ -25,13 +32,13 @@
     touch-action: none;
   }
 
-  :global(body.is-finder-dragging),
-  :global(body.is-finder-dragging *) {
+  :global(body.is-finder-dragging) .icon,
+  :global(body.is-finder-dragging) .icon * {
     cursor: grabbing !important;
     user-select: none !important;
   }
 
-  :global(.finder-drag-ghost) {
+  .iconShell :global(.finder-drag-ghost) {
     position: fixed;
     top: -1000px;
     left: -1000px;
@@ -48,14 +55,14 @@
   }
   
   .glyphSvg {
-    width: 42px;
-    height: 49px;
+    width: calc(42px * var(--desktop-icon-scale, 1));
+    height: calc(49px * var(--desktop-icon-scale, 1));
     filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.35));
   }
   
   .appTile {
-    width: 52px;
-    height: 52px;
+    width: calc(52px * var(--desktop-icon-scale, 1));
+    height: calc(52px * var(--desktop-icon-scale, 1));
     border-radius: 13px;
     display: grid;
     place-items: center;
@@ -64,9 +71,9 @@
   
   .label {
     color: #fff;
-    font-size: 12px;
+    font-size: calc(12px * var(--desktop-icon-scale, 1));
     font-weight: 500;
-    line-height: 16px;
+    line-height: calc(16px * var(--desktop-icon-scale, 1));
     max-width: 100%;
     text-align: center;
     overflow-wrap: anywhere;
@@ -90,7 +97,7 @@
 
   /* Finder sizing is separate from desktop drag geometry. */
   .finderIcon {
-    width: 108px;
+    width: calc(108px * var(--desktop-icon-scale, 1));
     max-width: 100%;
     min-height: 112px;
     gap: 5px;
@@ -99,15 +106,16 @@
     will-change: auto;
     transition: background-color 100ms ease-out;
   }
-  .finderIcon img { width: 64px !important; height: 64px !important; }
-  .finderIcon .glyphSvg { width: 49px; height: 64px; filter: drop-shadow(0 2px 3px rgb(0 0 0 / 12%)); }
+  .icon img { width: calc(56px * var(--desktop-icon-scale, 1)) !important; height: calc(56px * var(--desktop-icon-scale, 1)) !important; }
+  .finderIcon img { width: calc(64px * var(--desktop-icon-scale, 1)) !important; height: calc(64px * var(--desktop-icon-scale, 1)) !important; }
+  .finderIcon .glyphSvg { width: calc(49px * var(--desktop-icon-scale, 1)); height: calc(64px * var(--desktop-icon-scale, 1)); filter: drop-shadow(0 2px 3px rgb(0 0 0 / 12%)); }
   .finderIcon .appTile { margin-block: 6px; }
   .finderIcon .label {
     max-width: 100%;
     padding: 2px 5px;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    font-size: 14px;
-    line-height: 18px;
+    font-size: calc(14px * var(--desktop-icon-scale, 1));
+    line-height: calc(18px * var(--desktop-icon-scale, 1));
     font-weight: 500;
     text-align: center;
     overflow-wrap: anywhere;

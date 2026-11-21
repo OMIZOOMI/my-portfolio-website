@@ -1,0 +1,18 @@
+{
+  "minimized": {
+    "paused": false,
+    "time": 68.432331
+  },
+  "restoredActive": "true",
+  "next": {
+    "duration": 214.440998,
+    "paused": false,
+    "src": "http://127.0.0.1:3012/music/roof-tops.mp3"
+  },
+  "closed": [
+    {
+      "paused": true,
+      "src": "http://127.0.0.1:3012/music/roof-tops.mp3"
+    }
+  ]
+}

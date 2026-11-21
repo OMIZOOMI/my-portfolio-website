@@ -7,7 +7,8 @@ import { FolderOpen, FolderPlus, Pencil, RotateCcw, Trash2, SquareArrowOutUpRigh
 import { useSystemStore } from "../window-manager/useSystemStore";
 import { createFolderAndRename, useFileInteractionStore, type FileContextMenuState } from "./useFileInteractionStore";
 import styles from "./FileContextMenu.module.css";
-import { getDesktopCoordinateSpace } from "../window-manager/desktopCoordinates";
+import { getVisibleDesktopBounds } from "../window-manager/desktopCoordinates";
+import { focusMenuItem } from "./menuFocus";
 
 function PositionedFileMenu({ menu }: { menu: FileContextMenuState }) {
   const menuRef = useRef<HTMLDivElement>(null);
@@ -32,24 +33,9 @@ function PositionedFileMenu({ menu }: { menu: FileContextMenuState }) {
       const root = document.getElementById("desktop-root");
       const element = menuRef.current;
       if (!root || !element) return;
-      const rect = root.getBoundingClientRect();
-      const space = getDesktopCoordinateSpace(root);
-      if (!space) return;
-      const corners = [
-        { x: Math.max(0, rect.left), y: Math.max(0, rect.top) },
-        { x: Math.min(window.innerWidth, rect.right), y: Math.max(0, rect.top) },
-        { x: Math.min(window.innerWidth, rect.right), y: Math.min(window.innerHeight, rect.bottom) },
-        { x: Math.max(0, rect.left), y: Math.min(window.innerHeight, rect.bottom) },
-      ].map(point => space.toLocal(point));
-      if (corners.some(point => !point)) return;
-      const [topLeft, topRight, bottomRight, bottomLeft] = corners as { x: number; y: number }[];
-      const margin = 6;
-      const left = Math.max(0, topLeft.x, bottomLeft.x) + margin;
-      const top = Math.max(0, topLeft.y, topRight.y) + margin;
-      const right = Math.min(root.clientWidth, topRight.x, bottomRight.x) - margin;
-      const bottom = Math.min(root.clientHeight, bottomLeft.y, bottomRight.y) - margin;
-      const width = Math.max(0, right - left);
-      const height = Math.max(0, bottom - top);
+      const bounds = getVisibleDesktopBounds(root);
+      if (!bounds) return;
+      const { left, top, right, bottom, width, height } = bounds;
       const x = Math.max(left, Math.min(menu.x, right - Math.min(element.offsetWidth, width)));
       const y = Math.max(top, Math.min(menu.y, bottom - Math.min(element.offsetHeight, height)));
       setPosition((current) => current.x === x && current.y === y && current.width === width && current.height === height
@@ -71,7 +57,8 @@ function PositionedFileMenu({ menu }: { menu: FileContextMenuState }) {
 
   useLayoutEffect(() => {
     const first = menuRef.current?.querySelector<HTMLButtonElement>("button:not(:disabled)");
-    (first ?? menuRef.current)?.focus({ preventScroll: true });
+    if (first) focusMenuItem(first);
+    else menuRef.current?.focus({ preventScroll: true });
   }, []);
 
   useEffect(() => {
@@ -81,7 +68,7 @@ function PositionedFileMenu({ menu }: { menu: FileContextMenuState }) {
       }
     };
     const escape = (event: KeyboardEvent) => {
-      if (event.key !== "Escape") return;
+      if (event.key !== "Escape" || event.defaultPrevented || event.metaKey || event.ctrlKey || event.altKey) return;
       event.preventDefault();
       event.stopPropagation();
       useFileInteractionStore.getState().closeContextMenu();
@@ -97,6 +84,7 @@ function PositionedFileMenu({ menu }: { menu: FileContextMenuState }) {
 
   const action = (callback: () => void) => {
     useFileInteractionStore.getState().closeContextMenu();
+    menu.trigger?.focus({ preventScroll: true });
     callback();
   };
   const open = (newWindow: boolean) => {
@@ -114,16 +102,18 @@ function PositionedFileMenu({ menu }: { menu: FileContextMenuState }) {
     onContextMenu={(event) => { event.preventDefault(); event.stopPropagation(); }}
     onKeyDown={(event) => {
       event.stopPropagation();
-      if (event.key === "Tab") { useFileInteractionStore.getState().closeContextMenu(); return; }
+      if (event.key === "Tab") { useFileInteractionStore.getState().closeContextMenu(); menu.trigger?.focus({ preventScroll: true }); return; }
+      if (event.metaKey || event.ctrlKey || event.altKey) return;
       if (!["ArrowDown", "ArrowUp", "Home", "End"].includes(event.key)) return;
       event.preventDefault();
       const buttons = Array.from(menuRef.current?.querySelectorAll<HTMLButtonElement>("button:not(:disabled)") ?? []);
       const current = buttons.indexOf(document.activeElement as HTMLButtonElement);
       const next = event.key === "Home" ? 0 : event.key === "End" ? buttons.length - 1
         : (current + (event.key === "ArrowUp" ? -1 : 1) + buttons.length) % buttons.length;
-      buttons[next]?.focus();
+      focusMenuItem(buttons[next]);
     }}
   >
+    <div role="none" className={styles.items}>
     {item && !inBin && <>
       <button type="button" role="menuitem" data-file-action="open" disabled={hidden} onClick={() => action(() => open(false))}><FolderOpen size={15} aria-hidden="true" /><span>Open</span></button>
       {item.type === "folder" && <button type="button" role="menuitem" data-file-action="open-new-window" disabled={hidden} onClick={() => action(() => open(true))}><SquareArrowOutUpRight size={15} aria-hidden="true" /><span>Open in New Window</span></button>}
@@ -133,6 +123,7 @@ function PositionedFileMenu({ menu }: { menu: FileContextMenuState }) {
     </>}
     {item && inBin && <button type="button" role="menuitem" data-file-action="restore" disabled={!canRestore} title={!canRestore ? "Restore the containing folder first" : undefined} onClick={() => action(() => files.restoreFromTrash(item.id))}><RotateCcw size={15} aria-hidden="true" /><span>Put Back</span></button>}
     {!item && <button type="button" role="menuitem" data-file-action="new-folder" disabled={!writable} onClick={() => action(() => { createFolderAndRename(menu.surfaceId, menu.folderId); })}><FolderPlus size={15} aria-hidden="true" /><span>New Folder</span><kbd>{newFolderShortcut}</kbd></button>}
+    </div>
   </div>;
 }
 

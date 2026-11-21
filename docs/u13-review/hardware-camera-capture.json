@@ -1,0 +1,23 @@
+{
+  "device": "FaceTime HD Camera (1C1C:B782)",
+  "before": {
+    "camera": "live",
+    "delegate": "GPU",
+    "gestures": "ready",
+    "height": 720,
+    "time": 135.525684,
+    "width": 1280
+  },
+  "photo": {
+    "complete": true,
+    "height": 416,
+    "width": 924
+  },
+  "after": {
+    "camera": "live",
+    "photoImages": 0,
+    "time": 140.15202
+  },
+  "physicalGestures": "User confirmed peace and thumbs-up both produced effects",
+  "savedOrUploadedImages": 0
+}

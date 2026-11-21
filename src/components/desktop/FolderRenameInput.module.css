@@ -3,7 +3,7 @@
   z-index: 3;
   left: 0;
   right: 0;
-  top: 70px;
+  top: calc(70px * var(--desktop-icon-scale, 1));
   cursor: text;
   touch-action: auto;
   user-select: text;
@@ -22,8 +22,8 @@
   background: #fff;
   color: #1c1c1e;
   font: inherit;
-  font-size: 12px;
-  line-height: 16px;
+  font-size: calc(12px * var(--desktop-icon-scale, 1));
+  line-height: calc(16px * var(--desktop-icon-scale, 1));
   text-align: center;
   cursor: text;
   touch-action: auto;

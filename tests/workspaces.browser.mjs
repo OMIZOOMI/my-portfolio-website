@@ -53,6 +53,8 @@ async function pageFor(options = {}) {
   await send("Emulation.setDeviceMetricsOverride", { width: 1440, height: 1000, deviceScaleFactor: options.dpr??1, mobile: false });
   await send("Page.addScriptToEvaluateOnNewDocument", { source: `
 if(!localStorage.getItem('portfolio-appearance'))localStorage.setItem('portfolio-appearance',JSON.stringify({version:1,state:{theme:'dark',wallpaper:'coast',wallpaperMode:'auto'}}));
+if(!localStorage.getItem('portfolio-readability'))localStorage.setItem('portfolio-readability',JSON.stringify({defaultView:'laptop'}));
+if(!localStorage.getItem('portfolio-introduction'))localStorage.setItem('portfolio-introduction',JSON.stringify({status:'skipped'}));
 window.__stage12Events=[];
 for(const type of ['pointerdown','pointermove','pointerup','click','dblclick','contextmenu','keydown','keyup'])document.addEventListener(type,event=>{
  const target=event.target instanceof Element?event.target:null;
@@ -160,6 +162,28 @@ async function go(page,id){await picker(page);await click(page,`[data-workspace-
 async function live(page,id){await page.wait(`(()=>{const v=document.querySelector('[data-workspace-video="${id}"]');return v&&!v.paused&&v.readyState>=2&&v.hasAttribute('data-frame-ready')})()`,id+' playing',15000);}
 async function closePicker(page){if(await page.evaluate(`!!document.querySelector('[data-workspace-picker]')`))await key(page,'Escape','Escape',27);}
 async function resources(page){return page.evaluate(`({layers:document.querySelectorAll('[data-workspace-layer]').length,videos:[...document.querySelectorAll('[data-workspace-video]')].map(v=>({id:v.dataset.workspaceVideo,paused:v.paused,src:v.getAttribute('src'),time:v.currentTime,ready:v.readyState})),canvases:document.querySelectorAll('canvas').length,pendingRaf:window.__perf.pendingRaf.size,pendingVideo:window.__perf.pendingVideo.size})`);}
+
+await scenario('view-aware-settings-corner',async(page,r)=>{
+ const mode = name => page.wait(`document.querySelector('[data-screen-surface]')?.dataset.screenView===${JSON.stringify(name)}&&!document.querySelector('[data-screen-surface][data-transitioning]')`,name+' view settled');
+ const layout = () => page.evaluate(`(()=>{const g=document.querySelector('[data-workspace-trigger]').getBoundingClientRect(),d=document.querySelector('[data-dock-surface]').getBoundingClientRect();return{left:g.left,bottom:innerHeight-g.bottom,leftOfDock:g.right<d.left,aboveDock:g.bottom<d.top}})()`);
+ await settled(page,'chalk');await mode('laptop');await picker(page);
+ assert.equal(await page.evaluate(`document.querySelector('[data-workspace-option="chalk"]').getAttribute('aria-checked')`),'true');
+ await click(page,'[data-screen-view-toggle]');await mode('focused');await picker(page);
+ r.wide=await layout();assert.ok(r.wide.left<=20&&r.wide.bottom<=20&&r.wide.leftOfDock);
+ assert.equal(await page.evaluate(`document.querySelector('[data-workspace-picker] button[aria-pressed="true"]')?.textContent.includes('Back to laptop')`),true);
+ assert.equal(await page.evaluate(`!!document.querySelector('[data-workspace-picker] [data-workspace-option], [data-workspace-picker] [data-workspace-pause], [data-workspace-picker] details')`),false);
+ assert.equal(await page.evaluate(`document.activeElement.hasAttribute('data-screen-view-toggle')`),true);
+ await page.screenshot('settings-screen-corner');await closePicker(page);
+ await page.send('Emulation.setDeviceMetricsOverride',{width:390,height:844,deviceScaleFactor:1,mobile:false});
+ await page.wait(`document.querySelector('[data-workspace-trigger]').getBoundingClientRect().bottom<document.querySelector('[data-dock-surface]').getBoundingClientRect().top`,'narrow Dock clearance');
+ r.narrow=await layout();assert.ok(r.narrow.left<=20&&r.narrow.aboveDock);await picker(page);
+ await page.screenshot('settings-screen-narrow');
+ await page.send('Emulation.setDeviceMetricsOverride',{width:1440,height:1000,deviceScaleFactor:1,mobile:false});
+ await click(page,'[data-screen-view-toggle]');await mode('laptop');await picker(page);
+ assert.equal(await page.evaluate(`document.querySelector('[data-workspace-option="chalk"]')?.getAttribute('aria-checked')`),'true');
+ assert.ok(await page.evaluate(`!!document.querySelector('[data-workspace-pause]')&&!!document.querySelector('[data-workspace-picker] details')`));
+ await page.screenshot('settings-laptop-corner');
+},{workspace:'chalk'});
 
 await scenario('corner-launcher-idle-hover-click-keyboard-and-touch',async(page,r)=>{
  await settled(page,'chalk');

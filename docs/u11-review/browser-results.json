@@ -1,0 +1,85 @@
+[
+  {
+    "stage": "saved photo verified on disk",
+    "fixture": "live",
+    "requests": 1,
+    "audioRequests": 0,
+    "activeTracks": 1,
+    "frames": 1100269,
+    "encodes": 1,
+    "photoURLs": 1,
+    "urlCreated": 1,
+    "urlRevoked": 0,
+    "checks": [
+      {
+        "width": 924,
+        "height": 327,
+        "exactPreviewPixels": true,
+        "left": [
+          75,
+          155,
+          172,
+          255
+        ],
+        "right": [
+          189,
+          85,
+          85,
+          255
+        ]
+      }
+    ],
+    "sourceTime": 18379.957393,
+    "camera": "live"
+  },
+  {
+    "stage": "Retake and Cancel",
+    "fixture": "live",
+    "requests": 1,
+    "audioRequests": 0,
+    "activeTracks": 1,
+    "frames": 1104720,
+    "encodes": 2,
+    "photoURLs": 0,
+    "urlCreated": 2,
+    "urlRevoked": 2,
+    "checks": [
+      {
+        "width": 924,
+        "height": 327,
+        "exactPreviewPixels": true,
+        "left": [
+          75,
+          155,
+          172,
+          255
+        ],
+        "right": [
+          189,
+          85,
+          85,
+          255
+        ]
+      },
+      {
+        "width": 924,
+        "height": 327,
+        "exactPreviewPixels": true,
+        "left": [
+          75,
+          155,
+          172,
+          255
+        ],
+        "right": [
+          189,
+          85,
+          85,
+          255
+        ]
+      }
+    ],
+    "sourceTime": 18455.358576,
+    "camera": "live"
+  }
+]

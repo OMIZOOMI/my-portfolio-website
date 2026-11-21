@@ -1,13 +1,10 @@
 import { getDesktopCoordinateSpace } from "../window-manager/desktopCoordinates";
+import { clampDesktopIconPosition, desktopGridPosition, DESKTOP_SCREEN_W, DESKTOP_SCREEN_H, type DesktopIconLayout } from "./desktopIconLayout";
+export { DESKTOP_ICON_W, DESKTOP_ICON_H, DESKTOP_MENU_H, DESKTOP_SCREEN_W, DESKTOP_SCREEN_H } from "./desktopIconLayout";
 
 export const DRAG_THRESHOLD_PX = 6;
 export const TRASH_PAD_PX = 40;
-export const DESKTOP_ICON_W = 84;
-export const DESKTOP_ICON_H = 88;
-export const DESKTOP_MENU_H = 32;
 export const DESKTOP_DOCK_H = 96;
-export const DESKTOP_SCREEN_W = 1400;
-export const DESKTOP_SCREEN_H = 900;
 
 export type DragSource = "desktop" | "finder";
 export type DropTarget = "desktop" | "finder" | "trash" | null;
@@ -59,20 +56,22 @@ export function clientToDesktopLocal(clientX: number, clientY: number): { x: num
   return getDesktopCoordinateSpace(root)?.toLocal({ x: clientX, y: clientY }) ?? null;
 }
 
-export function clampDesktopPosition(x: number, y: number): { x: number; y: number } {
-  const maxX = DESKTOP_SCREEN_W - DESKTOP_ICON_W;
-  const maxY = DESKTOP_SCREEN_H - DESKTOP_DOCK_H - DESKTOP_ICON_H;
+function measuredIconLayout(): DesktopIconLayout {
+  const root = typeof document !== "undefined" ? document.getElementById("desktop-root") : null;
   return {
-    x: Math.min(Math.max(0, x), maxX),
-    y: Math.min(Math.max(DESKTOP_MENU_H, y), maxY),
+    width: root?.clientWidth || DESKTOP_SCREEN_W,
+    height: root?.clientHeight || DESKTOP_SCREEN_H,
+    iconScale: Number(root?.dataset?.iconScale) || 1,
+    menuHeight: Number(root?.dataset?.menuHeight) || undefined,
   };
 }
 
-export function defaultDesktopPosition(index: number): { x: number; y: number } {
-  return {
-    x: DESKTOP_SCREEN_W - DESKTOP_ICON_W - 16,
-    y: DESKTOP_MENU_H + 16 + index * DESKTOP_ICON_H,
-  };
+export function clampDesktopPosition(x: number, y: number, layout?: DesktopIconLayout): { x: number; y: number } {
+  return clampDesktopIconPosition({ x, y }, layout ?? measuredIconLayout());
+}
+
+export function defaultDesktopPosition(index: number, layout?: DesktopIconLayout): { x: number; y: number } {
+  return desktopGridPosition(index, layout ?? measuredIconLayout());
 }
 
 export function hitTestDrop(x: number, y: number, draggedId?: string | null): DropHit {
@@ -101,7 +100,7 @@ export function hitTestDrop(x: number, y: number, draggedId?: string | null): Dr
     return rectContains(el.getBoundingClientRect(), x, y);
   });
   const contentHits = Array.from(document.querySelectorAll<HTMLElement>("[data-finder-content]")).filter((el) =>
-    rectContains(el.getBoundingClientRect(), x, y)
+    el.dataset.finderReadonly === undefined && rectContains(el.getBoundingClientRect(), x, y)
   );
 
   if (topFrame) {

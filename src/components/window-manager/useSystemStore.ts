@@ -14,13 +14,6 @@ import {
   clearGrabCursor,
   clampDesktopPosition,
   clientToDesktopLocal,
-  defaultDesktopPosition,
-  DESKTOP_DOCK_H,
-  DESKTOP_ICON_H,
-  DESKTOP_ICON_W,
-  DESKTOP_MENU_H,
-  DESKTOP_SCREEN_H,
-  DESKTOP_SCREEN_W,
   DRAG_THRESHOLD_PX,
   hitTestDrop,
   releaseDesktopCapture,
@@ -52,6 +45,7 @@ interface FileSnapshot {
   trashOrigins: Record<string, string>;
   desktopIds: string[];
   fileSystem: Record<string, FileItem[]>;
+  /** Explicit visitor placement only. Automatic layout is derived from desktopIds and current dimensions. */
   desktopPositions: Record<string, { x: number; y: number }>;
 }
 
@@ -254,36 +248,6 @@ function isNestedUnder(fs: Record<string, FileItem[]>, folderId: string, ancesto
   return false;
 }
 
-function initialDesktopPositions(ids: string[]): Record<string, { x: number; y: number }> {
-  const positions: Record<string, { x: number; y: number }> = {};
-  ids.forEach((id, index) => {
-    positions[id] = defaultDesktopPosition(index);
-  });
-  return positions;
-}
-
-function newDesktopFolderPosition(state: Pick<SystemState, "desktopIds" | "desktopPositions">): { x: number; y: number } {
-  const maxX = DESKTOP_SCREEN_W - DESKTOP_ICON_W;
-  const maxY = DESKTOP_SCREEN_H - DESKTOP_DOCK_H - DESKTOP_ICON_H;
-  // Keep all saved positions occupied, including folders in Bin that may return.
-  const occupied = Object.values(state.desktopPositions);
-  const isFree = ({ x, y }: { x: number; y: number }) => x >= 0 && x <= maxX && y >= DESKTOP_MENU_H && y <= maxY &&
-    occupied.every((position) => x >= position.x + DESKTOP_ICON_W || x + DESKTOP_ICON_W <= position.x ||
-      y >= position.y + DESKTOP_ICON_H || y + DESKTOP_ICON_H <= position.y);
-  const preferred = defaultDesktopPosition(state.desktopIds.length);
-  if (isFree(preferred)) return preferred;
-
-  const first = defaultDesktopPosition(0);
-  for (let x = first.x; x >= 0; x -= 104) {
-    for (let y = first.y; y <= maxY; y += 88) {
-      const position = { x, y };
-      if (isFree(position)) return position;
-    }
-  }
-  // A completely full desktop may overlap, but the new editor stays reachable.
-  return clampDesktopPosition(preferred.x, preferred.y);
-}
-
 const EMPTY_DRAG = {
   isDragging: false,
   draggedItem: null,
@@ -324,7 +288,7 @@ export const useSystemStore = create<SystemState>((set, get) => ({
   deletedIds: [],
   desktopIds: INITIAL_DESKTOP_IDS,
   fileSystem: cloneFs(FILE_SYSTEM),
-  desktopPositions: initialDesktopPositions(INITIAL_DESKTOP_IDS),
+  desktopPositions: {},
   past: [],
   future: [],
   ...EMPTY_DRAG,
@@ -358,9 +322,6 @@ export const useSystemStore = create<SystemState>((set, get) => ({
       future: [],
       fileSystem: nextFs,
       desktopIds: onDesktop ? [...state.desktopIds, id] : state.desktopIds,
-      desktopPositions: onDesktop
-        ? { ...state.desktopPositions, [id]: newDesktopFolderPosition(state) }
-        : state.desktopPositions,
     });
     return id;
   },
@@ -456,13 +417,14 @@ export const useSystemStore = create<SystemState>((set, get) => ({
       if (!item) return state;
       if (siblingNames(state, "desktop", id).has(item.name.trim().normalize("NFC").toLowerCase())) return state;
       const alreadyOnDesktop = state.desktopIds.includes(id);
-      const nextPos = position ?? state.desktopPositions[id] ?? defaultDesktopPosition(state.desktopIds.length);
+      if (position && !Number.isFinite(position.x + position.y)) return state;
+      const nextPos = position ?? state.desktopPositions[id];
       if (alreadyOnDesktop && !position) return state;
       if (
         alreadyOnDesktop &&
         position &&
-        state.desktopPositions[id]?.x === nextPos.x &&
-        state.desktopPositions[id]?.y === nextPos.y
+        state.desktopPositions[id]?.x === nextPos?.x &&
+        state.desktopPositions[id]?.y === nextPos?.y
       ) {
         return state;
       }
@@ -478,7 +440,7 @@ export const useSystemStore = create<SystemState>((set, get) => ({
         future: [],
         fileSystem: nextFs,
         desktopIds: alreadyOnDesktop ? state.desktopIds : [...state.desktopIds, id],
-        desktopPositions: { ...state.desktopPositions, [id]: nextPos },
+        desktopPositions: nextPos ? { ...state.desktopPositions, [id]: { ...nextPos } } : state.desktopPositions,
       };
     }),
   moveToFolder: (id, folderId) =>
@@ -494,14 +456,12 @@ export const useSystemStore = create<SystemState>((set, get) => ({
       const onDesktop = state.desktopIds.includes(id);
       if (folderId === "desktop") {
         if (onDesktop && currentParent === "desktop") return state;
-        const pos = state.desktopPositions[id] ?? defaultDesktopPosition(state.desktopIds.length);
         const nextFs = addToFolder(removeFromTree(state.fileSystem, id), "desktop", item);
         return {
           past: [...state.past, { ...snapshot(state), label: "MOVE_TO_DESKTOP" as const }].slice(-HISTORY_LIMIT),
           future: [],
           fileSystem: nextFs,
           desktopIds: onDesktop ? state.desktopIds : [...state.desktopIds, id],
-          desktopPositions: { ...state.desktopPositions, [id]: pos },
         };
       }
       if (currentParent === folderId && !onDesktop) return state;
@@ -628,7 +588,8 @@ export const useSystemStore = create<SystemState>((set, get) => ({
       }
       if (hit.target === "desktop") {
         const local = clientToDesktopLocal(x, y);
-        const pos = clampDesktopPosition((local?.x ?? x) - grab.x, (local?.y ?? y) - grab.y);
+        if (!local) return;
+        const pos = clampDesktopPosition(local.x - grab.x, local.y - grab.y);
         get().moveToDesktop(item.id, pos);
         return;
       }

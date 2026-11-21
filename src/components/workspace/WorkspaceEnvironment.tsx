@@ -1,17 +1,22 @@
 "use client";
 
-import { useCallback, useEffect, useReducer, useRef, useState, type KeyboardEvent } from "react";
-import { Check, ChevronUp, MapPin, Pause, Play, RotateCcw, Volume2, VolumeX, X } from "lucide-react";
-import { WORKSPACES, getWorkspace, type WorkspaceId } from "../../data/workspaces";
+import { useCallback, useEffect, useLayoutEffect, useReducer, useRef, useState, type KeyboardEvent } from "react";
+import { Check, ChevronUp, Settings, Maximize2, Minimize2, Type, Pause, Play, RotateCcw, X } from "lucide-react";
+import { DEFAULT_WORKSPACE, WORKSPACES, getWorkspace, type WorkspaceId } from "../../data/workspaces";
 import { useWorkspaceStore } from "./useWorkspaceStore";
 import { WorkspaceMedia } from "./WorkspaceMedia";
 import { EMPTY_WORKSPACE, WORKSPACE_TRAVEL_MS, workspaceTransition, type MotionStatus } from "./workspaceTransition";
 import styles from "./WorkspaceEnvironment.module.css";
+import { GlassSurface } from "../ui/PortfolioGlass";
 import { useKeyboardSounds } from "../webcam/useKeyboardSounds";
+import { useDisplayStore } from "../window-manager/useDisplayStore";
+import { useWindowStore } from "../window-manager/useWindowStore";
+import { usePortfolioActivity } from "../portfolio/usePortfolioActivity";
 
 const CONTROL_IDLE_MS = 3000;
 
 export function WorkspaceEnvironment({ sceneUsable, reduceMotion }: { sceneUsable: boolean; reduceMotion: boolean }) {
+  const desktopActive = usePortfolioActivity(s => s.desktopActive);
   const [state, dispatch] = useReducer(workspaceTransition, EMPTY_WORKSPACE);
   const [menuOpen, setMenuOpen] = useState(false);
   const [paused, setPaused] = useState(false);
@@ -21,9 +26,15 @@ export function WorkspaceEnvironment({ sceneUsable, reduceMotion }: { sceneUsabl
   const [pointerInside, setPointerInside] = useState(false);
   const hydrated = useWorkspaceStore((s) => s.hydrated);
   const keyboardSounds = useWorkspaceStore((s) => s.keyboardSounds);
-  useKeyboardSounds(hydrated && sceneUsable && keyboardSounds);
+  const resetRevision = useWorkspaceStore(s => s.resetRevision);
+  const handledReset = useRef(resetRevision);
+  const awaitingResetWorkspace = useRef(false);
+  const screenView = useDisplayStore(s => s.screenView);
+  const interfaceScale = useDisplayStore(s => s.interfaceScale);
+  useKeyboardSounds(desktopActive && hydrated && sceneUsable && keyboardSounds);
   const menu = useRef<HTMLElement>(null);
   const trigger = useRef<HTMLButtonElement>(null);
+  const viewToggle = useRef<HTMLButtonElement>(null);
   const options = useRef<(HTMLButtonElement | null)[]>([]);
   const sequence = useRef(0);
   const initialized = useRef(false);
@@ -32,10 +43,40 @@ export function WorkspaceEnvironment({ sceneUsable, reduceMotion }: { sceneUsabl
   const destination = state.queued ?? incoming ?? active;
   const current = getWorkspace(active?.id);
   const activeId = active?.id;
-  const moving = !paused && !reduceMotion && pageVisible && sceneUsable;
-  const animate = !paused && !reduceMotion && pageVisible;
+  const moving = desktopActive && !paused && !reduceMotion && pageVisible && sceneUsable && !screenView;
+  const animate = desktopActive && !paused && !reduceMotion && pageVisible;
+
+  useLayoutEffect(() => {
+    const selector = menu.current;
+    if (!selector || !screenView || !sceneUsable) return;
+    const desktop = document.getElementById("desktop-root");
+    const dock = desktop?.querySelector<HTMLElement>("[data-dock]");
+    const surface = dock?.querySelector<HTMLElement>("[data-dock-surface]");
+    if (!desktop || !dock || !surface) return;
+    const measure = () => {
+      const style = getComputedStyle(selector);
+      const left = Number.parseFloat(style.left) || 18;
+      const triggerWidth = Number.parseFloat(style.getPropertyValue("--workspace-trigger-width"));
+      const pickerWidth = Number.parseFloat(style.getPropertyValue("--workspace-picker-width"));
+      const dockLeft = surface.offsetLeft * interfaceScale;
+      const dockInset = Math.ceil((desktop.clientHeight - dock.offsetTop) * interfaceScale + 8);
+      selector.style.setProperty("--workspace-dock-clearance", `${dockLeft < left + triggerWidth + 8 ? dockInset : 0}px`);
+      selector.style.setProperty("--workspace-picker-clearance", `${dockLeft < left + pickerWidth + 8 ? dockInset : 0}px`);
+    };
+    measure();
+    const observer = new ResizeObserver(measure);
+    for (const element of [desktop, dock, surface]) observer.observe(element);
+    window.addEventListener("resize", measure);
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("resize", measure);
+      selector.style.removeProperty("--workspace-dock-clearance");
+      selector.style.removeProperty("--workspace-picker-clearance");
+    };
+  }, [interfaceScale, sceneUsable, screenView]);
 
   const choose = useCallback((id: WorkspaceId) => {
+    awaitingResetWorkspace.current = false;
     dispatch({ type: "select", selection: { key: ++sequence.current, id } });
   }, []);
   const ready = useCallback((key: number) => dispatch({ type: "ready", key, animate }), [animate]);
@@ -49,6 +90,16 @@ export function WorkspaceEnvironment({ sceneUsable, reduceMotion }: { sceneUsabl
     choose(useWorkspaceStore.getState().environment);
   }, [choose, hydrated]);
   useEffect(() => {
+    if (!hydrated || handledReset.current === resetRevision) return;
+    handledReset.current = resetRevision;
+    choose(DEFAULT_WORKSPACE);
+    awaitingResetWorkspace.current = activeId !== DEFAULT_WORKSPACE;
+  }, [activeId, choose, hydrated, resetRevision]);
+  useEffect(() => {
+    // A retired transition must not re-save an old preference after reset.
+    // A subsequent visitor choice clears this guard in choose().
+    if (awaitingResetWorkspace.current && activeId !== DEFAULT_WORKSPACE) return;
+    awaitingResetWorkspace.current = false;
     if (activeId) useWorkspaceStore.getState().remember(activeId);
   }, [activeId]); // Save only a successfully displayed location.
 
@@ -84,12 +135,12 @@ export function WorkspaceEnvironment({ sceneUsable, reduceMotion }: { sceneUsabl
 
   const closeMenu = useCallback((returnFocus = false) => {
     setMenuOpen(false);
-    if (returnFocus) trigger.current?.focus();
+    if (returnFocus) trigger.current?.focus({ preventScroll: true });
   }, []);
   useEffect(() => {
     if (!menuOpen) return;
-    const initial = options.current.find((option) => option?.getAttribute("aria-checked") === "true") ?? options.current[0];
-    initial?.focus();
+    const initial = screenView ? viewToggle.current : options.current.find((option) => option?.getAttribute("aria-checked") === "true") ?? options.current[0];
+    initial?.focus({ preventScroll: screenView });
     const outside = (event: PointerEvent) => {
       if (event.target instanceof Node && !menu.current?.contains(event.target)) closeMenu();
     };
@@ -102,7 +153,7 @@ export function WorkspaceEnvironment({ sceneUsable, reduceMotion }: { sceneUsabl
       document.removeEventListener("pointerdown", outside);
       document.removeEventListener("keydown", escape);
     };
-  }, [closeMenu, menuOpen]);
+  }, [closeMenu, menuOpen, screenView]);
 
   const optionKey = (event: KeyboardEvent<HTMLDivElement>) => {
     if (event.altKey || event.ctrlKey || event.metaKey) return;
@@ -143,47 +194,53 @@ export function WorkspaceEnvironment({ sceneUsable, reduceMotion }: { sceneUsabl
         <div className={styles.vignette} />
       </div>
 
-      {sceneUsable && <aside ref={menu} className={styles.selector} data-workspace-controls data-revealed={controlRevealed || undefined} data-open={menuOpen || undefined} data-reduced-motion={reduceMotion || paused || undefined}
+      {sceneUsable && <aside ref={menu} className={styles.selector} data-workspace-controls data-screen-view={screenView || undefined} data-revealed={controlRevealed || undefined} data-open={menuOpen || undefined} data-reduced-motion={reduceMotion || paused || undefined}
         onPointerEnter={(event) => { if (event.pointerType !== "touch") { setPointerInside(true); setControlRevealed(true); } }}
         onPointerLeave={() => setPointerInside(false)}
         onFocusCapture={() => setControlRevealed(true)}>
-        <button ref={trigger} type="button" className={styles.trigger} aria-label={`Workspace: ${active ? current.name : "choose a place"}`} aria-expanded={menuOpen} aria-controls="workspace-choices" aria-haspopup="dialog" onClick={() => { setControlRevealed(true); setMenuOpen((open) => !open); }} data-workspace-trigger>
-          <MapPin size={17} strokeWidth={1.7} />
-          <span className={styles.triggerText}><span>Workspace</span><strong>{active ? current.name : "Choose a place"}</strong></span>
+        <button ref={trigger} type="button" className={styles.trigger} aria-label="Portfolio settings" aria-expanded={menuOpen} aria-controls="workspace-choices" aria-haspopup="dialog" onClick={() => { setControlRevealed(true); setMenuOpen((open) => !open); }} data-workspace-trigger>
+          <GlassSurface />
+          <Settings size={17} strokeWidth={1.7} />
+          <span className={styles.triggerText}><span>Settings</span><strong>{screenView ? "Screen view" : active ? current.name : "Your workspace"}</strong></span>
           <ChevronUp size={13} className={styles.chevron} data-open={menuOpen || undefined} />
         </button>
 
-        {menuOpen && <section className={styles.panel} id="workspace-choices" role="dialog" aria-label="Choose workspace" data-workspace-picker>
-          <div className={styles.panelHeader}><div><h2>Your workspace</h2><p>Live views, stills, and quiet colors.</p></div><button type="button" className={styles.close} aria-label="Close workspace choices" onClick={() => closeMenu(true)}><X size={16} /></button></div>
-          <div role="radiogroup" aria-label="Workspace backgrounds" className={styles.choices} onKeyDown={optionKey}>
-            {([ ["motion", "Live views"], ["still", "Still images"], ["color", "Solid colors"] ] as const).map(([kind, label]) => <div key={kind} className={styles.group}>
-              <h3>{label}</h3>
-              <div className={`${styles.optionGrid} ${kind === "motion" ? styles.motionGrid : ""}`}>
-                {WORKSPACES.filter((workspace) => workspace.kind === kind).map((workspace) => {
-                  const index = WORKSPACES.indexOf(workspace);
-                  return <button key={workspace.id} ref={(node) => { options.current[index] = node; }} type="button" role="radio" aria-checked={destination?.id === workspace.id} aria-label={`${workspace.name}: ${workspace.description}`} tabIndex={!destination || destination.id === workspace.id ? 0 : -1} className={`${styles.choice} ${kind === "color" ? styles.colorChoice : ""}`} onClick={() => choose(workspace.id)} data-workspace-option={workspace.id}>
-                    {workspace.thumbnail ? (
-                      // eslint-disable-next-line @next/next/no-img-element
-                      <img src={workspace.thumbnail} width={160} height={100} alt="" loading="eager" draggable={false} />
-                    ) : <span className={styles.swatch} style={{ backgroundColor: workspace.color }} />}
-                    <strong>{workspace.name}</strong>
-                    <span className={styles.check}>{destination?.id === workspace.id && <Check size={12} strokeWidth={2.5} />}</span>
-                  </button>;
-                })}
-              </div>
-            </div>)}
-          </div>
-          <div className={styles.motionControls}>
-            <button type="button" aria-label="Keyboard click sounds" aria-pressed={keyboardSounds} data-workspace-keyboard-sounds onClick={() => useWorkspaceStore.getState().setKeyboardSounds(!keyboardSounds)}>
-              {keyboardSounds ? <Volume2 size={14} /> : <VolumeX size={14} />}<span>Key sounds {keyboardSounds ? "on" : "off"}</span>
+        {menuOpen && <section className={styles.panel} id="workspace-choices" role="dialog" aria-label="Portfolio settings" data-workspace-picker>
+          <div className={styles.panelHeader}><div><h2>{screenView ? "Display options" : "Workspace settings"}</h2><p>{screenView ? "Switch views or make the desktop easier to read." : "Adjust the view or change the scenery around the laptop."}</p></div><button type="button" className={styles.close} aria-label="Close portfolio settings" onClick={() => closeMenu(true)}><X size={16} /></button></div>
+          <div className={styles.viewControls}>
+            <button ref={viewToggle} type="button" aria-pressed={screenView} data-screen-view-toggle onClick={() => { useDisplayStore.getState().setScreenView(!screenView); closeMenu(true); }}>
+              {screenView ? <Minimize2 size={18} /> : <Maximize2 size={18} />}<span><strong>{screenView ? "Back to laptop" : "Enter Screen view"}</strong><small>{screenView ? "Return to the 3D workspace" : "Fill the page with the desktop"}</small></span>
             </button>
-            <button type="button" onClick={() => { setPaused((value) => !value); setMotionAttempt((value) => value + 1); }} aria-pressed={paused} disabled={reduceMotion} data-workspace-pause>
-              {paused ? <Play size={14} /> : <Pause size={14} />}<span>{paused ? "Resume motion" : "Pause motion"}</span>
-            </button>
-            {(state.error || active?.motion === "unavailable") && <button type="button" aria-label="Retry workspace" data-workspace-retry onClick={() => { if (state.error) choose(state.error.id); setMotionAttempt((value) => value + 1); }}><RotateCcw size={14} /><span>Retry</span></button>}
+            <button type="button" onClick={() => { useWindowStore.getState().openWindow({ id: "app-settings", kind: "settings", title: "Settings", settingsSection: "accessibility" }); closeMenu(); }}><Type size={18} /><span><strong>Text & icon size</strong><small>Open Accessibility in Settings</small></span></button>
           </div>
-          <p className={styles.status} role="status" aria-live="polite" data-workspace-status>{status}</p>
-          <details className={styles.credits}><summary>Workspace credits</summary>{WORKSPACES.filter((workspace) => workspace.kind !== "color").map((workspace) => <p key={workspace.id}>{workspace.source ? <a href={workspace.source} target="_blank" rel="noreferrer">{workspace.name} · {workspace.credit}</a> : `${workspace.name} · ${workspace.credit}`}</p>)}<p><a href="https://github.com/tplai/kbsim" target="_blank" rel="noreferrer">Cream keyboard recordings · Thomas Lai</a>{" · "}<a href="/sounds/keyboard/LICENSE.txt" target="_blank" rel="noreferrer">MIT license</a></p></details>
+          {!screenView && <>
+            <div role="radiogroup" aria-label="Workspace backgrounds" className={styles.choices} onKeyDown={optionKey}>
+              {([ ["motion", "Live views"], ["still", "Still images"], ["color", "Solid colors"] ] as const).map(([kind, label]) => <div key={kind} className={styles.group}>
+                <h3>{label}</h3>
+                <div className={`${styles.optionGrid} ${kind === "motion" ? styles.motionGrid : ""}`}>
+                  {WORKSPACES.filter((workspace) => workspace.kind === kind).map((workspace) => {
+                    const index = WORKSPACES.indexOf(workspace);
+                    return <button key={workspace.id} ref={(node) => { options.current[index] = node; }} type="button" role="radio" aria-checked={destination?.id === workspace.id} aria-label={`${workspace.name}: ${workspace.description}`} tabIndex={!destination || destination.id === workspace.id ? 0 : -1} className={`${styles.choice} ${kind === "color" ? styles.colorChoice : ""}`} onClick={() => choose(workspace.id)} data-workspace-option={workspace.id}>
+                      {workspace.thumbnail ? (
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img src={workspace.thumbnail} width={160} height={100} alt="" loading="eager" draggable={false} />
+                      ) : <span className={styles.swatch} style={{ backgroundColor: workspace.color }} />}
+                      <strong>{workspace.name}</strong>
+                      <span className={styles.check}>{destination?.id === workspace.id && <Check size={12} strokeWidth={2.5} />}</span>
+                    </button>;
+                  })}
+                </div>
+              </div>)}
+            </div>
+            <div className={styles.motionControls}>
+              <button type="button" onClick={() => { setPaused((value) => !value); setMotionAttempt((value) => value + 1); }} aria-pressed={paused} disabled={reduceMotion} data-workspace-pause>
+                {paused ? <Play size={14} /> : <Pause size={14} />}<span>{paused ? "Resume motion" : "Pause motion"}</span>
+              </button>
+              {(state.error || active?.motion === "unavailable") && <button type="button" aria-label="Retry workspace" data-workspace-retry onClick={() => { if (state.error) choose(state.error.id); setMotionAttempt((value) => value + 1); }}><RotateCcw size={14} /><span>Retry</span></button>}
+            </div>
+            <p className={styles.status} role="status" aria-live="polite" data-workspace-status>{status}</p>
+            <details className={styles.credits}><summary>Workspace credits</summary>{WORKSPACES.filter((workspace) => workspace.kind !== "color").map((workspace) => <p key={workspace.id}>{workspace.source ? <a href={workspace.source} target="_blank" rel="noreferrer">{workspace.name} · {workspace.credit}</a> : `${workspace.name} · ${workspace.credit}`}</p>)}</details>
+          </>}
         </section>}
       </aside>}
     </>

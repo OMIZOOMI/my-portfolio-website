@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { BatteryFull, BatteryLow, BatteryMedium, Wifi } from "lucide-react";
+import { ArrowLeft, BatteryFull, BatteryLow, BatteryMedium, Wifi } from "lucide-react";
+import Link from "next/link";
 import { useMailStore } from "../window-manager/useMailStore";
 import { useNotesStore } from "../desktop/NotesApp";
 import { useMusicStore } from "../desktop/useMusicStore";
@@ -13,24 +14,15 @@ import { DesktopMenus, type DesktopMenuItem } from "./DesktopMenus";
 import { captureEditorMenuTarget, restoreEditorMenuTarget, fileHistoryShortcut, type EditorMenuTarget } from "./editorMenuCommands";
 import { openPortfolioAbout, openSettings } from "../desktop/visitorLaunchers";
 import { isTextEditingTarget } from "../desktop/fileSurfaceEvents";
+import { focusMinimizedWindowControl } from "../window-manager/windowFocus";
+import { APP_LABELS } from "../../data/appIdentity";
+import { APPS_FOLDER_ID } from "../../data/portfolioApps";
+import { useIntroductionStore } from "../portfolio/useIntroductionStore";
+import styles from "./MenuBar.module.css";
 
 type MenuItem = DesktopMenuItem;
 
-const APP_NAMES: Record<string, string> = {
-  finder: "Finder",
-  terminal: "Terminal",
-  safari: "Safari",
-  notes: "Notes",
-  mail: "Mail",
-  music: "Music",
-  settings: "Settings",
-  facetime: "FaceTime",
-  "about-app": "Portfolio",
-  "about-me": "About Me",
-  "file-viewer": "Preview",
-  "neural-block": "Neural Block",
-  bin: "Finder",
-};
+const APP_NAMES = APP_LABELS;
 
 let windowIdCounter = 0;
 
@@ -70,7 +62,7 @@ interface BatteryLike extends EventTarget {
 }
 
 function useBattery() {
-  const [level, setLevel] = useState(100);
+  const [level, setLevel] = useState<number | null>(null);
 
   useEffect(() => {
     let mounted = true;
@@ -89,7 +81,7 @@ function useBattery() {
         nextBattery.addEventListener("levelchange", update);
       })
       .catch(() => {
-        if (mounted) setLevel(100);
+        if (mounted) setLevel(null);
       });
 
     return () => {
@@ -114,7 +106,7 @@ function openExternal(url: string) {
   globalThis.open(url, "_blank", "noopener,noreferrer");
 }
 
-export function MenuBar() {
+export function MenuBar({ compact = false }: { compact?: boolean } = {}) {
   const time = useAccurateClock();
   const batteryLevel = useBattery();
   const savedEditor = useRef<EditorMenuTarget | null>(null);
@@ -126,7 +118,7 @@ export function MenuBar() {
     return focusedId ? state.windows[focusedId] ?? null : null;
   });
   const activeAppKind = activeWindow?.kind ?? "finder";
-  const activeAppName = APP_NAMES[activeAppKind] ?? "Finder";
+  const activeAppName = APP_NAMES[activeAppKind] ?? "Files";
   const canEmptyBin = useSystemStore((state) => state.trashItems.length > 0);
   const canDeleteNote = useNotesStore((state) => !!state.activeNoteId);
   const canClearNote = useNotesStore((state) => !!state.notes.find((note) => note.id === state.activeNoteId)?.contentHtml);
@@ -200,7 +192,7 @@ export function MenuBar() {
   const activeFinderParent = activeFileWindow?.folderId ?? (activeFileWindow?.kind === "bin" ? "bin" : "desktop");
   const activeSurface = activeFileWindow?.id ?? "desktop";
   const selectedId = useFileInteractionStore((state) => state.selections[activeSurface] ?? null);
-  const canCreateFolder = useSystemStore((state) => activeFinderParent !== "bin" && !!state.fileSystem[activeFinderParent] && !state.isHidden(activeFinderParent));
+  const canCreateFolder = useSystemStore((state) => activeFinderParent !== "bin" && activeFinderParent !== APPS_FOLDER_ID && !!state.fileSystem[activeFinderParent] && !state.isHidden(activeFinderParent));
   const canRenameFolder = useSystemStore((state) => {
     if (!selectedId || activeFinderParent === "bin" || state.isHidden(selectedId)) return false;
     const children = activeFinderParent === "desktop" ? state.desktopIds : (state.fileSystem[activeFinderParent] ?? []).map((item) => item.id);
@@ -211,9 +203,11 @@ export function MenuBar() {
   const toggleFinderStatusBar = useSystemStore((state) => state.toggleFinderStatusBar);
 
   const menuItems: Record<string, MenuItem[]> = {
-    "": [
-      { label: "About This Mac", onSelect: () => openSettings("about") },
-      { label: "System Settings…", onSelect: () => openSettings() },
+    "Om": [
+      { label: "About This Portfolio", onSelect: () => openSettings("about") },
+      { label: "Portfolio overview", onSelect: () => window.dispatchEvent(new Event("portfolio:open-overview")) },
+      ...(!compact ? [{ label: "Replay introduction", onSelect: () => useIntroductionStore.getState().replay() }] : []),
+      { label: "Portfolio Settings…", onSelect: () => openSettings() },
       { label: "Restart Portfolio", onSelect: () => globalThis.location.reload() },
       {
         label: "Close All Windows",
@@ -257,7 +251,7 @@ export function MenuBar() {
         : []),
       ...(activeAppKind === "mail"
         ? [
-            { label: "New Message", onSelect: () => useMailStore.getState().openComposer() },
+            { label: "Write to Om", onSelect: () => useMailStore.getState().openComposer() },
             { label: "Clear Draft", onSelect: () => useMailStore.getState().clearDraft() },
             {
               label: "Open in your email app",
@@ -270,10 +264,10 @@ export function MenuBar() {
     File:
       activeAppKind === "finder" || activeAppKind === "bin"
         ? [
-            { label: "New Finder Window", onSelect: () => openFinder("desktop", "Desktop") },
+            { label: "New Files Window", onSelect: () => openFinder("desktop", "Desktop") },
             { label: "New Folder", disabled: !canCreateFolder, onSelect: () => { createFolderAndRename(activeSurface, activeFinderParent); } },
             { label: "Rename Selected Folder", shortcut: "F2", disabled: !canRenameFolder, onSelect: () => { if (selectedId) useFileInteractionStore.getState().beginRename(activeSurface, selectedId); } },
-            { label: "Empty Bin", disabled: !canEmptyBin, onSelect: () => useSystemStore.getState().emptyTrash() },
+             { label: "Empty Bin", separatorBefore: true, disabled: !canEmptyBin, onSelect: () => useSystemStore.getState().emptyTrash() },
             { label: "Close Window", disabled: !activeWindow, shortcut: "⌘W", onSelect: closeActiveWindow },
           ]
         : activeAppKind === "safari"
@@ -290,14 +284,14 @@ export function MenuBar() {
               ]
             : activeAppKind === "mail"
               ? [
-                  { label: "New Message", onSelect: () => useMailStore.getState().openComposer() },
+                  { label: "Write to Om", onSelect: () => useMailStore.getState().openComposer() },
                   { label: "Close Window", disabled: !activeWindow, onSelect: closeActiveWindow },
                 ]
               : [{ label: "Close Window", disabled: !activeWindow, onSelect: closeActiveWindow }],
     Edit: [
       { label: "Undo", shortcut: "⌘Z", disabled: editorOwnsEdit ? !editorTarget.canUndo : !filesOwnEdit || !canUndo, onSelect: () => { if (editorOwnsEdit) nativeEdit("undo"); else if (filesOwnEdit) useSystemStore.getState().undo(); } },
       { label: "Redo", shortcut: "⇧⌘Z", disabled: editorOwnsEdit ? !editorTarget.canRedo : !filesOwnEdit || !canRedo, onSelect: () => { if (editorOwnsEdit) nativeEdit("redo"); else if (filesOwnEdit) useSystemStore.getState().redo(); } },
-      { label: "Cut", shortcut: "⌘X", disabled: !editorOwnsEdit || !editorTarget.hasSelection, onSelect: () => nativeEdit("cut") },
+       { label: "Cut", separatorBefore: true, shortcut: "⌘X", disabled: !editorOwnsEdit || !editorTarget.hasSelection, onSelect: () => nativeEdit("cut") },
       { label: "Copy", shortcut: "⌘C", disabled: !editorOwnsEdit || !editorTarget.hasSelection, onSelect: () => nativeEdit("copy") },
       {
         label: "Paste", shortcut: "⌘V",
@@ -330,7 +324,7 @@ export function MenuBar() {
         : []),
     ],
     Window: [
-      { label: "Minimize", disabled: !activeWindow, onSelect: () => { const id = useWindowStore.getState().focusedWindowId; if (id) useWindowStore.getState().toggleMinimize(id); } },
+      { label: "Minimize", disabled: !activeWindow, onSelect: () => { const id = useWindowStore.getState().focusedWindowId; if (id) { useWindowStore.getState().toggleMinimize(id); focusMinimizedWindowControl(id); } } },
       { label: "Zoom / Maximize", disabled: !activeWindow, onSelect: () => { const id = useWindowStore.getState().focusedWindowId; if (id) useWindowStore.getState().toggleMaximize(id); } },
       { label: "Close Active Window", disabled: !activeWindow, shortcut: "⌘W", onSelect: closeActiveWindow },
       { label: "Bring All to Front", onSelect: () => useWindowStore.getState().bringAllToFront() },
@@ -342,54 +336,40 @@ export function MenuBar() {
     ],
   };
 
-  const topLevelMenus = ["", activeAppName, "File", "Edit", "View", "Go", "Window", "Help"];
+  const topLevelMenus = ["Om", activeAppName, "File", "Edit", "View", "Go", "Window", "Help"];
   const timeString = time ? time.toLocaleTimeString([], { hour: "numeric", minute: "2-digit" }) : "";
   const dateString = time ? time.toLocaleDateString([], { weekday: "short", day: "numeric", month: "short" }) : "";
-  const BatteryIcon = batteryLevel > 70 ? BatteryFull : batteryLevel > 30 ? BatteryMedium : BatteryLow;
+  const BatteryIcon = (batteryLevel ?? 0) > 70 ? BatteryFull : (batteryLevel ?? 0) > 30 ? BatteryMedium : BatteryLow;
 
   return (
     <>
       <nav
-        aria-label="macOS Menu Bar"
-        style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          right: 0,
-          height: "28px",
-          background: "rgba(0, 0, 0, 0.25)",
-          backdropFilter: "blur(20px)",
-          WebkitBackdropFilter: "blur(20px)",
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          padding: "0 16px",
-          color: "rgba(255, 255, 255, 0.95)",
-          fontSize: "13px",
-          fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
-          fontWeight: 500,
-          letterSpacing: "0.3px",
-          zIndex: 9999,
-          userSelect: "none",
-        }}
+        aria-label="Portfolio menu bar"
+        data-menu-bar
+        className={`${styles.bar} ${compact ? styles.compact : ""}`}
       >
-        <DesktopMenus key={`${activeWindow?.id ?? "desktop"}-${activeAppKind}`} menus={topLevelMenus.map((label) => ({ label, items: menuItems[label] ?? [] }))} appName={activeAppName} onPrepare={prepareMenu} />
-        {actionFeedback && <p role="status" style={{ position: "absolute", top: 32, right: 16, maxWidth: 360, padding: 10, borderRadius: 6, background: "#28282d", fontSize: 12 }}>{actionFeedback}</p>}
+        {compact && <Link href="/?view=reading" prefetch={false} scroll={false} className={styles.readingLink}>
+          <ArrowLeft size={17} aria-hidden="true" /> Portfolio overview
+        </Link>}
+        <div className={styles.menus}>
+          <DesktopMenus key={`${activeWindow?.id ?? "desktop"}-${activeAppKind}`} menus={topLevelMenus.map((label) => ({ label, items: menuItems[label] ?? [] }))} appName={activeAppName} onPrepare={prepareMenu} />
+        </div>
+        {actionFeedback && <p role="status" className={styles.feedback}>{actionFeedback}</p>}
 
-        <div aria-hidden="true" style={{ position: "absolute", left: "50%", transform: "translateX(-50%)", top: 0, width: "160px", height: "28px", background: "#000", borderBottomLeftRadius: "12px", borderBottomRightRadius: "12px", boxShadow: "inset 0 -1px 1px rgba(255,255,255,0.1)" }} />
+        {!compact && <div data-menu-notch aria-hidden="true" className={styles.notch} />}
 
-        <div style={{ display: "flex", gap: "16px", alignItems: "center", height: "100%" }}>
-          <div aria-label="Wi-Fi status" style={{ display: "flex", alignItems: "center", padding: "0 6px", borderRadius: "4px", height: "100%" }}>
+        {!compact && <div data-menu-status className={styles.status}>
+          <div aria-hidden="true" className={styles.statusItem}>
             <Wifi size={15} strokeWidth={2.5} />
           </div>
-          <div aria-label={`Battery ${batteryLevel}%`} style={{ display: "flex", gap: "6px", alignItems: "center", padding: "0 6px", borderRadius: "4px", height: "100%" }}>
-            <span style={{ fontSize: "12px", opacity: 0.9 }}>{batteryLevel}%</span>
+          {batteryLevel !== null && <div aria-label={`Device battery ${batteryLevel}%`} className={styles.statusItem}>
+            <span>{batteryLevel}%</span>
             <BatteryIcon size={16} strokeWidth={2} />
-          </div>
-          <span style={{ display: "flex", alignItems: "center", padding: "0 8px", borderRadius: "4px", height: "100%" }}>
+          </div>}
+          <span className={styles.statusItem}>
             {dateString} {timeString}
           </span>
-        </div>
+        </div>}
       </nav>
     </>
   );

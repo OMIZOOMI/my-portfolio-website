@@ -32,9 +32,34 @@ export function keyboardClickSamples(sampleRate: number, variant: number, role: 
 
 export function createKeyboardClickAudio(makeContext: () => AudioContext | null) {
   let context: AudioContext | null = null, gain: GainNode | null = null;
-  let disposed = false, serial = 0, pending = 0;
+  let disposed = false, serial = 0;
+  let pending: { code: string; time: number } | null = null;
+  let resuming: AudioContext | null = null;
   const buffers = new Map<string, AudioBuffer>();
   const voices = new Set<AudioBufferSourceNode>();
+  const stop = (voice: AudioBufferSourceNode) => {
+    voice.onended = null;
+    try { voice.stop(); } catch {}
+    voice.disconnect();
+    voices.delete(voice);
+  };
+  const silence = () => {
+    pending = null;
+    for (const voice of voices) stop(voice);
+  };
+  const detachContext = () => {
+    silence();
+    buffers.clear();
+    gain?.disconnect();
+    const old = context;
+    if (old) {
+      old.onstatechange = null;
+      if (old.state !== "closed") void old.close().catch(() => {});
+    }
+    context = null;
+    gain = null;
+    resuming = null;
+  };
   const start = (code: string, phase: KeyboardSoundPhase = "press") => {
     if (disposed || !context || context.state !== "running" || !gain) return;
     const role: KeyboardSoundRole = code === "Space" ? "space" : code === "Enter" ? "enter" : code === "Backspace" || code === "Delete" ? "backspace" : "default";
@@ -47,35 +72,53 @@ export function createKeyboardClickAudio(makeContext: () => AudioContext | null)
       buffer.copyToChannel(data, 0);
       buffers.set(key, buffer);
     }
-    if (voices.size >= 8) {
-      const oldest = voices.values().next().value!;
-      oldest.onended = null;
-      try { oldest.stop(); } catch {}
-      oldest.disconnect(); voices.delete(oldest);
-    }
+    if (voices.size >= 8) stop(voices.values().next().value!);
     const source = context.createBufferSource();
     source.buffer = buffer;
     source.connect(gain);
     source.onended = () => { source.disconnect(); voices.delete(source); };
     voices.add(source);
-    source.start();
+    try { source.start(); } catch { stop(source); }
+  };
+  const flush = () => {
+    if (context?.state !== "running") return;
+    const click = pending;
+    pending = null;
+    if (click && performance.now() - click.time <= 200) {
+      try { start(click.code); } catch {}
+    }
   };
   return {
     play(code: string) {
       if (disposed) return;
       try {
+        if (context?.state === "closed") detachContext();
         if (!context) {
           context = makeContext();
           if (!context) return;
           gain = context.createGain();
           gain.gain.value = 0.16;
           gain.connect(context.destination);
+          // Safari can report the running state separately from the resume promise.
+          const current = context;
+          current.onstatechange = () => { if (context === current) flush(); };
         }
-        if (context.state === "running") start(code);
-        else {
-          const ticket = ++pending;
-          // Resume directly from the trusted key event; don't replay a backlog.
-          void context.resume().then(() => { if (ticket === pending) start(code); }).catch(() => {});
+        if (context.state === "running") {
+          pending = null;
+          start(code);
+        } else {
+          pending = { code, time: performance.now() };
+          const current = context;
+          if (resuming === current) return;
+          // Resume directly from a trusted key and keep only the freshest click.
+          const resumed = current.resume();
+          resuming = current;
+          const settled = () => {
+            if (resuming !== current) return;
+            resuming = null;
+            flush();
+          };
+          void resumed.then(settled, settled);
         }
       } catch { /* Unsupported/blocked audio must never interrupt typing. */ }
     },
@@ -83,12 +126,10 @@ export function createKeyboardClickAudio(makeContext: () => AudioContext | null)
       // A stray keyup must not create/unlock audio or replay a pending press.
       try { start(code, "release"); } catch {}
     },
+    silence,
     dispose() {
-      disposed = true; pending++;
-      for (const voice of voices) { voice.onended = null; try { voice.stop(); } catch {} voice.disconnect(); }
-      voices.clear(); buffers.clear(); gain?.disconnect();
-      if (context && context.state !== "closed") void context.close().catch(() => {});
-      context = null;
+      disposed = true;
+      detachContext();
     },
   };
 }

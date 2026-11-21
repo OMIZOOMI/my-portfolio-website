@@ -1,19 +1,16 @@
 "use client";
 
 import React from "react";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import Image from "next/image";
 import { useWindowStore } from "../window-manager/useWindowStore";
 import { useSystemStore } from "../window-manager/useSystemStore";
-
-import FinderIcon from "../../assets/3d-mac-os-finder.png";
-import TerminalIcon from "../../assets/Terminal.png";
-import NotesIcon from "../../assets/Notes.png";
-import MailIcon from "../../assets/Mail.png";
-import SafariIcon from "../../assets/safari.png";
-import MusicIcon from "../../assets/Music.png";
-import FaceTimeIcon from "../../assets/facetime.png";
-import SettingsIcon from "../../assets/System-Settings.png";
+import { focusPortfolioWindow, revealDockControl } from "../window-manager/windowFocus";
+import styles from "./Dock.module.css";
+import { appWindowTitle } from "../../data/appIdentity";
+import { DOCK_APP_IDS, portfolioAppName } from "../../data/portfolioApps";
+import { PORTFOLIO_APP_ARTWORK } from "../../data/portfolioAppArtwork";
+import { openPortfolioApp } from "../desktop/visitorLaunchers";
 
 import BinFullDark from "../../assets/Bin_Full_yrypldfXBR_icns-3aa31b35a7.png";
 import BinEmptyDark from "../../assets/Empty_Bin_lVRgezRq9O_icns-9852c609a9.png";
@@ -28,28 +25,22 @@ export default function Dock() {
   const isTrashHover = useSystemStore((s) => s.dropTarget === "trash");
   const magnification = useSystemStore((s) => s.dockMagnification);
   const dockSize = useSystemStore((s) => s.dockSize);
+  const motionSetting = useSystemStore((s) => s.reduceMotion);
+  const prefersReducedMotion = useReducedMotion();
+  const reduceMotion = motionSetting || prefersReducedMotion;
 
   // Base icon footprint (w-14) scaled by the Dock Size preference.
-  const iconPx = Math.round(56 * dockSize);
+  const iconPx = Math.max(44, Math.round(56 * dockSize));
   const iconStyle = { width: `${iconPx}px`, height: `${iconPx}px` };
-  const magnify = magnification
+  const magnify = magnification && !reduceMotion
     ? { scale: 1.4, translateY: -10 }
     : { scale: 1, translateY: 0 };
 
   const windows = useWindowStore((s) => s.windows);
-  const toggleMinimize = useWindowStore((s) => s.toggleMinimize);
+  const focusedWindowId = useWindowStore((s) => s.focusedWindowId);
+  const restoreWindow = useWindowStore((s) => s.focusWindow);
   const minimizedWindows = Object.values(windows).filter((w) => w.minimized);
 
-  const dockApps = [
-    { id: "finder", name: "Finder", icon: FinderIcon },
-    { id: "terminal", name: "Terminal", icon: TerminalIcon },
-    { id: "notes", name: "Notes", icon: NotesIcon },
-    { id: "mail", name: "Mail", icon: MailIcon },
-    { id: "safari", name: "Safari", icon: SafariIcon },
-    { id: "music", name: "Apple Music", icon: MusicIcon },
-    { id: "facetime", name: "FaceTime", icon: FaceTimeIcon },
-    { id: "settings", name: "Settings", icon: SettingsIcon },
-  ];
 
   const getBinIcon = () => {
      if (isDarkMode && isBinFull) return BinFullDark;
@@ -58,14 +49,6 @@ export default function Dock() {
      return BinEmptyLight;
   };
 
-  const handleAppClick = (appId: string) => {
-    if (appId === "finder") {
-      useWindowStore.getState().openWindow({ id: "finder-desktop", kind: "finder", title: "Desktop", folderId: "desktop" });
-    } else {
-      const appData = dockApps.find(a => a.id === appId);
-      useWindowStore.getState().openWindow({ id: `app-${appId}`, kind: appId, title: appData?.name || "Application" });
-    }
-  };
 
   // Open the Bin window instead of auto-emptying
   const handleBinClick = () => {
@@ -74,56 +57,63 @@ export default function Dock() {
       kind: "bin",
       title: "Bin"
     });
+    focusPortfolioWindow("bin-window");
   };
 
   return (
-    <div data-dock="true" className="absolute bottom-4 w-full flex justify-center z-[9990] pointer-events-none">
-      <div data-dock-surface className="flex items-end gap-2 px-3 pb-2 pt-2 bg-white/10 dark:bg-black/20 backdrop-blur-md border border-white/20 dark:border-white/10 rounded-2xl shadow-2xl pointer-events-auto">
+    <nav data-dock="true" aria-label="Dock" data-reduced-motion={reduceMotion || undefined} className="absolute bottom-4 w-full flex justify-center z-[9990] pointer-events-none">
+      <div data-dock-surface className={`${styles.surface} flex items-end gap-2 px-3 py-2 rounded-2xl pointer-events-auto`}>
         
-        {dockApps.map((app) => (
-          <motion.div key={app.id} data-dock-app={app.id} whileHover={magnify} transition={{ type: "spring", stiffness: 300, damping: 20 }} className="relative group cursor-pointer flex items-center justify-center" onClick={() => handleAppClick(app.id)}>
-            <Image src={app.icon} alt={app.name} width={iconPx} height={iconPx} loading="eager" draggable={false} style={iconStyle} className="drop-shadow-md pointer-events-none select-none object-contain" />
-            <span className="absolute -top-10 left-1/2 -translate-x-1/2 px-3 py-1 bg-gray-900/80 text-white text-xs rounded-md opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-50">
-              {app.name}
+        {DOCK_APP_IDS.map(id => (
+          <motion.button type="button" key={id} data-dock-app={id} aria-label={`Open ${portfolioAppName(id)}`} aria-current={windows[focusedWindowId ?? ""]?.kind === id ? "true" : undefined}
+            whileHover={magnify} transition={reduceMotion ? { duration: 0 } : { type: "spring", stiffness: 300, damping: 20 }} className={styles.launcher}
+            onFocus={event => revealDockControl(event.currentTarget)} onClick={() => focusPortfolioWindow(openPortfolioApp(id))}>
+            <Image src={PORTFOLIO_APP_ARTWORK[id]} alt="" aria-hidden="true" width={iconPx} height={iconPx} loading="eager" draggable={false} style={iconStyle} className="drop-shadow-md pointer-events-none select-none object-contain" />
+            <span aria-hidden="true" className={styles.launcherLabel}>
+              {portfolioAppName(id)}
             </span>
-          </motion.div>
+          </motion.button>
         ))}
 
-        <div className="w-[1px] h-12 bg-white/30 mx-1 rounded-full"></div>
+        <div aria-hidden="true" className="w-[1px] h-12 bg-white/30 mx-1 rounded-full"></div>
 
         {minimizedWindows.map((win) => (
-          <motion.div key={win.id} data-dock-minimized-window={win.id} whileHover={magnify} transition={{ type: "spring", stiffness: 300, damping: 20 }} className="relative group cursor-pointer flex items-center justify-center" onClick={() => toggleMinimize(win.id)}>
-            <div className="bg-[#1e1e1e]/90 backdrop-blur-md border border-white/20 rounded-lg flex flex-col overflow-hidden shadow-lg object-contain" style={iconStyle}>
-              <div className="h-3 w-full bg-white/10 flex items-center px-1 gap-[2px]">
-                <div className="w-1 h-1 rounded-full bg-[#ff5f56]" />
-                <div className="w-1 h-1 rounded-full bg-[#ffbd2e]" />
-                <div className="w-1 h-1 rounded-full bg-[#27c93f]" />
-              </div>
-              <div className="flex-1 w-full flex items-center justify-center p-1">
-                <span className="text-[8px] md:text-[9px] text-white/80 font-medium truncate w-full text-center">{win.title}</span>
-              </div>
-            </div>
-          </motion.div>
+          <motion.button type="button" key={win.id} data-dock-minimized-window={win.id} aria-label={`Restore ${appWindowTitle(win)} window`} whileHover={magnify}
+            transition={reduceMotion ? { duration: 0 } : { type: "spring", stiffness: 300, damping: 20 }} className={styles.launcher}
+            onFocus={event => revealDockControl(event.currentTarget)} onClick={() => { restoreWindow(win.id); focusPortfolioWindow(win.id); }}>
+            <span aria-hidden="true" className="bg-[#1e1e1e]/90 backdrop-blur-md border border-white/20 rounded-lg flex flex-col overflow-hidden shadow-lg object-contain" style={iconStyle}>
+              <span className="h-3 w-full bg-white/10 flex items-center px-1 gap-[2px]">
+                <span className="w-1 h-1 rounded-full bg-[#ff5f56]" />
+                <span className="w-1 h-1 rounded-full bg-[#ffbd2e]" />
+                <span className="w-1 h-1 rounded-full bg-[#27c93f]" />
+              </span>
+              <span className="flex-1 w-full flex items-center justify-center p-1">
+                <span className="text-[8px] md:text-[9px] text-white/80 font-medium truncate w-full text-center">{appWindowTitle(win)}</span>
+              </span>
+            </span>
+            <span aria-hidden="true" className={styles.launcherLabel}>Restore {appWindowTitle(win)}</span>
+          </motion.button>
         ))}
 
-        {minimizedWindows.length > 0 && <div className="w-[1px] h-12 bg-white/30 mx-1 rounded-full"></div>}
+        {minimizedWindows.length > 0 && <div aria-hidden="true" className="w-[1px] h-12 bg-white/30 mx-1 rounded-full"></div>}
 
-        <motion.div
+        <motion.button type="button" aria-label="Open Bin" aria-current={windows[focusedWindowId ?? ""]?.kind === "bin" ? "true" : undefined}
           id="trash-bin"
           data-dock-app="bin"
           whileHover={magnify}
-          animate={isTrashHover ? { scale: 1.4, translateY: -10 } : { scale: 1, translateY: 0 }}
-          transition={{ type: "spring", stiffness: 300, damping: 20 }}
-          className={`relative group cursor-pointer rounded-xl ${isTrashHover ? "bg-white/20 ring-2 ring-red-400/70" : ""}`}
+          animate={isTrashHover && !reduceMotion ? { scale: 1.4, translateY: -10 } : { scale: 1, translateY: 0 }}
+          transition={reduceMotion ? { duration: 0 } : { type: "spring", stiffness: 300, damping: 20 }}
+          className={`${styles.launcher} ${isTrashHover ? "bg-white/20 ring-2 ring-red-400/70" : ""}`}
+          onFocus={event => revealDockControl(event.currentTarget)}
           onClick={handleBinClick}
         >
-            <Image src={getBinIcon()} alt="Bin" width={iconPx} height={iconPx} loading="eager" draggable={false} style={iconStyle} className="drop-shadow-md pointer-events-none select-none object-contain" />
-          <span className="absolute -top-10 left-1/2 -translate-x-1/2 px-3 py-1 bg-gray-900/80 text-white text-xs rounded-md opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-50">
+            <Image src={getBinIcon()} alt="" aria-hidden="true" width={iconPx} height={iconPx} loading="eager" draggable={false} style={iconStyle} className="drop-shadow-md pointer-events-none select-none object-contain" />
+          <span aria-hidden="true" className={styles.launcherLabel}>
             Bin
           </span>
-        </motion.div>
+        </motion.button>
         
       </div>
-    </div>
+    </nav>
   );
 }

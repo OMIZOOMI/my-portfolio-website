@@ -1,0 +1,16 @@
+{
+  "buttons": [
+    {
+      "pressed": "true",
+      "text": "Largest145%"
+    },
+    {
+      "pressed": "true",
+      "text": "Largest"
+    }
+  ],
+  "localWidth": 267,
+  "overflow": 0,
+  "viewport": 390,
+  "width": 390.0500183105469
+}

@@ -1,5 +1,25 @@
 import { createVideoFrameScheduler } from "./videoFrameScheduler";
 
+type PaintedFrame = { video: HTMLVideoElement; source: HTMLVideoElement["srcObject"]; width: number; height: number; paintedAt: number };
+const paintedFrames = new WeakMap<HTMLCanvasElement, PaintedFrame>();
+export const CAMERA_FRAME_MAX_AGE_MS = 1500;
+
+export function hasLiveCameraSource(video: HTMLVideoElement) {
+  const stream = video.srcObject as MediaStream | null;
+  return !video.paused && !video.ended && video.readyState >= 2 && video.videoWidth > 0 && video.videoHeight > 0
+    && typeof stream?.getVideoTracks === "function"
+    && stream.getVideoTracks().some(track => track.readyState === "live" && track.enabled && !track.muted);
+}
+
+/** Readiness comes from a successful paint, not just a live permission/track. */
+export function getCameraPreviewFrame(video: HTMLVideoElement, canvas: HTMLCanvasElement, now = Date.now()) {
+  const frame = paintedFrames.get(canvas);
+  if (!frame || frame.video !== video || frame.source !== video.srcObject || !hasLiveCameraSource(video)
+    || canvas.width !== frame.width || canvas.height !== frame.height || frame.width < 2 || frame.height < 2
+    || now < frame.paintedAt || now - frame.paintedAt > CAMERA_FRAME_MAX_AGE_MS) return null;
+  return { width: frame.width, height: frame.height };
+}
+
 export function cameraCoverCrop(sourceWidth: number, sourceHeight: number, width: number, height: number) {
   const scale = Math.max(width / sourceWidth, height / sourceHeight);
   const sw = width / scale, sh = height / scale;
@@ -22,6 +42,7 @@ export function startCameraPreview(video: HTMLVideoElement, canvas: HTMLCanvasEl
     const width = Math.max(1, canvas.clientWidth), height = Math.max(1, canvas.clientHeight);
     const scale = Math.min(globalThis.devicePixelRatio || 1, 1.5, 960 / width, 540 / height);
     const nextWidth = Math.max(1, Math.round(width * scale)), nextHeight = Math.max(1, Math.round(height * scale));
+    if (canvas.width !== nextWidth || canvas.height !== nextHeight) paintedFrames.delete(canvas);
     if (canvas.width !== nextWidth) canvas.width = nextWidth;
     if (canvas.height !== nextHeight) canvas.height = nextHeight;
   };
@@ -32,8 +53,10 @@ export function startCameraPreview(video: HTMLVideoElement, canvas: HTMLCanvasEl
       // Mirror exactly once. Inference still receives the original video.
       context.setTransform(-1, 0, 0, 1, canvas.width, 0);
       context.drawImage(video, crop.sx, crop.sy, crop.sw, crop.sh, 0, 0, canvas.width, canvas.height);
+      paintedFrames.set(canvas, { video, source: video.srcObject, width: canvas.width, height: canvas.height, paintedAt: Date.now() });
       if (!reported) { reported = true; globalThis.clearTimeout(deadline); ready(); }
     } catch {
+      paintedFrames.delete(canvas);
       scheduler.stop();
       globalThis.clearTimeout(deadline);
       if (!disposed) failed();
@@ -43,5 +66,5 @@ export function startCameraPreview(video: HTMLVideoElement, canvas: HTMLCanvasEl
   const observer = new ResizeObserver(resize);
   observer.observe(canvas);
   scheduler.start();
-  return () => { disposed = true; globalThis.clearTimeout(deadline); scheduler.stop(); observer.disconnect(); canvas.width = 0; canvas.height = 0; };
+  return () => { disposed = true; paintedFrames.delete(canvas); globalThis.clearTimeout(deadline); scheduler.stop(); observer.disconnect(); canvas.width = 0; canvas.height = 0; };
 }

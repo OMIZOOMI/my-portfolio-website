@@ -1,0 +1,52 @@
+{
+  "canonical": null,
+  "description": "Explore Om Sawkare’s work in computer vision, AI workflows, and backend development through an interactive portfolio.",
+  "icons": [
+    {
+      "href": "[Inspection extension replaces the displayed favicon; see server-metadata.json for website URLs]",
+      "rel": "icon",
+      "type": "image/x-icon"
+    },
+    {
+      "href": "[Inspection extension replaces the displayed favicon; see server-metadata.json for website URLs]",
+      "rel": "icon",
+      "type": "image/svg+xml"
+    },
+    {
+      "href": "/apple-icon.png?apple-icon.3z66q7e9qm7jb.png",
+      "rel": "apple-touch-icon",
+      "type": "image/png"
+    }
+  ],
+  "share": [
+    {
+      "content": "Om Sawkare — Interactive Portfolio",
+      "name": "og:title"
+    },
+    {
+      "content": "Explore Om Sawkare’s work in computer vision, AI workflows, and backend development through an interactive portfolio.",
+      "name": "og:description"
+    },
+    {
+      "content": "Om’s Portfolio",
+      "name": "og:site_name"
+    },
+    {
+      "content": "website",
+      "name": "og:type"
+    },
+    {
+      "content": "summary",
+      "name": "twitter:card"
+    },
+    {
+      "content": "Om Sawkare — Interactive Portfolio",
+      "name": "twitter:title"
+    },
+    {
+      "content": "Explore Om Sawkare’s work in computer vision, AI workflows, and backend development through an interactive portfolio.",
+      "name": "twitter:description"
+    }
+  ],
+  "title": "Om Sawkare — Interactive Portfolio"
+}

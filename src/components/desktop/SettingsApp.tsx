@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { GlassButton, GlassSwitch } from "../ui/PortfolioGlass";
 import { useShallow } from "zustand/react/shallow";
 import {
   Sun,
@@ -12,6 +13,7 @@ import {
   Database,
   Check,
   AlertTriangle,
+  Volume2,
 } from "lucide-react";
 import {
   useSystemStore,
@@ -24,6 +26,12 @@ import { useMailStore } from "../window-manager/useMailStore";
 import { useWindowStore, type WindowState } from "../window-manager/useWindowStore";
 import { WallpaperPicker } from "./WallpaperPicker";
 import styles from "./SettingsApp.module.css";
+import { DISPLAY_SIZES, ICON_SIZES, useDisplayStore } from "../window-manager/useDisplayStore";
+import { useWorkspaceStore } from "../workspace/useWorkspaceStore";
+import { PortfolioIdentity } from "../portfolio/PortfolioIdentity";
+import { PortfolioResetDialog } from "./PortfolioResetDialog";
+import { resetPortfolioSettings } from "./resetPortfolioSettings";
+import { useIntroductionStore } from "../portfolio/useIntroductionStore";
 
 const ACCENTS: { name: AccentName; label: string }[] = [
   { name: "blue", label: "Blue" },
@@ -33,12 +41,13 @@ const ACCENTS: { name: AccentName; label: string }[] = [
   { name: "graphite", label: "Graphite" },
 ];
 
-type TabId = "appearance" | "about" | "accessibility" | "dock" | "advanced";
+type TabId = "appearance" | "about" | "accessibility" | "sound" | "dock" | "advanced";
 
 const TABS: { id: TabId; label: string; icon: React.ReactNode }[] = [
   { id: "appearance", label: "Appearance", icon: <Palette size={15} /> },
   { id: "about", label: "About", icon: <Info size={15} /> },
   { id: "accessibility", label: "Accessibility", icon: <Accessibility size={15} /> },
+  { id: "sound", label: "Sound", icon: <Volume2 size={15} /> },
   { id: "dock", label: "Dock", icon: <DockIcon size={15} /> },
   { id: "advanced", label: "Advanced", icon: <Database size={15} /> },
 ];
@@ -62,24 +71,19 @@ function Toggle({
   accent: string;
   label: string;
 }) {
-  return (
-    <button
-      role="switch"
-      aria-checked={on}
-      aria-label={label}
-      onClick={() => onChange(!on)}
-      className={`w-11 h-6 rounded-full p-0.5 transition-colors shrink-0 ${on ? "" : "bg-gray-300 dark:bg-white/15"}`}
-      style={on ? { backgroundColor: accent } : undefined}
-    >
-      <span
-        className="block w-5 h-5 rounded-full bg-white shadow transition-transform"
-        style={{ transform: on ? "translateX(20px)" : "translateX(0)" }}
-      />
-    </button>
-  );
+  return <GlassSwitch aria-label={label} checked={on} onCheckedChange={onChange}
+    className={styles.glassToggle} style={{ "--lg-on": accent } as React.CSSProperties} />;
 }
 
 export function SettingsApp({ window }: { window: WindowState }) {
+  const [resetOpen, setResetOpen] = React.useState(false);
+  const [resetStatus, setResetStatus] = React.useState("");
+  const resetButton = React.useRef<HTMLButtonElement>(null);
+  const interfaceScale = useDisplayStore(s => s.interfaceScale);
+  const iconScale = useDisplayStore(s => s.iconScale);
+  const screenView = useDisplayStore(s => s.screenView);
+  const defaultView = useDisplayStore(s => s.defaultView);
+  const keyboardSounds = useWorkspaceStore(s => s.keyboardSounds);
   const activeTab = window.settingsSection ?? "appearance";
   const setActiveTab = (section: TabId) => useWindowStore.getState().setSettingsSection(window.id, section);
   const {
@@ -112,13 +116,12 @@ export function SettingsApp({ window }: { window: WindowState }) {
 
   const accentHex = ACCENT_HEX[accent];
 
-  const handleFactoryReset = () => {
-    const confirmed = globalThis.confirm(
-      "Erase All Content and Settings?\n\nThis wipes every persisted state (notes, mail, Finder layout, trash) and reloads fresh. This cannot be undone."
-    );
-    if (!confirmed) return;
-    localStorage.clear();
-    globalThis.location.reload();
+  const handlePreferenceReset = () => {
+    const result = resetPortfolioSettings();
+    setResetOpen(false);
+    setResetStatus(result.failedKeys.length
+      ? "Defaults applied for this visit. This browser could not update saved preferences. Your open work was kept."
+      : "Portfolio settings reset. Your current view and open work were kept.");
   };
 
   return (
@@ -240,25 +243,9 @@ export function SettingsApp({ window }: { window: WindowState }) {
 
         {activeTab === "about" && (
           <div className="max-w-md">
-            <h2 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">About This Mac</h2>
+            <h2 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">About This Portfolio</h2>
             <div className="rounded-2xl bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 p-6 flex flex-col items-center text-center transition-colors duration-1000 ease-in-out">
-              <span className="text-5xl mb-3" aria-hidden="true">💻</span>
-              <p className="text-lg font-bold text-gray-900 dark:text-white">Om Nilesh Sawkare</p>
-              <p className="text-sm text-gray-500 dark:text-gray-400 mb-5">Portfolio OS 26.4</p>
-              <dl className="w-full text-left text-sm space-y-3">
-                <div className="flex justify-between gap-4 border-b border-gray-200 dark:border-white/5 pb-2.5">
-                  <dt className="text-gray-500 dark:text-gray-400">Processor</dt>
-                  <dd className="font-medium text-right">Final-Year Computer Science Engineering</dd>
-                </div>
-                <div className="flex justify-between gap-4 border-b border-gray-200 dark:border-white/5 pb-2.5">
-                  <dt className="text-gray-500 dark:text-gray-400">Memory</dt>
-                  <dd className="font-medium text-right">C++, Python, Java, Next.js</dd>
-                </div>
-                <div className="flex justify-between gap-4">
-                  <dt className="text-gray-500 dark:text-gray-400">Graphics</dt>
-                  <dd className="font-medium text-right">Edge AI &amp; Cloud-Native Architectures</dd>
-                </div>
-              </dl>
+              <PortfolioIdentity />
             </div>
           </div>
         )}
@@ -266,18 +253,54 @@ export function SettingsApp({ window }: { window: WindowState }) {
         {activeTab === "accessibility" && (
           <div className="max-w-md">
             <h2 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Accessibility</h2>
+            <div className={styles.readabilityCard} data-laptop-setting>
+              <h3>A quick introduction</h3><p>Explore the portfolio at your own pace. Replaying keeps your open work.</p>
+              <GlassButton type="button" className={styles.actionButton} onClick={() => useIntroductionStore.getState().replay()}>Replay introduction</GlassButton>
+            </div>
+            <div className={styles.readabilityCard} data-laptop-setting>
+              <h3>Make room to read</h3>
+              <p>Screen view fills the page with your desktop. Your open apps and work stay with you.</p>
+              <GlassButton type="button" className={styles.actionButton} aria-pressed={screenView} onClick={() => useDisplayStore.getState().setScreenView(!screenView)}>{screenView ? "Back to laptop" : "Enter Screen view"}</GlassButton>
+              <p>Switching views keeps your apps open. Choose a default below to remember how your next visit starts.</p>
+              <div className={styles.sizeOptions} role="group" aria-label="Default portfolio view">
+                <GlassButton type="button" data-default-view="laptop" aria-pressed={defaultView === "laptop"} onClick={() => useDisplayStore.getState().setDefaultView("laptop")}>Start in laptop view</GlassButton>
+                <GlassButton type="button" data-default-view="screen" aria-pressed={defaultView === "screen"} onClick={() => useDisplayStore.getState().setDefaultView("screen")}>Start in Screen view</GlassButton>
+              </div>
+            </div>
+            <div className={styles.readabilityCard}>
+              <h3>Text & interface size</h3>
+              <p>Enlarge text, controls, and the Dock together.</p>
+              <div className={styles.sizeOptions} role="group" aria-label="Text and interface size">
+                {DISPLAY_SIZES.map((size, index) => <GlassButton key={size} type="button" data-interface-size={size} aria-pressed={interfaceScale === size} onClick={() => useDisplayStore.getState().setInterfaceScale(size)}>{["Default", "Larger", "Large", "Largest"][index]}<small>{Math.round(size * 100)}%</small></GlassButton>)}
+              </div>
+            </div>
+            <div className={styles.readabilityCard}>
+              <h3>Folder & file icons</h3><p>A little extra room for desktop and Files icons.</p>
+              <div className={styles.sizeOptions} role="group" aria-label="Folder and file icon size">
+                {ICON_SIZES.map((size, index) => <GlassButton key={size} type="button" data-icon-size={size} aria-pressed={iconScale === size} onClick={() => useDisplayStore.getState().setIconScale(size)}>{["Default", "Larger", "Largest"][index]}</GlassButton>)}
+              </div>
+            </div>
             <div className="rounded-xl bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 p-4 transition-colors duration-1000 ease-in-out flex items-center justify-between gap-4">
               <div>
                 <p className="text-sm font-semibold">Reduce Motion</p>
                 <p className="text-xs text-gray-500 dark:text-gray-400 mt-1 leading-relaxed">
-                  Disables celebratory animation loops (FaceTime confetti, floating likes)
-                  and other heavy motion across the OS.
+                  Reduces camera effects and other motion across the portfolio.
                 </p>
               </div>
               <Toggle on={reduceMotion} onChange={setReduceMotion} accent={accentHex} label="Reduce motion" />
             </div>
           </div>
         )}
+
+        {activeTab === "sound" && <div className="max-w-md">
+          <h2 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Sound</h2>
+          <div className={styles.readabilityCard}>
+            <div className={styles.toggleRow}><div><h3>Keyboard clicks</h3><p>Soft, creamy mechanical clicks with each keypress. Sound begins when you type.</p></div>
+              <Toggle on={keyboardSounds} onChange={(enabled) => useWorkspaceStore.getState().setKeyboardSounds(enabled)} accent={accentHex} label="Keyboard click sounds" />
+            </div>
+          </div>
+          <p className="text-xs leading-5 text-gray-500 dark:text-gray-400">Cream switch recordings by <a className="underline" href="https://github.com/tplai/kbsim" target="_blank" rel="noreferrer">Thomas Lai</a>. Adapted under the <a className="underline" href="/sounds/keyboard/LICENSE.txt" target="_blank" rel="noreferrer">MIT license</a>.</p>
+        </div>}
 
         {activeTab === "dock" && (
           <div className="max-w-md">
@@ -319,7 +342,7 @@ export function SettingsApp({ window }: { window: WindowState }) {
           <div className="max-w-md">
             <h2 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Advanced</h2>
             <div className="mb-6">
-              <SectionTitle>Storage</SectionTitle>
+              <SectionTitle>Portfolio session</SectionTitle>
               <div className="rounded-xl bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 divide-y divide-gray-200 dark:divide-white/5 text-sm transition-colors duration-1000 ease-in-out">
                 {[
                   ["Desktop items", desktopIds.length],
@@ -337,19 +360,21 @@ export function SettingsApp({ window }: { window: WindowState }) {
             <div>
               <SectionTitle>Reset</SectionTitle>
               <button
-                onClick={handleFactoryReset}
-                className="w-full flex items-center justify-center gap-2 bg-red-600 hover:bg-red-500 active:bg-red-700 text-white text-sm font-semibold rounded-xl px-4 py-3 transition-colors"
+                ref={resetButton} type="button" onClick={() => setResetOpen(true)}
+                className={styles.resetButton}
               >
                 <AlertTriangle size={16} />
-                Erase All Content and Settings
+                Reset portfolio settings
               </button>
               <p className="text-xs text-gray-500 mt-2 leading-relaxed">
-                Wipes notes, mail, Finder layout, trash, and all persisted states, then reloads fresh.
+                Restore this website’s preferences. Your notes, drafts, folders, and introduction status stay safe.
               </p>
+              {resetStatus && <p className="mt-3 text-sm leading-6" role="status">{resetStatus}</p>}
             </div>
           </div>
         )}
       </div>
+      {resetOpen && <PortfolioResetDialog returnFocus={resetButton} onCancel={() => setResetOpen(false)} onReset={handlePreferenceReset} />}
     </div>
   );
 }

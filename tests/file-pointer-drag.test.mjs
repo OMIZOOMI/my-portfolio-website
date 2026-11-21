@@ -17,8 +17,9 @@ function load(relative, dependencies = {}, globals = {}) {
   return loadedModule.exports;
 }
 const { createPlanarCoordinateSpace } = load("../src/components/window-manager/desktopCoordinates.ts");
+const desktopIconLayout = load("../src/components/desktop/desktopIconLayout.ts");
 const quad = project => ({
-  topLeft: project(0, 0), topRight: project(84, 0), bottomRight: project(84, 88), bottomLeft: project(0, 88),
+  topLeft: project(0, 0), topRight: project(84, 0), bottomRight: project(84, 116), bottomLeft: project(0, 116),
 });
 
 test("file drag preserves the true grab offset of a right-side icon under perspective", () => {
@@ -29,7 +30,7 @@ test("file drag preserves the true grab offset of a right-side icon under perspe
   const rootSpace = createPlanarCoordinateSpace({ width: 1400, height: 900 }, {
     topLeft: project(0, 0), topRight: project(1400, 0), bottomRight: project(1400, 900), bottomLeft: project(0, 900),
   });
-  const itemSpace = createPlanarCoordinateSpace({ width: 84, height: 88 }, quad((x, y) => project(1300 + x, 48 + y)));
+  const itemSpace = createPlanarCoordinateSpace({ width: 84, height: 116 }, quad((x, y) => project(1300 + x, 48 + y)));
   let input;
   class Element { closest() { return null; } }
   const { beginFilePointerDrag } = load("../src/components/desktop/beginFilePointerDrag.ts", {
@@ -71,7 +72,7 @@ test("dock panel blocks drops through to a window behind it while empty side str
     querySelector: selector => selector === "[data-dock-surface]" ? dock : null,
     querySelectorAll: selector => selector === "[data-window-frame]" ? [frame] : selector === "[data-finder-content]" ? [content] : [],
   };
-  const { hitTestDrop } = load("../src/components/desktop/fileDrag.ts", { "../window-manager/desktopCoordinates": {} }, { document });
+  const { hitTestDrop } = load("../src/components/desktop/fileDrag.ts", { "../window-manager/desktopCoordinates": {}, "./desktopIconLayout": desktopIconLayout }, { document });
   assert.equal(hitTestDrop(700, 850).target, null, "the visible dock prevents a drop through to Finder");
   assert.equal(hitTestDrop(100, 850).target, "finder", "the empty positioning strip is not a drop barrier");
 });

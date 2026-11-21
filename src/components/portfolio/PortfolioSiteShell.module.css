@@ -1,0 +1,5 @@
+.site { position: fixed; inset: 0; min-height: 0; }
+.desktop { position: absolute; inset: 0; }
+/* Keep measured geometry and mounted app state while disabling hidden input. */
+.desktop[aria-hidden="true"] { opacity: 0; pointer-events: none; }
+.readingSlot { position: absolute; inset: 0; }

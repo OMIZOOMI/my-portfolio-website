@@ -11,7 +11,7 @@ const compiled = ts.transpileModule(readFileSync(filename, "utf8"), {
   compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2020 },
 }).outputText;
 runInThisContext(`(function(module, exports) { ${compiled}\n})`, { filename })(loadedModule, loadedModule.exports);
-const { createPlanarCoordinateSpace, getDesktopCoordinateSpace } = loadedModule.exports;
+const { createPlanarCoordinateSpace, getDesktopCoordinateSpace, getVisibleDesktopBounds } = loadedModule.exports;
 const near = (actual, expected, tolerance = 1e-7) => {
   assert.ok(actual, "conversion must exist");
   assert.ok(Math.abs(actual.x - expected.x) <= tolerance, `x: ${actual.x} vs ${expected.x}`);
@@ -111,6 +111,16 @@ function fakeDesktop() {
   };
   return root;
 }
+
+test("visible menu/editor bounds use the shared projection and actual viewport intersection", () => {
+  const root = fakeDesktop();
+  root.ownerDocument.defaultView = { innerWidth: 800, innerHeight: 400 };
+  const bounds = getVisibleDesktopBounds(root);
+  near({ x: bounds.left, y: bounds.top }, { x: 6, y: 6 });
+  near({ x: bounds.right, y: bounds.bottom }, { x: (800 - 100) / .6 - 6, y: (400 - 70) / .4 - 6 });
+  root.ownerDocument.defaultView = null;
+  assert.equal(getVisibleDesktopBounds(root), null);
+});
 
 test("DOM coordinate probes are inert and reused while live camera/zoom/layout measurements stay fresh", () => {
   const root = fakeDesktop();

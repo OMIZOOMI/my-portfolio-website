@@ -1,0 +1,499 @@
+{
+  "browser": "Chrome/157.0.8103.79",
+  "viewport": {
+    "width": 1440,
+    "height": 1000
+  },
+  "scenarios": [
+    {
+      "name": "larger-targets-respond-outside-visible-dots",
+      "targets": [
+        {
+          "action": "close",
+          "width": 28,
+          "height": 28,
+          "projectedWidth": 28,
+          "projectedHeight": 28,
+          "label": "Close"
+        },
+        {
+          "action": "minimize",
+          "width": 28,
+          "height": 28,
+          "projectedWidth": 28,
+          "projectedHeight": 28,
+          "label": "Minimize"
+        },
+        {
+          "action": "maximize",
+          "width": 28,
+          "height": 28,
+          "projectedWidth": 28,
+          "projectedHeight": 28,
+          "label": "Maximize"
+        }
+      ],
+      "minimizePoint": {
+        "x": 296.6,
+        "y": 168.5
+      },
+      "maximizePoint": {
+        "x": 324.6,
+        "y": 168.5
+      },
+      "maximized": {
+        "width": 1440,
+        "height": 882,
+        "left": "0px",
+        "top": "28px",
+        "transform": "none",
+        "pointerEvents": "auto",
+        "rect": {
+          "left": 0,
+          "top": 28,
+          "right": 1440,
+          "bottom": 910,
+          "width": 1440,
+          "height": 882
+        },
+        "desktop": {
+          "width": 1440,
+          "height": 1000,
+          "left": 0,
+          "top": 0,
+          "right": 1440,
+          "bottom": 1000
+        }
+      },
+      "closePoint": {
+        "x": 268.6,
+        "y": 168.5
+      },
+      "status": "PASS",
+      "elapsedMs": 7774
+    },
+    {
+      "name": "repeated-real-pointer-actions-and-combination-races",
+      "realPointerCycles": 5,
+      "burst": [
+        "maximize",
+        "minimize",
+        "maximize",
+        "close",
+        "minimize",
+        "maximize",
+        "close"
+      ],
+      "final": {
+        "width": 1440,
+        "height": 882,
+        "left": "0px",
+        "top": "28px",
+        "transform": "none",
+        "pointerEvents": "auto",
+        "rect": {
+          "left": 0,
+          "top": 28,
+          "right": 1440,
+          "bottom": 910,
+          "width": 1440,
+          "height": 882
+        },
+        "desktop": {
+          "width": 1440,
+          "height": 1000,
+          "left": 0,
+          "top": 0,
+          "right": 1440,
+          "bottom": 1000
+        }
+      },
+      "status": "PASS",
+      "elapsedMs": 11966
+    },
+    {
+      "name": "keyboard-controls-and-reduced-motion",
+      "focusVisible": {
+        "outline": "solid",
+        "outlineWidth": "2px",
+        "focused": true
+      },
+      "status": "PASS",
+      "elapsedMs": 4866
+    },
+    {
+      "name": "drag-cleanup-after-blur-close-and-pointer-cancel",
+      "after": {
+        "width": 642,
+        "height": 478,
+        "left": "250px",
+        "top": "150px",
+        "transform": "none",
+        "pointerEvents": "auto",
+        "rect": {
+          "left": 250,
+          "top": 150,
+          "right": 892,
+          "bottom": 628,
+          "width": 642,
+          "height": 478
+        },
+        "desktop": {
+          "width": 1440,
+          "height": 1000,
+          "left": 0,
+          "top": 0,
+          "right": 1440,
+          "bottom": 1000
+        }
+      },
+      "status": "PASS",
+      "elapsedMs": 6376
+    },
+    {
+      "name": "maximized-window-follows-desktop-resizing",
+      "sizes": [
+        {
+          "width": 1000,
+          "height": 750,
+          "state": {
+            "width": 1000,
+            "height": 632,
+            "left": "0px",
+            "top": "28px",
+            "transform": "none",
+            "pointerEvents": "auto",
+            "rect": {
+              "left": 0,
+              "top": 28,
+              "right": 1000,
+              "bottom": 660,
+              "width": 1000,
+              "height": 632
+            },
+            "desktop": {
+              "width": 1000,
+              "height": 750,
+              "left": 0,
+              "top": 0,
+              "right": 1000,
+              "bottom": 750
+            }
+          }
+        },
+        {
+          "width": 1700,
+          "height": 1100,
+          "state": {
+            "width": 1700,
+            "height": 982,
+            "left": "0px",
+            "top": "28px",
+            "transform": "none",
+            "pointerEvents": "auto",
+            "rect": {
+              "left": 0,
+              "top": 28,
+              "right": 1700,
+              "bottom": 1010,
+              "width": 1700,
+              "height": 982
+            },
+            "desktop": {
+              "width": 1700,
+              "height": 1100,
+              "left": 0,
+              "top": 0,
+              "right": 1700,
+              "bottom": 1100
+            }
+          }
+        },
+        {
+          "width": 1440,
+          "height": 1000,
+          "state": {
+            "width": 1440,
+            "height": 882,
+            "left": "0px",
+            "top": "28px",
+            "transform": "none",
+            "pointerEvents": "auto",
+            "rect": {
+              "left": 0,
+              "top": 28,
+              "right": 1440,
+              "bottom": 910,
+              "width": 1440,
+              "height": 882
+            },
+            "desktop": {
+              "width": 1440,
+              "height": 1000,
+              "left": 0,
+              "top": 0,
+              "right": 1440,
+              "bottom": 1000
+            }
+          }
+        }
+      ],
+      "status": "PASS",
+      "elapsedMs": 8301
+    },
+    {
+      "name": "edge-and-corner-resize-screen",
+      "dragFrames": {
+        "before": {
+          "width": 642,
+          "height": 478,
+          "left": "250px",
+          "top": "150px",
+          "transform": "none",
+          "pointerEvents": "auto",
+          "rect": {
+            "left": 250,
+            "top": 150,
+            "right": 892,
+            "bottom": 628,
+            "width": 642,
+            "height": 478
+          },
+          "desktop": {
+            "width": 1440,
+            "height": 1000,
+            "left": 0,
+            "top": 0,
+            "right": 1440,
+            "bottom": 1000
+          }
+        },
+        "wider": {
+          "width": 707,
+          "height": 478,
+          "left": "250px",
+          "top": "150px",
+          "transform": "none",
+          "pointerEvents": "auto",
+          "rect": {
+            "left": 250,
+            "top": 150,
+            "right": 957,
+            "bottom": 628,
+            "width": 707,
+            "height": 478
+          },
+          "desktop": {
+            "width": 1440,
+            "height": 1000,
+            "left": 0,
+            "top": 0,
+            "right": 1440,
+            "bottom": 1000
+          }
+        },
+        "corner": {
+          "width": 749,
+          "height": 513,
+          "left": "208px",
+          "top": "115px",
+          "transform": "none",
+          "pointerEvents": "auto",
+          "rect": {
+            "left": 208,
+            "top": 115,
+            "right": 957,
+            "bottom": 628,
+            "width": 749,
+            "height": 513
+          },
+          "desktop": {
+            "width": 1440,
+            "height": 1000,
+            "left": 0,
+            "top": 0,
+            "right": 1440,
+            "bottom": 1000
+          }
+        }
+      },
+      "before": {
+        "width": 642,
+        "height": 478,
+        "left": "250px",
+        "top": "150px",
+        "transform": "none",
+        "pointerEvents": "auto",
+        "rect": {
+          "left": 250,
+          "top": 150,
+          "right": 892,
+          "bottom": 628,
+          "width": 642,
+          "height": 478
+        },
+        "desktop": {
+          "width": 1440,
+          "height": 1000,
+          "left": 0,
+          "top": 0,
+          "right": 1440,
+          "bottom": 1000
+        }
+      },
+      "resized": {
+        "width": 749,
+        "height": 523,
+        "left": "208px",
+        "top": "115px",
+        "transform": "none",
+        "pointerEvents": "auto",
+        "rect": {
+          "left": 208,
+          "top": 115,
+          "right": 957,
+          "bottom": 638,
+          "width": 749,
+          "height": 523
+        },
+        "desktop": {
+          "width": 1440,
+          "height": 1000,
+          "left": 0,
+          "top": 0,
+          "right": 1440,
+          "bottom": 1000
+        }
+      },
+      "status": "PASS",
+      "elapsedMs": 6304
+    },
+    {
+      "name": "edge-and-corner-resize-laptop",
+      "dragFrames": {
+        "before": {
+          "width": 642,
+          "height": 478,
+          "left": "250px",
+          "top": "150px",
+          "transform": "none",
+          "pointerEvents": "auto",
+          "rect": {
+            "left": 418.203125,
+            "top": 146.8970184326172,
+            "right": 849.59521484375,
+            "bottom": 466.87400817871094,
+            "width": 431.39208984375,
+            "height": 319.97698974609375
+          },
+          "desktop": {
+            "width": 1400,
+            "height": 900,
+            "left": 247.26861572265625,
+            "top": 43.848751068115234,
+            "right": 1193.900146484375,
+            "bottom": 643.449275970459
+          }
+        },
+        "wider": {
+          "width": 739,
+          "height": 478,
+          "left": "250px",
+          "top": "150px",
+          "transform": "none",
+          "pointerEvents": "auto",
+          "rect": {
+            "left": 418.0372314453125,
+            "top": 146.5449676513672,
+            "right": 914.9550170898438,
+            "bottom": 466.69273376464844,
+            "width": 496.91778564453125,
+            "height": 320.14776611328125
+          },
+          "desktop": {
+            "width": 1400,
+            "height": 900,
+            "left": 246.99880981445312,
+            "top": 43.432796478271484,
+            "right": 1194.1706848144531,
+            "bottom": 643.344295501709
+          }
+        },
+        "corner": {
+          "width": 800,
+          "height": 529,
+          "left": "188.651px",
+          "top": "98.931px",
+          "transform": "none",
+          "pointerEvents": "auto",
+          "rect": {
+            "left": 375.95550537109375,
+            "top": 111.39083862304688,
+            "right": 915.4151611328125,
+            "bottom": 466.59136962890625,
+            "width": 539.4596557617188,
+            "height": 355.2005310058594
+          },
+          "desktop": {
+            "width": 1400,
+            "height": 900,
+            "left": 246.8634033203125,
+            "top": 43.22391891479492,
+            "right": 1194.306396484375,
+            "bottom": 643.2914848327637
+          }
+        }
+      },
+      "before": {
+        "width": 642,
+        "height": 478,
+        "left": "250px",
+        "top": "150px",
+        "transform": "none",
+        "pointerEvents": "auto",
+        "rect": {
+          "left": 418.203125,
+          "top": 146.8970184326172,
+          "right": 849.59521484375,
+          "bottom": 466.87400817871094,
+          "width": 431.39208984375,
+          "height": 319.97698974609375
+        },
+        "desktop": {
+          "width": 1400,
+          "height": 900,
+          "left": 247.26861572265625,
+          "top": 43.848751068115234,
+          "right": 1193.900146484375,
+          "bottom": 643.449275970459
+        }
+      },
+      "resized": {
+        "width": 800,
+        "height": 539,
+        "left": "188.651px",
+        "top": "98.931px",
+        "transform": "none",
+        "pointerEvents": "auto",
+        "rect": {
+          "left": 375.90576171875,
+          "top": 111.29377746582031,
+          "right": 915.4434204101562,
+          "bottom": 473.11061096191406,
+          "width": 539.5376586914062,
+          "height": 361.81683349609375
+        },
+        "desktop": {
+          "width": 1400,
+          "height": 900,
+          "left": 246.79327392578125,
+          "top": 43.115753173828125,
+          "right": 1194.376708984375,
+          "bottom": 643.2640686035156
+        }
+      },
+      "status": "PASS",
+      "elapsedMs": 6772
+    }
+  ]
+}

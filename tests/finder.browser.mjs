@@ -145,7 +145,7 @@ async function hoverTiming(page,selector) {
   return {durationMs:animation?.duration ?? (observed.pseudoProperty==='opacity'?parseFloat(observed.pseudoDuration)*1000:0),firstChangeMs:firstChange?.t ?? null,settledMs:settle?.t ?? null,trace};
 }
 async function verifyAfter(page,result) {
-  assert.deepEqual(await page.evaluate(`Array.from(document.querySelectorAll('${frame} [data-finder-location]'),el=>el.dataset.finderLocation)`),["desktop","documents","projects","bin"]);
+  assert.deepEqual(await page.evaluate(`Array.from(document.querySelectorAll('${frame} [data-finder-location]'),el=>el.dataset.finderLocation)`),["desktop","documents","projects","game","bin"]);
   assert.equal(await page.evaluate(`getComputedStyle(document.querySelector('${frame} [data-finder-grid]')).display`),"grid","Folder content must remain an icon grid");
   assert.equal(await page.evaluate(`document.querySelectorAll('${frame} button[aria-label="Close"]').length`),1,"Only native WindowFrame traffic lights");
   result.destinationNav=await verifyDestinations(page);
@@ -160,20 +160,18 @@ async function verifyAfter(page,result) {
   await click(page,`${frame} button[aria-label="Back"]`);await current(page,'desktop');
   await click(page,`${frame} button[aria-label="Forward"]`);await current(page,'documents');
   result.checks.push("Working back/forward and immediate navigation selection");
-  // Focus must be reached via Tab, not a synthetic focus or click.
-  for(let i=0;i<18;i++){
-    await key(page,"Tab","Tab",9);
-    if(await page.evaluate(`document.activeElement?.getAttribute('aria-label')==='Open Game'`))break;
-  }
-  assert.ok(await page.evaluate(`document.activeElement?.getAttribute('aria-label')==='Open Game'&&document.activeElement.matches(':focus-visible')`),"Keyboard folder focus must be visible");
+  assert.match(await page.evaluate(`document.querySelector('${frame} [data-finder-content="documents"]').textContent`),/This folder is empty/);
+  await click(page,nav('game'));await current(page,'game');
+  assert.equal(await page.evaluate(`document.querySelectorAll('${frame} [data-finder-app] img').length`),9);
+  assert.equal(await page.evaluate(`document.querySelector('${frame} button[aria-label="New Folder"]').disabled`),true);
+  await key(page,"Tab","Tab",9);
+  assert.ok(await page.evaluate(`document.activeElement?.getAttribute('aria-label')==='Open Heat Sink'&&document.activeElement.matches(':focus-visible')`),"Keyboard app focus must be visible");
   await page.screenshot("after-keyboard-focus",frame);
-  await key(page," ","Space",32);
-  assert.ok(await page.evaluate(`document.activeElement?.getAttribute('aria-pressed')==='true'`),"Space selects an icon");
-  await current(page,'documents');
-  await key(page,"Enter","Enter",13);await current(page,'game');
-  await page.evaluate(`(()=>{const p=document.querySelector('${frame} [data-finder-path]');const b=[...p.querySelectorAll('button')].find(b=>b.textContent.trim()==='Documents');if(!b)throw Error('Missing Documents ancestor');b.dataset.finderTestPath='documents'})()`);
-  await click(page,`${frame} [data-finder-test-path="documents"]`);await current(page,'documents');
-  result.checks.push("Physical Tab focus, Space selection, Enter open, and ancestor path navigation");
+  await key(page,"Enter","Enter",13);
+  await page.wait(`!!document.querySelector('[data-window-frame="app-heat-sink"][data-window-active="true"]')`,"Enter launches Heat Sink");
+  await click(page,'[data-window-frame="app-heat-sink"] [data-window-control="close"]');
+  await page.wait(`!document.querySelector('[data-window-frame="app-heat-sink"]')`,"Heat Sink closes");
+  result.checks.push("Documents stays empty; Apps displays launcher artwork and Enter opens the game");
   await click(page,nav('desktop'));await current(page,'desktop');
   result.resizes=[];
   for(const width of[480,360,640]){
@@ -189,7 +187,7 @@ async function verifyAfter(page,result) {
   await click(page,`${frame} button[aria-label="Hide sidebar"]`);
   assert.equal(await page.evaluate(`document.querySelectorAll('${frame} [data-finder-location]').length`),0,"Hide sidebar works");
   await click(page,`${frame} button[aria-label="Show sidebar"]`);
-  assert.equal(await page.evaluate(`document.querySelectorAll('${frame} [data-finder-location]').length`),4,"Show sidebar works");
+  assert.equal(await page.evaluate(`document.querySelectorAll('${frame} [data-finder-location]').length`),5,"Show sidebar works");
   result.checks.push("Sidebar toggle retains a working restore control");
 }
 async function dragRoundTrip(page) {

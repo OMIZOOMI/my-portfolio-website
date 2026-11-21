@@ -1,0 +1,206 @@
+{
+  "buildID": "rGsxrPXEjqkz_gprK0i_o",
+  "durationMs": 390,
+  "conditions": "Loopback HTTP; server checks, not browser navigation timings or cold-cache measurements",
+  "results": [
+    {
+      "path": "/projects/veyra",
+      "status": 200,
+      "title": "Veyra — Om Sawkare",
+      "readableInitialHTML": true,
+      "mediaElements": 0,
+      "links": [
+        "/",
+        "/projects/veyra",
+        "/projects/adobe-brand-audit",
+        "/?project=veyra",
+        "https://github.com/OMIZOOMI/Cross-Exam",
+        "https://github.com/OMIZOOMI/Cross-Exam/blob/9bafdb5df0d97668abd66e09fa342610da323ace/apps/scanner/src/investigate.test.ts#L311-L339",
+        "https://github.com/OMIZOOMI/Cross-Exam/blob/9bafdb5df0d97668abd66e09fa342610da323ace/apps/scanner/src/investigate.ts",
+        "https://github.com/OMIZOOMI/Cross-Exam/blob/9bafdb5df0d97668abd66e09fa342610da323ace/apps/web/src/lib/scan-handler.ts",
+        "https://github.com/OMIZOOMI/Cross-Exam/blob/9bafdb5df0d97668abd66e09fa342610da323ace/packages/contracts/src/index.ts",
+        "https://github.com/OMIZOOMI/Cross-Exam/blob/9bafdb5df0d97668abd66e09fa342610da323ace/apps/scanner/src/report.ts",
+        "https://github.com/OMIZOOMI/Cross-Exam/blob/9bafdb5df0d97668abd66e09fa342610da323ace/apps/web/src/components/finding-row.tsx",
+        "https://github.com/OMIZOOMI/Cross-Exam/blob/9bafdb5df0d97668abd66e09fa342610da323ace/apps/browser-worker/src/index.ts",
+        "https://github.com/OMIZOOMI/Cross-Exam/blob/9bafdb5df0d97668abd66e09fa342610da323ace/packages/agents/src/index.ts",
+        "https://github.com/OMIZOOMI/Cross-Exam/blob/9bafdb5df0d97668abd66e09fa342610da323ace/pnpm-lock.yaml",
+        "/projects/adobe-brand-audit",
+        "/?project=veyra"
+      ]
+    },
+    {
+      "path": "/projects/adobe-brand-audit",
+      "status": 200,
+      "title": "Adobe Hackathon · Brand AI Readiness Audit — Om Sawkare",
+      "readableInitialHTML": true,
+      "mediaElements": 0,
+      "links": [
+        "/",
+        "/projects/veyra",
+        "/projects/adobe-brand-audit",
+        "/?project=adobe-brand-audit",
+        "https://github.com/OMIZOOMI/brand-ai-readiness-audit",
+        "https://github.com/OMIZOOMI/brand-ai-readiness-audit/blob/657e157b17f8fa9c0d9742d88f9c71d56b0ddec0/skills/audit-orchestrator/references/example-report.json",
+        "https://github.com/OMIZOOMI/brand-ai-readiness-audit/blob/657e157b17f8fa9c0d9742d88f9c71d56b0ddec0/skills/audit-orchestrator/scripts/run_audit.py#L217-L312",
+        "https://github.com/OMIZOOMI/brand-ai-readiness-audit/blob/657e157b17f8fa9c0d9742d88f9c71d56b0ddec0/skills/audit-orchestrator/scripts/run_audit.py",
+        "https://github.com/OMIZOOMI/brand-ai-readiness-audit/blob/657e157b17f8fa9c0d9742d88f9c71d56b0ddec0/skills/audit-orchestrator/scripts/auditlib/crawler.py",
+        "https://github.com/OMIZOOMI/brand-ai-readiness-audit/blob/657e157b17f8fa9c0d9742d88f9c71d56b0ddec0/skills/crawl-render-audit/scripts/check_crawl_render.py",
+        "https://github.com/OMIZOOMI/brand-ai-readiness-audit/blob/657e157b17f8fa9c0d9742d88f9c71d56b0ddec0/skills/ai-citability-audit/scripts/check_citability.py",
+        "https://github.com/OMIZOOMI/brand-ai-readiness-audit/blob/657e157b17f8fa9c0d9742d88f9c71d56b0ddec0/skills/freshness-corroboration/scripts/check_freshness.py",
+        "https://github.com/OMIZOOMI/brand-ai-readiness-audit/blob/657e157b17f8fa9c0d9742d88f9c71d56b0ddec0/skills/engagement-audit/scripts/check_engagement.py",
+        "https://github.com/OMIZOOMI/brand-ai-readiness-audit/blob/657e157b17f8fa9c0d9742d88f9c71d56b0ddec0/skills/audit-orchestrator/scripts/auditlib/compose.py",
+        "https://github.com/OMIZOOMI/brand-ai-readiness-audit/blob/657e157b17f8fa9c0d9742d88f9c71d56b0ddec0/tests/test_composition.py",
+        "https://github.com/OMIZOOMI/brand-ai-readiness-audit/blob/657e157b17f8fa9c0d9742d88f9c71d56b0ddec0/marketplace.json",
+        "https://github.com/OMIZOOMI/brand-ai-readiness-audit/blob/657e157b17f8fa9c0d9742d88f9c71d56b0ddec0/tools/make_example_report.py",
+        "/projects/veyra",
+        "/?project=adobe-brand-audit"
+      ]
+    },
+    {
+      "path": "/projects/u13-unknown-project",
+      "status": 404,
+      "title": "Om Sawkare — Interactive Portfolio",
+      "readableInitialHTML": true,
+      "mediaElements": 0,
+      "links": [
+        "/projects/veyra",
+        "/projects/adobe-brand-audit",
+        "/"
+      ]
+    },
+    {
+      "path": "/",
+      "readableIdentityAndNavigationInInitialHTML": true
+    }
+  ],
+  "assets": [
+    {
+      "path": "public/wallpapers/alignment-overlays.webp",
+      "bytes": 100674
+    },
+    {
+      "path": "public/wallpapers/alpine-dark.webp",
+      "bytes": 192938
+    },
+    {
+      "path": "public/wallpapers/alpine-light.webp",
+      "bytes": 281216
+    },
+    {
+      "path": "public/wallpapers/coast-dark.webp",
+      "bytes": 159880
+    },
+    {
+      "path": "public/wallpapers/coast-light.webp",
+      "bytes": 247580
+    },
+    {
+      "path": "public/wallpapers/contact-sheet.webp",
+      "bytes": 416662
+    },
+    {
+      "path": "public/wallpapers/drift-dark.webp",
+      "bytes": 44400
+    },
+    {
+      "path": "public/wallpapers/drift-light.webp",
+      "bytes": 44884
+    },
+    {
+      "path": "public/wallpapers/dunes-dark.webp",
+      "bytes": 54642
+    },
+    {
+      "path": "public/wallpapers/dunes-light.webp",
+      "bytes": 59740
+    },
+    {
+      "path": "public/wallpapers/forest-dark.webp",
+      "bytes": 204994
+    },
+    {
+      "path": "public/wallpapers/forest-light.webp",
+      "bytes": 333656
+    },
+    {
+      "path": "public/wallpapers/lake-dark.webp",
+      "bytes": 135814
+    },
+    {
+      "path": "public/wallpapers/lake-light.webp",
+      "bytes": 176324
+    },
+    {
+      "path": "public/music/cipher.mp3",
+      "bytes": 4626329
+    },
+    {
+      "path": "public/music/electro-cabello.mp3",
+      "bytes": 3817578
+    },
+    {
+      "path": "public/music/just-as-soon.mp3",
+      "bytes": 4563113
+    },
+    {
+      "path": "public/music/life-of-riley.mp3",
+      "bytes": 4708354
+    },
+    {
+      "path": "public/music/night-in-venice.mp3",
+      "bytes": 4364060
+    },
+    {
+      "path": "public/music/roof-tops.mp3",
+      "bytes": 4290395
+    },
+    {
+      "path": "public/music/study-and-relax.mp3",
+      "bytes": 4469072
+    },
+    {
+      "path": "public/music/summer-felt-longer-then.mp3",
+      "bytes": 4560501
+    },
+    {
+      "path": "public/music/transformations-2.mp3",
+      "bytes": 4703652
+    },
+    {
+      "path": "public/workspaces/beach-hd.mp4",
+      "bytes": 19613425
+    },
+    {
+      "path": "public/workspaces/beach-hd.webp",
+      "bytes": 833548
+    },
+    {
+      "path": "public/workspaces/forest-hd.mp4",
+      "bytes": 19537742
+    },
+    {
+      "path": "public/workspaces/forest-hd.webp",
+      "bytes": 873512
+    },
+    {
+      "path": "public/workspaces/paper.png",
+      "bytes": 2606726
+    },
+    {
+      "path": "public/workspaces/slate.png",
+      "bytes": 3282586
+    },
+    {
+      "path": "public/workspaces/studio.png",
+      "bytes": 2903482
+    },
+    {
+      "path": "public/macbook.glb/scene.bin",
+      "bytes": 8293480
+    },
+    {
+      "path": "public/macbook.glb/scene.gltf",
+      "bytes": 98977
+    }
+  ]
+}

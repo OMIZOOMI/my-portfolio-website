@@ -1,0 +1,120 @@
+.shell { --portfolio-header-offset: 178px; position: fixed; inset: 0; }
+.shell[data-screen-view], :global(html[data-portfolio-boot-view="screen"]) .shell { --portfolio-header-offset: 0px; }
+.root { --entry-bg: #fbfbfd; --entry-text: #23252b; --entry-muted: #565b66; --entry-border: #dfe1e6; --entry-card: #f0f1f4; --entry-link: #235fa5; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: var(--entry-text); }
+:global(.dark) .root { --entry-bg: #222429; --entry-text: #f3f4f6; --entry-muted: #c2c6ce; --entry-border: #464a53; --entry-card: #2c2f35; --entry-link: #a5caff; }
+.header { position: fixed; top: 16px; left: 24px; right: 24px; z-index: 2147483647; display: flex; align-items: center; gap: 24px; min-height: 90px; padding: 13px 22px; border: 1px solid var(--entry-border); border-radius: 18px; background: var(--entry-bg); box-shadow: 0 5px 24px #00000015; }
+.identity { flex: 1; min-width: 0; }
+.eyebrow { margin: 0 0 4px; color: var(--entry-muted); font-size: 11px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; }
+.identity h1 { margin: 0; font-size: 23px; line-height: 1.2; letter-spacing: -.035em; font-weight: 650; }
+.role { margin: 5px 0 0; color: var(--entry-muted); font-size: 14px; line-height: 1.45; }
+.navigation { display: flex; align-items: center; gap: 4px; }
+.navigation a, .overview > summary, .secondaryButton { display: inline-flex; justify-content: center; align-items: center; gap: 8px; min-height: 44px; padding: 9px 14px; border-radius: 999px; cursor: pointer; font-size: 14px; line-height: 1.4; font-weight: 550; text-decoration: none; transition: transform 140ms cubic-bezier(0.22, 1, 0.36, 1), background-color 140ms ease, box-shadow 140ms ease, border-color 140ms ease; }
+.navigation a { color: var(--entry-text); }
+.navigation a:hover, .panelToolbar button:hover { background: var(--entry-card); }
+.overview > summary { list-style: none; color: var(--entry-bg); background: var(--entry-text); white-space: nowrap; }
+.overview > summary::-webkit-details-marker { display: none; }
+.overview[open] > summary { outline: 2px solid var(--entry-link); outline-offset: 3px; }
+.overviewPanel { position: absolute; top: calc(100% + 12px); right: 0; width: min(650px, calc(100vw - 48px)); max-height: calc(100dvh - 180px); overflow-y: auto; overscroll-behavior: contain; border: 1px solid rgba(255, 255, 255, 0.52); border-radius: 20px; background: var(--entry-bg); box-shadow: 0 24px 60px rgba(0, 0, 0, 0.34), inset 0 1.5px 0 rgba(255, 255, 255, 0.78), inset 0 -1px 0 rgba(255, 255, 255, 0.24); scrollbar-gutter: stable; scroll-padding-block: 24px; }
+:global(.dark) .overviewPanel { border-color: rgba(255, 255, 255, 0.2); box-shadow: 0 26px 64px rgba(0, 0, 0, 0.54), inset 0 1.5px 0 rgba(255, 255, 255, 0.28), inset 0 -1px 0 rgba(255, 255, 255, 0.1); }
+@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .overviewPanel {
+    background: linear-gradient(160deg, rgb(251 251 253 / 88%) 0%, rgb(242 244 250 / 82%) 100%);
+    backdrop-filter: blur(24px) saturate(1.38);
+    -webkit-backdrop-filter: blur(24px) saturate(1.38);
+  }
+  :global(.dark) .overviewPanel {
+    background: linear-gradient(160deg, rgb(40 43 50 / 88%) 0%, rgb(28 30 36 / 84%) 100%);
+  }
+}
+.panelToolbar { position: sticky; top: 0; z-index: 1; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 20px; border-bottom: 1px solid var(--entry-border); background: color-mix(in srgb, var(--entry-bg) 85%, transparent); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); }
+.panelToolbar p { margin: 0; color: var(--entry-muted); font-size: 12px; }
+.panelToolbar button { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 8px 12px; border: 1px solid transparent; border-radius: 999px; color: var(--entry-text); background: transparent; font: inherit; font-size: 13px; cursor: pointer; transition: background-color 120ms ease, box-shadow 120ms ease; }
+.panelToolbar button:hover { box-shadow: var(--lg-rim-highlight); }
+.overviewContent { padding: 6px 26px 20px; }
+.overviewContent section { padding-block: 25px; scroll-margin-block: 20px; }
+.overviewContent section + section { border-top: 1px solid var(--entry-border); }
+.overviewContent h2 { margin: 4px 0 12px; font-size: 25px; line-height: 1.2; font-weight: 650; letter-spacing: -.035em; }
+.overviewContent h3 { margin: 4px 0 10px; font-size: 18px; line-height: 1.4; font-weight: 600; }
+.overviewContent p { margin-block: 10px; color: var(--entry-muted); font-size: 15px; line-height: 1.65; max-width: 66ch; }
+.overviewContent .lead { color: var(--entry-text); font-size: 17px; }
+.overviewContent a { color: var(--entry-link); text-decoration: underline; text-underline-offset: 3px; overflow-wrap: anywhere; }
+.featuredProjects { display: grid; gap: 12px; margin: 18px 0; }
+.featuredProjects article { padding: 18px; border: 1px solid var(--entry-border); border-radius: 14px; background: var(--entry-card); box-shadow: var(--lg-rim-highlight); }
+.featuredProjects .projectStatus { margin: 0; font-size: 12px; }
+.actionRow { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; margin-top: 14px; }
+.actionRow > a { display: inline-flex; align-items: center; min-height: 44px; font-size: 14px; }
+.secondaryButton {
+  border: 1px solid var(--lg-rim-border, var(--entry-border));
+  background: var(--lg-pill-bg, var(--entry-bg));
+  box-shadow: var(--lg-pill-shadow);
+  color: var(--entry-text);
+  font-family: inherit;
+  font-size: 13px;
+}
+.secondaryButton:hover:not(:disabled) {
+  background: var(--lg-pill-bg-hover, var(--entry-card));
+  box-shadow: var(--lg-pill-shadow-hover);
+  transform: translateY(-1px);
+}
+.secondaryButton:active:not(:disabled) { transform: translateY(0) scale(0.98); }
+.secondaryButton:disabled { opacity: .58; cursor: default; }
+.overviewContent .smallPrint, .desktopStatus { font-size: 12px; line-height: 1.6; color: var(--entry-muted); }
+.desktopStatus { margin: 0; padding: 14px 26px; border-top: 1px solid var(--entry-border); }
+.replay { padding: 0 26px 18px; }
+.readingTools { position: absolute; right: 0; top: calc(100% + 8px); display: flex; gap: 6px; }
+.root:has(.overview[open]) .readingTools { display: none; }
+.root :is(a,button,summary):focus-visible { outline: 2px solid var(--entry-link); outline-offset: 3px; }
+:is(.root[data-screen-view], :global(html[data-portfolio-boot-view="screen"]) .root) .header { top: auto; left: auto; right: 18px; bottom: var(--overview-bottom); min-height: 0; padding: 0; border-radius: 12px; }
+:is(.root[data-screen-view], :global(html[data-portfolio-boot-view="screen"]) .root) :is(.identity,.navigation,.readingTools) { display: none; }
+:is(.root[data-screen-view], :global(html[data-portfolio-boot-view="screen"]) .root) .overviewPanel { position: fixed; top: 16px; bottom: auto; max-height: calc(100dvh - 32px); right: 18px; }
+@media (max-width: 880px) {
+  .shell { --portfolio-header-offset: 228px; }
+  .header { gap: 8px 14px; flex-wrap: wrap; padding: 12px 16px; }
+  .identity { flex-basis: 100%; }
+  .identity h1 { font-size: 22px; }
+  .navigation { flex: 1; }
+  .navigation a { padding-inline: 8px; }
+  .overviewPanel { max-height: calc(100dvh - 212px); }
+}
+@media (max-width: 480px) {
+  .header { top: 10px; left: 10px; right: 10px; padding: 12px; gap: 6px; }
+  .role { font-size: 13px; }
+  .navigation a, .overview > summary { padding-inline: 9px; font-size: 12px; }
+  .overviewPanel { width: calc(100vw - 20px); max-height: calc(100dvh - 228px); }
+  .overviewContent { padding-inline: 18px; }
+  .overviewContent h2 { font-size: 23px; }
+  :is(.root[data-screen-view], :global(html[data-portfolio-boot-view="screen"]) .root) .header { right: 10px; }
+  :is(.root[data-screen-view], :global(html[data-portfolio-boot-view="screen"]) .root) .overviewPanel { right: 10px; }
+}
+@media (max-width: 360px) {
+  .navigation { gap: 0; }
+  .navigation a { padding-inline: 5px; }
+  .overview > summary { padding-inline: 8px; }
+  .overview > summary > span { display: none; }
+}
+@media (max-height: 520px) {
+  .readingTools { display: none; }
+  .overviewPanel, :is(.root[data-screen-view], :global(html[data-portfolio-boot-view="screen"]) .root) .overviewPanel { position: fixed; top: 8px; right: 8px; width: min(650px, calc(100vw - 16px)); max-height: calc(100dvh - 16px); }
+}
+
+/* Screen view no longer reserves space for page chrome. Keep the semantic
+   overview mounted without placing a pointer-blocking layer over the desktop. */
+.shell { --portfolio-header-offset: 0px; }
+.root { position: fixed; inset: 0; z-index: 2147483646; pointer-events: none; }
+.overview { position: absolute; inset: 0; pointer-events: none; }
+.overviewSummary { position: absolute; width: 1px; height: 1px; overflow: hidden; padding: 0; border: 0; clip-path: inset(50%); white-space: nowrap; pointer-events: auto; }
+.overviewSummary:focus-visible { position: fixed; top: 12px; left: 12px; width: auto; height: auto; padding: 9px 13px; clip-path: none; border-radius: 10px; }
+.overview[open] > .overviewPanel { pointer-events: auto; }
+.overviewPanel { position: fixed; top: 16px; right: 16px; width: min(650px, calc(100vw - 32px)); max-height: calc(100dvh - 32px); z-index: 1; }
+.fallbackOverview { position: fixed; top: 16px; left: 16px; z-index: 2; min-height: 44px; max-width: min(300px, calc(100vw - 32px)); padding: 9px 14px; border: 1px solid var(--lg-rim-border, var(--entry-border)); border-radius: 999px; background: var(--lg-pill-bg, var(--entry-bg)); backdrop-filter: blur(18px) saturate(1.35); -webkit-backdrop-filter: blur(18px) saturate(1.35); color: var(--entry-text); box-shadow: var(--lg-pill-shadow); font: inherit; font-size: 13px; cursor: pointer; pointer-events: auto; transition: transform 140ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 140ms ease; }
+.fallbackOverview:hover { background: var(--lg-pill-bg-hover, var(--entry-card)); box-shadow: var(--lg-pill-shadow-hover); transform: translateY(-1px); }
+.root :is(a,button,summary):focus-visible { outline: 2px solid var(--entry-link); outline-offset: 3px; }
+
+@media (max-width: 480px) {
+  .overviewPanel { top: 10px; right: 10px; width: calc(100vw - 20px); max-height: calc(100dvh - 20px); }
+  .fallbackOverview { top: 10px; left: 10px; max-width: calc(100vw - 20px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .secondaryButton, .fallbackOverview { transition: none; }
+  .secondaryButton:hover:not(:disabled), .fallbackOverview:hover { transform: none; }
+}

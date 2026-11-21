@@ -1,0 +1,91 @@
+{
+  "browser": "Chrome/157.0.8103.79",
+  "site": "http://127.0.0.1:3024",
+  "viewport": {
+    "width": 1440,
+    "height": 1000
+  },
+  "checks": [
+    "Screen view fills viewport; Notes DOM and edited content survive",
+    "145% interface and 140% icons enlarge real content without shrinking the desktop surface",
+    "Keyboard sound control lives in macOS Settings and changes the existing preference",
+    "Terminal streams progressively; all seven project repositories are clickable; Show now completes output",
+    "Return transition preserves the same desktop, Notes editor and Terminal session",
+    "390px viewport fills page; narrow Dock scrolls; reduced motion skips zoom",
+    "Reload keeps validated readability preferences and starts in laptop view",
+    "Rapid enter/exit/enter settles one interactive desktop with no stale animation"
+  ],
+  "focused": {
+    "x": 0,
+    "y": 0,
+    "width": 1440,
+    "height": 1000,
+    "sameDesktop": true,
+    "sameEditor": true,
+    "text": "Readability continuity check. Developer Log\n\nLong before code, I built Lego robots and marvelled at Halo’s Spartan armor. That curiosity grew into a fascination with technology that extends what people can do.\n\nI’m Om Sawkare, a final-year student at VIT, working across computer vision, AI workflows, and backend development.\n\nMy main focus is Veyra, a website investigation tool I’m building to turn page evidence into clear, useful reports. I want people to understand what needs attention, why it matters, and what the tool could actually verify.\n\nMy Adobe hackathon brand-audit project explores how websites communicate with people and AI systems. Four analyzers share a crawl to produce a report with evidence and practical recommendations. Our team reached the top 45 among roughly 100,000 teams.\n\nWhite Box Detection gave me experience with YOLOv8 and OpenCV; my TigerGraph and FastAPI work strengthened my approach to evidence, data, and backend design.\n\nTechnology is only as powerful as the impact on a person's day to day"
+  },
+  "enlarged": {
+    "logicalWidth": 993,
+    "displayWidth": 1439.9859619140625,
+    "iconFont": "16.8px",
+    "preference": "{\"interfaceScale\":1.45,\"iconScale\":1.4,\"defaultView\":\"laptop\"}"
+  },
+  "terminal": {
+    "earlyCharacters": 55,
+    "laterCharacters": 178,
+    "links": [
+      {
+        "text": "↗ Veyra",
+        "href": "https://github.com/OMIZOOMI/Cross-Exam",
+        "target": "_blank"
+      },
+      {
+        "text": "↗ Adobe Hackathon · Brand AI Readiness Audit",
+        "href": "https://github.com/OMIZOOMI/brand-ai-readiness-audit",
+        "target": "_blank"
+      },
+      {
+        "text": "↗ White Box Detection",
+        "href": "https://github.com/OMIZOOMI/edge-ai-white-box",
+        "target": "_blank"
+      },
+      {
+        "text": "↗ TigerGraph Fraud Investigation",
+        "href": "https://github.com/OMIZOOMI/tigergraph-fraud-investigation",
+        "target": "_blank"
+      },
+      {
+        "text": "↗ Cloud-Native Task API",
+        "href": "https://github.com/OMIZOOMI/cloud-native-task-api",
+        "target": "_blank"
+      },
+      {
+        "text": "↗ SkyWatch",
+        "href": "https://github.com/OMIZOOMI/Skywatch",
+        "target": "_blank"
+      },
+      {
+        "text": "↗ Interactive 3D Portfolio",
+        "href": "https://github.com/OMIZOOMI/my-portfolio-website",
+        "target": "_blank"
+      },
+      {
+        "text": "More on GitHub ↗",
+        "href": "https://github.com/OMIZOOMI",
+        "target": "_blank"
+      }
+    ]
+  },
+  "narrow": {
+    "width": 390,
+    "height": 844,
+    "dockViewport": 364,
+    "dockContent": 609
+  },
+  "reload": {
+    "view": "laptop",
+    "preference": "{\"interfaceScale\":1.3,\"iconScale\":1.2,\"defaultView\":\"laptop\"}",
+    "scale": 1.3
+  },
+  "errors": []
+}

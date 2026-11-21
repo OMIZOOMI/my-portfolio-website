@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 96 96">
+  <defs>
+    <linearGradient id="case" x2="0" y2="1" gradientUnits="objectBoundingBox"><stop stop-color="#434a50"/><stop offset="1" stop-color="#22262b"/></linearGradient>
+    <linearGradient id="chip" x2="0" y2="1" gradientUnits="objectBoundingBox"><stop stop-color="#f6d28b"/><stop offset="1" stop-color="#b97b35"/></linearGradient>
+  </defs>
+  <rect x="4" y="4" width="88" height="88" rx="22" fill="#101215"/>
+  <rect x="5" y="5" width="86" height="85" rx="21" fill="url(#case)" stroke="#7a8287"/>
+  <rect x="13" y="13" width="70" height="70" rx="15" fill="#1a1e22" stroke="#101419"/>
+  <g stroke="#c5a475" stroke-width="3" stroke-linecap="round">
+    <path d="M38 22v10m10-10v10m10-10v10M38 64v10m10-10v10m10-10v10M22 38h10m-10 10h10m-10 10h10m32-20h10m-10 10h10m-10 10h10"/>
+  </g>
+  <rect x="30" y="30" width="36" height="38" rx="7" fill="#805924"/>
+  <rect x="30" y="30" width="36" height="35" rx="7" fill="url(#chip)" stroke="#f7daa5"/>
+  <path d="m50 36-12 14h9l-2 10 13-15h-9z" fill="#452e1a"/>
+</svg>

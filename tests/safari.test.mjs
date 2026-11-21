@@ -42,7 +42,7 @@ test("A and B keep independent URLs, histories, cursors and titles across repeat
  assert.deepEqual(tab(a).history.map(p=>p.url),[SAFARI_START_URL,A,B]);
  assert.deepEqual(tab(b).history.map(p=>p.url),[SAFARI_START_URL,C,A]);
  state().goBack(a);assert.equal(page(a).url,A);assert.equal(tab(a).historyIndex,1);assert.equal(tab(b),bTab);
- assert.equal(page(a).title,"Edge AI Hardware State Detection System");
+ assert.equal(page(a).title,"White Box Detection");
  state().goBack(b);assert.equal(page(b).url,C);assert.equal(page(a).url,A);
  state().goForward(a);assert.equal(page(a).url,B);assert.equal(page(b).url,C);
  state().goForward(b);assert.equal(page(b).url,A);
@@ -115,7 +115,7 @@ test("validated HTTP links are only link-preview history entries; internal title
  assert.equal(resolveSafariAddress('https://EXAMPLE.com').url,'https://example.com/');
  assert.equal(resolveSafariAddress('localhost:3000/demo').url,'https://localhost:3000/demo');
  assert.equal(resolveSafariAddress('').url,SAFARI_START_URL);assert.equal(resolveSafariAddress(SAFARI_START_URL+'#projects').title,'Project Demos');
- state().openProject('3d-macos-web-portfolio');assert.equal(page().title,'3D macOS Web Portfolio');
+ state().openProject('3d-macos-web-portfolio');assert.equal(page().title,'Interactive 3D Portfolio');
  state().openInNewTab('example.com');assert.equal(page().title,'Link: example.com');
 });
 test("invalid new-tab requests do not create fake successful pages",()=>{

@@ -32,6 +32,7 @@ export function DesktopIcon({ label, variant, glyph, accent = "#4c8dff", onOpen,
   const prefersReducedMotion = useReducedMotion();
   const buttonRef = useRef<HTMLButtonElement>(null);
   const pointerPress = useRef<number | null>(null);
+  const touchPress = useRef(false);
   const suppressPointerActivation = useRef(false);
   const acceptedPointerClicks = useRef(0);
   const ownSelected = useFileInteractionStore((state) => surfaceId && itemId ? state.selections[surfaceId] === itemId : false);
@@ -55,7 +56,7 @@ export function DesktopIcon({ label, variant, glyph, accent = "#4c8dff", onOpen,
   };
 
   return (
-    <div className={`${styles.iconShell} ${layout === "finder" ? styles.finderShell : ""}`} data-file-icon-shell={itemId}>
+    <div className={`${styles.iconShell} ${layout === "finder" ? styles.finderShell : ""} ${surfaceId === "desktop" ? styles.desktopShell : ""}`} data-file-icon-shell={itemId}>
     <motion.button
       ref={buttonRef}
       type="button"
@@ -68,6 +69,7 @@ export function DesktopIcon({ label, variant, glyph, accent = "#4c8dff", onOpen,
       onPointerDown={(event) => {
         if (event.button !== 0 || rename) return;
         pointerPress.current = event.pointerId;
+        touchPress.current = event.pointerType === "touch";
         suppressPointerActivation.current = false;
         select();
       }}
@@ -88,7 +90,8 @@ export function DesktopIcon({ label, variant, glyph, accent = "#4c8dff", onOpen,
         select();
         // Assistive technology activates a button with a zero-detail click.
         // Physical Enter/Space are handled below and suppress native clicks.
-        if (event.detail === 0) {
+        if (event.detail === 0 || touchPress.current) {
+          acceptedPointerClicks.current = 0;
           onOpen();
           return;
         }
@@ -107,6 +110,7 @@ export function DesktopIcon({ label, variant, glyph, accent = "#4c8dff", onOpen,
         event.preventDefault();
         event.stopPropagation();
       }}
+      onContextMenu={() => { if (touchPress.current) suppressPointerActivation.current = true; }}
       onDoubleClick={(event) => {
         event.preventDefault();
         event.stopPropagation();
@@ -116,6 +120,7 @@ export function DesktopIcon({ label, variant, glyph, accent = "#4c8dff", onOpen,
       whileTap={animate && !rename ? { scale: 0.97, y: 0 } : undefined}
       transition={{ type: "spring", duration: 0.3, bounce: 0 }}
       aria-label={`Open ${label}`}
+      title={label}
     >
       {/* ORIGINAL FILE VARIANT */}
       {variant === "file" && (

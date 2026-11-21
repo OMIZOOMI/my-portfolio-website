@@ -1,0 +1,61 @@
+{
+  "before": {
+    "dark": true,
+    "mode": "light",
+    "selected": "coast",
+    "thumbs": [
+      {
+        "complete": true,
+        "id": "coast",
+        "status": "ready",
+        "width": 320
+      },
+      {
+        "complete": true,
+        "id": "lake",
+        "status": "ready",
+        "width": 320
+      },
+      {
+        "complete": true,
+        "id": "forest",
+        "status": "ready",
+        "width": 320
+      },
+      {
+        "complete": true,
+        "id": "dunes",
+        "status": "ready",
+        "width": 320
+      },
+      {
+        "complete": true,
+        "id": "alpine",
+        "status": "ready",
+        "width": 320
+      },
+      {
+        "complete": true,
+        "id": "drift",
+        "status": "ready",
+        "width": 320
+      }
+    ],
+    "wallpaper": "/wallpapers/coast-light.webp"
+  },
+  "autoLight": {
+    "current": "/wallpapers/coast-light.webp",
+    "dark": false,
+    "variant": "light"
+  },
+  "autoDark": {
+    "current": "/wallpapers/coast-dark.webp",
+    "dark": true,
+    "variant": "dark"
+  },
+  "sizesBefore": {
+    "icons": "1",
+    "text": "1"
+  },
+  "rapidFinal": "coast-light.webp, ready"
+}

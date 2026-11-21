@@ -1,9 +1,12 @@
 "use client";
 
-import { openPortfolioItem } from "./visitorLaunchers";
+import { GlassButton } from "../ui/PortfolioGlass";
+
+import { openPortfolioApp, openPortfolioItem } from "./visitorLaunchers";
 
 import { useEffect, useLayoutEffect, useMemo, useRef } from "react";
-import { ChevronLeft, ChevronRight, FileText, Folder, FolderPlus, House, Monitor, PanelLeft, Pencil, Trash2 } from "lucide-react";
+import Image from "next/image";
+import { ChevronLeft, ChevronRight, FileText, Folder, FolderPlus, House, LayoutGrid, Monitor, PanelLeft, Pencil, Trash2 } from "lucide-react";
 import { useReducedMotion } from "framer-motion";
 import { useWindowStore, type WindowState } from "../window-manager/useWindowStore";
 import { useSystemStore } from "../window-manager/useSystemStore";
@@ -13,14 +16,19 @@ import type { FileItem } from "../../data/fileSystem";
 import styles from "./Finder.module.css";
 import { createFolderAndRename, useFileInteractionStore } from "./useFileInteractionStore";
 import { handleFileContextMenu, handleFileSurfaceKeyDown } from "./fileSurfaceEvents";
+import { APPS_FOLDER_ID, PORTFOLIO_APP_IDS, portfolioAppName } from "../../data/portfolioApps";
+import { PORTFOLIO_APP_ARTWORK } from "../../data/portfolioAppArtwork";
+import { focusPortfolioWindow } from "../window-manager/windowFocus";
 
 const LOCATIONS = [
   { id: "desktop", name: "Desktop", icon: Monitor },
   { id: "documents", name: "Documents", icon: FileText },
   { id: "projects", name: "Projects", icon: Folder },
+  { id: APPS_FOLDER_ID, name: "Apps", icon: LayoutGrid },
 ];
 
 function folderName(id: string, fileSystem: Record<string, FileItem[]>) {
+  if (id === APPS_FOLDER_ID) return "Apps";
   for (const children of Object.values(fileSystem)) {
     const item = children.find((child) => child.id === id);
     if (item) return item.name;
@@ -98,6 +106,7 @@ export function Finder({ window }: { window: WindowState }) {
   const contentRef = useRef<HTMLDivElement>(null);
   const fileSystem = useSystemStore((s) => s.fileSystem);
   const currentFolderId = window.folderId ?? (window.kind === "bin" ? "bin" : "desktop");
+  const isApps = currentFolderId === APPS_FOLDER_ID;
   const history = window.folderHistory ?? [currentFolderId];
   const currentIndex = window.folderHistoryIndex ?? 0;
   const selection = useFileInteractionStore((s) => s.selections[window.id] ?? null);
@@ -156,20 +165,21 @@ export function Finder({ window }: { window: WindowState }) {
   const path = folderPath(currentFolderId, fileSystem, desktopIds);
   const selectedItem = items.find((item) => item.id === selection);
   const trashRootCount = trashItems.filter((id) => !trashOrigins[id] || trashOrigins[id] === id).length;
-  const canCreate = currentFolderId !== "bin" && !isCurrentFolderGone && !!fileSystem[currentFolderId];
+  const canCreate = !isApps && currentFolderId !== "bin" && !isCurrentFolderGone && !!fileSystem[currentFolderId];
   const canRename = currentFolderId !== "bin" && !isCurrentFolderGone && selectedItem?.type === "folder";
   const sidebarId = `${window.id}-sidebar`;
-  const isDropTarget = (folderId: string) => isFileDragging && hoveredFolderId === folderId && activeDragId !== folderId;
+  const isDropTarget = (folderId: string) => folderId !== APPS_FOLDER_ID && isFileDragging && hoveredFolderId === folderId && activeDragId !== folderId;
+  const itemCount = isApps ? PORTFOLIO_APP_IDS.length : items.length;
 
   return (
-    <div className={styles.finder} data-finder-root data-in-bin={currentFolderId === "bin" || undefined} data-reduced-motion={reduceMotion || prefersReducedMotion || undefined} onKeyDown={(event) => handleFileSurfaceKeyDown(event, window.id, currentFolderId)}>
+    <div className={styles.finder} data-finder-root data-in-bin={currentFolderId === "bin" || undefined} data-reduced-motion={reduceMotion || prefersReducedMotion || undefined} onKeyDown={isApps ? undefined : (event) => handleFileSurfaceKeyDown(event, window.id, currentFolderId)}>
       <div className={styles.layout}>
         {sidebarVisible && (
-          <nav id={sidebarId} aria-label="Finder locations" className={styles.sidebar}>
+          <nav id={sidebarId} aria-label="Files locations" className={styles.sidebar}>
             <div className={styles.group}>
               <h2 className={styles.groupTitle}>Favourites</h2>
               {LOCATIONS.filter((location) => (location.id === "desktop" || !!fileSystem[location.id]) && !isHidden(location.id)).map(({ id, name, icon: Icon }) => (
-                <button key={id} type="button" data-finder-location={id} data-drop-folder-id={id} data-drop-target={isDropTarget(id) || undefined} aria-current={currentFolderId === id ? "page" : undefined} onClick={() => navigateTo(id)} className={styles.location}>
+                <button key={id} type="button" data-finder-location={id} data-drop-folder-id={id === APPS_FOLDER_ID ? undefined : id} data-drop-target={isDropTarget(id) || undefined} aria-current={currentFolderId === id ? "page" : undefined} onClick={() => navigateTo(id)} className={styles.location}>
                   <Icon size={19} strokeWidth={1.7} aria-hidden="true" />
                   <span>{id === "projects" ? folderName(id, fileSystem) : name}</span>
                 </button>
@@ -187,33 +197,45 @@ export function Finder({ window }: { window: WindowState }) {
         )}
 
         <div className={styles.main}>
-          <div className={styles.toolbar} role="toolbar" aria-label="Finder navigation">
-            <button type="button" className={styles.toolButton} onClick={toggleSidebar} aria-label={sidebarVisible ? "Hide sidebar" : "Show sidebar"} aria-expanded={sidebarVisible} aria-controls={sidebarVisible ? sidebarId : undefined} title={sidebarVisible ? "Hide sidebar" : "Show sidebar"}>
+          <div className={styles.toolbar} role="toolbar" aria-label="Files navigation">
+            <GlassButton type="button" className={styles.toolButton} onClick={toggleSidebar} aria-label={sidebarVisible ? "Hide sidebar" : "Show sidebar"} aria-expanded={sidebarVisible} aria-controls={sidebarVisible ? sidebarId : undefined} title={sidebarVisible ? "Hide sidebar" : "Show sidebar"}>
               <PanelLeft size={19} strokeWidth={1.7} aria-hidden="true" />
-            </button>
+            </GlassButton>
             <div className={styles.history}>
-              <button type="button" className={styles.toolButton} aria-label="Back" title="Back" onClick={() => navigateHistory(Math.max(0, currentIndex - 1))} disabled={currentIndex === 0}>
+              <GlassButton type="button" className={styles.toolButton} aria-label="Back" title="Back" onClick={() => navigateHistory(Math.max(0, currentIndex - 1))} disabled={currentIndex === 0}>
                 <ChevronLeft size={23} strokeWidth={1.8} aria-hidden="true" />
-              </button>
-              <button type="button" className={styles.toolButton} aria-label="Forward" title="Forward" onClick={() => navigateHistory(Math.min(history.length - 1, currentIndex + 1))} disabled={currentIndex === history.length - 1}>
+              </GlassButton>
+              <GlassButton type="button" className={styles.toolButton} aria-label="Forward" title="Forward" onClick={() => navigateHistory(Math.min(history.length - 1, currentIndex + 1))} disabled={currentIndex === history.length - 1}>
                 <ChevronRight size={23} strokeWidth={1.8} aria-hidden="true" />
-              </button>
+              </GlassButton>
             </div>
             <h1 className={styles.title} title={currentTitle}>{currentTitle}</h1>
             <div className={styles.fileActions}>
-              <button type="button" className={styles.toolButton} aria-label="New Folder" title="New Folder" disabled={!canCreate} onClick={() => createFolderAndRename(window.id, currentFolderId)}><FolderPlus size={19} strokeWidth={1.7} aria-hidden="true" /></button>
-              <button type="button" className={styles.toolButton} aria-label="Rename selected folder" title="Rename selected folder (F2)" disabled={!canRename} onClick={() => { if (selectedItem) useFileInteractionStore.getState().beginRename(window.id, selectedItem.id); }}><Pencil size={17} strokeWidth={1.7} aria-hidden="true" /></button>
+              <GlassButton type="button" className={styles.toolButton} aria-label="New Folder" title="New Folder" disabled={!canCreate} onClick={() => createFolderAndRename(window.id, currentFolderId)}><FolderPlus size={19} strokeWidth={1.7} aria-hidden="true" /></GlassButton>
+              <GlassButton type="button" className={styles.toolButton} aria-label="Rename selected folder" title="Rename selected folder (F2)" disabled={!canRename} onClick={() => { if (selectedItem) useFileInteractionStore.getState().beginRename(window.id, selectedItem.id); }}><Pencil size={17} strokeWidth={1.7} aria-hidden="true" /></GlassButton>
             </div>
-            {currentFolderId === "bin" && <button type="button" className={styles.emptyButton} onClick={emptyTrash} disabled={trashItems.length === 0}>Empty Bin</button>}
+            {currentFolderId === "bin" && <GlassButton type="button" className={styles.emptyButton} onClick={emptyTrash} disabled={trashItems.length === 0}>Empty Bin</GlassButton>}
           </div>
 
-          <div ref={contentRef} data-finder-content={currentFolderId} data-drop-target={isDropTarget(currentFolderId) || undefined} className={styles.content} tabIndex={0} aria-label={`${currentTitle} folder area`} onContextMenu={(event) => handleFileContextMenu(event, window.id, currentFolderId)} onPointerDown={(event) => { if (!(event.target as HTMLElement).closest("[data-file-item]")) useFileInteractionStore.getState().selectItem(window.id, null); }}>
+          <div ref={contentRef} data-finder-content={currentFolderId} data-finder-readonly={isApps || undefined} data-drop-target={isDropTarget(currentFolderId) || undefined} className={styles.content} tabIndex={0} aria-label={`${currentTitle} folder area`} onContextMenu={isApps ? undefined : (event) => handleFileContextMenu(event, window.id, currentFolderId)} onPointerDown={(event) => { if (!(event.target as HTMLElement).closest("[data-file-item]")) useFileInteractionStore.getState().selectItem(window.id, null); }}>
             {isCurrentFolderGone ? (
               <div className={styles.emptyState}>
                 <Trash2 size={36} strokeWidth={1.2} aria-hidden="true" />
                 <p>{isCurrentFolderMissing ? "This folder is not available." : isCurrentFolderDeleted ? "This folder was permanently deleted." : "This folder was moved to the Bin."}</p>
                 <span>{isCurrentFolderMissing ? "A folder removed with Undo returns with Redo." : isCurrentFolderDeleted ? "Emptying the Bin cannot be undone." : "Its contents were moved with it."}</span>
-                <button type="button" onClick={() => navigateTo("desktop")} className={styles.emptyButton}>Go to Desktop</button>
+                <GlassButton type="button" onClick={() => navigateTo("desktop")} className={styles.emptyButton}>Go to Desktop</GlassButton>
+              </div>
+            ) : isApps ? (
+              <div className={`${styles.grid} ${styles.appGrid}`} role="list" aria-label="Portfolio apps" data-finder-grid>
+                {PORTFOLIO_APP_IDS.map(id => {
+                  const name = portfolioAppName(id);
+                  return <div key={id} className={styles.appItem} role="listitem">
+                    <button type="button" data-finder-app={id} aria-label={`Open ${name}`} className={styles.appLauncher} onClick={() => focusPortfolioWindow(openPortfolioApp(id))}>
+                      <Image src={PORTFOLIO_APP_ARTWORK[id]} width={64} height={64} alt="" draggable={false} />
+                      <span>{name}</span>
+                    </button>
+                  </div>;
+                })}
               </div>
             ) : items.length === 0 ? (
               <div className={styles.emptyState}>
@@ -238,7 +260,7 @@ export function Finder({ window }: { window: WindowState }) {
             </nav>
           )}
           {statusBarVisible && <div className={styles.statusBar} role="status" aria-live="polite" data-finder-status>
-            <span>{selectedItem ? `1 of ${items.length} selected` : `${items.length} ${items.length === 1 ? "item" : "items"}`}</span>
+            <span>{isApps ? `${itemCount} apps` : selectedItem ? `1 of ${itemCount} selected` : `${itemCount} ${itemCount === 1 ? "item" : "items"}`}</span>
             {currentFolderId === "bin" && items.length > 0 && <span className={styles.statusHint}>Open an item to restore it</span>}
           </div>}
         </div>

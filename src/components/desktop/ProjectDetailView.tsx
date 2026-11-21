@@ -1,6 +1,8 @@
 "use client";
 
 import { ArrowUpRight, Code2, ExternalLink, GitBranch, Layers3 } from "lucide-react";
+import { ProjectScope } from "./ProjectScope";
+import { ProjectCaseStudy } from "./ProjectCaseStudy";
 import { getProjectById } from "../../data/projectsData";
 import { useSafariStore } from "./useSafariStore";
 import { useWindowStore } from "../window-manager/useWindowStore";
@@ -27,7 +29,7 @@ export function ProjectDetailView({ window: win }: ProjectDetailViewProps) {
   const game = GAME_DETAILS[win.title.replace(/\.app$/, "")];
 
   const openInSafari = () => {
-    useWindowStore.getState().openWindow({ id: "app-safari", kind: "safari", title: "Safari" });
+    useWindowStore.getState().openWindow({ id: "app-safari", kind: "safari", title: "Browser" });
     if (project) useSafariStore.getState().openProject(project.id);
   };
 
@@ -37,7 +39,11 @@ export function ProjectDetailView({ window: win }: ProjectDetailViewProps) {
 
   const title = project?.name ?? win.title;
   const summary = project?.summary ?? game?.summary ?? "A portfolio file with a focused interaction and architecture note.";
-  const details = project?.highlights ?? game?.details ?? ["Interactive portfolio artifact", "Built as part of the macOS desktop experience"];
+  const details = project?.capabilities ?? game?.details ?? ["Interactive portfolio artifact", "Part of Om’s interactive desktop"];
+
+  if (project?.caseStudy) return <div className="h-full w-full overflow-y-auto">
+    <ProjectCaseStudy project={project} onOpenInBrowser={openInSafari} />
+  </div>;
 
   return (
     <div className="flex h-full w-full flex-col overflow-y-auto bg-[#f6f6f7] text-gray-900 dark:bg-[#17171b] dark:text-gray-100 transition-colors duration-700">
@@ -49,6 +55,7 @@ export function ProjectDetailView({ window: win }: ProjectDetailViewProps) {
           <div className="max-w-2xl">
             <h1 className="text-2xl font-bold tracking-tight">{title}</h1>
             <p className="mt-2 text-sm leading-6 text-gray-600 dark:text-gray-300">{summary}</p>
+            {project && <ProjectScope project={project} />}
           </div>
           <div className="flex flex-wrap gap-2">
             {project && <button
@@ -56,7 +63,7 @@ export function ProjectDetailView({ window: win }: ProjectDetailViewProps) {
               onClick={openInSafari}
               className="inline-flex items-center gap-1.5 rounded-lg bg-[var(--system-accent)] px-3 py-2 text-xs font-semibold text-white shadow-sm transition hover:brightness-110"
             >
-              Open in Safari <ArrowUpRight size={14} />
+              Open in Browser <ArrowUpRight size={14} />
             </button>}
             {project && (
               <button

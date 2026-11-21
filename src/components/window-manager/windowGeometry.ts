@@ -20,6 +20,8 @@ export interface DesktopInsets {
 export interface WindowRect extends DesktopPoint, DesktopSize {}
 
 export type DesktopWorkArea = WindowRect;
+export type WindowResizeEdge = "n" | "ne" | "e" | "se" | "s" | "sw" | "w" | "nw";
+export const MIN_RESIZE_FRAME_SIZE: Readonly<DesktopSize> = { width: 284, height: 230 };
 
 const finite = (value: number, fallback: number) => Number.isFinite(value) ? value : fallback;
 const nonNegative = (value: number) => Math.max(0, finite(value, 0));
@@ -85,6 +87,25 @@ export function clampWindowRect(rect: WindowRect, area: DesktopWorkArea, minimum
   const width = clamp(finite(rect.width, minWidth), minWidth, bounds.width);
   const height = clamp(finite(rect.height, minHeight), minHeight, bounds.height);
   return { ...constrainWindowPosition(rect, { width, height }, bounds), width, height };
+}
+
+export function resizeWindowRect(origin: WindowRect, edge: WindowResizeEdge, delta: DesktopPoint, area: DesktopWorkArea): WindowRect {
+  const bounds = getMaximizedWindowRect(area);
+  const start = clampWindowRect(origin, bounds);
+  const dx = finite(delta.x, 0);
+  const dy = finite(delta.y, 0);
+  let { x: left, y: top } = start;
+  let right = left + start.width;
+  let bottom = top + start.height;
+  const minWidth = Math.min(start.width, MIN_RESIZE_FRAME_SIZE.width);
+  const minHeight = Math.min(start.height, MIN_RESIZE_FRAME_SIZE.height);
+
+  if (edge.includes("w")) left = clamp(left + dx, bounds.x, right - minWidth);
+  if (edge.includes("e")) right = clamp(right + dx, left + minWidth, bounds.x + bounds.width);
+  if (edge.includes("n")) top = clamp(top + dy, bounds.y, bottom - minHeight);
+  if (edge.includes("s")) bottom = clamp(bottom + dy, top + minHeight, bounds.y + bounds.height);
+
+  return { x: left, y: top, width: right - left, height: bottom - top };
 }
 
 /** The store's historical window size describes content, excluding frame chrome. */

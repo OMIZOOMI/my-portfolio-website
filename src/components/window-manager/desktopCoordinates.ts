@@ -161,3 +161,25 @@ export function getDesktopCoordinateSpace(root: HTMLElement): CoordinateSpace | 
     bottomLeft: { x: rect.left, y: rect.bottom },
   });
 }
+
+/** Visible desktop bounds in the same local units used by icons and windows. */
+export function getVisibleDesktopBounds(root: HTMLElement, margin = 6) {
+  const rect = root.getBoundingClientRect();
+  const space = getDesktopCoordinateSpace(root);
+  if (!space) return null;
+  const viewport = root.ownerDocument.defaultView;
+  if (!viewport) return null;
+  const corners = [
+    { x: Math.max(0, rect.left), y: Math.max(0, rect.top) },
+    { x: Math.min(viewport.innerWidth, rect.right), y: Math.max(0, rect.top) },
+    { x: Math.min(viewport.innerWidth, rect.right), y: Math.min(viewport.innerHeight, rect.bottom) },
+    { x: Math.max(0, rect.left), y: Math.min(viewport.innerHeight, rect.bottom) },
+  ].map(point => space.toLocal(point));
+  if (corners.some(point => !point)) return null;
+  const [tl, tr, br, bl] = corners as CoordinatePoint[];
+  const left = Math.max(0, tl.x, bl.x) + margin;
+  const top = Math.max(0, tl.y, tr.y) + margin;
+  const right = Math.min(root.clientWidth, tr.x, br.x) - margin;
+  const bottom = Math.min(root.clientHeight, bl.y, br.y) - margin;
+  return { left, top, right, bottom, width: Math.max(0, right - left), height: Math.max(0, bottom - top) };
+}

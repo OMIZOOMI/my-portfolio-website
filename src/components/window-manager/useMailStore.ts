@@ -2,6 +2,8 @@
 
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
+import { PORTFOLIO_PROFILE as profile } from "../../data/portfolioProfile";
+import { MAIL_WELCOME, migrateMailWelcome } from "../../data/mailWelcome";
 
 export interface Email {
   id: string;
@@ -31,12 +33,8 @@ interface MailStoreState {
 
 const seedInbox = (): Email[] => [
   {
-    id: "welcome-1",
-    from: "You",
-    to: "Om Sawkare",
-    subject: "Welcome to my portfolio!",
-    body: "Hi there! Welcome to my portfolio's mail client.\n\nTo get in touch, choose Compose, then Open in your email app. You complete sending in your own email app; this portfolio cannot confirm delivery. Your draft stays here while the portfolio remains open.\n\nLooking forward to hearing from you!",
-    sentAt: Date.now() - 1000 * 60 * 60 * 24,
+    ...MAIL_WELCOME,
+    sentAt: Date.now(),
     read: false,
   },
 ];
@@ -62,11 +60,11 @@ export const useMailStore = create<MailStoreState>()(
           return false;
         }
         try {
-          globalThis.open(`mailto:sawkare.om@gmail.com?subject=${encodeURIComponent(draftSubject)}&body=${encodeURIComponent(draftBody)}`, "_self");
-          set({ handoffMessage: "Requested your email app. Finish sending there. This portfolio cannot confirm delivery, and your draft is still here." });
+          globalThis.open(`mailto:${profile.email}?subject=${encodeURIComponent(draftSubject)}&body=${encodeURIComponent(draftBody)}`, "_self");
+          set({ handoffMessage: "Requested your email app. Finish sending there. This portfolio cannot confirm delivery; your draft is still here. If nothing opens, copy the email address and use your usual mail app or website." });
           return true;
         } catch {
-          set({ handoffMessage: "Your email app could not be opened. Your draft is still here; you can copy it and email sawkare.om@gmail.com." });
+          set({ handoffMessage: `Your email app could not be opened. Your draft is still here; copy ${profile.email} and use your usual mail app or website.` });
           return false;
         }
       },
@@ -81,10 +79,10 @@ export const useMailStore = create<MailStoreState>()(
       storage: createJSONStorage(() => localStorage),
       // Preserve legacy Sent copies without interpreting a mailto launch as
       // delivery. The UI labels these retained copies as unverified.
-      version: 4,
+      version: 5,
       migrate: (persisted) => {
         const previous = (persisted ?? {}) as Partial<MailStoreState>;
-        return { inbox: previous.inbox ?? seedInbox(), sent: previous.sent ?? [] };
+        return { inbox: previous.inbox ? migrateMailWelcome(previous.inbox) : seedInbox(), sent: previous.sent ?? [] };
       },
       partialize: (state) => ({ inbox: state.inbox, sent: state.sent }),
     }

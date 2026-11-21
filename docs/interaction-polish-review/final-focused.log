@@ -1,0 +1,22 @@
+✔ new welcome names the real author and explains contact without pretending to be received mail (2.4535ms)
+✔ welcome migration updates only exact built-in content and preserves IDs, metadata and edits (1.217917ms)
+✔ copy reports success only after the canonical email has actually been written (2.192834ms)
+✔ missing, rejected and inaccessible clipboard APIs offer manual copy rather than false success (0.856875ms)
+✔ cancelled/null and failed handoffs keep the exact draft and all unverified copies (1.700417ms)
+✔ profile cards are named native external links with exact shared destinations and no embedded navigation (193.153916ms)
+✔ Mail and contact controls have matching module styles instead of silently losing their layout (5.502583ms)
+✔ frame pointer paints only the latest sample once per scheduled frame (97.03ms)
+✔ frame pointer flush preserves the final release sample and cancel discards pending work (12.658167ms)
+✔ switch pointer tap changes state exactly once and retains keyboard activation (82.593208ms)
+✔ switch drag uses projected desktop coordinates and commits the final release point (46.838791ms)
+✔ switch cancellation restores the prior value without committing or retaining queued work (29.938125ms)
+✔ switch ignores unrelated pointer samples and disabled pointer starts (68.065166ms)
+✔ reduced motion retains the same semantic switch and unmount cancels a pending drag frame (31.245291ms)
+ℹ tests 14
+ℹ suites 0
+ℹ pass 14
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 907.177542

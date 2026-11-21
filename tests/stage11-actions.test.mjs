@@ -29,7 +29,8 @@ const root = fileURLToPath(new URL('../', import.meta.url));
 const storage=new Map();globalThis.localStorage={getItem:k=>storage.get(k)??null,setItem:(k,v)=>storage.set(k,v),removeItem:k=>storage.delete(k)};
 const {useMailStore:mail}=loadTypeScript(resolve(root,'src/components/window-manager/useMailStore.ts'));
 const {useWindowStore:windows}=loadTypeScript(resolve(root,'src/components/window-manager/useWindowStore.ts'));
-const {openPortfolioItem,openSettings,openPortfolioAbout}=loadTypeScript(resolve(root,'src/components/desktop/visitorLaunchers.ts'));
+const {openPortfolioApp,openPortfolioItem,openSettings,openPortfolioAbout}=loadTypeScript(resolve(root,'src/components/desktop/visitorLaunchers.ts'));
+const {PORTFOLIO_APP_IDS,DOCK_APP_IDS}=loadTypeScript(resolve(root,'src/data/portfolioApps.ts'));
 const {fileHistoryShortcut}=loadTypeScript(resolve(root,'src/components/webcam/editorMenuCommands.ts'));
 const {PROJECTS}=loadTypeScript(resolve(root,'src/data/projectsData.ts'));
 const m=()=>mail.getState(),w=()=>windows.getState();
@@ -44,9 +45,15 @@ test('a visitor folder merely named About Me remains a real folder and navigates
  let destination=null;openPortfolioItem({id:'visitor-folder',name:'About Me',type:'folder'},{navigateFolder:id=>destination=id});assert.equal(destination,'visitor-folder');assert.deepEqual(w().windows,{});
  openPortfolioItem({id:'visitor-folder',name:'About Me',type:'folder'});assert.equal(w().windows['finder-visitor-folder'].folderId,'visitor-folder');
 });
-test('existing project file identities retain their populated detail routes; placeholders are not invented',()=>{
+test('existing project file identities retain their populated detail routes',()=>{
  for(const p of PROJECTS){openPortfolioItem({id:p.id,name:p.name,type:'file'});const frame=w().windows['file-'+p.id];assert.equal(frame.kind,'file-viewer');assert.equal(frame.title,p.name);}
- openPortfolioItem({id:'Neural Block',name:'Neural Block.app',type:'app'});assert.equal(w().windows['file-Neural Block'].kind,'file-viewer');assert.equal(PROJECTS.find(p=>p.id==='Neural Block'),undefined);
+});
+test('Apps launch the existing window kinds through the same route as the Dock',()=>{
+ for(const id of PORTFOLIO_APP_IDS){const key=id==='finder'?'finder-desktop':`app-${id}`;assert.equal(openPortfolioApp(id),key);assert.equal(w().windows[key].kind,id);assert.equal(openPortfolioApp(id),key);}
+ assert.equal(Object.keys(w().windows).length,PORTFOLIO_APP_IDS.length);
+ assert.equal(DOCK_APP_IDS.includes('heat-sink'),false);
+ assert.equal(w().windows['finder-desktop'].folderId,'desktop');
+ openPortfolioItem({id:'Neural Block',name:'Neural Block.app',type:'app'});assert.equal(w().focusedWindowId,'app-heat-sink');assert.equal(w().windows['file-Neural Block'],undefined);
 });
 test('About This Mac selects About on a new, existing, or minimized Settings window',()=>{
  openSettings('about');assert.equal(w().windows['app-settings'].settingsSection,'about');w().setSettingsSection('app-settings','appearance');w().toggleMinimize('app-settings');
@@ -77,7 +84,7 @@ test('legacy mail migrations preserve copies, inbox, identifiers and unknown mes
  for(const version of [0,1,2,3]){const old={inbox:[{...entry,id:'inbox'}],sent:[entry]};const migrated=mail.persist.getOptions().migrate(old,version);assert.equal(migrated.sent,old.sent);assert.equal(migrated.inbox,old.inbox);assert.deepEqual(migrated.sent[0],entry);}
 });
 test('persistence retains legacy copies but does not silently start storing visitor drafts or handoff status',()=>{
- m().setDraftSubject('Private session draft');m().setDraftBody('Memory-only body');m().openDraftInEmailApp();const persisted=JSON.parse(storage.get('mail-store'));assert.equal(persisted.version,4);assert.equal(persisted.state.draftBody,undefined);assert.equal(persisted.state.handoffMessage,undefined);assert.deepEqual(persisted.state.sent,[]);
+ m().setDraftSubject('Private session draft');m().setDraftBody('Memory-only body');m().openDraftInEmailApp();const persisted=JSON.parse(storage.get('mail-store'));assert.equal(persisted.version,5);assert.equal(persisted.state.draftBody,undefined);assert.equal(persisted.state.handoffMessage,undefined);assert.deepEqual(persisted.state.sent,[]);
  m().clearDraft();assert.equal(m().draftSubject,'');assert.equal(m().draftBody,'');
 });
 test('filesystem undo shortcuts remain scoped and never replace editor or browser/OS commands',()=>{

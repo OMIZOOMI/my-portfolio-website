@@ -1,0 +1,141 @@
+{
+  "scope": "U13 production integration audit",
+  "result": "Partial verification; complete performance and cross-platform sign-off remains inconclusive",
+  "machine": {
+    "model": "MacBookAir10,1",
+    "processor": "Apple M1",
+    "memoryBytes": 8589934592,
+    "os": "macOS 27.2",
+    "osBuild": "26B123"
+  },
+  "browsers": {
+    "exercised": [
+      {
+        "name": "Google Chrome",
+        "version": "156.0.8078.76",
+        "os": "macOS 27.2",
+        "coverage": "Returning visitor, explicit tour replay/skip/completion, routes, sampled app interactions and partial real camera hardware checks"
+      }
+    ],
+    "installedNotExercised": [
+      {
+        "name": "Safari",
+        "version": "27.2"
+      }
+    ],
+    "unavailable": [
+      "Windows 11 Chrome hardware",
+      "Windows 11 Edge hardware"
+    ]
+  },
+  "runtime": {
+    "next": "16.3.1",
+    "react": "19.2.8",
+    "mediapipe": "1.0.1",
+    "typescript": "5.9.3",
+    "mode": "Production next start",
+    "buildID": "COTiG6FnuYA34FT1h2bja"
+  },
+  "server": {
+    "local": "http://127.0.0.1:3012",
+    "existingLANPort": 3013,
+    "publicOrigin": null
+  },
+  "timing": {
+    "startUtc": "2026-11-02T05:52:59Z",
+    "recordedEndUtc": "2026-11-02T11:51:12Z",
+    "elapsedWallSeconds": 21493,
+    "continuousSoak": false,
+    "qualification": "Interrupted audit window including long browser-tool, permission and lock-screen pauses; not continuous tracing or a soak test"
+  },
+  "conditions": {
+    "network": "Unthrottled loopback HTTP",
+    "cache": "Existing browser cache retained; no fully cold-cache or WAN test",
+    "initialViewport": {
+      "width": 1440,
+      "height": 778,
+      "dpr": 2
+    },
+    "nativeResetViewport": {
+      "width": 1440,
+      "height": 722,
+      "dpr": 2
+    },
+    "responsiveOverrides": [
+      {
+        "width": 390,
+        "height": 844,
+        "dpr": 1
+      },
+      {
+        "width": 1440,
+        "height": 778,
+        "dpr": 1
+      }
+    ],
+    "visualViewportScale": 1,
+    "browserZoomPercent": null,
+    "browserZoomQualification": "Not independently verified; deliberate native zoom changes not completed",
+    "physicalTouch": false,
+    "physicalSafariTrackpad": false
+  },
+  "hardwareCamera": {
+    "device": "FaceTime HD Camera (1C1C:B782)",
+    "width": 1280,
+    "height": 720,
+    "delegate": "GPU",
+    "gestureEvidence": "User physically confirmed peace and thumbs-up each produced an effect",
+    "capture": "Temporary local capture/retake/cancel preview decoded; live video advanced before/after",
+    "savedOrUploadedImages": 0,
+    "limits": [
+      "No exact live-track census",
+      "Native page-hide/resume and app close/reopen not conclusively completed",
+      "CPU/GPU failure recovery not exercised on hardware"
+    ]
+  },
+  "measurementAvailability": {
+    "browserFrameTimeDistribution": false,
+    "longTaskDistribution": false,
+    "localInteractionLatency": false,
+    "browserColdStartupRequests": false,
+    "heapTrend": false,
+    "listenerCensus": false,
+    "inferenceLoopCensus": false,
+    "exactActiveMediaTrackCounts": false,
+    "performanceOptimizationMade": false,
+    "note": "Test-only observation harness was prepared but not browser-exercised. Its isolated 3014 page was blocked by saved tool permission; no bypass was used."
+  },
+  "checks": {
+    "tests": {
+      "passed": 341,
+      "failed": 0,
+      "durationMs": 5976.072959
+    },
+    "lint": "passed",
+    "productionBuild": "passed",
+    "typeChecking": "passed during production build",
+    "httpAcceptance": "passed",
+    "diffWhitespace": "passed"
+  },
+  "cleanup": {
+    "ownedPortfolioTestTabs": "closed",
+    "liveCameraTestTab": "closed",
+    "observationProxy": "stopped",
+    "usualPreviewPorts": [
+      3012,
+      3013
+    ],
+    "remainingOwnedTab": "One about:blank tab retained after cancelling Chrome's synced-group deletion confirmation; no live media",
+    "userTabs": "preserved"
+  },
+  "changes": [
+    "Narrow tour-primary hover contrast correction",
+    "Focus restoration when replay trigger is in closed details",
+    "Targeted focus regression test"
+  ],
+  "publication": {
+    "committed": false,
+    "pushed": false,
+    "deployed": false
+  }
+}

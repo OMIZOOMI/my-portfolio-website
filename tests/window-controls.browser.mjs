@@ -32,7 +32,7 @@ async function pageFor(options={}){
  await send("Emulation.setFocusEmulationEnabled",{enabled:true});
  await send("Network.clearBrowserCache");
  await send("Emulation.setDeviceMetricsOverride",{width:1440,height:1000,deviceScaleFactor:1,mobile:false});
- await send("Page.addScriptToEvaluateOnNewDocument",{source:`localStorage.setItem('portfolio-appearance',JSON.stringify({version:1,state:{theme:'dark',wallpaper:'coast',wallpaperMode:'auto'}}));window.__controlEvents=[];for(const type of ['pointerdown','pointerup','click','keydown','keyup'])document.addEventListener(type,e=>{const b=e.target instanceof Element?e.target.closest('[data-window-control]'):null;window.__controlEvents.push({type,target:e.target?.tagName,action:b?.dataset.windowControl,label:b?.ariaLabel,x:e.clientX,y:e.clientY,key:e.key,active:document.activeElement?.ariaLabel,at:performance.now()})},true);window.__notesEvents=[];for(const name of ['playing','waiting','stalled','pause','ended','error','loadedmetadata'])document.addEventListener(name,event=>{if(event.target instanceof HTMLMediaElement)window.__notesEvents.push({name,src:event.target.currentSrc,time:event.target.currentTime,duration:event.target.duration,at:performance.now()})},true);${options.init??""}`});
+ await send("Page.addScriptToEvaluateOnNewDocument",{source:`localStorage.setItem('portfolio-appearance',JSON.stringify({version:1,state:{theme:'dark',wallpaper:'coast',wallpaperMode:'auto'}}));window.__controlEvents=[];for(const type of ['pointerdown','pointerup','click','keydown','keyup'])document.addEventListener(type,e=>{const b=e.target instanceof Element?e.target.closest('[data-window-control]'):null;window.__controlEvents.push({type,target:e.target?.tagName,resize:e.target?.dataset?.windowResize,action:b?.dataset.windowControl,label:b?.ariaLabel,x:e.clientX,y:e.clientY,key:e.key,active:document.activeElement?.ariaLabel,at:performance.now()})},true);window.__notesEvents=[];for(const name of ['playing','waiting','stalled','pause','ended','error','loadedmetadata'])document.addEventListener(name,event=>{if(event.target instanceof HTMLMediaElement)window.__notesEvents.push({name,src:event.target.currentSrc,time:event.target.currentTime,duration:event.target.duration,at:performance.now()})},true);${options.init??""}`});
  if(options.block)await send("Network.setBlockedURLs",{urls:options.block});
  async function evaluate(expression){const result=await send("Runtime.evaluate",{expression,returnByValue:true,awaitPromise:true});if(result.exceptionDetails)throw Error(result.exceptionDetails.exception?.description??result.exceptionDetails.text);return result.result.value;}
  return {send,evaluate,errors,requests,paused,wait:(expression,label,timeout)=>until(()=>evaluate(expression),label,timeout),
@@ -79,4 +79,45 @@ await scenario("drag-cleanup-after-blur-close-and-pointer-cancel",async(page,res
 await scenario("maximized-window-follows-desktop-resizing",async(page,result)=>{
  await openNotes(page);await click(page,control("maximize"));await point(page,control("maximize"));result.sizes=[];for(const size of[{width:1000,height:750},{width:1700,height:1100},{width:1440,height:1000}]){await page.send("Emulation.setDeviceMetricsOverride",{...size,deviceScaleFactor:1,mobile:false});await sleep(900);await point(page,control("maximize"));const s=await frameState(page);assert.ok(s.width<=s.desktop.width+2);assert.ok(s.height<=s.desktop.height);assert.ok(s.rect.left>=s.desktop.left-2&&s.rect.top>=s.desktop.top-2);assert.ok(s.rect.right<=s.desktop.right+2&&s.rect.bottom<=s.desktop.bottom+2);result.sizes.push({...size,state:s});}await click(page,control("maximize"));await click(page,control("close"));await page.wait(`!document.querySelector('${frame}')`,"controls usable after resize");
 });
+for (const view of ["screen", "laptop"]) {
+ await scenario(`edge-and-corner-resize-${view}`,async(page,result)=>{
+  await openNotes(page);
+  assert.equal(await page.evaluate(`!!document.querySelector('[data-portfolio-entry][data-screen-view]')`),view==="screen");
+  const handle = edge => `${frame} [data-window-resize="${edge}"]`;
+  const all = await page.evaluate(`document.querySelectorAll('${frame} [data-window-resize]').length`);
+  assert.equal(all,8);
+  const drag = async (edge, dx, dy) => {
+   const start = await page.wait(`(()=>{const e=document.querySelector(${JSON.stringify(handle(edge))});if(!e)return false;const r=e.getBoundingClientRect();for(const [fx,fy] of [[.19,.2],[.8,.79],[.5,.5],[.25,.4],[.6,.75]]){const x=r.left+r.width*fx,y=r.top+r.height*fy;if(document.elementFromPoint(x,y)===e)return{x,y};}return false;})()`, `hit ${edge} resize handle`);
+   await mouseAt(page,start,"down");
+   for (const portion of [.3,.65,1]) await page.send("Input.dispatchMouseEvent",{type:"mouseMoved",buttons:1,x:start.x+dx*portion,y:start.y+dy*portion});
+   await page.send("Input.dispatchMouseEvent",{type:"mouseReleased",button:"left",clickCount:1,x:start.x+dx,y:start.y+dy});
+   await sleep(210);
+  };
+  const before = await frameState(page);
+  assert.equal(await page.evaluate(`getComputedStyle(document.querySelector('${handle("e")}')).cursor`),"ew-resize");
+  await drag("e",65,0);
+  const wider = await frameState(page);
+  assert.ok(wider.width>before.width+30);
+  assert.equal(wider.left,before.left);
+  assert.equal(wider.height,before.height);
+  await drag("nw",-42,-35);
+  const corner = await frameState(page);
+  result.dragFrames = {before,wider,corner};
+  assert.ok(corner.width>wider.width+15&&corner.height>wider.height+10);
+  assert.ok(Math.abs(parseFloat(corner.left)+corner.width-parseFloat(wider.left)-wider.width)<2);
+  assert.ok(Math.abs(parseFloat(corner.top)+corner.height-parseFloat(wider.top)-wider.height)<2);
+  await page.evaluate(`document.querySelector('${handle("s")}').focus()`);
+  await key(page,"ArrowDown","ArrowDown",40);
+  await page.wait(`document.querySelector('${frame}').offsetHeight===${corner.height+10}`,"keyboard height resize");
+  const resized = await frameState(page);
+  await click(page,control("maximize"));
+  await page.wait(`!document.querySelector('${handle("e")}')`,"maximize has no resize handles");
+  await click(page,control("maximize"));
+  await page.wait(`document.querySelector('${frame}').offsetHeight===${resized.height}`,"restore resized dimensions");
+  result.before = before;
+  result.resized = await frameState(page);
+  assert.equal(result.resized.width,resized.width);
+  await page.screenshot(`resized-window-${view}`);
+ },{init:`localStorage.setItem('portfolio-introduction','{"status":"skipped"}');localStorage.setItem('portfolio-readability',JSON.stringify({defaultView:'${view}'}));`});
+}
 await mkdir(output,{recursive:true});await writeFile(new URL("after-browser-results.json",output),JSON.stringify(report,null,2)+"\n");socket.close();if(failures)process.exitCode=1;

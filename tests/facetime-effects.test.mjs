@@ -26,7 +26,8 @@ function text(node) {
 
 function harness({ reducedMotion = false } = {}) {
   const states = [], refs = [], effects = [], timers = new Map();
-  let stateCursor = 0, refCursor = 0, effectCursor = 0, serial = 0, pending = [], detector, view;
+  let stateCursor = 0, refCursor = 0, effectCursor = 0, serial = 0, pending = [], detector, view, cameraAvailable;
+  let routeActive = true;
   let win = { id: "app-facetime", title: "FaceTime" };
   let camera = { status: "live", liveTrack: true, generation: 1, permission: "granted", message: "Camera is live", session: { setEnabled() {}, retry() {}, resumePlayback() {} } };
   const document = { hidden: false };
@@ -54,6 +55,9 @@ function harness({ reducedMotion = false } = {}) {
   };
   const jsx = (type, props, key) => ({ type, props, key });
   const dependencies = {
+    // Exercise camera ownership/effects using a native button in this fixture;
+    // Glisse's browser rendering is checked in the production preview.
+    "../ui/PortfolioGlass": { GlassButton: "button" },
     react: { __esModule: true, default: react, ...react },
     "react/jsx-runtime": { jsx, jsxs: jsx },
     "lucide-react": new Proxy({}, { get: () => Icon }),
@@ -61,8 +65,11 @@ function harness({ reducedMotion = false } = {}) {
     "../window-manager/useWindowStore": { useWindowStore: selector => selector({ closeWindow() {} }) },
     "../window-manager/useSystemStore": { useSystemStore: selector => selector({ reduceMotion: reducedMotion }) },
     "../webcam/useHandGestureDetector": { useHandGestureDetector: options => { detector = options; } },
-    "../webcam/useCameraSession": { useCameraSession: () => camera },
+    "../webcam/useCameraSession": { useCameraSession: (_video, available) => { cameraAvailable = available; return camera; } },
+    "../portfolio/usePortfolioActivity": { usePortfolioActivity: selector => selector({ desktopActive: routeActive }) },
     "../webcam/cameraPreview": { startCameraPreview() { return () => {}; } },
+    "../webcam/useCameraPhoto": { useCameraPhoto: () => ({ status: "idle", photo: null, message: null, downloadRequested: false, takePhoto: () => false, session: { reset() {} } }) },
+    "./CameraControlTooltip": { CameraControlTooltip() {} },
     "../webcam/ConfettiBurst": { ConfettiBurst },
     "./FaceTimeEffects": { FloatingLikes },
     "./useSmoothScroll": { useSmoothScroll() {} },
@@ -94,12 +101,14 @@ function harness({ reducedMotion = false } = {}) {
     render, document, ConfettiBurst, FloatingLikes,
     get view() { return view; },
     get detector() { return detector; },
+    get cameraAvailable() { return cameraAvailable; },
     get timerCount() { return timers.size; },
     find(type) { return walk(view, node => node.type === type); },
     text: () => text(view),
     ready() { detector.onReady("CPU"); render(); },
     gesture(gesture) { detector.onGesture(gesture); render(); },
-    update({ camera: nextCamera, window: nextWindow } = {}) {
+    update({ camera: nextCamera, window: nextWindow, desktopActive } = {}) {
+      if (desktopActive !== undefined) routeActive = desktopActive;
       if (nextCamera) camera = { ...camera, ...nextCamera };
       if (nextWindow) win = { ...win, ...nextWindow };
       return render();
@@ -171,14 +180,15 @@ test("a new camera generation hides old effects and labels and cancels their pen
   h.cleanup();
 });
 
-test("pause, minimize, close and native hidden snapshots suppress effects and disable the detector", () => {
-  for (const mode of ["paused", "minimized", "closing", "hidden"]) {
+test("pause, minimize, close, reading routes and native hidden snapshots suppress effects and disable the detector", () => {
+  for (const mode of ["paused", "minimized", "closing", "hidden", "reading-route"]) {
     const h = harness();
     h.gesture("peace");
     if (mode === "paused") h.update({ camera: { status: "paused", liveTrack: false, generation: 2 } });
     if (mode === "minimized") h.update({ window: { minimized: true } });
     if (mode === "closing") h.update({ window: { closing: true } });
     if (mode === "hidden") { h.document.hidden = true; h.render(); }
+    if (mode === "reading-route") { h.update({ desktopActive: false }); assert.equal(h.cameraAvailable, false); }
     assert.equal(h.detector.enabled, false);
     assert.equal(h.find(h.ConfettiBurst).length, 0);
     assert.equal(h.find(h.FloatingLikes).length, 0);
@@ -186,6 +196,15 @@ test("pause, minimize, close and native hidden snapshots suppress effects and di
     assert.equal(h.timerCount, 0);
     h.cleanup();
   }
+});
+
+test("returning from a public page reuses the Camera owner without replaying an old effect", () => {
+  const h = harness(); h.gesture("peace");
+  h.update({ desktopActive: false });
+  assert.equal(h.cameraAvailable, false); assert.equal(h.timerCount, 0);
+  h.update({ desktopActive: true, camera: { generation: 2 } });
+  assert.equal(h.cameraAvailable, true); assert.equal(h.find(h.ConfettiBurst).length, 0);
+  h.cleanup();
 });
 
 test("manual preview control produces confetti without claiming a detected gesture and is ignored while paused", () => {

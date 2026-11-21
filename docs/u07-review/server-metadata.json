@@ -1,0 +1,82 @@
+{
+  "links": [
+    {
+      "rel": "icon",
+      "href": "/favicon.ico?favicon.0y9dcrlr--4d4.ico",
+      "sizes": "48x48",
+      "type": "image/x-icon"
+    },
+    {
+      "rel": "icon",
+      "href": "/icon.svg?icon.3urx01iu9z5yi.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    },
+    {
+      "rel": "apple-touch-icon",
+      "href": "/apple-icon.png?apple-icon.3z66q7e9qm7jb.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ],
+  "metadata": [
+    {
+      "name": "description",
+      "content": "Explore Om Sawkare\u2019s work in computer vision, AI workflows, and backend development through an interactive portfolio."
+    },
+    {
+      "property": "og:title",
+      "content": "Om Sawkare \u2014 Interactive Portfolio"
+    },
+    {
+      "property": "og:description",
+      "content": "Explore Om Sawkare\u2019s work in computer vision, AI workflows, and backend development through an interactive portfolio."
+    },
+    {
+      "property": "og:site_name",
+      "content": "Om\u2019s Portfolio"
+    },
+    {
+      "property": "og:type",
+      "content": "website"
+    },
+    {
+      "name": "twitter:card",
+      "content": "summary"
+    },
+    {
+      "name": "twitter:title",
+      "content": "Om Sawkare \u2014 Interactive Portfolio"
+    },
+    {
+      "name": "twitter:description",
+      "content": "Explore Om Sawkare\u2019s work in computer vision, AI workflows, and backend development through an interactive portfolio."
+    }
+  ],
+  "assets": [
+    {
+      "path": "/favicon.ico",
+      "status": 200,
+      "type": "image/x-icon",
+      "bytes": 2678
+    },
+    {
+      "path": "/icon.svg",
+      "status": 200,
+      "type": "image/svg+xml",
+      "bytes": 361
+    },
+    {
+      "path": "/apple-icon.png",
+      "status": 200,
+      "type": "image/png",
+      "bytes": 5086
+    },
+    {
+      "path": "/identity/share.png",
+      "status": 200,
+      "type": "image/png",
+      "bytes": 51997
+    }
+  ]
+}

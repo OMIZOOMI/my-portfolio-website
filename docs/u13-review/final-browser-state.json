@@ -1,0 +1,15 @@
+{
+  "audio": 0,
+  "camera": 0,
+  "dark": true,
+  "desktops": 1,
+  "dpr": 1,
+  "focus": "SUMMARY",
+  "guide": 0,
+  "height": 778,
+  "renderers": 1,
+  "screen": "focused",
+  "visualScale": 1,
+  "wallpaper": "/wallpapers/coast-light.webp",
+  "width": 1440
+}

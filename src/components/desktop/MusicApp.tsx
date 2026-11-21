@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
 import {
   ListMusic,
   Music2,
@@ -127,7 +127,7 @@ export function MusicApp({ window: win }: { window: { id: string; title: string 
       <audio ref={audioRef} className="hidden" preload="none" aria-label="Portfolio Music audio player" />
 
       {sidebarVisible && (
-        <aside className={`${styles.sidebar} flex w-48 shrink-0 flex-col border-r border-gray-200 bg-[#ededf0] p-3 dark:border-white/10 dark:bg-black/20`}>
+        <aside className={`${styles.sidebar} flex shrink-0 flex-col border-r border-gray-200 bg-[#ededf0] p-3 dark:border-white/10 dark:bg-black/20`}>
           <div className="mb-5 flex items-center gap-2 px-2 text-sm font-bold"><Music2 size={17} className="text-[var(--system-accent)]" /> Music</div>
           <div className="space-y-1">
             {PLAYLISTS.slice(0, 2).map((playlist) => (
@@ -154,7 +154,7 @@ export function MusicApp({ window: win }: { window: { id: string; title: string 
         </aside>
       )}
 
-      <section className="flex min-w-0 flex-1 flex-col">
+      <section className={`${styles.main} flex min-w-0 flex-1 flex-col`}>
         <div className={`${styles.header} flex min-h-20 shrink-0 items-center gap-4 border-b border-gray-200 bg-white/70 px-5 py-4 dark:border-white/10 dark:bg-white/[0.03]`}>
           <div className={`${styles.artwork} flex h-14 w-14 shrink-0 items-center justify-center rounded-xl shadow-lg`} style={{ background: `linear-gradient(135deg, ${currentTrack.accent}, #15151a)` }}>
             <Music2 size={26} className="text-white/90" />
@@ -209,21 +209,21 @@ export function MusicApp({ window: win }: { window: { id: string; title: string 
           )}
         </div>
 
-        <div className={`${styles.player} shrink-0 border-t border-gray-200 bg-white/90 px-5 py-3 dark:border-white/10 dark:bg-black/30`}>
-          <div className="mb-2 flex items-center gap-3 text-[11px] text-gray-400">
-            <span data-music-elapsed className="w-10 text-right" aria-label="Elapsed time">{formatTime(currentTime)}</span>
-            <input type="range" min="0" max="100" step="0.1" value={progress} disabled={!durationLoaded} onChange={(event) => handleProgressChange(Number(event.target.value))} aria-label="Track progress" className="h-1.5 min-w-0 flex-1 accent-[var(--system-accent)]" />
-            <span data-music-remaining className="w-10" aria-label="Time remaining" title={`${formatTime(displayDuration)} total`}>-{formatTime(Math.max(0, displayDuration - currentTime))}</span>
+        <div className={`${styles.player} shrink-0 border-t border-gray-200 bg-white/90 px-5 dark:border-white/10 dark:bg-black/30`}>
+          <div className={`${styles.timeline} text-gray-500 dark:text-gray-400`}>
+            <span data-music-elapsed className="text-right" aria-label="Elapsed time">{formatTime(currentTime)}</span>
+            <input type="range" min="0" max="100" step="0.1" value={progress} disabled={!durationLoaded} onChange={(event) => handleProgressChange(Number(event.target.value))} aria-label="Track progress" className={styles.seek} style={{ "--music-progress": `${progress}%` } as CSSProperties} />
+            <span data-music-remaining aria-label="Time remaining" title={`${formatTime(displayDuration)} total`}>-{formatTime(Math.max(0, displayDuration - currentTime))}</span>
           </div>
           <div className={`${styles.playbackBar} flex items-center justify-between gap-3`}>
             <div className={`${styles.nowPlaying} min-w-0 flex-1 items-center gap-2`}>
               <div className="h-8 w-8 shrink-0 rounded-md" style={{ background: `linear-gradient(135deg, ${currentTrack.accent}, #15151a)` }} />
               <div className="min-w-0"><p className="truncate text-xs font-semibold">{currentTrack.title}</p><p className="truncate text-[10px] text-gray-400">{currentTrack.artist}</p></div>
             </div>
-            <div className={`${styles.transport} flex items-center gap-3`}>
+            <div className={`${styles.transport} flex items-center`}>
               <button type="button" onClick={toggleShuffle} aria-label="Toggle shuffle" aria-pressed={isShuffle} className={`rounded-md p-1.5 ${isShuffle ? "text-[var(--system-accent)]" : "text-gray-400"} hover:bg-gray-100 dark:hover:bg-white/10`}><Shuffle size={15} /></button>
               <button type="button" onClick={previousTrack} aria-label="Previous track" className="rounded-md p-1.5 text-gray-500 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-white/10"><SkipBack size={18} fill="currentColor" /></button>
-              <button type="button" onClick={() => useMusicStore.getState().togglePlay()} aria-label={showPause ? "Pause" : "Play"} className={`${styles.playButton} flex h-9 w-9 items-center justify-center rounded-full bg-gray-900 text-white shadow-lg transition hover:scale-105 dark:bg-white dark:text-black`}>
+              <button type="button" onClick={() => useMusicStore.getState().togglePlay()} aria-label={showPause ? "Pause" : "Play"} className={`${styles.playButton} rounded-full bg-gray-900 text-white shadow-lg transition hover:scale-105 dark:bg-white dark:text-black`}>
                 {showPause ? <Pause size={16} fill="currentColor" /> : <Play size={16} fill="currentColor" className="ml-0.5" />}
               </button>
               <button type="button" onClick={nextTrack} aria-label="Next track" className="rounded-md p-1.5 text-gray-500 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-white/10"><SkipForward size={18} fill="currentColor" /></button>

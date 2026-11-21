@@ -166,7 +166,7 @@ await scenario('real-about-and-existing-project-launchers',async(page,result)=>{
  await launch(page,'finder');await click(page,'[data-window-frame="finder-desktop"] [data-file-icon="about-me"]',2);assert.equal(await page.evaluate(`document.querySelector('[data-window-frame="about-me"]').dataset.windowActive`),'true');
  await launch(page,'finder');await click(page,'[data-window-frame="finder-desktop"] [data-file-icon="projects"]',2);
  const id='3d-macos-web-portfolio';await click(page,`[data-window-frame="finder-desktop"] [data-file-icon="${id}"]`,2);
- await page.wait(`!!document.querySelector('[data-window-frame="file-${id}"] h1')`,'real project detail');assert.equal(await page.evaluate(`document.querySelector('[data-window-frame="file-${id}"] h1').textContent`),'3D macOS Web Portfolio');
+ await page.wait(`!!document.querySelector('[data-window-frame="file-${id}"] h1')`,'real project detail');assert.equal(await page.evaluate(`document.querySelector('[data-window-frame="file-${id}"] h1').textContent`),'Interactive 3D Portfolio');
  result.aboutPortfolio=about;
 });
 await scenario('refresh-feedback-and-active-menu-routing',async(page,result)=>{
@@ -211,9 +211,12 @@ await scenario('mail-cancelled-handoff-preserves-draft-and-legacy-copies',async(
  await page.evaluate('window.open=()=>{throw new Error("no email handler fixture")}');await choose(page,'Mail','Open in your email app');await check();assert.match(await page.evaluate(`document.querySelector('[data-window-frame="app-mail"] [role="status"]').textContent`),/could not be opened/);
  result.requests=await page.evaluate('window.__handoffs');assert.equal(result.requests.length,2);result.retainedLegacyCopies=1;result.cancelFixture='window.open returns null; sending is not attempted or asserted';await page.screenshot('mail-preserved-draft');
 },true);
-await scenario('intentional-neural-and-game-placeholders-remain-unfinished',async(page,result)=>{
- await choose(page,'Go','Documents');const finder=await page.evaluate(`document.querySelector('[data-window-frame][data-window-active="true"]').dataset.windowFrame`);await click(page,`[data-window-frame="${finder}"] [data-file-icon="game"]`,2);await click(page,`[data-window-frame="${finder}"] [data-file-icon="Neural Block"]`,2);
- const content=await page.evaluate(`document.querySelector('[data-window-frame="file-Neural Block"]').textContent`);assert.match(content,/Neural Block/);assert.doesNotMatch(content,/Open in Safari/);result.placeholder='Neural Block remains the existing placeholder; no game or invented project implementation was added.';
+await scenario('documents-stay-empty-and-apps-launch-heat-sink',async(page,result)=>{
+ await choose(page,'Go','Documents');const finder=await page.evaluate(`document.querySelector('[data-window-frame][data-window-active="true"]').dataset.windowFrame`);const window=`[data-window-frame="${finder}"]`;
+ assert.match(await page.evaluate(`document.querySelector('${window} [data-finder-content="documents"]').textContent`),/This folder is empty/);
+ await click(page,`${window} [data-finder-location="game"]`);await click(page,`${window} [data-finder-app="heat-sink"]`);
+ await page.wait(`!!document.querySelector('[data-window-frame="app-heat-sink"][data-window-active="true"]')`,'Heat Sink launches from Apps');
+ result.launcher='The Apps favorite opens the game window; Documents stays empty.';
 });
 }
 await mkdir(output,{recursive:true});await writeFile(new URL(before?'before-browser-results.json':'browser-results.json',output),JSON.stringify(report,null,2)+'\n');socket.close();if(failures)process.exitCode=1;

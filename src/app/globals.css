@@ -5,9 +5,40 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
+  --portfolio-glass-solid: #f2f3f6;
+  --portfolio-glass-tint: rgb(245 248 255 / 42%);
+  --portfolio-glass-panel: rgb(242 246 252 / 76%);
+  --portfolio-glass-border: rgb(255 255 255 / 58%);
+  --portfolio-glass-shadow: 0 12px 32px rgb(14 20 32 / 16%), inset 0 1px 0 rgb(255 255 255 / 72%), inset 0 -1px 0 rgb(255 255 255 / 18%);
+  --portfolio-glass-filter: blur(12px) saturate(1.25);
   --background: #ffffff;
   --foreground: #171717;
   --system-accent: #0a84ff;
+  --lg-glass-bend: 0.45;
+  --lg-glass-dispersion: 0.4;
+  --lg-blur: 18px;
+  --lg-rim-shine: 0.24;
+  --lg-rim-border: rgba(255, 255, 255, 0.42);
+  --lg-rim-highlight: inset 0 1px 0 0 rgba(255, 255, 255, 0.72), inset 0 -1px 0 0 rgba(255, 255, 255, 0.2), inset 1px 0 0 0 rgba(255, 255, 255, 0.28), inset -1px 0 0 0 rgba(255, 255, 255, 0.16);
+  --lg-pill-bg: linear-gradient(160deg, rgba(255, 255, 255, 0.74) 0%, rgba(244, 246, 252, 0.48) 54%, rgba(255, 255, 255, 0.64) 100%);
+  --lg-pill-bg-hover: linear-gradient(160deg, rgba(255, 255, 255, 0.88) 0%, rgba(246, 248, 255, 0.64) 54%, rgba(255, 255, 255, 0.78) 100%);
+  --lg-pill-shadow: 0 6px 18px -4px rgba(15, 23, 42, 0.12), 0 1px 3px rgba(15, 23, 42, 0.08), var(--lg-rim-highlight);
+  --lg-pill-shadow-hover: 0 10px 24px -4px rgba(15, 23, 42, 0.18), 0 2px 6px rgba(15, 23, 42, 0.1), inset 0 1.5px 0 0 rgba(255, 255, 255, 0.9), inset 0 -1px 0 0 rgba(255, 255, 255, 0.32);
+}
+
+.dark {
+  --portfolio-glass-solid: #2b2e35;
+  --portfolio-glass-tint: rgb(36 40 49 / 48%);
+  --portfolio-glass-panel: rgb(35 39 48 / 76%);
+  --portfolio-glass-border: rgb(255 255 255 / 23%);
+  --portfolio-glass-shadow: 0 14px 36px rgb(0 0 0 / 30%), inset 0 1px 0 rgb(255 255 255 / 25%), inset 0 -1px 0 rgb(255 255 255 / 7%);
+  --lg-rim-shine: 0.18;
+  --lg-rim-border: rgba(255, 255, 255, 0.18);
+  --lg-rim-highlight: inset 0 1px 0 0 rgba(255, 255, 255, 0.28), inset 0 -1px 0 0 rgba(255, 255, 255, 0.08), inset 1px 0 0 0 rgba(255, 255, 255, 0.12), inset -1px 0 0 0 rgba(255, 255, 255, 0.08);
+  --lg-pill-bg: linear-gradient(160deg, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0.06) 54%, rgba(255, 255, 255, 0.12) 100%);
+  --lg-pill-bg-hover: linear-gradient(160deg, rgba(255, 255, 255, 0.23) 0%, rgba(255, 255, 255, 0.1) 54%, rgba(255, 255, 255, 0.18) 100%);
+  --lg-pill-shadow: 0 8px 22px -4px rgba(0, 0, 0, 0.42), 0 2px 5px rgba(0, 0, 0, 0.28), var(--lg-rim-highlight);
+  --lg-pill-shadow-hover: 0 12px 28px -4px rgba(0, 0, 0, 0.52), 0 3px 8px rgba(0, 0, 0, 0.34), inset 0 1.5px 0 0 rgba(255, 255, 255, 0.38), inset 0 -1px 0 0 rgba(255, 255, 255, 0.14);
 }
 
 @theme inline {
@@ -29,3 +60,40 @@ body {
   color: var(--foreground);
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
+
+/* Resolve Glisse from the app's explicit theme rather than the OS preference.
+   This also covers controls rendered through portals outside the desktop. */
+html:not(.dark) {
+  --lg-foreground: #242832; --lg-muted: #525b6a; --lg-glass: #ffffff59;
+  --lg-glass-active: #ffffff94; --lg-edge: #ffffff8c; --lg-drop: #17213a12;
+  --lg-ring: #075fb9; --lg-fill: var(--system-accent); --lg-lens-shine: -1.5;
+  --lg-track: #777b864d; --lg-segment-label: #242832; --lg-rim-shine: .24;
+}
+html.dark {
+  --lg-foreground: #f4f6fb; --lg-muted: #c0c7d3; --lg-glass: #ffffff12;
+  --lg-glass-active: #ffffff24; --lg-edge: #ffffff3b; --lg-drop: #00000018;
+  --lg-ring: #8bc5ff; --lg-fill: var(--system-accent); --lg-lens-shine: 1;
+  --lg-track: #ebebf54d; --lg-segment-label: #fff; --lg-rim-shine: .18;
+}
+
+#desktop-root { --portfolio-control-min: 44px; --portfolio-menu-row: 28px; }
+/* The normal laptop projection renders at about 40% of its logical size.
+   Keep a practical target footprint without enlarging the icon artwork. */
+[data-screen-surface][data-screen-view="laptop"] #desktop-root { --portfolio-control-min: 64px; --portfolio-menu-row: 44px; }
+nav[aria-label="Portfolio menu bar"] { height: var(--portfolio-menu-row) !important; }
+
+/* The focused desktop can be smaller than the 3D screen's virtual canvas.
+   Keep menus and every Dock app reachable at large readability settings. */
+@container desktop (max-width: 850px) {
+  [data-dock-surface] { max-width: calc(100% - 24px); overflow-x: auto; overscroll-behavior-x: contain; scrollbar-width: thin; }
+  [data-dock-surface] > * { flex-shrink: 0; }
+  [data-menu-status] { display: none !important; }
+}
+@container desktop (max-width: 540px) {
+  nav[aria-label="Portfolio menu bar"] { height: auto !important; padding-inline: 6px !important; }
+  [role="menubar"][aria-label="Application menus"] { flex-wrap: wrap; align-content: center; }
+  [data-menu-key] { height: var(--portfolio-menu-row); }
+  [data-menu-key] > button { padding-inline: 7px; }
+}
+@media (pointer: coarse) { #desktop-root { --portfolio-menu-row: 44px; } }
+[data-compact-desktop] [data-laptop-setting] { display: none; }

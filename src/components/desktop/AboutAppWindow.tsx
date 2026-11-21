@@ -1,7 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import { AppWindow, Laptop } from "lucide-react";
+import { AppWindow } from "lucide-react";
+import { appWindowTitle } from "../../data/appIdentity";
+import { PortfolioIdentity } from "../portfolio/PortfolioIdentity";
 import FinderIcon from "../../assets/3d-mac-os-finder.png";
 import TerminalIcon from "../../assets/Terminal.png";
 import NotesIcon from "../../assets/Notes.png";
@@ -11,52 +13,27 @@ import MusicIcon from "../../assets/Music.png";
 import FaceTimeIcon from "../../assets/facetime.png";
 import SettingsIcon from "../../assets/System-Settings.png";
 
-// Map app names to their icons and versions
-const APP_DATA: Record<string, { icon: string; version: string }> = {
-  "Finder": { icon: FinderIcon.src, version: "Version 26.4" },
-  "Terminal": { icon: TerminalIcon.src, version: "Version 2.15 (470.2)" },
-  "Notes": { icon: NotesIcon.src, version: "Version 4.9.1" },
-  "Mail": { icon: MailIcon.src, version: "Version 16.0" },
-  "Safari": { icon: SafariIcon.src, version: "Version 17.4.1" },
-  "Music": { icon: MusicIcon.src, version: "Version 1.4.4" },
-  "FaceTime": { icon: FaceTimeIcon.src, version: "Version 5.0" },
-  "Settings": { icon: SettingsIcon.src, version: "Version 15.0" },
-  "About Me": { icon: FinderIcon.src, version: "Version 1.0" },
+const APP_DATA: Record<string, { icon: string; description: string }> = {
+  Files: { icon: FinderIcon.src, description: "Browse this portfolio’s folders, projects and files." },
+  Terminal: { icon: TerminalIcon.src, description: "Explore Om’s skills and projects through portfolio commands." },
+  Notes: { icon: NotesIcon.src, description: "Read the Developer Log and write session notes." },
+  Mail: { icon: MailIcon.src, description: "Prepare a message to Om, then finish sending in your email app." },
+  Browser: { icon: SafariIcon.src, description: "Explore portfolio pages. External sites open in your real browser." },
+  Music: { icon: MusicIcon.src, description: "Instrumental listening, with creator and license credits in the app." },
+  Camera: { icon: FaceTimeIcon.src, description: "A local camera and gesture demo. Camera access starts when you choose." },
+  Settings: { icon: SettingsIcon.src, description: "Display, appearance, workspace and sound preferences for this website." },
 };
 
-export function AboutAppWindow({ window }: { window: { title: string } }) {
-  // Extract the app name from the window title (e.g., "About Terminal" -> "Terminal")
-  const appName = window.title.replace("About ", "");
-  const data = APP_DATA[appName];
-  if (appName === "This Portfolio" || appName === "Portfolio") {
-    return <div data-portfolio-about className="flex h-full w-full flex-col items-center overflow-y-auto bg-[#282828] p-6 text-center font-sans text-gray-200">
-      <div className="mb-4 flex h-20 w-20 shrink-0 items-center justify-center rounded-2xl bg-white/10 text-white"><Laptop size={46} strokeWidth={1.4} aria-hidden="true" /></div>
-      <h1 className="text-xl font-bold text-white">Om’s Portfolio</h1>
-      <p className="mt-1 text-xs text-gray-400">Portfolio OS 26.4</p>
-      <p className="mt-5 text-sm font-semibold">Om Nilesh Sawkare</p>
-      <p className="mt-2 max-w-xs text-xs leading-5 text-gray-400">An interactive macOS-inspired portfolio inside a 3D MacBook, built with Next.js, React, Three.js and Zustand.</p>
-      <p className="mt-auto pt-5 text-[11px] text-gray-500">™ by omisan · © 2026 Om Sawkare.</p>
-    </div>;
-  }
-
-  return (
-    <div className="w-full h-full flex flex-col items-center bg-[#282828] text-gray-200 font-sans p-5 pt-6 text-center select-none">
-      {data ? <Image
-        src={data.icon}
-        alt={appName} 
-        width={80}
-        height={80}
-        unoptimized
-        loading="eager"
-        className="w-20 h-20 drop-shadow-2xl mb-3 pointer-events-none"
-      /> : <AppWindow size={80} className="mb-3" aria-hidden="true" />}
-      <h1 className="text-xl font-bold text-white mb-1 tracking-wide">{appName}</h1>
-      <p className="text-[11px] text-gray-400 mb-4">{data?.version ?? "Portfolio app demonstration"}</p>
-      
-      <div className="mt-auto mb-6 text-[11px] text-gray-500 leading-relaxed font-medium">
-        <p>™ by omisan & © 2026 Om Sawkare.</p>
-        <p>All rights reserved.</p>
-      </div>
-    </div>
-  );
+export function AboutAppWindow({ window }: { window: { id: string; title: string } }) {
+  const title = appWindowTitle({ ...window, kind: "about-app" });
+  const name = title.replace(/^About /, "");
+  const data = APP_DATA[name];
+  return <div className="flex h-full w-full flex-col items-center overflow-y-auto bg-[#f6f6f8] p-6 text-center font-sans text-gray-800 dark:bg-[#282828] dark:text-gray-200">
+    {name === "This Portfolio" || name === "Portfolio" ? <PortfolioIdentity /> : <>
+      {data ? <Image src={data.icon} alt="" aria-hidden="true" width={80} height={80} unoptimized loading="eager" className="mb-4 h-20 w-20 shrink-0 object-contain" /> : <AppWindow size={64} className="mb-4 shrink-0" aria-hidden="true" />}
+      <h1 className="text-xl font-semibold">{name}</h1>
+      <p className="mt-3 max-w-xs text-sm leading-6 text-gray-600 dark:text-gray-300">{data?.description ?? "An app demonstration inside Om’s interactive portfolio."}</p>
+      <p className="mt-auto pt-6 text-xs text-gray-600 dark:text-gray-300">Part of Om Sawkare’s portfolio.</p>
+    </>}
+  </div>;
 }

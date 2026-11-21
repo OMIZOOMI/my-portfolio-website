@@ -4,42 +4,108 @@
     left: 0;
     display: flex;
     flex-direction: column;
-    border-radius: 10px;
-    overflow: hidden;
-    /* Light chrome by default; .dark on <html> flips to the dark frosted look. */
-    background: rgba(246, 246, 248, 0.78);
-    backdrop-filter: blur(30px) saturate(180%);
-    -webkit-backdrop-filter: blur(30px) saturate(180%);
-    border: 1px solid rgba(0, 0, 0, 0.12);
-    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
-    will-change: transform, opacity;
+    border-radius: var(--window-radius);
+    overflow: visible;
+    /* Transparent chrome reveals the backdrop; the content region stays opaque. */
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.52);
+    box-shadow:
+      0 32px 68px -12px rgba(10, 14, 24, 0.34),
+      0 6px 18px -4px rgba(10, 14, 24, 0.16),
+      0 0 0 0.5px rgba(0, 0, 0, 0.12),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.78);
     /* Color-only crossfade for theme toggles — transform/opacity stay on
        Framer's spring so the two systems never fight over one property. */
-    transition: background-color 1s ease-in-out, border-color 1s ease-in-out, box-shadow 1s ease-in-out;
+    transition: background-color 180ms ease-out, border-color 180ms ease-out, box-shadow 180ms ease-out;
   }
 
   :global(.dark) .window {
-    background: rgba(32, 32, 36, 0.75);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.45);
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    box-shadow:
+      0 34px 72px -12px rgba(0, 0, 0, 0.58),
+      0 8px 22px -4px rgba(0, 0, 0, 0.36),
+      0 0 0 0.5px rgba(0, 0, 0, 0.45),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.24);
   }
 
   .titleBar {
+    position: relative;
     display: flex;
     align-items: center;
     height: 36px;
     padding: 0 12px;
-    background: rgba(0, 0, 0, 0.04);
+    background: transparent;
     border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow:
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.82),
+      inset 0 -1px 0 0 rgba(255, 255, 255, 0.28);
     cursor: grab;
     touch-action: none;
     flex-shrink: 0;
-    transition: background-color 1s ease-in-out, border-color 1s ease-in-out;
+    overflow: hidden;
+    border-radius: inherit;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    transition: background-color 180ms ease-out, border-color 180ms ease-out, box-shadow 180ms ease-out;
+  }
+
+  .titleBar::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.42) 0%,
+      rgba(255, 255, 255, 0.08) 52%,
+      rgba(255, 255, 255, 0) 100%
+    );
   }
 
   :global(.dark) .titleBar {
-    background: rgba(255, 255, 255, 0.03);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    background: transparent;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.09);
+    box-shadow:
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.24),
+      inset 0 -1px 0 0 rgba(255, 255, 255, 0.05);
+  }
+
+  :global(.dark) .titleBar::before {
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.14) 0%,
+      rgba(255, 255, 255, 0.03) 52%,
+      rgba(255, 255, 255, 0) 100%
+    );
+  }
+
+  .window[data-window-active="false"] .titleBar {
+    background: transparent;
+    box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.5);
+  }
+
+  :global(.dark) .window[data-window-active="false"] .titleBar {
+    background: transparent;
+    box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.12);
+  }
+
+  @supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    .titleBar {
+      background: transparent;
+    }
+
+    :global(.dark) .titleBar {
+      background: transparent;
+    }
+
+    .window[data-window-active="false"] .titleBar {
+      background: transparent;
+    }
+
+    :global(.dark) .window[data-window-active="false"] .titleBar {
+      background: transparent;
+    }
   }
 
   .titleBar:active {
@@ -47,6 +113,8 @@
   }
 
   .trafficLights {
+    position: relative;
+    z-index: 1;
     display: flex;
     align-items: center;
     flex-shrink: 0;
@@ -64,10 +132,21 @@
     height: 28px;
     padding: 0;
     border: 0;
-    border-radius: 6px;
+    border-radius: 7px;
     background: transparent;
     cursor: pointer;
     touch-action: manipulation;
+    transition: background-color 120ms ease, box-shadow 120ms ease;
+  }
+
+  .control:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.24);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45);
+  }
+
+  :global(.dark) .control:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.08);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18);
   }
 
   .control:focus-visible {
@@ -86,9 +165,19 @@
     width: 13px;
     height: 13px;
     border-radius: 50%;
-    border: 0.5px solid rgba(0, 0, 0, 0.15);
+    border: 0.5px solid rgba(0, 0, 0, 0.18);
+    box-shadow:
+      inset 0 1px 1px rgba(255, 255, 255, 0.55),
+      0 1px 2px rgba(0, 0, 0, 0.14);
     pointer-events: none;
-    transition: transform 80ms ease, opacity 80ms ease;
+    transition: transform 110ms cubic-bezier(0.22, 1, 0.36, 1), opacity 80ms ease, box-shadow 110ms ease;
+  }
+
+  .control:hover:not(:disabled) .dot {
+    transform: scale(1.08);
+    box-shadow:
+      inset 0 1.5px 1.5px rgba(255, 255, 255, 0.72),
+      0 2px 5px rgba(0, 0, 0, 0.22);
   }
 
   .dot svg {
@@ -102,7 +191,7 @@
   }
 
   .control:active:not(:disabled) .dot {
-    transform: scale(0.85);
+    transform: scale(0.88);
   }
 
   .control:disabled .dot {
@@ -110,21 +199,23 @@
   }
 
   .close {
-    background: #ff5f56;
+    background: linear-gradient(180deg, #ff736b 0%, #ff5f56 58%, #e8483f 100%);
     color: #4c0000;
   }
 
   .minimize {
-    background: #ffbd2e;
+    background: linear-gradient(180deg, #ffd05b 0%, #ffbd2e 58%, #e6a317 100%);
     color: #5c4300;
   }
 
   .maximize {
-    background: #27c93f;
+    background: linear-gradient(180deg, #47de5e 0%, #27c93f 58%, #1bb032 100%);
     color: #004d09;
   }
 
   .title {
+    position: relative;
+    z-index: 1;
     flex: 1;
     min-width: 0;
     text-align: center;
@@ -133,29 +224,79 @@
     white-space: nowrap;
     text-overflow: ellipsis;
     user-select: none;
-    color: rgba(0, 0, 0, 0.55);
+    color: rgba(0, 0, 0, 0.62);
     font-size: 12px;
-    font-weight: 500;
+    font-weight: 560;
+    text-shadow: none;
     transition: color 1s ease-in-out;
   }
 
   :global(.dark) .title {
-    color: rgba(255, 255, 255, 0.6);
+    color: rgba(255, 255, 255, 0.72);
+    text-shadow: none;
   }
 
   .content {
+    position: relative;
+    background: #f6f6f8;
     overflow: auto;
-    /* No CSS transition here on purpose — the resize animation is Framer's
-       `layout` FLIP on the parent; a CSS transition on the same property
-       would double-animate and fight it. */
+    border-radius: inherit;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
   }
+
+  .resizeHandle {
+    position: absolute;
+    z-index: 3;
+    touch-action: none;
+    user-select: none;
+  }
+
+  .resizeHandle:is([data-window-resize="n"], [data-window-resize="s"]) {
+    left: 17px;
+    right: 17px;
+    height: 9px;
+    cursor: ns-resize;
+  }
+
+  .resizeHandle:is([data-window-resize="w"], [data-window-resize="e"]) {
+    top: 17px;
+    bottom: 17px;
+    width: 9px;
+    cursor: ew-resize;
+  }
+
+  .resizeHandle:is([data-window-resize="n"], [data-window-resize="nw"], [data-window-resize="ne"]) { top: -6px; }
+  .resizeHandle:is([data-window-resize="s"], [data-window-resize="sw"], [data-window-resize="se"]) { bottom: -6px; }
+  .resizeHandle:is([data-window-resize="w"], [data-window-resize="nw"], [data-window-resize="sw"]) { left: -6px; }
+  .resizeHandle:is([data-window-resize="e"], [data-window-resize="ne"], [data-window-resize="se"]) { right: -6px; }
+
+  .resizeHandle:is([data-window-resize="nw"], [data-window-resize="ne"], [data-window-resize="sw"], [data-window-resize="se"]) {
+    width: 25px;
+    height: 25px;
+  }
+
+  .resizeHandle[data-window-resize="nw"] { cursor: nwse-resize; clip-path: polygon(0 0, 100% 0, 100% 40%, 40% 40%, 40% 100%, 0 100%); }
+  .resizeHandle[data-window-resize="ne"] { cursor: nesw-resize; clip-path: polygon(0 0, 100% 0, 100% 100%, 60% 100%, 60% 40%, 0 40%); }
+  .resizeHandle[data-window-resize="sw"] { cursor: nesw-resize; clip-path: polygon(0 0, 40% 0, 40% 60%, 100% 60%, 100% 100%, 0 100%); }
+  .resizeHandle[data-window-resize="se"] { cursor: nwse-resize; clip-path: polygon(60% 0, 100% 0, 100% 100%, 0 100%, 0 60%, 60% 60%); }
+
+  .resizeHandle:focus-visible { outline: 2px solid var(--system-accent); outline-offset: -3px; border-radius: 6px; }
+
+  :global(.dark) .content { background: #25262a; }
+  .window[data-window-active="false"] .titleBar { --portfolio-glass-tint: rgb(223 227 235 / 70%); }
+  :global(.dark) .window[data-window-active="false"] .titleBar { --portfolio-glass-tint: rgb(40 43 51 / 76%); }
 
   @media (prefers-reduced-motion: reduce) {
     .window,
     .titleBar,
+    .control,
     .title,
     .dot,
     .dot svg {
       transition: none;
+    }
+    .control:hover:not(:disabled) .dot {
+      transform: none;
     }
   }

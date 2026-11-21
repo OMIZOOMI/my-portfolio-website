@@ -44,14 +44,14 @@ test('recorded keyboard tap is short, quiet, varied and ends at zero',()=>{
 });
 function soundContext(state='running') {
   const voices=[], buffers=[]; let finishResume;
-  const context={state,sampleRate:44100,destination:{},closed:0,
+  const context={state,sampleRate:44100,destination:{},closed:0,resumes:0,
     createGain:()=>({gain:{value:0},connect(){},disconnect(){}}),
     createBuffer:()=>{const buffer={copyToChannel(){}};buffers.push(buffer);return buffer;},
     createBufferSource:()=>{const voice={onended:null,started:0,stopped:0,connect(){},disconnect(){},start(){this.started++;},stop(){this.stopped++;}};voices.push(voice);return voice;},
-    resume:()=>new Promise(resolve=>{finishResume=()=>{context.state='running';resolve();};}),
+    resume:()=>new Promise(resolve=>{context.resumes++;finishResume=()=>resolve();}),
     close:()=>{context.closed++;context.state='closed';return Promise.resolve();},
   };
-  return {context,voices,buffers,resume:()=>finishResume?.()};
+  return {context,voices,buffers,resume:()=>{context.state='running';finishResume?.();}, settle:()=>finishResume?.()};
 }
 test('sound starts lazily, caps voices, reuses buffers and releases its context',()=>{
   const fake=soundContext();let created=0;
@@ -69,6 +69,24 @@ test('a closed sound engine ignores late unlock; unavailable audio never breaks 
   assert.equal(fake.voices.length,0);
   assert.doesNotThrow(()=>createKeyboardClickAudio(()=>null).play('KeyA'));
   assert.doesNotThrow(()=>createKeyboardClickAudio(()=>{throw Error('blocked');}).play('KeyA'));
+});
+test('interrupted context plays only the latest click when a later statechange reports running',async()=>{
+  const fake=soundContext('interrupted'),engine=createKeyboardClickAudio(()=>fake.context);
+  engine.play('KeyA');engine.play('KeyC');assert.equal(fake.context.resumes,1);
+  fake.settle();await Promise.resolve();assert.equal(fake.voices.length,0);
+  fake.context.state='running';fake.context.onstatechange();
+  assert.equal(fake.voices.length,1);
+  engine.play('KeyA');assert.equal(fake.voices.length,2);
+  engine.dispose();
+});
+test('blur clears a pending click; the next key recreates a closed context',async()=>{
+  const first=soundContext('suspended'),second=soundContext();let created=0;
+  const engine=createKeyboardClickAudio(()=>created++ === 0 ? first.context : second.context);
+  engine.play('KeyA');engine.silence();first.resume();await Promise.resolve();
+  assert.equal(first.voices.length,0);
+  first.context.state='closed';engine.play('KeyC');
+  assert.equal(created,2);assert.equal(second.voices.length,1);
+  assert.equal(first.context.onstatechange,null);engine.dispose();
 });
 test('release never initializes audio and both phases share the same bounded engine',()=>{
   const fake=soundContext();let created=0;

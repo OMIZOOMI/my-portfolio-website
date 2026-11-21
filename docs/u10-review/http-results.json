@@ -1,0 +1,71 @@
+[
+  {
+    "path": "/projects/veyra",
+    "status": 200,
+    "title": "Veyra — Om Sawkare",
+    "serverRendered": true,
+    "mediaElements": 0,
+    "links": [
+      "/",
+      "/projects/veyra",
+      "/projects/adobe-brand-audit",
+      "/?project=veyra",
+      "https://github.com/OMIZOOMI/Cross-Exam",
+      "https://github.com/OMIZOOMI/Cross-Exam/blob/9bafdb5df0d97668abd66e09fa342610da323ace/apps/scanner/src/investigate.test.ts#L311-L339",
+      "https://github.com/OMIZOOMI/Cross-Exam/blob/9bafdb5df0d97668abd66e09fa342610da323ace/apps/scanner/src/investigate.ts",
+      "https://github.com/OMIZOOMI/Cross-Exam/blob/9bafdb5df0d97668abd66e09fa342610da323ace/apps/web/src/lib/scan-handler.ts",
+      "https://github.com/OMIZOOMI/Cross-Exam/blob/9bafdb5df0d97668abd66e09fa342610da323ace/packages/contracts/src/index.ts",
+      "https://github.com/OMIZOOMI/Cross-Exam/blob/9bafdb5df0d97668abd66e09fa342610da323ace/apps/scanner/src/report.ts",
+      "https://github.com/OMIZOOMI/Cross-Exam/blob/9bafdb5df0d97668abd66e09fa342610da323ace/apps/web/src/components/finding-row.tsx",
+      "https://github.com/OMIZOOMI/Cross-Exam/blob/9bafdb5df0d97668abd66e09fa342610da323ace/apps/browser-worker/src/index.ts",
+      "https://github.com/OMIZOOMI/Cross-Exam/blob/9bafdb5df0d97668abd66e09fa342610da323ace/packages/agents/src/index.ts",
+      "https://github.com/OMIZOOMI/Cross-Exam/blob/9bafdb5df0d97668abd66e09fa342610da323ace/pnpm-lock.yaml",
+      "/projects/adobe-brand-audit",
+      "/?project=veyra"
+    ]
+  },
+  {
+    "path": "/projects/adobe-brand-audit",
+    "status": 200,
+    "title": "Adobe Hackathon · Brand AI Readiness Audit — Om Sawkare",
+    "serverRendered": true,
+    "mediaElements": 0,
+    "links": [
+      "/",
+      "/projects/veyra",
+      "/projects/adobe-brand-audit",
+      "/?project=adobe-brand-audit",
+      "https://github.com/OMIZOOMI/brand-ai-readiness-audit",
+      "https://github.com/OMIZOOMI/brand-ai-readiness-audit/blob/657e157b17f8fa9c0d9742d88f9c71d56b0ddec0/skills/audit-orchestrator/references/example-report.json",
+      "https://github.com/OMIZOOMI/brand-ai-readiness-audit/blob/657e157b17f8fa9c0d9742d88f9c71d56b0ddec0/skills/audit-orchestrator/scripts/run_audit.py#L217-L312",
+      "https://github.com/OMIZOOMI/brand-ai-readiness-audit/blob/657e157b17f8fa9c0d9742d88f9c71d56b0ddec0/skills/audit-orchestrator/scripts/run_audit.py",
+      "https://github.com/OMIZOOMI/brand-ai-readiness-audit/blob/657e157b17f8fa9c0d9742d88f9c71d56b0ddec0/skills/audit-orchestrator/scripts/auditlib/crawler.py",
+      "https://github.com/OMIZOOMI/brand-ai-readiness-audit/blob/657e157b17f8fa9c0d9742d88f9c71d56b0ddec0/skills/crawl-render-audit/scripts/check_crawl_render.py",
+      "https://github.com/OMIZOOMI/brand-ai-readiness-audit/blob/657e157b17f8fa9c0d9742d88f9c71d56b0ddec0/skills/ai-citability-audit/scripts/check_citability.py",
+      "https://github.com/OMIZOOMI/brand-ai-readiness-audit/blob/657e157b17f8fa9c0d9742d88f9c71d56b0ddec0/skills/freshness-corroboration/scripts/check_freshness.py",
+      "https://github.com/OMIZOOMI/brand-ai-readiness-audit/blob/657e157b17f8fa9c0d9742d88f9c71d56b0ddec0/skills/engagement-audit/scripts/check_engagement.py",
+      "https://github.com/OMIZOOMI/brand-ai-readiness-audit/blob/657e157b17f8fa9c0d9742d88f9c71d56b0ddec0/skills/audit-orchestrator/scripts/auditlib/compose.py",
+      "https://github.com/OMIZOOMI/brand-ai-readiness-audit/blob/657e157b17f8fa9c0d9742d88f9c71d56b0ddec0/tests/test_composition.py",
+      "https://github.com/OMIZOOMI/brand-ai-readiness-audit/blob/657e157b17f8fa9c0d9742d88f9c71d56b0ddec0/marketplace.json",
+      "https://github.com/OMIZOOMI/brand-ai-readiness-audit/blob/657e157b17f8fa9c0d9742d88f9c71d56b0ddec0/tools/make_example_report.py",
+      "/projects/veyra",
+      "/?project=adobe-brand-audit"
+    ]
+  },
+  {
+    "path": "/projects/not-a-project",
+    "status": 404,
+    "title": "Om Sawkare — Interactive Portfolio",
+    "serverRendered": true,
+    "mediaElements": 0,
+    "links": [
+      "/projects/veyra",
+      "/projects/adobe-brand-audit",
+      "/"
+    ]
+  },
+  {
+    "path": "/",
+    "readableIdentityInInitialHTML": true
+  }
+]

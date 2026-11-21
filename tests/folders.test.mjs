@@ -26,9 +26,12 @@ function loadTypeScript(filename) {
 }
 
 const root = fileURLToPath(new URL("../", import.meta.url));
+const { PROJECTS } = loadTypeScript(resolve(root, "src/data/projectsData.ts"));
 const { useSystemStore: store } = loadTypeScript(resolve(root, "src/components/window-manager/useSystemStore.ts"));
 const { useWindowStore: windowStore } = loadTypeScript(resolve(root, "src/components/window-manager/useWindowStore.ts"));
+const { layoutDesktopIcons } = loadTypeScript(resolve(root, "src/components/desktop/desktopIconLayout.ts"));
 const state = () => store.getState();
+const desktopLayout = () => layoutDesktopIcons(state().desktopIds, state().desktopPositions, { width: 1400, height: 900, iconScale: 1 });
 const item = (id) => state().getFileItem(id);
 const create = (parentId, name) => {
   const id = state().createFolder(parentId, name);
@@ -57,50 +60,48 @@ describe("folder identity and names", () => {
       assert.equal(item(create(ids[0])).name, "Untitled Folder", "a new destination has its own numbering");
       assert.equal(state().desktopIds.filter((id) => ids.includes(id)).length, 40);
       assert.equal(state().fileSystem.desktop.filter((file) => ids.includes(file.id)).length, 40);
-      const positions = ids.map((id) => state().desktopPositions[id]);
+      const positions = ids.map((id) => desktopLayout().positions[id]);
       assert.equal(new Set(positions.map(({ x, y }) => `${x}:${y}`)).size, 40, "rapid creation wraps into distinct visible columns");
       for (const { x, y } of positions) {
         assert.ok(x >= 0 && x + 84 <= 1400, `x=${x} must stay inside desktop`);
-        assert.ok(y >= 32 && y + 88 <= 900 - 96, `y=${y} must stay above the Dock`);
+        assert.ok(y >= 32 && y + 116 <= 900, `y=${y} must stay inside the real screen`);
       }
+      assert.deepEqual(state().desktopPositions, {}, "automatic creation must not record manual coordinates");
     } finally { Date.now = originalNow; }
   });
 
   test("new desktop folders avoid manual and trashed positions without moving existing icons", () => {
     const first = create();
-    const saved = { ...state().desktopPositions[first] };
+    const saved = { ...desktopLayout().positions[first] };
     state().addToTrash(first);
     const next = create();
-    assert.notDeepEqual(state().desktopPositions[next], saved, "a trashed folder keeps its slot for restoration");
-    assert.deepEqual(state().desktopPositions[first], saved);
+    assert.notDeepEqual(desktopLayout().positions[next], saved, "a trashed folder keeps its slot for restoration");
+    assert.deepEqual(desktopLayout().positions[first], saved);
     state().moveToDesktop(next, { x: 1196, y: 48 });
     const manual = { ...state().desktopPositions[next] };
     const before = { ...state().desktopPositions };
     for (let index = 0; index < 20; index++) create();
     for (const [id, position] of Object.entries(before)) assert.deepEqual(state().desktopPositions[id], position);
     assert.deepEqual(state().desktopPositions[next], manual);
-    const all = Object.entries(state().desktopPositions);
+    const all = Object.entries(desktopLayout().positions);
     for (const [id, { x, y }] of all) {
       for (const [otherId, other] of all) {
         if (id === otherId) continue;
-        assert.ok(x >= other.x + 84 || x + 84 <= other.x || y >= other.y + 88 || y + 88 <= other.y, `${id} overlaps ${otherId}`);
+        assert.ok(x >= other.x + 84 || x + 84 <= other.x || y >= other.y + 116 || y + 116 <= other.y, `${id} overlaps ${otherId}`);
       }
     }
     state().restoreFromTrash(first);
-    assert.deepEqual(state().desktopPositions[first], saved);
+    assert.deepEqual(desktopLayout().positions[first], saved);
   });
 
-  test("a full desktop still creates a folder at a reachable bounded position", () => {
-    const occupied = {};
-    for (let x = 1300; x >= 0; x -= 104) {
-      for (let y = 48; y <= 716; y += 88) occupied[`occupied-${x}-${y}`] = { x, y };
-    }
-    store.setState({ desktopPositions: occupied });
+  test("a full desktop creates a folder in the scrollable layout without saving automatic coordinates", () => {
+    for (let index = 0; index < 90; index++) create();
     const id = create();
-    const { x, y } = state().desktopPositions[id];
+    const layout = desktopLayout(), { x, y } = layout.positions[id];
     assert.ok(x >= 0 && x + 84 <= 1400);
-    assert.ok(y >= 32 && y + 88 <= 900 - 96);
-    for (const [savedId, position] of Object.entries(occupied)) assert.deepEqual(state().desktopPositions[savedId], position);
+    assert.ok(y >= 32 && y + 116 <= layout.contentHeight);
+    assert.ok(layout.contentHeight > 900);
+    assert.deepEqual(state().desktopPositions, {});
   });
 
   test("create normalizes explicit names and rejects blanks, invalid names and duplicate siblings without history", () => {
@@ -182,9 +183,9 @@ describe("folder identity and names", () => {
 });
 
 describe("trash subtree ownership and restoration", () => {
-  test("restoring the initial Projects folder restores its three real project files without restoring unrelated trash", () => {
+  test("restoring the initial Projects folder restores every catalogue project file without restoring unrelated trash", () => {
     const projectIds = state().fileSystem.projects.map((file) => file.id);
-    assert.equal(projectIds.length, 3, "exercise the original audit's actual Projects dataset");
+    assert.equal(projectIds.length, PROJECTS.length, "exercise every project in the current catalogue");
     assert.deepEqual(state().fileSystem["about-me"], [], "the intentional empty folder remains empty");
     state().addToTrash("about-me");
     state().addToTrash("projects");

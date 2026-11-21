@@ -1,0 +1,63 @@
+.profiles { container: profiles / inline-size; margin-bottom: 14px; }
+.grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 8px; }
+
+.card[data-profile="github"] {
+  --profile-surface: #f0eff5;
+  --profile-hover: #eae8f1;
+  --profile-border: #dad6e4;
+  --profile-hover-border: #a89cb9;
+  --profile-badge: #e0dbea;
+  --profile-accent: #54456b;
+}
+.card[data-profile="linkedin"] {
+  --profile-surface: #edf4fa;
+  --profile-hover: #e5eff8;
+  --profile-border: #d0deeb;
+  --profile-hover-border: #8daac4;
+  --profile-badge: #d7e7f5;
+  --profile-accent: #285b82;
+}
+:global(.dark) .card[data-profile="github"] {
+  --profile-surface: #272630;
+  --profile-hover: #302c3a;
+  --profile-border: #403b4c;
+  --profile-hover-border: #746581;
+  --profile-badge: #40374d;
+  --profile-accent: #d9c8eb;
+}
+:global(.dark) .card[data-profile="linkedin"] {
+  --profile-surface: #212c38;
+  --profile-hover: #263544;
+  --profile-border: #34495c;
+  --profile-hover-border: #5c7f9a;
+  --profile-badge: #2b445a;
+  --profile-accent: #b7d9f5;
+}
+.card {
+  display: grid;
+  grid-template-columns: 33px minmax(0, 1fr) 15px;
+  align-items: center;
+  gap: 9px;
+  min-width: 0;
+  min-height: 50px;
+  padding: 7px 10px;
+  border: 1px solid var(--profile-border);
+  border-radius: 14px;
+  background: var(--profile-surface);
+  color: #252a32;
+  text-decoration: none;
+  transition: border-color 140ms ease, background-color 140ms ease;
+}
+.icon { display: grid; width: 33px; height: 33px; place-items: center; border-radius: 10px; background: var(--profile-badge); color: var(--profile-accent); }
+.label { display: grid; gap: 2px; line-height: 1.2; overflow-wrap: anywhere; }
+.label strong { font-size: 14px; font-weight: 650; }
+.label small { color: #525d6d; font-size: 11px; }
+.action { color: var(--profile-accent); }
+.card:is(:hover, :focus-visible) { border-color: var(--profile-hover-border); background: var(--profile-hover); }
+.card:focus-visible { outline: 2px solid var(--profile-accent); outline-offset: 3px; }
+.note { margin-top: 5px; color: #525d6d; font-size: 11px; line-height: 1.35; }
+:global(.dark) .card { color: #f4f5f7; }
+:global(.dark) :is(.label small, .note) { color: #c2c8d1; }
+@container profiles (min-width: 410px) { .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (prefers-reduced-motion: reduce) { .card { transition: none; } }
+:global([data-reduced-motion]) .card { transition: none; }

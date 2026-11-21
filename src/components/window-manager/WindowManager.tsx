@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, type ComponentType } from "react";
+import dynamic from "next/dynamic";
 import { AnimatePresence } from "framer-motion";
 import { useWindowStore, type WindowState } from "./useWindowStore";
 import { WindowFrame } from "@/components/window-manager/WindowFrame";
@@ -19,6 +20,10 @@ import { FaceTimeApp } from "@/components/desktop/FaceTimeApp";
 
 // 1. Added Finder icon import for the modal
 import { ProjectDetailView } from "@/components/desktop/ProjectDetailView";
+
+const HeatSinkApp = dynamic<WindowContentProps>(() => import("@/components/desktop/HeatSinkApp").then(module => module.HeatSinkApp), {
+  loading: () => <p className="p-5 text-sm" role="status">Opening Heat Sink…</p>,
+});
 
 export interface WindowContext {
   onActivateGameMenu: () => void;
@@ -43,6 +48,7 @@ const WINDOW_CONTENT: Record<string, ComponentType<WindowContentProps>> = {
   "music": MusicApp,
   "settings": SettingsApp,
   "facetime": FaceTimeApp,
+  "heat-sink": HeatSinkApp,
   "neural-block": ProjectDetailView,
 };
 

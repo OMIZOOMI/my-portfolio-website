@@ -1,0 +1,47 @@
+{
+  "before": {
+    "message": "Keep this draft. No email should be sent.",
+    "note": "U07 edited note — keep this after reset.",
+    "scale": "scale(1.15)",
+    "subject": "U07 unsent draft",
+    "theme": "light",
+    "view": "focused",
+    "windows": [
+      "app-settings",
+      "app-notes",
+      "app-mail"
+    ],
+    "workspace": "sage"
+  },
+  "afterCancel": {
+    "message": "Keep this draft. No email should be sent.",
+    "note": "U07 edited note — keep this after reset.",
+    "scale": "scale(1.15)",
+    "subject": "U07 unsent draft",
+    "theme": "light",
+    "view": "focused",
+    "windows": [
+      "app-settings",
+      "app-notes",
+      "app-mail"
+    ],
+    "workspace": "sage"
+  },
+  "afterReset": {
+    "message": "Keep this draft. No email should be sent.",
+    "note": "U07 edited note — keep this after reset.",
+    "scale": "scale(1)",
+    "status": [
+      "Portfolio settings reset. Your current view and open work were kept."
+    ],
+    "subject": "U07 unsent draft",
+    "theme": "dark",
+    "view": "focused",
+    "windows": [
+      "app-settings",
+      "app-notes",
+      "app-mail"
+    ],
+    "workspace": "beach"
+  }
+}

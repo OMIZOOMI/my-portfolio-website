@@ -1,0 +1,23 @@
+{
+  "height": 1000,
+  "icons": [
+    {
+      "height": 116,
+      "id": "projects",
+      "rightGap": 16,
+      "width": 84,
+      "x": 1700,
+      "y": 48
+    },
+    {
+      "height": 116,
+      "id": "about-me",
+      "rightGap": 16,
+      "width": 84,
+      "x": 1700,
+      "y": 172
+    }
+  ],
+  "transitioning": false,
+  "width": 1800
+}

@@ -1,4 +1,5 @@
 import { PROJECTS } from "./projectsData";
+import { APPS_FOLDER_ID } from "./portfolioApps";
 
 export type FileItem = { 
     id: string; 
@@ -12,13 +13,9 @@ export const FILE_SYSTEM: Record<string, FileItem[]> = {
       { id: "about-me", name: "About Me", type: "folder" },
       { id: "bin", name: "Bin", type: "folder" },
     ],
-    "documents": [
-      { id: "game", name: "Game", type: "folder" },
-    ],
+    "documents": [],
     "projects": PROJECTS.map((project) => ({ id: project.id, name: project.name, type: "file" as const })),
     "about-me": [],
-    "game": [
-        { id: "Neural Block", name: "Neural Block.app", type: "app" }
-    ],
+    [APPS_FOLDER_ID]: [],
     "bin": []
   };

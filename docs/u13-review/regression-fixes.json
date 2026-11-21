@@ -1,0 +1,17 @@
+{
+  "hoverBefore": {
+    "color": "rgb(37, 39, 44)",
+    "background": "rgba(136, 136, 136, 0.133)"
+  },
+  "hoverAfter": {
+    "background": "rgb(242, 243, 245)",
+    "color": "rgb(37, 39, 44)",
+    "opacity": "0.9"
+  },
+  "focusBefore": "BODY",
+  "focusAfter": {
+    "guide": 0,
+    "tag": "SUMMARY",
+    "text": "Quick overview ↗"
+  }
+}

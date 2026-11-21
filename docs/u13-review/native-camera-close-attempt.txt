@@ -1,0 +1,6 @@
+0 standard window Om Sawkare — Interactive Portfolio – Part of group 📷 U13 hardware checks - Google Chrome – Om, URL: 127.0.0.1:3012/, Secondary Actions: Raise
+	1 container Om Sawkare — Interactive Portfolio – Part of group 📷 U13 hardware checks - Google Chrome – Om, URL: 127.0.0.1:3012/
+										30 container Camera window
+					103 tab (settable, boolean) about:blank – Part of group 📷 U13 hardware checks - Memory usage - 19.2 MB, Value: off
+					105 tab (selected, settable, boolean) Om Sawkare — Interactive Portfolio – Part of group 📷 U13 hardware checks - Memory usage - 259 MB, Value: on
+The focused UI element is 30 container Camera window

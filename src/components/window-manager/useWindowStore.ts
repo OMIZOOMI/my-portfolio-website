@@ -13,7 +13,7 @@ export interface WindowSize {
   height: number;
 }
 
-export type SettingsSection = "appearance" | "about" | "accessibility" | "dock" | "advanced";
+export type SettingsSection = "appearance" | "about" | "accessibility" | "sound" | "dock" | "advanced";
 
 export interface WindowState {
   id: string;
@@ -63,6 +63,7 @@ interface WindowStoreState {
   completeCloseWindow: (id: string, requestId: number) => void;
   focusWindow: (id: string) => void;
   setWindowPosition: (id: string, position: WindowPosition) => void;
+  setWindowRect: (id: string, frame: WindowRect) => void;
   setFinderLocation: (id: string, folderId: string, title: string, historyIndex?: number) => void;
   toggleMinimize: (id: string) => void;
   toggleMaximize: (id: string) => void;
@@ -154,9 +155,12 @@ export const useWindowStore = create<WindowStoreState>((set, get) => ({
     const previousBounds = state.desktopBounds;
     if (area.x === previous.x && area.y === previous.y && area.width === previous.width && area.height === previous.height && bounds.x === previousBounds.x && bounds.y === previousBounds.y && bounds.width === previousBounds.width && bounds.height === previousBounds.height) return state;
     let windows = state.windows;
+    const desktopResized = bounds.width !== previousBounds.width || bounds.height !== previousBounds.height;
     for (const window of Object.values(state.windows)) {
       if (window.maximized || window.closing) continue;
-      const fitted = fitNormalWindow(window, bounds);
+      // A view/size change should reveal controls above the Dock. Ordinary
+      // dragging and Dock-size changes still use the full screen bounds.
+      const fitted = fitNormalWindow(window, desktopResized ? area : bounds);
       if (fitted === window) continue;
       if (windows === state.windows) windows = { ...windows };
       windows[window.id] = fitted;
@@ -195,7 +199,7 @@ export const useWindowStore = create<WindowStoreState>((set, get) => ({
         size: config.size ?? DEFAULT_SIZE,
         zIndex: state.nextZIndex,
         minimized: false, maximized: false, closing: false,
-      }, state.desktopBounds);
+      }, state.desktopWorkArea);
       return { ...orderWindows({ ...state.windows, [config.id]: window }, config.id), focusedWindowId: config.id };
     });
   },
@@ -243,6 +247,15 @@ export const useWindowStore = create<WindowStoreState>((set, get) => ({
       return { windows: { ...state.windows, [id]: { ...window, position: next } } };
     });
   },
+
+  setWindowRect: (id, frame) => set(state => {
+    const window = state.windows[id];
+    if (!window || window.closing || window.maximized || window.minimized) return state;
+    const rect = clampWindowRect(frame, state.desktopBounds);
+    const size = getWindowContentSize(rect);
+    if (rect.x === window.position.x && rect.y === window.position.y && size.width === window.size.width && size.height === window.size.height) return state;
+    return { windows: { ...state.windows, [id]: { ...window, position: { x: rect.x, y: rect.y }, size } } };
+  }),
 
   setFinderLocation: (id, folderId, title, historyIndex) => {
     set((state) => {

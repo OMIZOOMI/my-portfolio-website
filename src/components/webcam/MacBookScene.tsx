@@ -22,6 +22,8 @@ import { getWallpaperUrl } from "../../data/wallpapers";
 import { loadWallpaper } from "../desktop/wallpaperLoader";
 import { getSceneLoadingStatus, getScenePreparationProgress, isCriticalSceneReady } from "./sceneReadiness";
 import { WorkspaceEnvironment } from "../workspace/WorkspaceEnvironment";
+import { useDisplayStore } from "../window-manager/useDisplayStore";
+import { ProjectionViewport } from "./ProjectionViewport";
 
 export type ScenePhase = "closed" | "opening" | "open";
 
@@ -103,6 +105,7 @@ function SceneGraph({
   onOpened,
   assetsReady,
   reduceMotion,
+  introduction,
 }: {
   phase: ScenePhase;
   onModelReady: () => void;
@@ -111,6 +114,7 @@ function SceneGraph({
   onOpened: () => void;
   assetsReady: boolean;
   reduceMotion: boolean;
+  introduction?: ReactNode;
 }) {
   const modelReady = useRef(false);
   const environmentReady = useRef(false);
@@ -141,7 +145,7 @@ function SceneGraph({
             onModelReady();
           }}
         >
-          <DesktopEnvironment />
+          <DesktopEnvironment introduction={introduction} />
         </Laptop>
         <FirstRenderProbe
           ready={assetsReady}
@@ -222,15 +226,15 @@ function useInitialWallpaper(url: string, enabled: boolean) {
   return state;
 }
 
-function FlatDesktopFallback({ onRetry }: { onRetry: () => void }) {
+function FlatDesktopFallback({ onRetry, introduction }: { onRetry: () => void; introduction?: ReactNode }) {
   const openAboutMe = () => {
     useWindowStore.getState().openWindow({ id: "about-me-fallback", kind: "about-me", title: "About Me" });
   };
 
   return (
-    <div className="fixed inset-0 bg-[#111]">
-      <DesktopEnvironment />
-      <aside className="absolute left-1/2 top-12 z-[10001] w-[min(92vw,34rem)] -translate-x-1/2 rounded-2xl border border-white/20 bg-black/65 p-4 text-center text-white shadow-2xl backdrop-blur-xl" role="status">
+    <div className="absolute inset-0 bg-[#111]">
+      <DesktopEnvironment introduction={introduction} />
+      <aside className="absolute left-1/2 bottom-28 z-[10001] w-[min(92vw,34rem)] -translate-x-1/2 rounded-2xl border border-white/20 bg-black/65 p-4 text-center text-white shadow-2xl backdrop-blur-xl" role="status">
         <p className="text-sm font-semibold">3D view is unavailable in this browser</p>
         <p className="mt-1 text-xs leading-5 text-white/65">The portfolio desktop is still available in flat mode.</p>
         <div className="mt-3 flex flex-wrap justify-center gap-2">
@@ -245,9 +249,12 @@ function FlatDesktopFallback({ onRetry }: { onRetry: () => void }) {
 
 interface MacBookSceneProps {
   debugOrbit?: boolean;
+  active?: boolean;
+  onDesktopAvailabilityChange?: (available: boolean) => void;
+  introduction?: ReactNode;
 }
 
-export function MacBookScene({ debugOrbit = false }: MacBookSceneProps) {
+export function MacBookScene({ debugOrbit = false, active = true, onDesktopAvailabilityChange, introduction }: MacBookSceneProps) {
   const [phase, setPhase] = useState<ScenePhase>("closed");
   const [sceneError, setSceneError] = useState<string | null>(null);
   const [sceneMode, setSceneMode] = useState<"3d" | "flat">("3d");
@@ -259,6 +266,7 @@ export function MacBookScene({ debugOrbit = false }: MacBookSceneProps) {
   const [modelReady, setModelReady] = useState(false);
   const [environmentReady, setEnvironmentReady] = useState(false);
   const [firstRenderReady, setFirstRenderReady] = useState(false);
+  const [startupComplete, setStartupComplete] = useState(false);
   const canvasCleanupRef = useRef<(() => void) | null>(null);
 
   const theme = useSystemStore((state) => state.theme);
@@ -266,6 +274,7 @@ export function MacBookScene({ debugOrbit = false }: MacBookSceneProps) {
   const wallpaperMode = useSystemStore((state) => state.wallpaperMode);
   const reduceMotionSetting = useSystemStore((state) => state.reduceMotion);
   const appearanceHydrated = useSystemStore((state) => state.appearanceHydrated);
+  const displayHydrated = useDisplayStore((state) => state.hydrated);
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(() =>
     typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches
   );
@@ -274,6 +283,7 @@ export function MacBookScene({ debugOrbit = false }: MacBookSceneProps) {
 
   useEffect(() => {
     useSystemStore.getState().hydrateAppearance();
+    useDisplayStore.getState().hydrate();
     const frame = window.requestAnimationFrame(() => setWebglSupported(supportsWebGL()));
     return () => window.cancelAnimationFrame(frame);
   }, []);
@@ -308,6 +318,7 @@ export function MacBookScene({ debugOrbit = false }: MacBookSceneProps) {
     setModelReady(false);
     setEnvironmentReady(false);
     setFirstRenderReady(false);
+    setStartupComplete(false);
     setPhase("closed");
     setCanvasKey((key) => key + 1);
   }, []);
@@ -344,7 +355,7 @@ export function MacBookScene({ debugOrbit = false }: MacBookSceneProps) {
   const sceneReady = isCriticalSceneReady(readiness) && !effectiveSceneError && webglSupported === true;
   const loadingStatus = getSceneLoadingStatus(readiness, wallpaperState === "loading");
   useEffect(() => {
-    if (sceneMode !== "3d" || sceneReady || effectiveSceneError) return;
+    if (!active || sceneMode !== "3d" || sceneReady || effectiveSceneError) return;
 
     // Reset the deadline when a critical stage progresses. This is an error
     // path for stalled requests/initialization, never a timed reveal.
@@ -364,23 +375,31 @@ export function MacBookScene({ debugOrbit = false }: MacBookSceneProps) {
       window.clearTimeout(deadline);
       document.removeEventListener("visibilitychange", watchVisibleStage);
     };
-  }, [canvasKey, effectiveSceneError, loadingStatus, sceneMode, sceneReady, setSceneFailure]);
+  }, [active, canvasKey, effectiveSceneError, loadingStatus, sceneMode, sceneReady, setSceneFailure]);
   const scenePhase: ScenePhase = sceneReady
     ? phase === "open" ? "open" : "opening"
     : "closed";
 
+  const desktopAvailable = sceneMode === "flat" || (sceneReady && phase === "open" && startupComplete);
+  useEffect(() => {
+    onDesktopAvailabilityChange?.(desktopAvailable);
+  }, [desktopAvailable, onDesktopAvailabilityChange]);
+  const handleStartupComplete = useCallback(() => setStartupComplete(true), []);
+
   return (
-    <div style={{ position: "fixed", inset: 0, background: "#283b3d", isolation: "isolate", overflow: "clip" }}>
+    <div style={{ position: "fixed", inset: 0, top: "var(--portfolio-header-offset, 0px)", background: "#283b3d", isolation: "isolate", overflow: "clip" }}>
       {sceneMode === "flat" ? (
-        <FlatDesktopFallback onRetry={retryScene} />
+        <FlatDesktopFallback onRetry={retryScene} introduction={introduction} />
       ) : (
         <>
           <WorkspaceEnvironment sceneUsable={sceneReady} reduceMotion={reduceMotion} />
-          <div data-laptop-scene style={{ position: "absolute", inset: 0, zIndex: 1 }}>
-          {webglSupported === true && appearanceHydrated && (
+          <ProjectionViewport>
+          {webglSupported === true && appearanceHydrated && displayHydrated && (
             <SceneErrorBoundary key={`scene-${canvasKey}`} resetKey={canvasKey} onError={setSceneFailure}>
               <Canvas
+                frameloop={active ? "always" : "never"}
                 shadows
+                resize={{ offsetSize: true }}
                 dpr={[1, 2]}
                 gl={{ antialias: true, alpha: true }}
                 camera={{ position: INITIAL_CAMERA_POS, fov: FOV_DEGREES, near: 0.1, far: 50 }}
@@ -395,12 +414,13 @@ export function MacBookScene({ debugOrbit = false }: MacBookSceneProps) {
                   onOpened={() => setPhase("open")}
                   assetsReady={modelReady && environmentReady}
                   reduceMotion={reduceMotion}
+                  introduction={introduction}
                 />
                 {debugOrbit && <OrbitControls target={LOOK_AT} />}
               </Canvas>
             </SceneErrorBoundary>
           )}
-          </div>
+          </ProjectionViewport>
 
           <BootSequence
             key={`boot-${canvasKey}`}
@@ -411,6 +431,7 @@ export function MacBookScene({ debugOrbit = false }: MacBookSceneProps) {
             error={effectiveSceneError}
             onRetry={retryScene}
             onUseFallback={() => setSceneMode("flat")}
+            onComplete={handleStartupComplete}
           />
         </>
       )}

@@ -241,9 +241,11 @@ await scenario('discoverable-controls-narrow-touch-keyboard-and-reduced-motion',
   result.appearance=[];
   for(const theme of ['dark','light']) {
    await page.evaluate(`document.documentElement.classList.toggle('dark',${theme==='dark'});window.__cameraTest.pose='thumb'`);await sleep(2800);
-   const appearance=await page.evaluate(`(()=>{const r=document.querySelector('${app}'),c=r.querySelector('[data-camera-controls] button');return {surface:getComputedStyle(r).backgroundColor,control:getComputedStyle(c).backgroundColor,statusLights:r.querySelector('header').querySelectorAll('i').length,blur:getComputedStyle(r).backdropFilter}})()`);
-   for(const color of [appearance.surface,appearance.control]){const channels=color.match(/[0-9.]+/g).slice(0,3).map(Number);assert.ok(channels.every(c=>c===channels[0]),'Camera chrome uses neutral colors');}
-   assert.equal(appearance.statusLights,0);assert.equal(appearance.blur,'none');result.appearance.push({theme,...appearance});
+   const appearance=await page.evaluate(`(()=>{const r=document.querySelector('${app}'),s=r.querySelector('[data-camera-controls] button[aria-busy]'),lens=getComputedStyle(s.firstElementChild);return {surface:getComputedStyle(r).backgroundColor,shutter:lens.backgroundColor,shutterRadius:lens.borderRadius,shutterGlow:lens.boxShadow,blur:getComputedStyle(r).backdropFilter}})()`);
+   const [red,green,blue]=appearance.shutter.match(/[0-9.]+/g).slice(0,3).map(Number);
+   assert.ok(red - Math.max(green, blue) >= 100,'Shutter has a distinct red fill');
+   assert.equal(appearance.shutterRadius,'50%');assert.equal(appearance.shutterGlow,'none');
+   assert.equal(appearance.blur,'none');result.appearance.push({theme,...appearance});
    await page.screenshot(`camera-${theme}`);
    const clip=await page.evaluate(`(()=>{const r=document.querySelector('${frame}').getBoundingClientRect();return {x:r.x,y:r.y,width:r.width,height:r.height,scale:1}})()`);
    await page.screenshot(`camera-${theme}-detail`,clip);

@@ -1,0 +1,159 @@
+.bar {
+  position: relative;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--portfolio-menu-row, 28px);
+  padding: 0 10px;
+  overflow: visible;
+  color: #252830;
+  --menu-bar-material: #e9edf2;
+  background: var(--menu-bar-material);
+  border-bottom: 1px solid var(--portfolio-glass-border, #ffffff70);
+  box-shadow:
+    0 2px 10px rgb(12 18 28 / 8%),
+    inset 0 1px 0 rgb(255 255 255 / 50%),
+    inset 0 -0.5px 0 rgb(255 255 255 / 18%);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 13px;
+  font-weight: 450;
+  letter-spacing: .1px;
+  user-select: none;
+}
+
+:global(.dark) .bar { color: #f5f6f8; --menu-bar-material: #30343c; }
+
+/* Keep the chrome at the visible top in Screen view, which has no laptop bezel. */
+:global([data-screen-view="focused"]) .bar { position: sticky; top: 0; }
+
+.menus, .status { position: relative; z-index: 1; }
+
+.menus { min-width: 0; }
+
+:global(#desktop-root[data-compact-desktop]) .compact {
+  --portfolio-menu-row: 44px;
+  height: auto !important;
+  min-height: 44px;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 0 8px;
+}
+.compact .menus { flex: 1 1 25rem; }
+.compact [role="menubar"] { flex-wrap: wrap; }
+.readingLink {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  gap: 6px;
+  padding: 0 8px;
+  border-radius: 8px;
+  color: inherit;
+  font-weight: 650;
+  text-decoration: none;
+}
+.readingLink:focus-visible { outline: 2px solid currentColor; outline-offset: -2px; }
+.readingLink:hover { text-decoration: underline; }
+
+.status {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  gap: 10px;
+  height: 100%;
+  font-variant-numeric: tabular-nums;
+}
+
+.statusItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  min-height: 24px;
+  padding: 0 7px;
+  border-radius: 999px;
+  white-space: nowrap;
+  transition: background-color 140ms ease, box-shadow 140ms ease;
+}
+
+.statusItem:hover {
+  background: rgb(128 140 155 / 12%);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 26%);
+}
+
+.notch {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  left: 50%;
+  width: 148px;
+  height: min(24px, var(--portfolio-menu-row, 28px));
+  transform: translateX(-50%);
+  pointer-events: none;
+  background: #000;
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+  box-shadow: inset 0 -1px 1px rgb(255 255 255 / 14%);
+}
+
+.feedback {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 12px;
+  z-index: 3;
+  max-width: min(360px, calc(100% - 24px));
+  margin: 0;
+  padding: 9px 12px;
+  border: 1px solid rgb(255 255 255 / 24%);
+  border-radius: 11px;
+  background: transparent;
+  color: #f6f6f8;
+  box-shadow:
+    0 12px 28px rgb(0 0 0 / 32%),
+    inset 0 1px 0 rgb(255 255 255 / 28%);
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.feedback::before {
+  content: ""; position: absolute; inset: 0; z-index: -1; border-radius: inherit; pointer-events: none;
+  background: rgb(36 38 46 / 92%);
+}
+
+@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .bar {
+    --menu-bar-material: var(--portfolio-glass-panel, rgb(236 240 247 / 68%));
+  }
+  /* Glass renders on its own layer. The bar itself always paints its material,
+     and the menu controls stay above the filtered layer in the projection. */
+  .bar::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    -webkit-backdrop-filter: var(--portfolio-glass-filter, blur(18px) saturate(1.35)); backdrop-filter: var(--portfolio-glass-filter, blur(18px) saturate(1.35));
+  }
+  :global(.dark) .bar { --menu-bar-material: var(--portfolio-glass-panel, rgb(35 39 47 / 70%)); }
+  .feedback::before { background: rgb(36 38 46 / 84%); -webkit-backdrop-filter: blur(18px) saturate(1.35); backdrop-filter: blur(18px) saturate(1.35); }
+}
+
+@media (max-width: 520px) {
+  .bar { padding-inline: 6px; font-size: 12px; }
+  .status { gap: 3px; }
+  .statusItem { padding-inline: 3px; }
+  .statusItem:first-child { display: none; }
+  .notch { width: 92px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .feedback,
+  .statusItem { transition: none; }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .bar { --menu-bar-material: #e9edf2; }
+  :global(.dark) .bar { --menu-bar-material: #30343c; }
+  .bar::before, .feedback::before { -webkit-backdrop-filter: none; backdrop-filter: none; }
+  .feedback::before { background: #24262e; }
+}

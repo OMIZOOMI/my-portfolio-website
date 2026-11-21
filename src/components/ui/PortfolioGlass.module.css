@@ -1,0 +1,86 @@
+.surface.surface {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  --lg-blur: 4px;
+  --lg-glass-bend: .32;
+  --lg-glass-dispersion: .12;
+  background-color: var(--portfolio-glass-tint);
+  box-shadow: var(--lg-rim-highlight);
+}
+.button.button {
+  appearance: none;
+  -webkit-tap-highlight-color: transparent;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border-radius: 20px;
+  cursor: pointer;
+  font: inherit;
+  touch-action: manipulation;
+  min-height: 32px;
+  height: auto;
+  gap: 7px;
+  padding: 7px 12px;
+  font-size: inherit;
+  font-weight: 550;
+  color: inherit;
+  border: .5px solid rgb(128 128 128 / 12%);
+  box-shadow: none;
+  transition: background-color 100ms ease;
+}
+.buttonSurface.buttonSurface {
+  --lg-blur: 2px;
+  --lg-glass-bend: .3;
+  --lg-glass-dispersion: .08;
+  background-color: var(--portfolio-button-fill, var(--lg-glass));
+  background-image: none;
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 16%);
+  -webkit-backdrop-filter: blur(2px) saturate(1.05);
+  backdrop-filter: blur(2px) saturate(1.05);
+  transition: background-color 100ms ease, transform 160ms cubic-bezier(.2,.8,.2,1);
+}
+.label { position: relative; z-index: 1; display: inline-flex; min-width: 0; align-items: inherit; justify-content: inherit; flex-direction: inherit; gap: inherit; }
+.label > svg { flex-shrink: 0; }
+/* Labels never scale or translate when the surface responds to a press. */
+.button.button[data-portfolio-glass-button]:is(:hover, :active) { transform: none; scale: none; translate: none; }
+.button:hover:not(:disabled) > .buttonSurface { background-color: var(--portfolio-button-hover, var(--lg-glass-active)); }
+.button:active:not(:disabled) > .buttonSurface { transform: scale(.985); }
+.button[data-variant="filled"] { color: #fff; }
+.button[data-variant="filled"] > .buttonSurface { background-color: var(--lg-tint, var(--system-accent)); }
+.button[data-destructive="true"] { color: var(--lg-destructive, #c33235); }
+.button.button:focus-visible, .switch.switch:focus-visible {
+  outline: 2px solid var(--system-accent);
+  outline-offset: 3px;
+}
+.button.button:disabled { cursor: default; opacity: .4; }
+.switch.switch { appearance: none; position: relative; flex-shrink: 0; width: 54px; height: 28px; padding: 0; border: 1px solid #8885; border-radius: 99px; background: var(--lg-track); cursor: pointer; touch-action: pan-y; transition: background-color 160ms ease; }
+.switch::before { content: ""; position: absolute; inset: -8px; }
+.switch[aria-checked="true"] { background: var(--lg-on, var(--system-accent)); }
+.switch > span { position: absolute; top: 3px; left: 3px; width: 20px; height: 20px; border-radius: 50%; background: #fff; box-shadow: 0 1px 2px #0003, inset 0 1px 0 #fff; transform: translateX(calc(var(--switch-position) * 26px)); transition: transform 180ms cubic-bezier(.2,.8,.2,1); }
+.switch[data-switch-dragging] > span { transition: none; }
+.switch:disabled { opacity: .4; cursor: default; }
+:global([data-reduced-motion]) .switch, :global([data-reduced-motion]) .switch > span { transition: none; }
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .surface.surface, .button.button:not([data-variant="filled"]) { background: var(--portfolio-glass-solid); }
+}
+@media (prefers-reduced-transparency: reduce) {
+  .surface.surface, .button.button:not([data-variant="filled"]) { background: var(--portfolio-glass-solid); -webkit-backdrop-filter: none; backdrop-filter: none; }
+}
+/* Glisse's press springs write individual scale/translate properties. Suppress
+   those too, including when the app preference overrides the system setting. */
+:global([data-reduced-motion]) .button.button {
+  scale: 1 !important; translate: none !important; transition: none !important;
+}
+:global([data-reduced-motion]) .buttonSurface { transform: none !important; transition: none !important; }
+@media (prefers-reduced-motion: reduce) {
+  .switch, .switch > span { transition: none; }
+  .button.button {
+    scale: 1 !important; translate: none !important; transition: none !important;
+  }
+  .buttonSurface { transform: none !important; transition: none !important; }
+}

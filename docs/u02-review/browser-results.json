@@ -1,0 +1,126 @@
+{
+  "browser": "Chrome 156.0.8078.76",
+  "os": "macOS 27.2 (26B123), arm64",
+  "initial": {
+    "headerBottom": 117.390625,
+    "probe": "{\"desktopMounts\":1,\"desktops\":1,\"errors\":[]}",
+    "screenTop": 178,
+    "viewport": {
+      "height": 722,
+      "width": 1440
+    }
+  },
+  "screenView": {
+    "aboutBackground": "rgb(32, 33, 38)",
+    "aboutText": "rgb(242, 243, 245)",
+    "desktop": {
+      "height": 722,
+      "width": 1440
+    },
+    "probe": "{\"desktopMounts\":1,\"desktops\":1,\"errors\":[]}"
+  },
+  "lightAndScale": {
+    "aboutBackground": "rgb(250, 250, 252)",
+    "aboutColor": "rgb(36, 38, 44)",
+    "displayWidth": 1439.997314453125,
+    "logicalWidth": 993,
+    "probe": "{\"desktopMounts\":1,\"desktops\":1,\"errors\":[]}",
+    "reducedMotion": "true",
+    "theme": "light"
+  },
+  "narrow": {
+    "aboutWidth": 267,
+    "navDirection": "row",
+    "overflow": false,
+    "probe": "{\"desktopMounts\":1,\"desktops\":1,\"errors\":[]}",
+    "viewport": {
+      "height": 844,
+      "width": 390
+    }
+  },
+  "narrowOverview": {
+    "panel": {
+      "height": 812,
+      "width": 370,
+      "x": 10,
+      "y": 16
+    },
+    "viewport": {
+      "height": 844,
+      "width": 390
+    }
+  },
+  "escape": {
+    "focused": "SUMMARY",
+    "open": false,
+    "screenView": "focused"
+  },
+  "projectsNarrow": {
+    "focused": "portfolio-projects",
+    "panel": {
+      "height": 616,
+      "width": 370,
+      "x": 9,
+      "y": 186.5859375
+    },
+    "viewport": {
+      "height": 844,
+      "width": 390
+    }
+  },
+  "blockedJavaScript": {
+    "desktops": 0,
+    "identity": "Om Sawkare",
+    "overviewOpen": true,
+    "panel": {
+      "bottom": 698.5859375,
+      "height": 512,
+      "width": 300,
+      "x": 9,
+      "y": 186.5859375
+    },
+    "projectLinks": [
+      "https://github.com/OMIZOOMI/Cross-Exam",
+      "https://github.com/OMIZOOMI/brand-ai-readiness-audit"
+    ],
+    "viewport": {
+      "height": 740,
+      "width": 320
+    }
+  },
+  "webglUnavailable": {
+    "desktops": 0,
+    "error": "HelloNamasteThe 3D workspace needs attentionWebGL is unavailable, so the 3D MacBook cannot start here.Retry 3D viewOpen flat desktopWebGL is unavailable, so the 3D MacBook cannot start here.",
+    "identity": "Om Sawkare",
+    "overview": true,
+    "projects": [
+      "Veyra",
+      "Adobe Hackathon · Brand AI Readiness Audit"
+    ]
+  },
+  "delayedModel": {
+    "desktops": 0,
+    "overview": true,
+    "projects": [
+      "Veyra",
+      "Adobe Hackathon · Brand AI Readiness Audit"
+    ],
+    "startup": "loading",
+    "theme": "light"
+  },
+  "failedModel": {
+    "contact": "mailto:sawkare.om@gmail.com",
+    "desktops": 0,
+    "error": "HelloNamasteThe 3D workspace needs attentionCould not load /macbook.glb/scene.gltf: fetch for \"http://127.0.0.1:3018/macbook.glb/scene.gltf\" responded with 503: Service UnavailableRetry 3D viewOpen flat desktopCould not load /macbook.glb/scene.gltf: fetch for \"http://127.0.0.1:3018/macbook.glb/scene.gltf\" responded with 503: Service Unavailable",
+    "overview": true
+  },
+  "flatFallback": {
+    "desktops": 1,
+    "overlay": false,
+    "probe": "{\"desktopMounts\":1,\"desktops\":1,\"errors\":[\"Uncaught Error: Could not load /macbook.glb/scene.gltf: fetch for \\\"http://127.0.0.1:3018/macbook.glb/scene.gltf\\\" responded with 503: Service Unavailable\"]}"
+  },
+  "sectionReset": {
+    "heading": "Om Sawkare",
+    "scrollTop": 0
+  }
+}

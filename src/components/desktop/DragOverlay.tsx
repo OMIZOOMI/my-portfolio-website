@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useSystemStore } from "../window-manager/useSystemStore";
 import { clientToDesktopLocal } from "./fileDrag";
 import FolderIconImg from "../../assets/FolderIcon.png";
+import { useDisplayStore } from "../window-manager/useDisplayStore";
 
 /**
  * Single owner of window-level pointer tracking for file drags.
@@ -17,6 +18,7 @@ export function DragOverlay() {
   const draggedItem = useSystemStore((s) => s.draggedItem);
   const dragPosition = useSystemStore((s) => s.dragPosition);
   const dragGrabOffset = useSystemStore((s) => s.dragGrabOffset);
+  const iconScale = useDisplayStore((s) => s.iconScale);
 
   useEffect(() => {
     const onPointerMove = (e: PointerEvent) => {
@@ -85,7 +87,7 @@ export function DragOverlay() {
         pointerEvents: "none",
       }}
     >
-      <div className="pointer-events-none flex flex-col items-center gap-1.5 w-[84px] p-2">
+      <div className="pointer-events-none flex flex-col items-center" style={{ width: 84 * iconScale, padding: 8 * iconScale, gap: 6 * iconScale }}>
         {draggedItem?.iconType === "folder" && (
           <Image
             src={FolderIconImg}
@@ -95,11 +97,11 @@ export function DragOverlay() {
             unoptimized
             loading="eager"
             className="pointer-events-none select-none"
-            style={{ width: "56px", height: "56px", objectFit: "contain" }}
+            style={{ width: 56 * iconScale, height: 56 * iconScale, objectFit: "contain" }}
           />
         )}
         {draggedItem?.iconType === "file" && (
-          <svg viewBox="0 0 48 56" width="42" height="49" aria-hidden="true" className="pointer-events-none">
+          <svg viewBox="0 0 48 56" width={42 * iconScale} height={49 * iconScale} aria-hidden="true" className="pointer-events-none">
             <path d="M4 4h28l12 12v36a4 4 0 0 1-4 4H4a4 4 0 0 1-4-4V8a4 4 0 0 1 4-4Z" fill="#e8e9ec" />
             <path d="M32 4v12h12L32 4Z" fill="#c7c9ce" />
             <rect x="10" y="26" width="22" height="2.5" rx="1.25" fill="#a9abb1" />
@@ -111,8 +113,8 @@ export function DragOverlay() {
           <div
             className="pointer-events-none"
             style={{
-              width: "52px",
-              height: "52px",
+              width: 52 * iconScale,
+              height: 52 * iconScale,
               borderRadius: "13px",
               background: "linear-gradient(160deg, #4c8dff, #4c8dffCC)",
               boxShadow: "0 6px 14px rgba(0,0,0,0.35)",
@@ -123,13 +125,13 @@ export function DragOverlay() {
           className="pointer-events-none"
           style={{
             color: "#fff",
-            fontSize: "12px",
+            fontSize: 12 * iconScale,
             fontWeight: 500,
             textShadow: "0 1px 2px rgba(0,0,0,0.5)",
             background: "rgba(60,60,67,0.9)",
             padding: "2px 6px",
             borderRadius: "4px",
-            maxWidth: "84px",
+            maxWidth: 84 * iconScale,
             overflow: "hidden",
             textOverflow: "ellipsis",
             whiteSpace: "nowrap",

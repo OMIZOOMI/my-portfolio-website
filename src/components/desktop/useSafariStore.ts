@@ -1,7 +1,7 @@
 "use client";
 
 import { create } from "zustand";
-import { PROJECTS } from "../../data/projectsData";
+import { getProjectById } from "../../data/projectsData";
 
 export const SAFARI_START_URL = "portfolio://start";
 
@@ -63,7 +63,7 @@ export function resolveSafariAddress(address: string): AddressResult {
       return { url: value, title: value.endsWith("#projects") ? "Project Demos" : "Start Page" };
     }
     const id = /^portfolio:\/\/project\/([^/?#]+)$/.exec(value)?.[1];
-    const project = PROJECTS.find((item) => item.id === id);
+    const project = id ? getProjectById(id) : null;
     return project ? { url: value, title: project.name } : { error: "Portfolio page not found. Your current page has been kept." };
   }
   const explicitHttp = /^https?:\/\//i.test(value);

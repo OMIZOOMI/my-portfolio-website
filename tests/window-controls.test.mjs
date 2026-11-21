@@ -220,6 +220,25 @@ test("desktop resize fits restored windows but leaves a maximized snapshot intac
   assert.equal(state(), previous, "unchanged layout causes no redundant update");
 });
 
+test("committed resize survives maximize/restore and ignores changes while unavailable", () => {
+  open("notes");
+  const resized = { x: 120, y: 96, width: 700, height: 620 };
+  state().setWindowRect("notes", resized);
+  assert.deepEqual(state().windows.notes.position, { x: 120, y: 96 });
+  assert.deepEqual(state().windows.notes.size, { width: 698, height: 582 });
+  state().toggleMaximize("notes");
+  assert.deepEqual(state().windows.notes.restoreRect, resized);
+  const maximized = state();
+  state().setWindowRect("notes", { ...resized, width: 430 });
+  assert.equal(state(), maximized);
+  state().toggleMaximize("notes");
+  assert.deepEqual(state().windows.notes.size, { width: 698, height: 582 });
+  state().toggleMinimize("notes");
+  const minimized = state();
+  state().setWindowRect("notes", { ...resized, height: 430 });
+  assert.equal(state(), minimized);
+});
+
 test("position updates clamp every edge in desktop units without changing window size", () => {
   open("notes");
   const size = state().windows.notes.size;
@@ -251,4 +270,14 @@ test("changing dock size affects maximize but does not push a normal window away
   state().setDesktopWorkArea({ x: 0, y: 28, width: 1400, height: 790 }, bounds);
   assert.equal(state().windows.notes, normal);
   assert.deepEqual(state().desktopBounds, bounds);
+});
+
+test("readability desktop resize reveals controls above the dock without imposing a drag wall", () => {
+  open("notes");
+  state().setDesktopWorkArea({ x: 0, y: 28, width: 900, height: 490 }, { x: 0, y: 28, width: 900, height: 592 });
+  const fitted = state().windows.notes;
+  assert.ok(fitted.position.y + fitted.size.height + 38 <= 518);
+  state().setWindowPosition("notes", { x: fitted.position.x, y: 10000 });
+  const dragged = state().windows.notes;
+  assert.equal(dragged.position.y + dragged.size.height + 38, 620);
 });

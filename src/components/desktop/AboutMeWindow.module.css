@@ -1,155 +1,67 @@
-.layout {
-    display: flex;
-    height: 100%;
-    color: rgba(255, 255, 255, 0.92);
-    font-family: system-ui, -apple-system, sans-serif;
-  }
-  
-  .sidebar {
-    width: 180px;
-    flex-shrink: 0;
-    padding: 16px 10px;
-    background: rgba(0, 0, 0, 0.15);
-    border-right: 1px solid rgba(255, 255, 255, 0.06);
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-  }
-  
-  .navItem {
-    position: relative;
-    display: flex;
-    align-items: center;
-    gap: 9px;
-    padding: 7px 10px;
-    border: none;
-    background: transparent;
-    color: rgba(255, 255, 255, 0.65);
-    font-size: 13px;
-    font-weight: 500;
-    text-align: left;
-    border-radius: 7px;
-    cursor: pointer;
-  }
-  
-  .navItem:hover {
-    color: rgba(255, 255, 255, 0.9);
-  }
-  
-  .navActivePill {
-    position: absolute;
-    inset: 0;
-    border-radius: 7px;
-    background: rgba(76, 141, 255, 0.35);
-    z-index: -1;
-  }
-  
-  .navIcon,
-  .navLabel {
-    position: relative;
-  }
-  
-  .content {
-    flex: 1;
-    padding: 28px 32px;
-    overflow: auto;
-  }
-  
-  .avatar {
-    width: 64px;
-    height: 64px;
-    border-radius: 50%;
-    margin-bottom: 14px;
-    background: linear-gradient(160deg, #4c8dff, #8a5cf6);
-  }
-  
-  .name {
-    font-size: 22px;
-    font-weight: 700;
-    letter-spacing: -0.02em;
-    margin: 0 0 6px;
-  }
-  
-  .tagline {
-    color: rgba(255, 255, 255, 0.7);
-    font-size: 14px;
-    margin: 0 0 16px;
-    max-width: 42ch;
-  }
-  
-  .body {
-    color: rgba(255, 255, 255, 0.65);
-    font-size: 13px;
-    line-height: 1.6;
-    max-width: 48ch;
-  }
-  
-  .sectionTitle {
-    font-size: 18px;
-    font-weight: 700;
-    letter-spacing: -0.02em;
-    margin: 0 0 16px;
-  }
-  
-  .skillList {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-  
-  .skillRow {
-    display: flex;
-    align-items: baseline;
-    gap: 14px;
-    padding: 12px 14px;
-    border-radius: 10px;
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.06);
-  }
-  
-  .skillName {
-    width: 72px;
-    flex-shrink: 0;
-    font-weight: 700;
-    font-size: 13px;
-  }
-  
-  .skillDetail {
-    color: rgba(255, 255, 255, 0.65);
-    font-size: 13px;
-  }
-  
-  .card {
-    padding: 16px;
-    border-radius: 12px;
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.06);
-  }
-  
-  .cardTitle {
-    font-size: 15px;
-    font-weight: 700;
-    margin: 0 0 8px;
-  }
-  
-  .cardBody {
-    color: rgba(255, 255, 255, 0.65);
-    font-size: 13px;
-    line-height: 1.6;
-    margin: 0 0 12px;
-  }
-  
-  .tagRow {
-    display: flex;
-    gap: 6px;
-    flex-wrap: wrap;
-  }
-  
-  .tag {
-    padding: 3px 9px;
-    border-radius: 20px;
-    background: rgba(76, 141, 255, 0.18);
-    color: #8fb8ff;
-    font-size: 11px;
-    font-weight: 600;
-  }
+.layout { --about-bg: #fafafc; --about-sidebar: #f0f1f4; --about-text: #24262c; --about-muted: #555b67; --about-border: #dfe2e8; --about-card: #fff; --about-link: #245f9f; container-type: inline-size; height: 100%; min-height: 0; background: var(--about-bg); color: var(--about-text); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+:global(.dark) .layout { --about-bg: #202126; --about-sidebar: #26282e; --about-text: #f2f3f5; --about-muted: #c2c6d0; --about-border: #41454e; --about-card: #292c32; --about-link: #a3c9ff; }
+.panes { display: flex; height: 100%; min-height: 0; }
+.sidebar { width: 164px; flex-shrink: 0; padding: 14px 10px; background: var(--about-sidebar); border-right: 1px solid var(--about-border); display: flex; flex-direction: column; gap: 4px; }
+.navItem { display: flex; align-items: center; gap: 9px; min-height: var(--portfolio-control-min, 44px); padding: 9px 11px; border: 1px solid transparent; background: transparent; color: var(--about-muted); font-size: 14px; font-weight: 550; text-align: left; border-radius: 11px; cursor: pointer; touch-action: manipulation; transition: background-color 120ms ease, color 120ms ease, box-shadow 120ms ease, border-color 120ms ease; }
+.navItem:hover { background: var(--lg-pill-bg, var(--about-card)); color: var(--about-text); box-shadow: var(--lg-rim-highlight); }
+.navItem[aria-current="page"] { background: var(--lg-pill-bg-hover, var(--about-card)); border-color: var(--lg-rim-border, var(--about-border)); color: var(--about-link); box-shadow: var(--lg-pill-shadow); }
+.navIcon { flex-shrink: 0; }
+.content { flex: 1; min-width: 0; padding: 28px 30px; overflow-y: auto; overscroll-behavior: contain; scrollbar-gutter: stable; scroll-padding-block: 24px; }
+.content section { max-width: 68ch; margin-inline: auto; }
+.avatar { display: grid; place-items: center; width: 56px; height: 56px; border-radius: 16px; margin-bottom: 20px; background: var(--lg-pill-bg, var(--about-sidebar)); border: 1px solid var(--lg-rim-border, var(--about-border)); box-shadow: var(--lg-pill-shadow); color: var(--about-text); font-size: 21px; font-weight: 600; letter-spacing: -.06em; }
+.eyebrow { margin: 0 0 8px; color: var(--about-muted); font-size: 11px; line-height: 1.5; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; }
+.name { font-size: clamp(25px, 4cqw, 32px); font-weight: 650; letter-spacing: -.04em; line-height: 1.15; margin: 0 0 12px; }
+.tagline { color: var(--about-text); font-size: 16px; line-height: 1.55; margin: 0 0 18px; max-width: 52ch; }
+.body, .cardBody { color: var(--about-muted); font-size: 14px; line-height: 1.75; max-width: 66ch; margin: 0 0 18px; overflow-wrap: anywhere; }
+.sectionTitle { font-size: 20px; line-height: 1.35; font-weight: 650; letter-spacing: -.025em; margin: 20px 0 16px; }
+.sectionTitle:first-child { margin-top: 0; }
+.skillList { display: flex; flex-direction: column; gap: 14px; margin-bottom: 20px; }
+.card { padding: 18px; border-radius: 14px; background: var(--about-card); border: 1px solid var(--about-border); box-shadow: var(--lg-rim-highlight), 0 4px 14px rgba(0, 0, 0, 0.04); }
+.cardTitle { font-size: 16px; line-height: 1.5; font-weight: 650; margin: 0 0 9px; }
+.cardBody { margin-bottom: 12px; }
+.tagRow { display: flex; gap: 6px; flex-wrap: wrap; }
+.tools { color: var(--about-muted); font-size: 13px; line-height: 1.7; margin-block: 8px; }
+.tag { padding: 4px 9px; border: 1px solid var(--about-border); border-radius: 999px; background: var(--lg-pill-bg); box-shadow: var(--lg-rim-highlight); color: var(--about-muted); font-size: 12px; font-weight: 500; }
+.projectLinks, .readingTools { display: flex; flex-wrap: wrap; gap: 8px 12px; margin-top: 12px; }
+.projectLinks button, .readingTools button {
+  min-height: 44px;
+  padding: 8px 14px;
+  border: 1px solid var(--lg-rim-border, var(--about-border));
+  border-radius: 999px;
+  background: var(--lg-pill-bg, var(--about-card));
+  box-shadow: var(--lg-pill-shadow);
+  color: var(--about-link);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 550;
+  line-height: 1.5;
+  text-align: left;
+  cursor: pointer;
+  transition: transform 130ms cubic-bezier(0.22, 1, 0.36, 1), background-color 130ms ease, box-shadow 130ms ease;
+}
+.projectLinks button:hover, .readingTools button:hover {
+  background: var(--lg-pill-bg-hover, var(--about-sidebar));
+  box-shadow: var(--lg-pill-shadow-hover);
+  transform: translateY(-1px);
+}
+.projectLinks button:active, .readingTools button:active {
+  transform: translateY(0) scale(0.97);
+}
+.readingTools { padding-top: 20px; margin-top: 26px; border-top: 1px solid var(--about-border); }
+.layout :is(button,a):focus-visible { outline: 2px solid var(--about-link); outline-offset: 3px; }
+@container (max-width: 560px) {
+  .panes { flex-direction: column; }
+  .sidebar { width: 100%; padding: 7px 8px; flex-direction: row; overflow-x: auto; border-right: 0; border-bottom: 1px solid var(--about-border); }
+  .navItem { flex-shrink: 0; padding-inline: 9px; font-size: 13px; }
+  .content { padding: 22px 18px; }
+  .card { padding: 15px; }
+}
+@container (max-width: 360px) {
+  .navIcon { display: none; }
+  .sidebar { gap: 1px; }
+  .navItem { padding-inline: 8px; font-size: 12px; }
+  .content { padding-inline: 14px; }
+}
+@media (prefers-reduced-motion: reduce) { .layout * { transition: none !important; } .projectLinks button:hover, .readingTools button:hover { transform: none; } }
+.layout[data-reduced-motion] * { transition: none !important; }
+.layout[data-reduced-motion] :is(.projectLinks button, .readingTools button):hover { transform: none; }

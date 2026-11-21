@@ -1,0 +1,162 @@
+.app {
+  container: browser / inline-size;
+  min-width: 0;
+  --browser-profile-accent: #325c80;
+  --browser-project-accent: #65547f;
+  --browser-text: #252a32;
+  --browser-muted: #525d6d;
+  --browser-card: #fafbfc;
+  --browser-card-line: #dce0e6;
+  --browser-card-highlight: #eeedf5;
+  --browser-control: #edf0f4;
+}
+:global(.dark) .app {
+  --browser-profile-accent: #a8c9e3;
+  --browser-project-accent: #c3b8d7;
+  --browser-text: #f4f5f7;
+  --browser-muted: #c2c8d1;
+  --browser-card: #212126;
+  --browser-card-line: #33353e;
+  --browser-card-highlight: #2b2835;
+  --browser-control: #2d2f38;
+}
+.app .tabStrip, .app .toolbar, .app .bookmarks {
+  position: relative;
+  background: var(--portfolio-glass-panel);
+  border-color: color-mix(in srgb, currentColor 12%, transparent);
+}
+.tab {
+  position: relative;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  transition: background-color 110ms ease-out, border-color 110ms ease-out, color 110ms ease-out;
+}
+.tab[data-active] { background: transparent; border-color: var(--portfolio-glass-border); }
+.tab > button { position: relative; z-index: 1; border-radius: inherit; }
+.tab > button:focus-visible { outline-offset: -2px; }
+.tab:not([data-active]):is(:hover, :focus-within) {
+  background-color: rgb(255 255 255 / 68%);
+  border-color: rgb(25 30 45 / 8%);
+  color: #2b3340;
+}
+:global(.dark) .tab:not([data-active]):is(:hover, :focus-within) {
+  background-color: rgb(255 255 255 / 10%);
+  border-color: rgb(255 255 255 / 8%);
+  color: #edf0f5;
+}
+.app[data-reduced-motion] .tab { transition: none; }
+.tabStrip > button { position: relative; }
+.app .toolbar button {
+  min-width: 30px; min-height: 30px; padding: 5px;
+  flex-shrink: 0; color: inherit; transform: none;
+}
+.app .toolbar button[aria-pressed="true"] { color: var(--system-accent); border-color: var(--system-accent); }
+.app .toolbar form {
+  background: var(--lg-glass);
+  border-color: var(--portfolio-glass-border);
+  box-shadow: var(--lg-rim-highlight), 0 2px 8px #0000000a;
+}
+.app .bookmarks button { min-height: 24px; padding: 3px 9px; font-size: 11px; }
+.app .bookmarks button:last-child { margin-left: auto; }
+.profileBookmark svg { color: var(--browser-profile-accent); }
+.projectBookmark svg, .projectHeadingIcon { color: var(--browser-project-accent); }
+.startPage { padding: 14px 18px 18px; }
+.startHeader { margin-bottom: 9px; }
+.startHeader h1 { color: var(--browser-text); font-size: 21px; line-height: 1.2; font-weight: 650; letter-spacing: -.025em; }
+.projectHeading { display: flex; gap: 7px; align-items: center; margin-bottom: 8px; }
+.projectHeading h2 { color: var(--browser-text); font-size: 15px; font-weight: 650; }
+.projectHeading > span { margin-inline-start: auto; color: var(--browser-muted); font-size: 11px; }
+.projectGrid { display: grid; gap: 8px; grid-template-columns: minmax(0, 1fr); align-items: start; }
+.projectCard {
+  min-width: 0;
+  border: 1px solid var(--browser-card-line);
+  border-radius: 14px;
+  background: var(--browser-card);
+  color: var(--browser-text);
+}
+.projectCard[data-featured] { background: var(--browser-card-highlight); }
+.projectTitle {
+  display: grid;
+  grid-template-columns: 8px minmax(0, 1fr) 15px;
+  align-items: center;
+  gap: 7px;
+  min-height: 33px;
+  width: 100%;
+  padding: 6px 10px 4px;
+  border-radius: 12px 12px 6px 6px;
+  text-align: start;
+  font-size: 14px;
+  font-weight: 650;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+  cursor: pointer;
+}
+.projectTitle:hover { background: var(--browser-control); }
+.projectTitle svg { color: var(--browser-project-accent); }
+.projectMark { align-self: start; width: 7px; height: 7px; margin-top: .38em; border-radius: 50%; }
+.projectSummary { margin: 0 10px 0 25px; font-size: 12px; line-height: 1.35; color: var(--browser-muted); overflow-wrap: anywhere; }
+.projectDetails { margin: 1px 10px 3px 25px; color: var(--browser-muted); font-size: 11px; }
+.projectDetails > summary { width: fit-content; padding-block: 4px; color: var(--browser-project-accent); font-weight: 600; cursor: pointer; }
+.projectDetails > summary:hover { text-decoration: underline; }
+.projectFacts { padding: 5px 0 7px; border-top: 1px solid var(--browser-card-line); line-height: 1.45; overflow-wrap: anywhere; }
+.projectFacts strong { color: var(--browser-text); }
+.projectFacts ul { margin: 6px 0 9px 1em; list-style: disc; }
+.projectFacts li + li { margin-top: 4px; }
+.projectActions { display: flex; flex-wrap: wrap; gap: 5px; }
+.projectActions :is(a, button) {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  min-height: 28px;
+  padding: 3px 8px;
+  border-radius: 99px;
+  border: 1px solid var(--browser-card-line);
+  background: var(--browser-control);
+  color: var(--browser-text);
+  font-weight: 600;
+  cursor: pointer;
+}
+.projectActions :is(a, button):hover { text-decoration: underline; }
+.projectCard :is(button, summary, a):focus-visible { outline: 2px solid var(--browser-project-accent); outline-offset: -2px; }
+.toolbar {
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.55);
+}
+:global(.dark) .toolbar {
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+.toolbar button {
+  border-radius: 999px;
+  transition: transform 120ms cubic-bezier(0.22, 1, 0.36, 1), background-color 120ms ease, box-shadow 120ms ease;
+}
+.toolbar button:hover:not(:disabled) {
+  box-shadow: var(--lg-rim-highlight);
+  transform: translateY(-0.5px);
+}
+.toolbar button:active:not(:disabled) {
+  transform: scale(0.95);
+}
+.toolbar form {
+  border-radius: 999px;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.06), 0 1px 0 rgba(255, 255, 255, 0.72);
+}
+:global(.dark) .toolbar form {
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.35), 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+.bookmarks button {
+  border-radius: 999px;
+  transition: background-color 120ms ease, box-shadow 120ms ease;
+}
+.bookmarks button:hover {
+  box-shadow: var(--lg-rim-highlight);
+}
+@container browser (min-width: 535px) { .projectGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@container browser (min-width: 890px) { .projectGrid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@container browser (max-width: 420px) {
+  .startPage { padding-inline: 12px; }
+  .toolbar { gap: 4px; padding-inline: 6px; }
+  .bookmarks { gap: 4px; padding-inline: 8px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tab, .toolbar button { transition: none; }
+  .toolbar button:hover:not(:disabled) { transform: none; }
+}

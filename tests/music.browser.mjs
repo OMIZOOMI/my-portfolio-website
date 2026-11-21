@@ -7,7 +7,8 @@ const site = process.env.STARTUP_TEST_URL ?? "http://127.0.0.1:3001";
 const endpoint = process.env.CDP_URL ?? "http://127.0.0.1:9223";
 const phase = process.env.MUSIC_PHASE ?? "after";
 const filter = process.env.MUSIC_TEST_FILTER;
-const output = new URL("../docs/music-review/", import.meta.url);
+const baseline = new URL("../docs/music-review/before-browser-results.json", import.meta.url);
+const output = new URL(process.env.MUSIC_OUTPUT_DIR ?? "../docs/music-review/", import.meta.url);
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 const version = await (await fetch(`${endpoint}/json/version`)).json();
 const socket = new WebSocket(version.webSocketDebuggerUrl);
@@ -72,7 +73,7 @@ if(phase==="before")await scenario("baseline-music-layout-and-short-synthesized-
 });
 
 if(phase!=="before"){
-await scenario("preserved-layout-and-no-startup-library-download",async(page,result)=>{
+await scenario("roomier-player-layout-and-no-startup-library-download",async(page,result)=>{
  assert.equal(mediaRequests(page).length,0,"Desktop entry must not download the music library");
  await openMusic(page);await sleep(500);
  result.geometry=await geometry(page);result.tracks=await tracks(page);result.audio=await audioState(page);
@@ -80,11 +81,15 @@ await scenario("preserved-layout-and-no-startup-library-download",async(page,res
  assert.equal(mediaRequests(page).length,0,"Opening Music must wait for explicit playback intent");
  assert.equal(result.audio.paused,true);assert.equal(result.audio.source,null,"An idle player has no source to download");
  assert.equal(await page.evaluate(`document.querySelectorAll('audio').length`),1,"One media element");
- const before=JSON.parse(await readFile(new URL("before-browser-results.json",output),"utf8")).scenarios[0].geometry;
- for(const part of["host","app","sidebar","header","content","footer","artwork"]){
+ const before=JSON.parse(await readFile(baseline,"utf8")).scenarios[0].geometry;
+ for(const part of["host","app","artwork"]){
   assert.ok(Math.abs(result.geometry[part].localWidth-before[part].localWidth)<=1,`${part} width preserves original layout`);
   assert.ok(Math.abs(result.geometry[part].localHeight-before[part].localHeight)<=1,`${part} height preserves original layout`);
  }
+ assert.ok(result.geometry.sidebar.localWidth>before.sidebar.localWidth,"Sidebar gains a little width");
+ assert.ok(result.geometry.footer.localHeight>before.footer.localHeight,"Player gains vertical room");
+ const hitHeight=await page.evaluate(`document.querySelector('${frame} input[aria-label="Track progress"]').offsetHeight`);
+ assert.ok(hitHeight>=24,"Progress control is taller than its rail");
  result.artwork=await page.evaluate(`(()=>{const el=document.querySelector('${frame} section').firstElementChild.firstElementChild;return{background:getComputedStyle(el).backgroundImage,radius:getComputedStyle(el).borderRadius}})()`);
  assert.match(result.artwork.background,/linear-gradient/);assert.equal(result.artwork.radius,"12px");
  await page.screenshot("after-music-desktop");await page.screenshot("after-music",frame);

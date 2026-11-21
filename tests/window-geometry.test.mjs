@@ -13,7 +13,7 @@ const compiled = ts.transpileModule(readFileSync(filename, "utf8"), {
 runInThisContext(`(function(module, exports) { ${compiled}\n})`, { filename })(loadedModule, loadedModule.exports);
 const {
   getDesktopWorkArea, getMaximizedWindowRect, constrainWindowPosition,
-  clampWindowRect, getWindowFrameSize, getWindowContentSize,
+  clampWindowRect, getWindowFrameSize, getWindowContentSize, resizeWindowRect, MIN_RESIZE_FRAME_SIZE,
 } = loadedModule.exports;
 
 test("maximize reserves the measured menu and visible dock footprint in virtual desktop units", () => {
@@ -71,6 +71,23 @@ test("invalid measurements and exhausted insets never produce NaN or inverted wo
     { x: 100, y: 100, width: 0, height: 0 });
   assert.deepEqual(clampWindowRect({ x: NaN, y: Infinity, width: NaN, height: -4 }, { x: 0, y: 28, width: 100, height: 50 }, { width: 80, height: 40 }),
     { x: 0, y: 28, width: 80, height: 40 });
+});
+
+test("edge and corner resize keeps the opposite edges anchored", () => {
+  const area = getDesktopWorkArea({ width: 1400, height: 900 }, { top: 44 });
+  const origin = { x: 250, y: 150, width: 642, height: 478 };
+  assert.deepEqual(resizeWindowRect(origin, "w", { x: 40, y: -50 }, area), { x: 290, y: 150, width: 602, height: 478 });
+  assert.deepEqual(resizeWindowRect(origin, "nw", { x: -40, y: -50 }, area), { x: 210, y: 100, width: 682, height: 528 });
+  assert.deepEqual(resizeWindowRect(origin, "se", { x: 1000, y: 1000 }, area), { x: 250, y: 150, width: 1150, height: 750 });
+  const min = MIN_RESIZE_FRAME_SIZE;
+  assert.deepEqual(resizeWindowRect(origin, "nw", { x: 1000, y: 1000 }, area), { x: 892 - min.width, y: 628 - min.height, ...min });
+});
+
+test("a small desktop can keep an already small window stable until it grows", () => {
+  const area = { x: 0, y: 28, width: 350, height: 250 };
+  const origin = { x: 20, y: 40, width: 200, height: 180 };
+  assert.deepEqual(resizeWindowRect(origin, "se", { x: -90, y: -90 }, area), origin);
+  assert.deepEqual(resizeWindowRect(origin, "se", { x: 200, y: 200 }, area), { x: 20, y: 40, width: 330, height: 238 });
 });
 
 test("fitting across many desktop sizes always keeps all frame edges within the work area", () => {

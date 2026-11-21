@@ -1,0 +1,93 @@
+{
+  "launch": [
+    {
+      "focus": true,
+      "name": "Portfolio settings",
+      "tag": "BUTTON"
+    },
+    {
+      "focus": true,
+      "name": "Portfolio desktop",
+      "tag": "DIV"
+    },
+    {
+      "focus": true,
+      "name": "Apple",
+      "tag": "BUTTON"
+    },
+    {
+      "focus": true,
+      "name": "Open Projects",
+      "tag": "BUTTON"
+    },
+    {
+      "focus": true,
+      "name": "Open About Me",
+      "tag": "BUTTON"
+    },
+    {
+      "focus": true,
+      "name": "Open Files",
+      "tag": "BUTTON"
+    }
+  ],
+  "about": [
+    "Open Projects",
+    "Open About Me"
+  ],
+  "menuReturn": [
+    {
+      "label": "Maximize",
+      "text": ""
+    },
+    {
+      "label": "Minimize",
+      "text": ""
+    },
+    {
+      "label": "Close",
+      "text": ""
+    },
+    {
+      "label": "Open About Me",
+      "text": "About Me"
+    },
+    {
+      "label": "Open Projects",
+      "text": "Projects"
+    },
+    {
+      "label": "Apple",
+      "text": ""
+    }
+  ],
+  "bin": [
+    "Open Projects",
+    "Open About Me",
+    "Close",
+    "Minimize",
+    "Maximize",
+    "Overview",
+    "Skills",
+    "Projects",
+    "Experience",
+    "Veyra ↗",
+    "Adobe Hackathon · Brand AI Readiness Audit ↗",
+    "White Box Detection ↗",
+    "TigerGraph Fraud Investigation ↗",
+    "Cloud-Native Task API ↗",
+    "SkyWatch ↗",
+    "Interactive 3D Portfolio ↗",
+    "Read in Screen view",
+    "Text & icon size",
+    "Open Files",
+    "Open Terminal",
+    "Open Notes",
+    "Open Mail",
+    "Open Browser",
+    "Open Music",
+    "Open Camera",
+    "Open Settings",
+    "Open Bin"
+  ]
+}
