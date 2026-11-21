@@ -22,9 +22,8 @@ export function ReadingGuide() {
   };
 
   return <aside className={`touch-portfolio-only ${styles.guide}`} id="reading-guide" aria-labelledby="reading-guide-title">
-    <p className={styles.laptopTip}><Laptop size={19} aria-hidden="true" /> <span>For the full 3D experience, open this portfolio on a laptop or desktop.</span></p>
+    <p className={styles.laptopTip}><Laptop size={19} aria-hidden="true" /> <span>For the full 3D experience, use a laptop or desktop.</span></p>
     <h2 id="reading-guide-title">Quick guide</h2>
-    {!status && !open && <p>Find my projects, contact details, and interactive desktop.</p>}
     <div className={styles.guideActions}>
       <button ref={button} type="button" className={styles.secondary} aria-controls={contentId} aria-expanded={open} onClick={() => setOpen(previous => !previous)}>
         {open ? "Hide guide" : status ? "Open guide" : "Show me around"}

@@ -246,7 +246,7 @@ try {
           touch: matchMedia('(pointer: coarse)').matches,
           routes: [...root.querySelectorAll('a[href^="/projects/"]')].map(link => link.getAttribute('href')),
           targets: [...root.querySelectorAll('a')].filter(link => link.getClientRects().length).every(link => link.getBoundingClientRect().height >= 44),
-          guide: root.querySelector('#reading-guide')?.getBoundingClientRect().height > 0 && root.querySelector('#reading-guide')?.getBoundingClientRect().top < innerHeight - 100 && root.querySelector('#reading-guide')?.textContent.includes('laptop or desktop'),
+          guide: root.querySelector('#reading-guide [aria-expanded]')?.getBoundingClientRect().bottom <= innerHeight && root.querySelector('#reading-guide')?.textContent.includes('laptop or desktop'),
           heavy: performance.getEntriesByType('resource').filter(item => /macbook\.glb|mediapipe|\.hdr|\.mp4|wallpapers\/touch/.test(item.name)).length,
           desktop: !!document.querySelector('#desktop-root,canvas') };
       })()`);
