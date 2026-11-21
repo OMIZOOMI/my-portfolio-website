@@ -745,6 +745,8 @@ try {
     await page.wait(`${phase("running")} && document.activeElement?.hasAttribute('data-heat-controls')`, "Start puts focus on playfield");
     for (const direction of ["ArrowRight", "ArrowRight", "ArrowUp", "ArrowLeft", "ArrowLeft", "ArrowDown"]) await key(direction);
     await page.wait(`document.querySelector('${hints[1]}')?.textContent === '250'`, "Two cells bank together for a multiplier");
+    assert.equal(await page.evaluate(`document.querySelector('[data-heat-record]')?.textContent.trim()`), "New high score");
+    assert.equal(await page.evaluate(`document.querySelector('[data-heat-board]')?.getAnimations({ subtree: true }).length`), 0, "Reduced motion keeps the congratulations still");
     assert.equal(await page.evaluate(`document.querySelector('${hints[0]}').dataset.heatPlayer`), "4,3");
     assert.equal(await page.evaluate(`document.querySelector('${hints[2]}').textContent`), "0/6");
     await page.screenshot("heat-sink-bank");
@@ -783,6 +785,48 @@ try {
     await click(`${game} button[aria-label="Move right"]`);
     await page.wait(`document.querySelector('${hints[0]}')?.dataset.heatPlayer === '5,3'`, "Pointer movement controls work in a narrow window");
     await page.screenshot("heat-sink-narrow");
+    assert.deepEqual(page.errors, []);
+  });
+  await scenario("heat-sink-high-score", {
+    init: `
+      localStorage.setItem('portfolio-introduction','{"status":"skipped"}');
+      localStorage.setItem('portfolio-heat-sink-v1', JSON.stringify({ entries: [{ score: 250, initials: 'OM', at: 1 }] }));
+      window.__recordCheers = 0;
+      const startAudio = AudioBufferSourceNode.prototype.start;
+      AudioBufferSourceNode.prototype.start = function(...args) {
+        startAudio.apply(this, args);
+        if (this.buffer?.duration >= .5 && this.buffer.duration < .6) window.__recordCheers++;
+      };
+    `,
+  }, async page => {
+    await page.navigate();
+    await handoff(page);
+    for (const selector of ['[data-dock-app="finder"]', '[data-finder-location="game"]', '[data-finder-app="heat-sink"]']) {
+      await page.wait(`!!document.querySelector('${selector}')`, selector);
+      await page.evaluate(`document.querySelector('${selector}').click()`);
+    }
+    await page.evaluate(`window.__heatNormalRandom = Math.random; Math.random = () => 0`);
+    try { await clickButton(page, "Start run"); }
+    finally { await page.evaluate(`Math.random = window.__heatNormalRandom; delete window.__heatNormalRandom`); }
+    await page.wait(`document.activeElement?.hasAttribute('data-heat-controls')`, "Heat Sink accepts movement");
+    const bank = async (directions, score) => {
+      for (const direction of directions) {
+        const key = `Arrow${direction}`;
+        await page.send("Input.dispatchKeyEvent", { type: "keyDown", key, code: key });
+        await page.send("Input.dispatchKeyEvent", { type: "keyUp", key, code: key });
+      }
+      await page.wait(`document.querySelector('[data-heat-score]')?.textContent === '${score}'`, `Banked ${score} points`);
+    };
+    await bank(["Right", "Right", "Up", "Left", "Left", "Down"], 250);
+    assert.equal(await page.evaluate(`!!document.querySelector('[data-heat-record],[data-heat-confetti]') || window.__recordCheers > 0`), false, "Ties do not celebrate");
+    await bank(["Left", "Left", "Right", "Right"], 350);
+    await page.wait(`document.querySelector('[data-heat-confetti]')?.getAnimations({ subtree: true }).length > 0 && window.__recordCheers === 1`, "Record plays the confetti animation and cheer");
+    await sleep(350);
+    await page.screenshot("heat-sink-record-burst");
+    await page.wait(`!document.querySelector('[data-heat-confetti]')`, "Confetti is removed when it finishes");
+    await bank(["Down", "Down", "Up", "Up"], 450);
+    assert.equal(await page.evaluate(`!document.querySelector('[data-heat-confetti]') && window.__recordCheers === 1`), true, "Further banks in this run do not replay the celebration");
+    assert.equal(await page.evaluate(`document.querySelector('[data-heat-record]')?.textContent.trim()`), "New high score");
     assert.deepEqual(page.errors, []);
   });
   await scenario("heat-sink-pressure", {

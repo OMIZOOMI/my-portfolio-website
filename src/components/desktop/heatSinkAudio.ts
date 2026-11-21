@@ -1,4 +1,4 @@
-export type HeatSinkCue = "move" | "pickup" | "bank" | "bonus" | "vent" | "overheat" | "start" | "heat-hit" | "upgrade";
+export type HeatSinkCue = "move" | "pickup" | "bank" | "bonus" | "vent" | "overheat" | "start" | "heat-hit" | "upgrade" | "high-score";
 
 interface Hit {
   delay: number;
@@ -22,6 +22,17 @@ function cueHits(cue: HeatSinkCue, intensity: number, variation: number): Hit[] 
     case "start": return [hit(0, .035, 263, .43, .36), hit(.055, .064, 348, .30, .58)];
     case "heat-hit": return [hit(0, .068, 188, .73, .62), hit(.032, .048, 129, .25, .35)];
     case "upgrade": return [hit(0, .038, 364, .31, .45), hit(.042, .049, 485, .28, .54), hit(.095, .066, 546, .22, .44)];
+    case "high-score": return [
+      hit(0, .07, 204, .94, .8),
+      hit(.052, .092, 523, .21, .54),
+      hit(.112, .093, 659, .23, .56),
+      hit(.17, .12, 784, .16, .58),
+      hit(.228, .11, 1047, .14, .63),
+      hit(.238, .14, 523, .88, .33),
+      hit(.30, .11, 163, .93, .31),
+      hit(.365, .105, 178, .88, .24),
+      hit(.427, .096, 195, .88, .18),
+    ];
   }
 }
 
@@ -61,7 +72,7 @@ export function createHeatSinkAudio(makeContext = browserAudioContext) {
   let context: AudioContext | null = null, output: GainNode | null = null;
   let disposed = false, muted = false, serial = 0, resuming = false;
   let pending: { cue: HeatSinkCue; intensity: number } | null = null;
-  const voices = new Set<AudioBufferSourceNode>();
+  const voices = new Map<AudioBufferSourceNode, HeatSinkCue>();
   const buffers = new Map<string, AudioBuffer>();
 
   const stopVoice = (voice: AudioBufferSourceNode) => {
@@ -73,7 +84,7 @@ export function createHeatSinkAudio(makeContext = browserAudioContext) {
 
   const silence = () => {
     pending = null;
-    for (const voice of voices) stopVoice(voice);
+    for (const voice of voices.keys()) stopVoice(voice);
   };
 
   const start = (cue: HeatSinkCue, intensity: number) => {
@@ -88,13 +99,17 @@ export function createHeatSinkAudio(makeContext = browserAudioContext) {
       buffer.copyToChannel(samples, 0);
       buffers.set(key, buffer);
     }
-    const oldest = voices.values().next().value;
-    if (voices.size >= 4 && oldest) stopVoice(oldest);
+    if (voices.size >= 4) {
+      // Let the record fanfare finish over quick moves and pickups.
+      const oldest = [...voices].find(([, playing]) => playing !== "high-score")?.[0];
+      if (!oldest) return;
+      stopVoice(oldest);
+    }
     const voice = context.createBufferSource();
     voice.buffer = buffer;
     voice.connect(output);
     voice.onended = () => { voice.disconnect(); voices.delete(voice); };
-    voices.add(voice);
+    voices.set(voice, cue);
     try { voice.start(); } catch { stopVoice(voice); }
   };
 

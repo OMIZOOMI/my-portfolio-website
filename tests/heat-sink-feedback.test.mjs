@@ -66,12 +66,12 @@ function mockAudio() {
   };
 }
 
-test("Heat Sink audio stays locked until input and drops an outstanding sound when muted", async () => {
+test("Heat Sink audio stays locked until input and drops an outstanding record cheer when muted", async () => {
   const h = mockAudio();
   h.engine.play("move");
   assert.equal(h.created, 0);
   h.engine.unlock();
-  h.engine.play("start");
+  h.engine.play("high-score");
   h.engine.setMuted(true);
   await h.resume();
   assert.equal(h.sources.length, 0);
@@ -83,12 +83,14 @@ test("Heat Sink audio stays locked until input and drops an outstanding sound wh
   assert.equal(h.closed, true);
 });
 
-test("rapid movement cannot pile up sound voices; pause silences the ones still playing", async () => {
+test("rapid movement preserves the record cheer within the voice limit; pause still silences it", async () => {
   const h = mockAudio();
   h.engine.unlock();
   await h.resume();
+  h.engine.play("high-score");
   for (let i = 0; i < 12; i++) h.engine.play("move");
   assert.equal(h.sources.filter(voice => !voice.stopped).length, 4);
+  assert.equal(h.sources[0].stopped, false);
   h.engine.silence();
   assert.ok(h.sources.every(voice => voice.stopped));
   h.engine.dispose();

@@ -15,7 +15,7 @@ import { readHeatSinkProfile, recordHeatSinkScore, sanitizeHeatSinkInitials, upd
 import styles from "./HeatSinkApp.module.css";
 
 type Phase = "ready" | "running" | "paused" | "ended";
-type Feedback = { text: string; kind: "pickup" | "bank" | "heat-hit" | "upgrade"; id: number };
+type Feedback = { text: string; kind: "pickup" | "bank" | "record" | "heat-hit" | "upgrade"; id: number };
 const BOARD = Array.from({ length: HEAT_COLUMNS * HEAT_ROWS }, (_, position) => ({ x: position % HEAT_COLUMNS, y: Math.floor(position / HEAT_COLUMNS) }));
 const CONTROLS = [["left", ArrowLeft], ["up", ArrowUp], ["down", ArrowDown], ["right", ArrowRight]] as const;
 const DIRECTIONS = new Map<string, HeatDirection>([["ArrowUp", "up"], ["w", "up"], ["ArrowLeft", "left"], ["a", "left"], ["ArrowDown", "down"], ["s", "down"], ["ArrowRight", "right"], ["d", "right"]]);
@@ -23,6 +23,17 @@ const prettyScore = (score: number) => score.toLocaleString("en-US");
 const pointId = (point: { x: number; y: number }) => point.y * HEAT_COLUMNS + point.x;
 const FIRST_REPEAT_MS = 185;
 const REPEAT_MS = 122;
+const CONFETTI_MS = 960;
+const CONFETTI = Array.from({ length: 26 }, (_, index) => {
+  const angle = index * Math.PI * (3 - Math.sqrt(5));
+  const reach = 9 + (index * 7 % 13);
+  return {
+    "--burst-x": `${(Math.cos(angle) * reach).toFixed(2)}cqw`,
+    "--burst-y": `${(Math.sin(angle) * reach * .65).toFixed(2)}cqw`,
+    "--burst-turn": `${(index % 2 ? 1 : -1) * (200 + index * 13)}deg`,
+    "--burst-delay": `${index % 4 * 16}ms`,
+  } as CSSProperties;
+});
 
 export function HeatSinkApp({ window }: { window: { id: string } }) {
   const windowId = window.id;
@@ -33,6 +44,7 @@ export function HeatSinkApp({ window }: { window: { id: string } }) {
   const [feedback, setFeedback] = useState<Feedback | null>(null);
   const [scoresOpen, setScoresOpen] = useState(false);
   const [newBest, setNewBest] = useState(false);
+  const [celebrating, setCelebrating] = useState(false);
   const [storageAvailable, setStorageAvailable] = useState(true);
   const [launchCount, setLaunchCount] = useState(0);
   const profileRef = useRef(profile);
@@ -73,6 +85,7 @@ export function HeatSinkApp({ window }: { window: { id: string } }) {
     if (phaseRef.current !== "running") return;
     phaseFocus.current = focusResume;
     audio.current?.silence();
+    setCelebrating(false);
     setRunPhase("paused");
   }, [setRunPhase]);
 
@@ -111,8 +124,15 @@ export function HeatSinkApp({ window }: { window: { id: string } }) {
     (scoresOpen ? leaderboardHeading.current : leaderboardButton.current)?.focus({ preventScroll: true });
   }, [scoresOpen]);
 
+  useEffect(() => {
+    if (!celebrating) return;
+    const timer = globalThis.setTimeout(() => setCelebrating(false), CONFETTI_MS);
+    return () => globalThis.clearTimeout(timer);
+  }, [celebrating]);
+
   const applyResult = useCallback(({ state, event }: HeatSinkResult) => {
     if (phaseRef.current !== "running") return;
+    const previousScore = gameRef.current.score;
     if (state !== gameRef.current) {
       gameRef.current = state;
       setGame(state);
@@ -124,8 +144,14 @@ export function HeatSinkApp({ window }: { window: { id: string } }) {
       audio.current?.play("pickup", event.carried);
     }
     if (event.type === "bank") {
-      setFeedback({ kind: "bank", text: `+${prettyScore(event.points)} banked${event.multiplier > 1 ? ` · ×${event.multiplier} batch` : ""}${event.cooled ? "" : " · Cooling recharging"}`, id: ++feedbackCount.current });
-      audio.current?.play(event.multiplier > 1 ? "bonus" : "bank", event.batch);
+      const best = profileRef.current.best;
+      const brokeRecord = previousScore <= best && state.score > best;
+      setFeedback({ kind: brokeRecord ? "record" : "bank", text: `+${prettyScore(event.points)} banked${event.multiplier > 1 ? ` · ×${event.multiplier} batch` : ""}${event.cooled ? "" : " · Cooling recharging"}`, id: ++feedbackCount.current });
+      if (brokeRecord) {
+        setNewBest(true);
+        setCelebrating(true);
+      }
+      audio.current?.play(brokeRecord ? "high-score" : event.multiplier > 1 ? "bonus" : "bank", event.batch);
     }
     if (event.type === "heat-hit") {
       setFeedback({ kind: "heat-hit", text: `Hot tile · +${HOT_TILE_HIT_HEAT}% heat`, id: ++feedbackCount.current });
@@ -136,8 +162,7 @@ export function HeatSinkApp({ window }: { window: { id: string } }) {
       audio.current?.play("upgrade");
     }
     if (event.type === "overheat") {
-      const best = state.score > profileRef.current.best;
-      setNewBest(best);
+      setCelebrating(false);
       setFeedback(null);
       saveProfile(recordHeatSinkScore(profileRef.current, state.score));
       audio.current?.play("overheat");
@@ -181,6 +206,8 @@ export function HeatSinkApp({ window }: { window: { id: string } }) {
     setGame(next);
     setLaunchCount(value => value + 1);
     setFeedback(null);
+    setNewBest(false);
+    setCelebrating(false);
     phaseFocus.current = true;
     setRunPhase("running");
     sounds.play("start");
@@ -286,9 +313,13 @@ export function HeatSinkApp({ window }: { window: { id: string } }) {
                   <span key={feedback?.id ?? "chip"} className={styles.chip} data-hot={hot || heat >= 76 || undefined}><Cpu strokeWidth={1.85} /></span>
                 </div>
               </div>
+              {celebrating && <div className={styles.confetti} data-heat-confetti aria-hidden="true"
+                style={{ "--station-x": game.station.x, "--station-y": game.station.y } as CSSProperties}>
+                {CONFETTI.map((piece, index) => <i key={index} style={piece} />)}
+              </div>}
               {phase !== "running" && <div className={styles.cover}>
                 <section className={styles.card} aria-label={phase === "ended" ? "Run results" : undefined}>
-                  <span className={styles.kicker}>{phase === "ended" ? newBest ? "New best" : "Run complete" : phase === "paused" ? "Run suspended" : "Survival arcade"}</span>
+                  <span className={styles.kicker}>{phase === "ended" ? newBest ? "New high score" : "Run complete" : phase === "paused" ? "Run suspended" : "Survival arcade"}</span>
                   <h2>{phase === "paused" ? "Paused" : phase === "ended" ? "Overheated" : "How far will you push it?"}</h2>
                   <p>{phase === "paused" ? "Your score, cells, and heat are held here." : phase === "ended" ? `${prettyScore(game.score)} banked points. Cells you were still carrying don’t count.` : "Bring amber cells to the blue station. Bigger batches score more. The higher you score, the hotter the board gets."}</p>
                   {phase !== "paused" && <label className={styles.callSign}>{phase === "ready" ? "Initials" : "Next run initials"} <input aria-label="Leaderboard initials" placeholder="ABC" maxLength={3} autoComplete="off" spellCheck={false} value={profile.initials} onChange={event => saveProfile(updateHeatSinkSettings(profileRef.current, { initials: sanitizeHeatSinkInitials(event.target.value) }))} /><span>Optional</span></label>}
@@ -318,7 +349,8 @@ export function HeatSinkApp({ window }: { window: { id: string } }) {
           </section>
           <section className={styles.scoreBox}>
             <span className={styles.kicker}>Banked</span><strong className={styles.scoreValue} data-heat-score>{prettyScore(game.score)}</strong>
-            <div className={styles.scoreLine}><span>Best</span><span>{prettyScore(profile.best)}</span></div>
+            {newBest && <p className={styles.record} data-heat-record><Trophy size={13} aria-hidden="true" /> New high score</p>}
+            <div className={styles.scoreLine}><span>Best</span><span>{prettyScore(Math.max(profile.best, game.score))}</span></div>
             <div className={styles.scoreLine}><span>Last</span><span>{last}</span></div>
             <div className={styles.scoreLine}><span>Pressure</span><span data-heat-level>{game.level}</span></div>
             {bankValue > 0 && <div className={styles.scoreLine}><span>Cargo ×{heatBatchMultiplier(game.carried)}</span><span>{prettyScore(bankValue)}</span></div>}
@@ -334,7 +366,7 @@ export function HeatSinkApp({ window }: { window: { id: string } }) {
             <p>Bank anytime on blue. Cooling needs time to recharge. Collect a rare bolt to equip an upgrade for this run.</p>
           </div>
         </aside>
-        <span className="sr-only" role="status">{feedback && feedback.kind !== "pickup" ? feedback.text : ""}</span>
+        <span className="sr-only" role="status">{feedback?.kind === "record" && "New high score! "}{feedback && feedback.kind !== "pickup" ? feedback.text : ""}</span>
       </div>}
     </div>
     </div>
