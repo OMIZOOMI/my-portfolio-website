@@ -26,6 +26,8 @@ export interface ProjectData {
   evidence: readonly ProjectEvidence[];
   repositoryUrl: string;
   accent: string;
+  finderIcon?: string;
+  hideInFinder?: true;
   caseStudy?: ProjectCaseStudy;
   /** Public reading route; internal IDs and simulator addresses stay separate. */
   publicSlug?: string;
@@ -58,6 +60,7 @@ export const PROJECTS: readonly ProjectData[] = [
       { label: "Dependency lockfile", url: veyraSource("pnpm-lock.yaml"), basis: "dependencies" },
     ],
     repositoryUrl: github + "/Cross-Exam", accent: "#4977ad",
+    finderIcon: "/project-icons/veyra.png",
     caseStudy: VEYRA_CASE_STUDY,
   },
   {
@@ -85,6 +88,7 @@ export const PROJECTS: readonly ProjectData[] = [
       { label: "Fixture example generator", url: adobeSource("tools/make_example_report.py"), basis: "implementation" },
     ],
     repositoryUrl: github + "/brand-ai-readiness-audit", accent: "#a56253",
+    finderIcon: "/project-icons/adobe-brand-audit.png",
     caseStudy: ADOBE_CASE_STUDY,
   },
   {
@@ -106,6 +110,7 @@ export const PROJECTS: readonly ProjectData[] = [
       { label: "Training and dataset notes", url: source("edge-ai-white-box", "README.md"), basis: "project-notes" },
     ],
     repositoryUrl: github + "/edge-ai-white-box", accent: "#ff7a45",
+    finderIcon: "/project-icons/white-box.png",
   },
   {
     id: "tigergraph-fraud-investigation", key: "tigergraph", aliases: [],
@@ -125,10 +130,11 @@ export const PROJECTS: readonly ProjectData[] = [
       { label: "Python dependencies", url: source("tigergraph-fraud-investigation", "requirements.txt"), basis: "dependencies" },
     ],
     repositoryUrl: github + "/tigergraph-fraud-investigation", accent: "#8670a6",
+    finderIcon: "/project-icons/tigergraph-fraud-investigation.png",
   },
   {
     id: "cloud-native-asset-management-api", key: "task-api", aliases: ["cloud-native-task-api"],
-    name: "Cloud-Native Task API", featured: false,
+    name: "Cloud-Native Task API", featured: false, hideInFinder: true,
     summary: "Relational users, projects, and tasks behind a typed API.",
     description: "A backend project exploring validation, relational modeling, and request-scoped database sessions. The checked-in implementation uses FastAPI, Pydantic, SQLAlchemy, and local SQLite.",
     status: "Local API prototype",
@@ -146,7 +152,7 @@ export const PROJECTS: readonly ProjectData[] = [
     repositoryUrl: github + "/cloud-native-task-api", accent: "#4c8dff",
   },
   {
-    id: "skywatch", key: "skywatch", aliases: [], name: "SkyWatch", featured: false,
+    id: "skywatch", key: "skywatch", aliases: [], name: "SkyWatch", featured: false, hideInFinder: true,
     summary: "Air-traffic telemetry on a 3D globe, with kinematic anomaly checks.",
     description: "A shared OpenSky polling loop feeds WebSocket clients. A dead-reckoning engine compares expected and observed positions, while a React and Three.js globe visualizes the stream.",
     status: "Telemetry prototype",
@@ -165,7 +171,7 @@ export const PROJECTS: readonly ProjectData[] = [
   },
   {
     id: "3d-macos-web-portfolio", key: "portfolio", aliases: ["my-portfolio-website"],
-    name: "Interactive 3D Portfolio", featured: false,
+    name: "Interactive 3D Portfolio", featured: false, finderIcon: "/project-icons/portfolio.png",
     summary: "A small desktop made for exploring the person behind the code.",
     description: "Apps, windows, camera gestures, music, and a tactile keyboard live inside a 3D laptop. This portfolio brings scene rendering and ordinary HTML interfaces together to make the work approachable and interactive.",
     status: "In development",

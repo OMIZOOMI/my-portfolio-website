@@ -183,9 +183,9 @@ describe("folder identity and names", () => {
 });
 
 describe("trash subtree ownership and restoration", () => {
-  test("restoring the initial Projects folder restores every catalogue project file without restoring unrelated trash", () => {
+  test("restoring Projects recovers every visible project without restoring unrelated trash", () => {
     const projectIds = state().fileSystem.projects.map((file) => file.id);
-    assert.equal(projectIds.length, PROJECTS.length, "exercise every project in the current catalogue");
+    assert.deepEqual(projectIds, PROJECTS.filter(project => !project.hideInFinder).map(project => project.id));
     assert.deepEqual(state().fileSystem["about-me"], [], "the intentional empty folder remains empty");
     state().addToTrash("about-me");
     state().addToTrash("projects");

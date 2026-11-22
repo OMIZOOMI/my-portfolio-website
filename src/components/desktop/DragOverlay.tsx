@@ -6,6 +6,7 @@ import { useSystemStore } from "../window-manager/useSystemStore";
 import { clientToDesktopLocal } from "./fileDrag";
 import FolderIconImg from "../../assets/FolderIcon.png";
 import { useDisplayStore } from "../window-manager/useDisplayStore";
+import { PROJECTS_BY_ID } from "../../data/projectsData";
 
 /**
  * Single owner of window-level pointer tracking for file drags.
@@ -68,6 +69,7 @@ export function DragOverlay() {
   const local = isDragging ? clientToDesktopLocal(dragPosition.x, dragPosition.y) : null;
   const x = (local?.x ?? dragPosition.x) - dragGrabOffset.x;
   const y = (local?.y ?? dragPosition.y) - dragGrabOffset.y;
+  const projectIcon = draggedItem?.iconType === "file" ? PROJECTS_BY_ID[draggedItem.id]?.finderIcon : undefined;
 
   return (
     <div
@@ -100,7 +102,9 @@ export function DragOverlay() {
             style={{ width: 56 * iconScale, height: 56 * iconScale, objectFit: "contain" }}
           />
         )}
-        {draggedItem?.iconType === "file" && (
+        {projectIcon && <Image src={projectIcon} alt="" width={64} height={64} unoptimized draggable={false}
+          className="pointer-events-none select-none object-contain" style={{ width: 56 * iconScale, height: 56 * iconScale }} />}
+        {draggedItem?.iconType === "file" && !projectIcon && (
           <svg viewBox="0 0 48 56" width={42 * iconScale} height={49 * iconScale} aria-hidden="true" className="pointer-events-none">
             <path d="M4 4h28l12 12v36a4 4 0 0 1-4 4H4a4 4 0 0 1-4-4V8a4 4 0 0 1 4-4Z" fill="#e8e9ec" />
             <path d="M32 4v12h12L32 4Z" fill="#c7c9ce" />

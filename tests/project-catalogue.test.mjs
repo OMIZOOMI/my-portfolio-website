@@ -39,10 +39,17 @@ beforeEach(() => {
   system.setState(system.getInitialState(), true);
 });
 
-test("one ordered catalogue supplies all seeded project files and Terminal entries", () => {
+test("one ordered catalogue supplies Finder's visible projects and all Terminal entries", () => {
   assert.equal(PROJECTS.length, 7);
   assert.deepEqual(PROJECTS.filter(project => project.featured).map(project => project.key), ["veyra", "adobe"]);
-  assert.deepEqual(FILE_SYSTEM.projects.map(file => [file.id, file.name]), PROJECTS.map(project => [project.id, project.name]));
+  const finderProjects = PROJECTS.filter(project => !project.hideInFinder);
+  assert.deepEqual(finderProjects.map(project => project.key), ["veyra", "adobe", "white-box", "tigergraph", "portfolio"]);
+  assert.deepEqual(FILE_SYSTEM.projects.map(file => [file.id, file.name]), finderProjects.map(project => [project.id, project.name]));
+  assert.equal(new Set(finderProjects.map(project => project.finderIcon)).size, finderProjects.length);
+  for (const project of finderProjects) {
+    assert.match(project.finderIcon, /^\/project-icons\/[a-z-]+\.png$/);
+    assert.equal(readFileSync(resolve(root, "public", `.${project.finderIcon}`)).subarray(0, 8).toString("hex"), "89504e470d0a1a0a");
+  }
   assert.deepEqual(TERMINAL_PROJECTS.map(project => [project.key, project.name, project.repository, project.stack, project.status, project.detail]),
     PROJECTS.map(project => [project.key, project.name, project.repositoryUrl, project.stack.join(" · "), project.status, getProjectOverview(project)]));
   assert.equal(new Set(PROJECTS.map(project => project.id)).size, PROJECTS.length);

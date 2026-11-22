@@ -7,6 +7,7 @@ import styles from "./DesktopIcon.module.css";
 import { useSystemStore } from "../window-manager/useSystemStore";
 import { useFileInteractionStore } from "./useFileInteractionStore";
 import { FolderRenameInput } from "./FolderRenameInput";
+import { PROJECTS_BY_ID } from "../../data/projectsData";
 
 // 1. Importing your local asset!
 import FolderIconImg from "../../assets/FolderIcon.png";
@@ -38,6 +39,7 @@ export function DesktopIcon({ label, variant, glyph, accent = "#4c8dff", onOpen,
   const ownSelected = useFileInteractionStore((state) => surfaceId && itemId ? state.selections[surfaceId] === itemId : false);
   const rename = useFileInteractionStore((state) => state.rename?.surfaceId === surfaceId && state.rename?.itemId === itemId ? state.rename : null);
   const isSelected = surfaceId && itemId ? ownSelected : selected;
+  const projectIcon = variant === "file" && itemId ? PROJECTS_BY_ID[itemId]?.finderIcon : undefined;
   const animate = layout !== "finder" && !isFileDragging && !reduceMotion && !prefersReducedMotion;
 
   // DragOverlay clears the drag store during pointerup, before the browser can
@@ -122,8 +124,17 @@ export function DesktopIcon({ label, variant, glyph, accent = "#4c8dff", onOpen,
       aria-label={`Open ${label}`}
       title={label}
     >
-      {/* ORIGINAL FILE VARIANT */}
-      {variant === "file" && (
+      {projectIcon && <Image
+        src={projectIcon}
+        alt=""
+        width={64}
+        height={64}
+        unoptimized
+        loading="eager"
+        draggable={false}
+        className="pointer-events-none select-none object-contain drop-shadow-md"
+      />}
+      {variant === "file" && !projectIcon && (
         <svg viewBox="0 0 48 56" className={styles.glyphSvg} aria-hidden="true">
           <path d="M4 4h28l12 12v36a4 4 0 0 1-4 4H4a4 4 0 0 1-4-4V8a4 4 0 0 1 4-4Z" fill="#e8e9ec" />
           <path d="M32 4v12h12L32 4Z" fill="#c7c9ce" />

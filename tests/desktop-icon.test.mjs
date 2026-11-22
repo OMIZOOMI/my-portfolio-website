@@ -31,6 +31,7 @@ function harness({ rename = null } = {}) {
     "../window-manager/useSystemStore": { useSystemStore },
     "./useFileInteractionStore": { useFileInteractionStore },
     "./FolderRenameInput": { FolderRenameInput: "rename-input" },
+    "../../data/projectsData": { PROJECTS_BY_ID: {} },
     "../../assets/FolderIcon.png": { __esModule: true, default: {} },
   };
   const loadedModule = { exports: {} };
