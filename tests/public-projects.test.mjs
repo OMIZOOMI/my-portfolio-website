@@ -93,7 +93,7 @@ test("case studies open in a separate tab and still accept project aliases", () 
   const { createElement } = require("react"), { renderToStaticMarkup } = require("react-dom/server");
   for (const [projectId, path] of [["Cross-Exam", "/projects/veyra"], ["adobe", "/projects/adobe-brand-audit"]]) {
     const html = renderToStaticMarkup(createElement(ProjectPublicLink, { projectId }));
-    assert.ok(html.includes(`href="${path}" target="_blank" rel="noopener noreferrer"`));
+    assert.ok(html.includes(`href="${path}" target="_blank" rel="opener" referrerPolicy="no-referrer"`));
   }
   assert.equal(renderToStaticMarkup(createElement(ProjectPublicLink, { projectId: "missing" })), "");
 });

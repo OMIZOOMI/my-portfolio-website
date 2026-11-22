@@ -43,6 +43,42 @@ function command(method, params = {}, sessionId) {
   });
 }
 
+async function backFromCaseStudyTab(page) {
+  const href = new URL("/projects/veyra", site).href;
+  let popup;
+  for (let attempt = 0; attempt < 50 && !popup; attempt++) {
+    const { targetInfos } = await command("Target.getTargets");
+    popup = targetInfos.find(target => target.browserContextId === page.browserContextId && target.url === href);
+    if (!popup) await sleep(100);
+  }
+  assert.ok(popup, "Read case study opens the public page in another tab");
+  const { sessionId } = await command("Target.attachToTarget", { targetId: popup.targetId, flatten: true });
+  await command("Runtime.runIfWaitingForDebugger", {}, sessionId);
+  const read = async expression => (await command("Runtime.evaluate", { expression, returnByValue: true }, sessionId)).result.value;
+  const originalId = await page.evaluate("window.__startupDocument");
+  let point;
+  for (let attempt = 0; attempt < 50 && !point; attempt++) {
+    point = await read(`(() => {
+      if (document.readyState !== "complete") return null;
+      const link = [...document.querySelectorAll('a[href="/"]')].find(element => element.textContent.includes('Back to Portfolio'));
+      if (!link) return null;
+      const r = link.getBoundingClientRect();
+      return { x: r.left + r.width / 2, y: r.top + r.height / 2, originalId: window.opener?.__startupDocument };
+    })()`);
+    if (!point) await sleep(100);
+  }
+  assert.equal(point?.originalId, originalId, "The case study knows its original tab");
+  await clickAt({ send: (method, params) => command(method, params, sessionId) }, { x: point.x, y: point.y }).catch(error => {
+    if (!/target closed/i.test(error.message)) throw error;
+  });
+  for (let attempt = 0; attempt < 50; attempt++) {
+    const { targetInfos } = await command("Target.getTargets");
+    if (!targetInfos.some(target => target.targetId === popup.targetId)) return;
+    await sleep(100);
+  }
+  assert.fail(`Back to Portfolio left the supplemental tab at ${await read("location.href")}`);
+}
+
 async function pageFor(options = {}) {
   const { browserContextId } = await command("Target.createBrowserContext");
   try {
@@ -291,17 +327,16 @@ try {
       await page.wait(`location.hash === '#reading-contact' && document.querySelector('[data-portfolio-reading]').scrollTop > 0`, "contact anchors on mobile");
       assert.equal(await page.evaluate(`document.querySelector('#reading-contact a[href^="mailto:"]').getAttribute('href')`), "mailto:sawkare.om@gmail.com");
       await tap(page, '[data-portfolio-reading] a[href="/projects/veyra"]');
-      const caseStudyUrl = new URL("/projects/veyra", site).href;
-      let popup;
-      for (let attempt = 0; attempt < 50 && !popup; attempt++) {
-        const { targetInfos } = await command("Target.getTargets");
-        popup = targetInfos.find(target => target.browserContextId === page.browserContextId && target.url === caseStudyUrl);
-        if (!popup) await sleep(100);
-      }
-      assert.ok(popup, "Read case study opens the public page in another tab");
       assert.equal(await page.evaluate("location.pathname"), "/", "The portfolio stays open in the first tab");
-      await command("Target.closeTarget", { targetId: popup.targetId });
-      await page.send("Page.bringToFront");
+      const original = await page.evaluate(`({ id: window.__startupDocument, href: location.href, scroll: document.querySelector('[data-portfolio-reading]').scrollTop })`);
+      await backFromCaseStudyTab(page);
+      assert.deepEqual(await page.evaluate(`({ id: window.__startupDocument, href: location.href, scroll: document.querySelector('[data-portfolio-reading]').scrollTop })`), original, "The original portfolio is still open at the same position");
+
+      const caseStudyUrl = new URL("/projects/veyra", site).href;
+      await page.send("Page.navigate", { url: caseStudyUrl });
+      await page.wait(`!!document.querySelector('[data-public-project]')`, "case study opened directly");
+      await tap(page, '[data-public-project] [class*="entry"] a[href="/"]');
+      await page.wait(`location.pathname === '/' && !!document.querySelector('[data-portfolio-reading]')`, "Back to Portfolio works as a normal link without an original tab");
       await page.send("Page.navigate", { url: caseStudyUrl });
       await page.wait(`location.pathname === '/projects/veyra' && !!document.querySelector('[data-public-project]')`, "Veyra case study");
       assert.ok(await page.evaluate(`[...document.querySelectorAll('[data-public-project] a[href="/"]')].some(link => link.textContent.includes('Back to Portfolio'))`));
@@ -619,6 +654,10 @@ try {
     assert.equal(await page.evaluate(`!!document.querySelector('${frame("file-veyra")}')`), false, "The first Finder click selects the project");
     await clickAt(page, { x: file.x + 5, y: file.y + 3 });
     await page.wait(`document.querySelector('${frame("file-veyra")} img[src="/project-previews/veyra.webp"]')?.naturalWidth > 0`, "The Finder double-click opens the Veyra preview");
+    await page.evaluate(`void (window.__caseStudyWindow = document.querySelector('${frame("file-veyra")}'))`);
+    await clickSelector(page, `${frame("file-veyra")} a[href="/projects/veyra"]`);
+    await backFromCaseStudyTab(page);
+    assert.equal(await page.evaluate(`window.__caseStudyWindow === document.querySelector('${frame("file-veyra")}')`), true, "The original Finder project window is still open");
     await clickSelector(page, '[data-dock-app="mail"]');
     await clickButton(page, "Write to Om");
     assert.ok(await page.evaluate(`document.querySelector('[data-mail-handoff]')?.disabled && document.querySelector('[data-mail-handoff]').textContent.trim() === 'Send'`));
@@ -656,6 +695,8 @@ try {
     const whiteBox = await clickSelector(page, `${frame("finder-projects")} [data-file-icon="edge-ai-hardware-state-detection"]`);
     await clickAt(page, { x: whiteBox.x + 6, y: whiteBox.y + 2 });
     await page.wait(`document.querySelector('${frame("file-edge-ai-hardware-state-detection")} img[src="/project-previews/white-box.webp"]')?.naturalWidth > 0`, "The Finder double-click opens the White Box preview in Screen view");
+    await clickSelector(page, '[data-dock-app="terminal"]');
+    await page.wait(`document.querySelector('[data-terminal-transcript]')?.textContent.includes('I’m a final-year Computer Science student at Vellore Institute of Technology.')`, "Terminal introduces Om in the first person");
   });
   await scenario("r02-tour-skip-restores-view", {}, async (page) => {
     await page.navigate();

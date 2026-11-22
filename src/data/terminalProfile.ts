@@ -13,9 +13,10 @@ export const TERMINAL_PROJECTS: TerminalProject[] = PROJECTS.map(project => ({
 /** The opening screen exposes three useful paths; the full command set remains
  * available in the prompt and help response for visitors who want it. */
 export const TERMINAL_SUGGESTIONS = ["projects", "skills", "about"];
+const education = profile.education.replace(/^Final-year/, "I’m a final-year");
 export const TERMINAL_INTRO: TerminalLine[] = [
   { text: "Hey there!", tone: "heading" },
-  { text: `${profile.education} I work on computer vision, AI tools, backends, and interactive apps.` },
+  { text: `${education} I work on computer vision, AI tools, backends, and interactive apps.` },
   { text: "Lego robots and Halo got me curious about technology. These days I’m building Veyra and experimenting with how people and AI tools read websites." },
   { text: "Type a command below, or choose a starting point. This is an interactive portfolio, not a system shell.", tone: "muted" },
 ];
@@ -57,7 +58,7 @@ export function terminalResponse(input: string): TerminalLine[] {
   ];
   if (command === "experience") return [
     { text: "Experience, through building", tone: "heading" },
-    { text: `${profile.education} I’ve built a website checker, led a brand website audit, trained a detector to ignore lookalikes, and used graph data to explain fraud alerts.` },
+    { text: `${education} I’ve built a website checker, led a brand website audit, trained a detector to ignore lookalikes, and used graph data to explain fraud alerts.` },
     { text: "The Task API taught me how to keep records linked and check incoming data. SkyWatch plots live air traffic. This portfolio has taught me how much the small details matter when people use an interface." },
     { text: "I value evidence over impressive labels, and systems that remain useful when something goes wrong.", tone: "muted" },
   ];
