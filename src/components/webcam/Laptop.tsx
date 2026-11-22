@@ -1,10 +1,9 @@
 "use client";
 
 import { useRef, useEffect, type ReactNode } from "react";
-import { useFrame } from "@react-three/fiber";
+import { useFrame, useThree } from "@react-three/fiber";
 import { Html } from "@react-three/drei";
 import { Matrix4, type Group } from "three";
-import type { ScenePhase } from "./MacBookScene";
 import { Model as MacbookModel } from './Macbook';
 import styles from "./Laptop.module.css";
 import { ScreenSurface } from "./ScreenSurface";
@@ -31,15 +30,18 @@ export const LAPTOP_TOTAL_HEIGHT = 2.0;
 export const SCREEN_CENTER_WORLD_Y = 1.0;
 
 interface LaptopProps {
-  phase: ScenePhase;
+  assetsReady: boolean;
+  interactive: boolean;
   reduceMotion?: boolean;
-  onOpened?: () => void;
+  onFirstRender: () => void;
   onModelReady?: () => void;
   children?: ReactNode;
 }
 
-export function Laptop({ phase, reduceMotion = false, onOpened, onModelReady, children }: LaptopProps) {
-  const hasFiredOpened = useRef(false);
+export function Laptop({ assetsReady, interactive, reduceMotion = false, onFirstRender, onModelReady, children }: LaptopProps) {
+  const invalidate = useThree(state => state.invalidate);
+  const presented = useRef(false);
+  const presentationFrame = useRef<number | undefined>(undefined);
   const displayPlane = useRef<Group>(null);
   const projection = useRef<HTMLDivElement>(null);
   const lastFrame = useRef<{
@@ -48,33 +50,41 @@ export function Laptop({ phase, reduceMotion = false, onOpened, onModelReady, ch
   const setVMLocked = useWindowStore((s) => s.setVMLocked);
 
   useFrame(({ camera, size }) => {
-    if (!hasFiredOpened.current && phase === "opening") {
-      hasFiredOpened.current = true;
-      onOpened?.();
-    }
     const plane = displayPlane.current;
     const element = projection.current;
     if (!plane || !element || !size.width || !size.height) return;
     camera.updateMatrixWorld();
     plane.updateWorldMatrix(true, false);
     const previous = lastFrame.current;
-    if (previous?.node === element && previous.width === size.width && previous.height === size.height
+    const unchanged = previous?.node === element && previous.width === size.width && previous.height === size.height
       && previous.view.equals(camera.matrixWorldInverse) && previous.projection.equals(camera.projectionMatrix)
-      && previous.plane.equals(plane.matrixWorld)) return;
-    const transform = laptopProjectionMatrix(SCREEN_PIXEL_WIDTH, SCREEN_PIXEL_HEIGHT, SCREEN_UNITS_PER_PIXEL, plane.matrixWorld, camera, size);
-    if (!transform) return;
-    element.style.setProperty("--laptop-screen-transform", transform);
-    lastFrame.current = {
-      node: element, width: size.width, height: size.height,
-      view: (previous?.view ?? new Matrix4()).copy(camera.matrixWorldInverse),
-      projection: (previous?.projection ?? new Matrix4()).copy(camera.projectionMatrix),
-      plane: (previous?.plane ?? new Matrix4()).copy(plane.matrixWorld),
-    };
+      && previous.plane.equals(plane.matrixWorld);
+    if (!unchanged) {
+      const transform = laptopProjectionMatrix(SCREEN_PIXEL_WIDTH, SCREEN_PIXEL_HEIGHT, SCREEN_UNITS_PER_PIXEL, plane.matrixWorld, camera, size);
+      if (!transform) return;
+      element.style.setProperty("--laptop-screen-transform", transform);
+      lastFrame.current = {
+        node: element, width: size.width, height: size.height,
+        view: (previous?.view ?? new Matrix4()).copy(camera.matrixWorldInverse),
+        projection: (previous?.projection ?? new Matrix4()).copy(camera.projectionMatrix),
+        plane: (previous?.plane ?? new Matrix4()).copy(plane.matrixWorld),
+      };
+    }
+    if (assetsReady && !presented.current) {
+      presented.current = true;
+      // The projection has its final geometry. Wait until this frame has
+      // passed through the renderer before allowing the loader to reveal it.
+      presentationFrame.current = requestAnimationFrame(onFirstRender);
+    }
   });
 
   useEffect(() => {
-    if (phase === "closed") hasFiredOpened.current = false;
-  }, [phase]);
+    if (assetsReady) invalidate();
+    return () => {
+      if (presentationFrame.current !== undefined) cancelAnimationFrame(presentationFrame.current);
+      presented.current = false;
+    };
+  }, [assetsReady, invalidate]);
 
   return (
     <group position={[0, 0, 0]} scale={[6.9, 6.9, 6.9]}>
@@ -93,8 +103,9 @@ export function Laptop({ phase, reduceMotion = false, onOpened, onModelReady, ch
           style={{ width: SCREEN_PIXEL_WIDTH, height: SCREEN_PIXEL_HEIGHT }}
         >
           {/* FIX: Capture all clicks inside the screen to trigger the VM Lock! */}
-          <div 
+          <div
             data-desktop-projection
+            inert={!interactive}
             onPointerDownCapture={() => setVMLocked(true)}
           >
             <ScreenSurface reduceMotion={reduceMotion}>{children}</ScreenSurface>

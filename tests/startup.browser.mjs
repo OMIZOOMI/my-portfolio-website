@@ -351,25 +351,40 @@ try {
     `,
   }, async page => {
     let posterRequest;
+    let videoRequest;
     const intercept = message => {
-      if (message.method === "Fetch.requestPaused" && message.params.request.url.endsWith("/workspaces/beach-hd.webp")) {
-        posterRequest = message.params.requestId;
-      }
+      if (message.method !== "Fetch.requestPaused") return;
+      if (message.params.request.url.endsWith("/workspaces/beach-hd.webp")) posterRequest = message.params.requestId;
+      else if (message.params.request.url.endsWith(".mp4")) videoRequest = message.params.requestId;
     };
     listeners.add(intercept);
     try {
-      await page.send("Fetch.enable", { patterns: [{ urlPattern: "*/workspaces/beach-hd.webp", requestStage: "Request" }] });
+      await page.send("Fetch.enable", { patterns: [
+        { urlPattern: "*/workspaces/beach-hd.webp", requestStage: "Request" },
+        { urlPattern: "*/workspaces/beach*.mp4", requestStage: "Request" },
+      ] });
       await page.navigate();
       await page.wait(`document.querySelector('[data-startup-overlay]')?.textContent.includes('Preparing the workspace background')`, "the loader waits for the visible still background", 10000);
       assert.ok(posterRequest);
-      assert.equal(await page.evaluate(`!!document.querySelector('[data-workspace-video][src]')`), false, "The video stays out of the loading path");
+      assert.equal(await page.evaluate(`!!document.querySelector('[data-desktop-projection][inert]') && !!document.querySelector('[data-startup-aside][aria-hidden="true"]')`), true, "The loader keeps focus above the desktop and the quip is decorative");
+      await page.screenshot("preparing-workspace-background");
       await page.send("Fetch.continueRequest", { requestId: posterRequest });
+      await page.wait(`!!document.querySelector('[data-workspace-video][src]')`, "the selected video starts behind the loader", 6000);
+      assert.equal(await page.evaluate(`!!document.querySelector('[data-startup-overlay]') && !document.querySelector('[data-workspace-video][data-frame-ready]')`), true, "Laptop view waits for the selected backdrop's first frame");
+      for (let i = 0; i < 10 && !videoRequest; i++) await sleep(50);
+      assert.ok(videoRequest);
+      await page.send("Fetch.continueRequest", { requestId: videoRequest });
     } finally {
       listeners.delete(intercept);
       await page.send("Fetch.disable");
     }
-    await handoff(page);
+    await page.wait(`!document.querySelector('[data-startup-overlay]')`, "the loader opens the desktop");
+    const notes = await page.evaluate(desktopPoint);
+    assert.ok(notes, "The Dock is hit-testable as soon as the loader clears");
+    await clickAt(page, notes);
+    await page.wait(`!!document.querySelector('[data-window-frame="app-notes"]')`, "Notes opens on the first click after reveal");
     assert.equal(await page.evaluate(`!!document.querySelector('[data-workspace-role="active"] img')?.naturalWidth`), true, "The still image is ready at handoff");
+    assert.equal(await page.evaluate(`!!document.querySelector('[data-workspace-video][data-frame-ready]')`), true, "The selected video has presented a frame at handoff");
     await sleep(3000);
     const clears = await page.evaluate("window.__laptopClears");
     assert.ok(clears > 0, "The scene rendered during entry");
@@ -379,6 +394,18 @@ try {
     await page.send("Input.dispatchKeyEvent", { type: "keyUp", key: "a", code: "KeyA" });
     await page.wait(`window.__laptopClears > ${clears}`, "Keyboard input wakes the scene");
     assert.deepEqual(page.errors, []);
+  });
+  await scenario("laptop-video-fallback", {
+    block: ["*/workspaces/beach*.mp4*"],
+    init: `localStorage.setItem('portfolio-readability','{"defaultView":"laptop"}');`,
+  }, async page => {
+    await page.navigate();
+    await handoff(page);
+    assert.ok(page.blockedRequests.length, "The selected video request was blocked");
+    assert.equal(await page.evaluate(`
+      !!document.querySelector('[data-workspace-role="active"] img')?.naturalWidth &&
+      !document.querySelector('[data-workspace-video][data-frame-ready]')
+    `), true, "A failed video reveals a decoded still and leaves the desktop ready");
   });
   await scenario("cold-and-warm-handoff", { cold: true }, async (page) => {
     await page.navigate();

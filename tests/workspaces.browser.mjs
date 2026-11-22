@@ -228,7 +228,7 @@ await scenario('horizontal-swipe-geometry-and-anchored-laptop',async(page,r)=>{
 await scenario('entry-assets-and-laptop-continuity',async(page,r)=>{
  await settled(page,'beach');await live(page,'beach');
  r.entry=await page.evaluate(`({startupReady:window.__perf.startupReady,resources:performance.getEntriesByType('resource').filter(e=>e.name.includes('/workspaces/')).map(e=>({url:e.name,start:e.startTime,duration:e.duration,encoded:e.encodedBodySize}))})`);
- assert.ok(r.entry.resources.every(e=>/beach-hd\.(webp|mp4)/.test(e.url)),'entry loads only selected environment, no collection or thumbnails');
+ assert.ok(r.entry.resources.every(e=>/beach-(hd\.webp|720p\.mp4)/.test(e.url)),'entry loads only selected environment, no collection or thumbnails');
  await page.evaluate(`window.__workspaceCanvas=document.querySelector('canvas');window.__workspaceDesktop=document.querySelector('#desktop-root');void 0`);
  r.renderer=await page.evaluate(`(()=>{const c=document.querySelector('canvas'),g=c.getContext('webgl2')??c.getContext('webgl');return{alpha:g.getContextAttributes().alpha,background:g.getParameter(g.COLOR_CLEAR_VALUE)}})()`);assert.equal(r.renderer.alpha,true);
  await closePicker(page);await page.screenshot('beach');
@@ -244,10 +244,10 @@ await scenario('entry-assets-and-laptop-continuity',async(page,r)=>{
  await picker(page);await page.screenshot('studio-picker');await closePicker(page);
  r.preference=await page.evaluate(`JSON.parse(localStorage.getItem('portfolio-workspace'))`);assert.deepEqual(r.preference,{version:1,state:{environment:'studio'}});
  const origin=await page.evaluate('performance.timeOrigin');await page.send('Page.reload');await page.wait(`performance.timeOrigin!==${origin}&&window.__perf?.startupReady`,'reload',45000);await settled(page,'studio');
- r.reloadResources=await page.evaluate(`performance.getEntriesByType('resource').filter(e=>e.name.includes('/workspaces/')).map(e=>e.name)`);assert.ok(r.reloadResources.every(e=>e.includes('/studio.png')));
+ r.reloadResources=await page.evaluate(`performance.getEntriesByType('resource').filter(e=>e.name.includes('/workspaces/')).map(e=>e.name)`);assert.ok(r.reloadResources.every(e=>e.includes('/studio.webp')));
 }, {cold:true});
 
-await scenario('all-backgrounds-colors-and-pngs-without-unselected-downloads',async(page,r)=>{
+await scenario('all-backgrounds-without-unselected-downloads',async(page,r)=>{
  await settled(page,'beach');await picker(page);
  assert.equal(await page.evaluate(`document.querySelectorAll('[data-workspace-option]').length`),11);
  r.thumbnails=await page.evaluate(`[...document.querySelectorAll('[data-workspace-picker] img')].map(e=>({src:e.getAttribute('src'),valid:e.complete&&e.naturalWidth>0}))`);
@@ -259,7 +259,7 @@ await scenario('all-backgrounds-colors-and-pngs-without-unselected-downloads',as
   if(['slate','chalk'].includes(id)){await closePicker(page);await page.screenshot(id);}
  }
  r.requests=page.requests.slice(before).filter(e=>e.url.includes('/workspaces/'));
- assert.ok(r.requests.every(e=>/\/(paper|slate)\.png$/.test(e.url)),'colors make no asset requests');
+ assert.ok(r.requests.every(e=>/\/(paper|slate)\.webp$/.test(e.url)),'colors make no asset requests');
  await go(page,'paper');await closePicker(page);await page.screenshot('paper');await picker(page);await page.screenshot('background-picker');
  await key(page,'End','End',35);await settled(page,'mist');assert.equal(await page.evaluate(`document.activeElement.dataset.workspaceOption`),'mist');
  await key(page,'Home','Home',36);await settled(page,'beach');
@@ -283,7 +283,7 @@ await scenario('failed-image-and-video-recovery',async(page,r)=>{
  await page.send('Network.setBlockedURLs',{urls:['*/workspaces/forest-hd.webp*']});await click(page,'[data-workspace-option="forest"]');await page.wait(`!!document.querySelector('[data-workspace-retry]')`,'failed poster recovery');await settled(page,'beach');
  r.failedImage=await page.evaluate(`document.querySelector('[data-workspace-status]').innerText`);
  await page.send('Network.setBlockedURLs',{urls:[]});await click(page,'[data-workspace-retry]');await settled(page,'forest');
- await go(page,'studio');await page.send('Network.setCacheDisabled',{cacheDisabled:true});await page.send('Network.clearBrowserCache');await page.send('Network.setBlockedURLs',{urls:['*/workspaces/beach-hd.mp4*']});await click(page,'[data-workspace-option="beach"]');await page.wait(`!!document.querySelector('[data-workspace-retry]')`,'failed video recovery');await settled(page,'studio');
+ await go(page,'studio');await page.send('Network.setCacheDisabled',{cacheDisabled:true});await page.send('Network.clearBrowserCache');await page.send('Network.setBlockedURLs',{urls:['*/workspaces/beach-720p.mp4*']});await click(page,'[data-workspace-option="beach"]');await page.wait(`!!document.querySelector('[data-workspace-retry]')`,'failed video recovery');await settled(page,'studio');
  r.failedVideo=await page.evaluate(`document.querySelector('[data-workspace-status]').innerText`);
  await click(page,'[data-workspace-pause]');await click(page,'[data-workspace-option="beach"]');await settled(page,'beach');assert.equal(await page.evaluate(`document.querySelector('[data-workspace-video]').paused`),true);
  await page.send('Network.setBlockedURLs',{urls:[]});await click(page,'[data-workspace-pause]');await live(page,'beach');

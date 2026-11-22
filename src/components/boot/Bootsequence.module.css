@@ -17,6 +17,10 @@
 .progress { width: 196px; height: 5px; overflow: hidden; border-radius: 999px; background: #ffffff25; }
 .progressFill { display: block; height: 100%; border-radius: inherit; background: #f5f5f7; transition: width 180ms ease-out; }
 .status { margin: 0; color: #a1a1a6; font-size: 13px; font-weight: 400; line-height: 1.4; letter-spacing: -0.012em; }
+.aside { margin: -8px 0 0; padding-inline: 16px; color: #a5b9d2; font-size: 13px; line-height: 1.4; text-align: center; }
+.skip { min-height: 44px; padding: 6px 14px; border: 1px solid #ffffff26; border-radius: 999px; background: #ffffff0a; color: #e5e7eb; font: inherit; font-size: 12px; cursor: pointer; }
+.skip:hover { background: #ffffff18; }
+.skip:focus-visible { outline: 2px solid #69b9ff; outline-offset: 3px; }
 .errorPanel { width: min(90vw, 26rem); padding: 22px; border: 1px solid #ffffff1f; border-radius: 16px; background: #ffffff08; color: #a1a1a6; text-align: center; }
 .errorTitle { margin: 0; color: #f5f5f7; font-size: 15px; font-weight: 600; letter-spacing: -0.02em; }
 .errorMessage { margin: 10px 0 0; font-size: 13px; line-height: 1.5; }

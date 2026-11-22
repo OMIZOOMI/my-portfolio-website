@@ -14,8 +14,9 @@ import { useDisplayStore } from "../window-manager/useDisplayStore";
 import { useSystemStore } from "../window-manager/useSystemStore";
 import { useKeyboardSounds } from "../webcam/useKeyboardSounds";
 import { useWorkspaceStore } from "../workspace/useWorkspaceStore";
+import { BootPrelude } from "../boot/BootPrelude";
 
-const MacBookScene = dynamic(() => import("../webcam/MacBookScene").then(module => module.MacBookScene));
+const MacBookScene = dynamic(() => import("../webcam/MacBookScene").then(module => module.MacBookScene), { loading: BootPrelude });
 
 export function PortfolioEntry({ overview, active = true, compact = false }: { overview: ReactNode; active?: boolean; compact?: boolean }) {
   const [sceneAvailable, setSceneAvailable] = useState(false);

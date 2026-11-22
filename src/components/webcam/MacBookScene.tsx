@@ -10,7 +10,7 @@ import {
   useState,
   type ReactNode,
 } from "react";
-import { Canvas, useFrame, useThree, type RootState } from "@react-three/fiber";
+import { Canvas, type RootState } from "@react-three/fiber";
 import { Environment, OrbitControls, useEnvironment, useGLTF } from "@react-three/drei";
 import * as THREE from "three";
 import { DesktopEnvironment } from "../desktop/DesktopEnvironment";
@@ -25,99 +25,39 @@ import { WorkspaceEnvironment } from "../workspace/WorkspaceEnvironment";
 import { useDisplayStore } from "../window-manager/useDisplayStore";
 import { ProjectionViewport } from "./ProjectionViewport";
 
-export type ScenePhase = "closed" | "opening" | "open";
-
 const FOV_DEGREES = 32;
 const FRAMED_DISTANCE = 2.6;
 const FRAMED_LOOK_AT_Y = 0.87;
 const ELEVATION = 1.3;
-const INITIAL_CAMERA_POS: [number, number, number] = [0, FRAMED_LOOK_AT_Y + 1.5, FRAMED_DISTANCE + 4.0];
 const FRAMED_CAMERA_POS: [number, number, number] = [0, FRAMED_LOOK_AT_Y + ELEVATION, FRAMED_DISTANCE];
 const LOOK_AT = new THREE.Vector3(0, FRAMED_LOOK_AT_Y, 0);
-const INITIAL_CAMERA_TARGET = new THREE.Vector3(...INITIAL_CAMERA_POS);
-const FRAMED_CAMERA_TARGET = new THREE.Vector3(...FRAMED_CAMERA_POS);
-const CAMERA_DAMP_LAMBDA = 2.4;
+const WORKSPACE_LIGHTING = "/lighting/potsdamer_platz_1k.hdr";
 const SCENE_STALL_DEADLINE_MS = 30000;
-
-function CameraRig({ phase, reduceMotion }: { phase: ScenePhase; reduceMotion: boolean }) {
-  const invalidate = useThree(state => state.invalidate);
-  const screenView = useDisplayStore(state => state.screenView);
-  const previousTarget = useRef<THREE.Vector3 | null>(null);
-  useEffect(() => { invalidate(); }, [invalidate, phase, reduceMotion, screenView]);
-
-  useFrame(({ camera }, delta) => {
-    const target = phase === "closed" ? INITIAL_CAMERA_TARGET : FRAMED_CAMERA_TARGET;
-    const targetChanged = previousTarget.current !== target;
-    previousTarget.current = target;
-    if (reduceMotion || screenView || camera.position.distanceToSquared(target) <= .0001) {
-      camera.position.copy(target);
-    } else {
-      // The clock also counts idle time between demand frames. Limit that
-      // first step without stretching the movement on slower graphics cards.
-      const time = targetChanged ? Math.min(delta, .05) : delta;
-      camera.position.lerp(target, 1 - Math.exp(-time * CAMERA_DAMP_LAMBDA));
-      invalidate();
-    }
-    camera.lookAt(LOOK_AT);
-  });
-
-  return null;
-}
 
 function CriticalEnvironment({ onReady }: { onReady: () => void }) {
   useEffect(() => {
     onReady();
   }, [onReady]);
 
-  return <Environment preset="city" />;
-}
-
-function FirstRenderProbe({ ready, onReady }: { ready: boolean; onReady: () => void }) {
-  const invalidate = useThree(state => state.invalidate);
-  const reportedRef = useRef(false);
-  const frameRef = useRef<number | null>(null);
-
-  useEffect(() => {
-    if (!ready) reportedRef.current = false;
-    else invalidate();
-    return () => {
-      if (frameRef.current !== null) globalThis.cancelAnimationFrame(frameRef.current);
-      frameRef.current = null;
-      reportedRef.current = false;
-    };
-  }, [invalidate, ready]);
-
-  useFrame(() => {
-    if (!ready || reportedRef.current) return;
-    reportedRef.current = true;
-    // useFrame runs before the renderer paints. Report on the following
-    // browser frame so the gate represents a frame that was actually handed
-    // to the browser, not merely a completed React render.
-    frameRef.current = globalThis.requestAnimationFrame(() => {
-      frameRef.current = null;
-      onReady();
-    });
-  });
-
-  return null;
+  return <Environment files={WORKSPACE_LIGHTING} />;
 }
 
 function SceneGraph({
-  phase,
   onModelReady,
   onEnvironmentReady,
   onFirstRenderReady,
-  onOpened,
+  onDesktopChromeReady,
   assetsReady,
+  interactive,
   reduceMotion,
   introduction,
 }: {
-  phase: ScenePhase;
   onModelReady: () => void;
   onEnvironmentReady: () => void;
   onFirstRenderReady: () => void;
-  onOpened: () => void;
+  onDesktopChromeReady: () => void;
   assetsReady: boolean;
+  interactive: boolean;
   reduceMotion: boolean;
   introduction?: ReactNode;
 }) {
@@ -130,8 +70,6 @@ function SceneGraph({
       <ambientLight intensity={1.5} />
       <directionalLight position={[3, 5, 4]} intensity={2.5} castShadow />
       <spotLight position={[-4, 3, 2]} intensity={1.5} angle={0.4} penumbra={1} />
-      <CameraRig phase={phase} reduceMotion={reduceMotion} />
-
       <Suspense fallback={null}>
         <CriticalEnvironment
           onReady={() => {
@@ -141,21 +79,18 @@ function SceneGraph({
           }}
         />
         <Laptop
-          phase={phase}
+          assetsReady={assetsReady}
+          interactive={interactive}
           reduceMotion={reduceMotion}
-          onOpened={onOpened}
+          onFirstRender={onFirstRenderReady}
           onModelReady={() => {
             if (modelReady.current) return;
             modelReady.current = true;
             onModelReady();
           }}
         >
-          <DesktopEnvironment introduction={introduction} />
+          <DesktopEnvironment introduction={introduction} onStartupChromeReady={onDesktopChromeReady} />
         </Laptop>
-        <FirstRenderProbe
-          ready={assetsReady}
-          onReady={onFirstRenderReady}
-        />
       </Suspense>
     </>
   );
@@ -260,7 +195,6 @@ interface MacBookSceneProps {
 }
 
 export function MacBookScene({ debugOrbit = false, active = true, onDesktopAvailabilityChange, introduction }: MacBookSceneProps) {
-  const [phase, setPhase] = useState<ScenePhase>("closed");
   const [sceneError, setSceneError] = useState<string | null>(null);
   const [sceneMode, setSceneMode] = useState<"3d" | "flat">("3d");
   const [canvasKey, setCanvasKey] = useState(0);
@@ -271,6 +205,7 @@ export function MacBookScene({ debugOrbit = false, active = true, onDesktopAvail
   const [modelReady, setModelReady] = useState(false);
   const [environmentReady, setEnvironmentReady] = useState(false);
   const [firstRenderReady, setFirstRenderReady] = useState(false);
+  const [desktopChromeReady, setDesktopChromeReady] = useState(false);
   const [workspaceBackdropSettled, setWorkspaceBackdropSettled] = useState(false);
   const [startupComplete, setStartupComplete] = useState(false);
   const canvasCleanupRef = useRef<(() => void) | null>(null);
@@ -291,7 +226,11 @@ export function MacBookScene({ debugOrbit = false, active = true, onDesktopAvail
   useEffect(() => {
     useSystemStore.getState().hydrateAppearance();
     useDisplayStore.getState().hydrate();
-    const frame = window.requestAnimationFrame(() => setWebglSupported(supportsWebGL()));
+    const frame = window.requestAnimationFrame(() => {
+      const supported = supportsWebGL();
+      if (supported) useEnvironment.preload({ files: WORKSPACE_LIGHTING });
+      setWebglSupported(supported);
+    });
     return () => window.cancelAnimationFrame(frame);
   }, []);
 
@@ -304,7 +243,6 @@ export function MacBookScene({ debugOrbit = false, active = true, onDesktopAvail
   const reduceMotion = reduceMotionSetting || prefersReducedMotion;
 
   const setSceneFailure = useCallback((error: Error | string) => {
-    setPhase("closed");
     const message = typeof error === "string" ? error : error.message || "The 3D scene could not be displayed.";
     // Canvas teardown can emit context-loss after an asset error. Preserve
     // the original cause until the visitor explicitly retries.
@@ -317,7 +255,7 @@ export function MacBookScene({ debugOrbit = false, active = true, onDesktopAvail
     // Suspense caches rejected loads too; a new Canvas alone would repeat
     // the same cached failure without making a fresh network request.
     useGLTF.clear("/macbook.glb/scene.gltf");
-    useEnvironment.clear({ preset: "city" });
+    useEnvironment.clear({ files: WORKSPACE_LIGHTING });
     setSceneMode("3d");
     setSceneError(null);
     setWebglSupported(supportsWebGL());
@@ -325,14 +263,15 @@ export function MacBookScene({ debugOrbit = false, active = true, onDesktopAvail
     setModelReady(false);
     setEnvironmentReady(false);
     setFirstRenderReady(false);
+    setDesktopChromeReady(false);
     setStartupComplete(false);
-    setPhase("closed");
     setCanvasKey((key) => key + 1);
   }, []);
 
   useEffect(() => () => canvasCleanupRef.current?.(), []);
 
   const handleCanvasCreated = useCallback((state: RootState) => {
+    state.camera.lookAt(LOOK_AT);
     const canvas = state.gl.domElement;
     const handleContextLost = (event: Event) => {
       event.preventDefault();
@@ -353,9 +292,10 @@ export function MacBookScene({ debugOrbit = false, active = true, onDesktopAvail
       wallpaperReady: wallpaperState === "ready",
       wallpaperFailed: wallpaperState === "failed",
       firstRenderReady,
-      backdropReady: screenView || workspaceBackdropSettled || startupComplete,
+      desktopChromeReady,
+      backdropReady: workspaceBackdropSettled,
     }),
-    [environmentReady, firstRenderReady, modelReady, rendererReady, screenView, startupComplete, wallpaperState, workspaceBackdropSettled]
+    [desktopChromeReady, environmentReady, firstRenderReady, modelReady, rendererReady, wallpaperState, workspaceBackdropSettled]
   );
   const effectiveSceneError = sceneError ?? (
     webglSupported === false ? "WebGL is unavailable, so the 3D MacBook cannot start here." : null
@@ -384,16 +324,13 @@ export function MacBookScene({ debugOrbit = false, active = true, onDesktopAvail
       document.removeEventListener("visibilitychange", watchVisibleStage);
     };
   }, [active, canvasKey, effectiveSceneError, loadingStatus, sceneMode, sceneReady, setSceneFailure]);
-  const scenePhase: ScenePhase = sceneReady
-    ? phase === "open" ? "open" : "opening"
-    : "closed";
-
-  const desktopAvailable = sceneMode === "flat" || (sceneReady && phase === "open" && startupComplete);
+  const desktopAvailable = sceneMode === "flat" || (sceneReady && startupComplete);
   useEffect(() => {
     onDesktopAvailabilityChange?.(desktopAvailable);
   }, [desktopAvailable, onDesktopAvailabilityChange]);
   const handleStartupComplete = useCallback(() => setStartupComplete(true), []);
   const handleBackdropSettled = useCallback(() => setWorkspaceBackdropSettled(true), []);
+  const handleDesktopChromeReady = useCallback(() => setDesktopChromeReady(true), []);
 
   return (
     <div style={{ position: "fixed", inset: 0, top: "var(--portfolio-header-offset, 0px)", background: "#283b3d", isolation: "isolate", overflow: "clip" }}>
@@ -401,7 +338,9 @@ export function MacBookScene({ debugOrbit = false, active = true, onDesktopAvail
         <FlatDesktopFallback onRetry={retryScene} introduction={introduction} />
       ) : (
         <>
-          <WorkspaceEnvironment sceneUsable={desktopAvailable} reduceMotion={reduceMotion} onBackdropSettled={handleBackdropSettled} />
+          <WorkspaceEnvironment sceneUsable={desktopAvailable} reduceMotion={reduceMotion}
+            waitForMotion={!screenView} prepareMotion={active && !effectiveSceneError && firstRenderReady && !startupComplete}
+            onBackdropSettled={handleBackdropSettled} />
           <ProjectionViewport>
           {webglSupported === true && appearanceHydrated && displayHydrated && (
             <SceneErrorBoundary key={`scene-${canvasKey}`} resetKey={canvasKey} onError={setSceneFailure}>
@@ -411,17 +350,17 @@ export function MacBookScene({ debugOrbit = false, active = true, onDesktopAvail
                 resize={{ offsetSize: true }}
                 dpr={[1, 2]}
                 gl={{ antialias: true, alpha: true }}
-                camera={{ position: INITIAL_CAMERA_POS, fov: FOV_DEGREES, near: 0.1, far: 50 }}
+                camera={{ position: FRAMED_CAMERA_POS, fov: FOV_DEGREES, near: 0.1, far: 50 }}
                 onCreated={handleCanvasCreated}
                 style={{ touchAction: "auto", overflow: "clip" }}
               >
                 <SceneGraph
-                  phase={scenePhase}
                   onModelReady={() => setModelReady(true)}
                   onEnvironmentReady={() => setEnvironmentReady(true)}
                   onFirstRenderReady={() => setFirstRenderReady(true)}
-                  onOpened={() => setPhase("open")}
+                  onDesktopChromeReady={handleDesktopChromeReady}
                   assetsReady={modelReady && environmentReady}
+                  interactive={desktopAvailable}
                   reduceMotion={reduceMotion}
                   introduction={introduction}
                 />

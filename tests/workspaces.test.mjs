@@ -12,7 +12,7 @@ const finish=(s,key)=>act(s,{type:'finish',key});
 const active=s=>s.layers.find(l=>l.key===s.active)?.id;
 const beach=()=>ready(select(EMPTY_WORKSPACE,'beach',1),1);
 
-test('catalog contains two HD live views, three non-landscape PNGs and six zero-request solid colors',async()=>{
+test('catalog contains two HD live views, three stills and six zero-request solid colors',async()=>{
  assert.equal(WORKSPACES.length,11);
  assert.equal(WORKSPACES.filter(x=>x.kind==='motion').length,2);
  assert.equal(WORKSPACES.filter(x=>x.kind==='still').length,3);
@@ -26,9 +26,9 @@ test('catalog contains two HD live views, three non-landscape PNGs and six zero-
   }
   for(const [url,thumb]of [[w.poster,false],[w.thumbnail,true]]){
    const file=fileURLToPath(new URL('../public'+url,import.meta.url)),m=await sharp(file).metadata();
-   assert.equal(m.format,thumb||w.kind==='motion'?'webp':'png');
+   assert.equal(m.format,'webp');
    assert.ok((await sharp(file).raw().toBuffer()).length>0);
-   assert.ok((await stat(file)).size<(thumb?30000:6000000));
+   assert.ok((await stat(file)).size<(thumb?30000:600000));
    if(thumb)assert.deepEqual([m.width,m.height],[160,100]);
    else {assert.ok(m.width>=1600&&m.height>=900);assert.ok(Math.abs(m.width/m.height-16/9)<.002);}
   }
@@ -36,9 +36,11 @@ test('catalog contains two HD live views, three non-landscape PNGs and six zero-
    const bytes=await readFile(new URL('../public'+w.video,import.meta.url));
    assert.ok(bytes.includes(Buffer.from('ftyp')));assert.ok(bytes.includes(Buffer.from('avc1')));
    assert.ok(!bytes.includes(Buffer.from('soun')),'no audio handler/track');
-   assert.ok(bytes.length<30000000,'quality-first HD encode, bounded below 30 MB');
+   assert.ok(bytes.length<7000000,'lightweight HD encode, bounded below 7 MB');
+   const moov=bytes.indexOf(Buffer.from('moov')),mdat=bytes.indexOf(Buffer.from('mdat'));
+   assert.ok(moov>=0&&mdat>moov,'fast start metadata appears before media data');
    const tkhd=bytes.indexOf(Buffer.from('tkhd')),size=bytes.readUInt32BE(tkhd-4),end=tkhd-4+size;
-   assert.deepEqual([bytes.readUInt32BE(end-8)/65536,bytes.readUInt32BE(end-4)/65536],[1920,1080]);
+   assert.deepEqual([bytes.readUInt32BE(end-8)/65536,bytes.readUInt32BE(end-4)/65536],[1280,720]);
   }
  }
 });
@@ -99,7 +101,7 @@ test('repeated changes and stale motion callbacks retain no retired layers',()=>
  const saved=s;s=act(s,{type:'motion',key:1,status:'playing'});assert.equal(s,saved);
 });
 
-test('color and PNG selections use the same latest-only readiness path and persist independently',()=>{
+test('color and still selections use the same latest-only readiness path and persist independently',()=>{
  let s=select(beach(),'paper',2);s=select(s,'chalk',3);
  s=ready(s,2);assert.equal(active(s),'beach');
  s=finish(ready(s,3),3);assert.equal(active(s),'chalk');assert.equal(s.layers.length,1);

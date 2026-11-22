@@ -21,6 +21,14 @@ gsap.registerPlugin(CustomEase, useGSAP);
 CustomEase.create("easeOut", "0.23, 1, 0.32, 1"); // entrances / exits
 CustomEase.create("easeInOut", "0.77, 0, 0.175, 1"); // on-screen morphs
 
+const LOADING_ASIDES = [
+  "Giving the Dock a pep talk.",
+  "Asking Terminal to use its indoor voice.",
+  "Checking that Veyra brought receipts.",
+  "Keeping Heat Sink at room temperature.",
+  "Reminding the windows which way is up.",
+];
+
 function usePrefersReducedMotion() {
   const [reduced, setReduced] = useState(() =>
     typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches
@@ -71,9 +79,20 @@ export function BootSequence({
   const introTimelineRef = useRef<gsap.core.Timeline | null>(null);
   const completedRef = useRef(false);
   const [dismissed, setDismissed] = useState(false);
+  const [asideIndex, setAsideIndex] = useState(0);
 
   const prefersReducedMotion = usePrefersReducedMotion();
   const reduceMotion = reduceMotionSetting || prefersReducedMotion;
+
+  useEffect(() => {
+    if (ready || error || reduceMotion || dismissed) return;
+    const timer = window.setInterval(() => {
+      if (document.hidden) return;
+      const advance = 1 + Math.floor(Math.random() * (LOADING_ASIDES.length - 1));
+      setAsideIndex(index => (index + advance) % LOADING_ASIDES.length);
+    }, 2600);
+    return () => window.clearInterval(timer);
+  }, [dismissed, error, ready, reduceMotion]);
 
   useGSAP(
     () => {
@@ -156,6 +175,8 @@ export function BootSequence({
                 <span className={styles.progressFill} style={{ width: `${progress * 20}%`, transition: reduceMotion ? "none" : undefined }} />
               </div>
               <p className={styles.status} aria-hidden="true">{status}</p>
+              <p className={styles.aside} aria-hidden="true" data-startup-aside>{LOADING_ASIDES[asideIndex]}</p>
+              {!ready && onUseFallback && <button type="button" className={styles.skip} onClick={onUseFallback}>Open flat desktop</button>}
             </div>
           )}
           {error && (

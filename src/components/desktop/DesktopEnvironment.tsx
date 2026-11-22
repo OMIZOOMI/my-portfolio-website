@@ -77,7 +77,11 @@ function DraggableDesktopItem({
   );
 }
 
-export function DesktopEnvironment({ introduction, compact = false }: { introduction?: ReactNode; compact?: boolean }) {
+export function DesktopEnvironment({ introduction, compact = false, onStartupChromeReady }: {
+  introduction?: ReactNode;
+  compact?: boolean;
+  onStartupChromeReady?: () => void;
+}) {
   const desktopRef = useRef<HTMLDivElement>(null);
   const interfaceScale = useDisplayStore(s => s.interfaceScale);
   const iconScale = useDisplayStore(s => s.iconScale);
@@ -88,6 +92,23 @@ export function DesktopEnvironment({ introduction, compact = false }: { introduc
     const desktop = desktopRef.current;
     if (desktop) return bindProjectedDesktopScroll(desktop);
   }, []);
+
+  useEffect(() => {
+    const desktop = desktopRef.current;
+    if (!desktop || !onStartupChromeReady) return;
+    const images = Array.from(desktop.querySelectorAll<HTMLImageElement>("[data-dock-app] img, [data-desktop-icons] img"));
+    let settled = false;
+    const finish = () => {
+      if (settled) return;
+      settled = true;
+      window.clearTimeout(deadline);
+      onStartupChromeReady();
+    };
+    // Decorative images have labeled controls even if a request fails.
+    const deadline = window.setTimeout(finish, 3500);
+    void Promise.allSettled(images.map(image => image.decode())).then(finish);
+    return () => { settled = true; window.clearTimeout(deadline); };
+  }, [onStartupChromeReady]);
   const [gameMenuOpen, setGameMenuOpen] = React.useState(false);
   const trashItems = useSystemStore((s) => s.trashItems);
   const deletedIds = useSystemStore((s) => s.deletedIds);

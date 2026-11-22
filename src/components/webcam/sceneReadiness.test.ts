@@ -11,11 +11,13 @@ const ready: SceneReadiness = {
   wallpaperReady: true,
   wallpaperFailed: false,
   firstRenderReady: true,
+  desktopChromeReady: true,
   backdropReady: true,
 };
 
 test("does not reveal before the first usable render", () => {
   assert.equal(isCriticalSceneReady({ ...ready, firstRenderReady: false }), false);
+  assert.equal(isCriticalSceneReady({ ...ready, desktopChromeReady: false }), false);
   assert.equal(isCriticalSceneReady(ready), true);
 });
 

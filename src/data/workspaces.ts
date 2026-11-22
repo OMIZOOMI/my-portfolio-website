@@ -15,30 +15,30 @@ export interface Workspace {
 
 export const WORKSPACES: readonly Workspace[] = [
   {
-    id: "beach", kind: "motion", name: "Beach", description: "Gentle surf · fixed camera · Full HD",
+    id: "beach", kind: "motion", name: "Beach", description: "Gentle surf · fixed camera",
     poster: "/workspaces/beach-hd.webp", thumbnail: "/workspaces/thumbs/beach-hd.webp",
-    video: "/workspaces/beach-hd.mp4", credit: "Edgar Fernandez / Mixkit",
+    video: "/workspaces/beach-720p.mp4", credit: "Edgar Fernandez / Mixkit",
     source: "https://mixkit.co/free-stock-video/waves-reaching-the-shore-1925/",
   },
   {
-    id: "forest", kind: "motion", name: "Forest", description: "Moving leaves · fixed camera · Full HD",
+    id: "forest", kind: "motion", name: "Forest", description: "Moving leaves · fixed camera",
     poster: "/workspaces/forest-hd.webp", thumbnail: "/workspaces/thumbs/forest-hd.webp",
-    video: "/workspaces/forest-hd.mp4", credit: "Mixkit",
+    video: "/workspaces/forest-720p.mp4", credit: "Mixkit",
     source: "https://mixkit.co/free-stock-video/the-wind-gently-moves-the-forests-lush-vegetation-on-a-50870/",
   },
   {
     id: "studio", kind: "still", name: "Studio", description: "A little room to think",
-    poster: "/workspaces/studio.png", thumbnail: "/workspaces/thumbs/studio.webp",
+    poster: "/workspaces/studio.webp", thumbnail: "/workspaces/thumbs/studio.webp",
     credit: "Original generated artwork",
   },
   {
     id: "paper", kind: "still", name: "Paper", description: "Ivory paper, soft daylight",
-    poster: "/workspaces/paper.png", thumbnail: "/workspaces/thumbs/paper.webp",
+    poster: "/workspaces/paper.webp", thumbnail: "/workspaces/thumbs/paper.webp",
     credit: "Original generated artwork",
   },
   {
     id: "slate", kind: "still", name: "Slate", description: "Sculptural plaster, quiet shadows",
-    poster: "/workspaces/slate.png", thumbnail: "/workspaces/thumbs/slate.webp",
+    poster: "/workspaces/slate.webp", thumbnail: "/workspaces/thumbs/slate.webp",
     credit: "Original generated artwork",
   },
   { id: "ink", kind: "color", name: "Ink", description: "Deep blue-black", color: "#15191f", credit: "Original color palette" },

@@ -6,6 +6,7 @@ import type { MotionStatus } from "./workspaceTransition";
 import styles from "./WorkspaceEnvironment.module.css";
 
 const MEDIA_DEADLINE_MS = 10000;
+const VIDEO_START_DEADLINE_MS = 4500;
 
 export function WorkspaceMedia({ workspace, layerKey, role, motionAllowed, preferPoster, attempt, allowStillFallback, onReady, onFailed, onMotion }: {
   workspace: Workspace;
@@ -79,7 +80,7 @@ export function WorkspaceMedia({ workspace, layerKey, role, motionAllowed, prefe
     let scheduled = false;
     let settled = false;
     let playAccepted = false;
-    const timeout = window.setTimeout(() => fail(), MEDIA_DEADLINE_MS);
+    const timeout = window.setTimeout(() => fail(), VIDEO_START_DEADLINE_MS);
     const fail = () => {
       if (cancelled || settled) return;
       settled = true;

@@ -6,9 +6,10 @@ import { Suspense, useLayoutEffect, useRef, useState, useSyncExternalStore, type
 import { usePortfolioActivity } from "./usePortfolioActivity";
 import styles from "./PortfolioSiteShell.module.css";
 import { registerPublicProjectNavigator } from "./publicProjectNavigation";
+import { BootPrelude } from "../boot/BootPrelude";
 
 // Public reading pages do not instantiate or request the desktop's scene assets.
-const PortfolioEntry = dynamic(() => import("./PortfolioEntry").then(module => module.PortfolioEntry));
+const PortfolioEntry = dynamic(() => import("./PortfolioEntry").then(module => module.PortfolioEntry), { loading: BootPrelude });
 const compactViewport = "(max-width: 767px), (pointer: coarse)";
 
 function subscribeToViewport(change: () => void) {

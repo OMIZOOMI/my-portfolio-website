@@ -5,6 +5,7 @@ export interface SceneReadiness {
   wallpaperReady: boolean;
   wallpaperFailed: boolean;
   firstRenderReady: boolean;
+  desktopChromeReady: boolean;
   backdropReady: boolean;
 }
 
@@ -19,6 +20,7 @@ export function isCriticalSceneReady(readiness: SceneReadiness): boolean {
     readiness.modelReady &&
     readiness.environmentReady &&
     readiness.firstRenderReady &&
+    readiness.desktopChromeReady &&
     readiness.backdropReady &&
     (readiness.wallpaperReady || readiness.wallpaperFailed)
   );
@@ -30,6 +32,7 @@ export function getSceneLoadingStatus(readiness: SceneReadiness): string {
   if (!readiness.environmentReady) return "Loading the workspace lighting…";
   if (!readiness.wallpaperReady && !readiness.wallpaperFailed) return "Preparing the desktop wallpaper…";
   if (!readiness.firstRenderReady) return "Rendering the first frame…";
+  if (!readiness.desktopChromeReady) return "Preparing the desktop controls…";
   if (!readiness.backdropReady) return "Preparing the workspace background…";
   if (readiness.wallpaperFailed) return "Opening with the fallback wallpaper.";
   return "Welcome.";
@@ -38,5 +41,6 @@ export function getSceneLoadingStatus(readiness: SceneReadiness): string {
 /** Actual completed preparation steps, not estimated download percentages. */
 export function getScenePreparationProgress(readiness: SceneReadiness): number {
   return [readiness.rendererReady, readiness.modelReady, readiness.environmentReady,
-    readiness.wallpaperReady || readiness.wallpaperFailed, readiness.firstRenderReady && readiness.backdropReady].filter(Boolean).length;
+    readiness.wallpaperReady || readiness.wallpaperFailed,
+    readiness.firstRenderReady && readiness.backdropReady && readiness.desktopChromeReady].filter(Boolean).length;
 }

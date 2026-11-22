@@ -15,9 +15,11 @@ import { usePortfolioActivity } from "../portfolio/usePortfolioActivity";
 
 const CONTROL_IDLE_MS = 3000;
 
-export function WorkspaceEnvironment({ sceneUsable, reduceMotion, onBackdropSettled }: {
+export function WorkspaceEnvironment({ sceneUsable, reduceMotion, prepareMotion, waitForMotion, onBackdropSettled }: {
   sceneUsable: boolean;
   reduceMotion: boolean;
+  prepareMotion: boolean;
+  waitForMotion: boolean;
   onBackdropSettled: () => void;
 }) {
   const desktopActive = usePortfolioActivity(s => s.desktopActive);
@@ -47,7 +49,7 @@ export function WorkspaceEnvironment({ sceneUsable, reduceMotion, onBackdropSett
   const destination = state.queued ?? incoming ?? active;
   const current = getWorkspace(active?.id);
   const activeId = active?.id;
-  const moving = desktopActive && !paused && !reduceMotion && pageVisible && sceneUsable && !screenView;
+  const moving = desktopActive && !paused && !reduceMotion && pageVisible && !screenView && (sceneUsable || prepareMotion);
   const animate = desktopActive && !paused && !reduceMotion && pageVisible;
 
   useLayoutEffect(() => {
@@ -94,10 +96,13 @@ export function WorkspaceEnvironment({ sceneUsable, reduceMotion, onBackdropSett
     choose(useWorkspaceStore.getState().environment);
   }, [choose, hydrated]);
   useEffect(() => {
-    // A decoded still (or the neutral fallback on failure) is enough for
-    // the entrance. Video starts only after the desktop becomes usable.
-    if (state.active !== null || state.error) onBackdropSettled();
-  }, [onBackdropSettled, state.active, state.error]);
+    // Screen view needs the still for a future switch. A visitor starting in
+    // Laptop view gets the selected live backdrop's first presented frame,
+    // or the still if playback cannot start within its deadline.
+    const motionSettled = !waitForMotion || !current.video || paused || reduceMotion ||
+      active?.motion === "playing" || active?.motion === "unavailable";
+    if (state.error || (active && motionSettled)) onBackdropSettled();
+  }, [active, current.video, onBackdropSettled, paused, reduceMotion, state.error, waitForMotion]);
   useEffect(() => {
     if (!hydrated || handledReset.current === resetRevision) return;
     handledReset.current = resetRevision;

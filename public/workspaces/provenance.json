@@ -1,6 +1,6 @@
 {
   "verifiedOn": "2026-10-30",
-  "notes": "Local media only; only selected background downloads. Still PNGs are native generated resolution, not 4K. Quality-first 1080p videos are intentionally larger than superseded 720p clips. Camera stability evidence is in docs/stage13-revision/camera-stability.json. Old provenance retained in docs/stage13-review/sources/provenance-initial.json.",
+  "notes": "Local media only. The site downloads the selected background. The active scenery uses 720p loops and WebP stills. The 1080p loops and generated PNGs are retained as originals. Earlier provenance is in docs/stage13-review/sources/provenance-initial.json.",
   "workspaces": {
     "beach": {
       "kind": "motion",
@@ -18,10 +18,11 @@
       "files": [
         {
           "path": "public/workspaces/beach-hd.webp",
-          "bytes": 833548,
-          "sha256": "31f3622bd2677172fc19255eb86b625832b3be75985d493b1348117d108fc68b",
+          "bytes": 522374,
+          "sha256": "0ac3cfa26655f7d085cdcea93aa973955622ff929032e7e4f17913756656c56a",
           "width": 1920,
-          "height": 1080
+          "height": 1080,
+          "encoding": "Original dimensions, WebP quality 84"
         },
         {
           "path": "public/workspaces/thumbs/beach-hd.webp",
@@ -40,6 +41,19 @@
           "frames": 366,
           "durationSeconds": 15.25,
           "audioTracks": 0
+        },
+        {
+          "path": "public/workspaces/beach-720p.mp4",
+          "bytes": 5763074,
+          "sha256": "4845e2f02ee65e37c3aa7b5ac45bc75f14ae69f8c869d7d182d952816a9e1c77",
+          "derivedFrom": "public/workspaces/beach-hd.mp4",
+          "width": 1280,
+          "height": 720,
+          "fps": 24,
+          "frames": 366,
+          "durationSeconds": 15.25,
+          "audioTracks": 0,
+          "encoding": "AVFoundation H.264 High, target 3 Mbps, fast start"
         }
       ]
     },
@@ -59,10 +73,11 @@
       "files": [
         {
           "path": "public/workspaces/forest-hd.webp",
-          "bytes": 873512,
-          "sha256": "082f2f2ba69e85422886ea1cd1a1eebcdb725785ae0499041fa361a21e7562f8",
+          "bytes": 521942,
+          "sha256": "e5013823f28b6bab3a7ada2716fca2c400e64119cc13dbaeefced352061cc1da",
           "width": 1920,
-          "height": 1080
+          "height": 1080,
+          "encoding": "Original dimensions, WebP quality 84"
         },
         {
           "path": "public/workspaces/thumbs/forest-hd.webp",
@@ -81,6 +96,19 @@
           "frames": 360,
           "durationSeconds": 15.0,
           "audioTracks": 0
+        },
+        {
+          "path": "public/workspaces/forest-720p.mp4",
+          "bytes": 6305512,
+          "sha256": "153b219e5428530b279a879f7c8c9e92aad373db58b8eb92f0c3383b26070fbe",
+          "derivedFrom": "public/workspaces/forest-hd.mp4",
+          "width": 1280,
+          "height": 720,
+          "fps": 24,
+          "frames": 360,
+          "durationSeconds": 15.0,
+          "audioTracks": 0,
+          "encoding": "AVFoundation H.264 High, target 3.3 Mbps, fast start"
         }
       ]
     },
@@ -99,6 +127,15 @@
           "sha256": "5b330357a4667ee8454136304e0ff6070de59f0666d19bca3f013e62ce53a20c",
           "width": 1672,
           "height": 941
+        },
+        {
+          "path": "public/workspaces/studio.webp",
+          "bytes": 151552,
+          "sha256": "7d4dc4df5f47ae362bc77ff228cf3c8635e8c578d832d55b21b69eeab8843ce4",
+          "derivedFrom": "public/workspaces/studio.png",
+          "width": 1672,
+          "height": 941,
+          "encoding": "WebP quality 90"
         },
         {
           "path": "public/workspaces/thumbs/studio.webp",
@@ -126,6 +163,15 @@
           "height": 941
         },
         {
+          "path": "public/workspaces/paper.webp",
+          "bytes": 147154,
+          "sha256": "ad0fba683bb6021e2a8521536586d707cfe26db9f245ec1ac344cc0965316e29",
+          "derivedFrom": "public/workspaces/paper.png",
+          "width": 1672,
+          "height": 941,
+          "encoding": "WebP quality 90"
+        },
+        {
           "path": "public/workspaces/thumbs/paper.webp",
           "bytes": 778,
           "sha256": "a881c47f4d89908df7a27280d7b9fe97f56c734525db7a2aa1380e6592ded3b3",
@@ -149,6 +195,15 @@
           "sha256": "7b94dae740737904ef4e25e4ce0ec1897b0c5f7b9dde100c7363ff78e09ff5e3",
           "width": 1672,
           "height": 941
+        },
+        {
+          "path": "public/workspaces/slate.webp",
+          "bytes": 406866,
+          "sha256": "f5ca761e686bbbeed9beca1df9866f21e9e61b11b0e5745b2e8fb359083e3435",
+          "derivedFrom": "public/workspaces/slate.png",
+          "width": 1672,
+          "height": 941,
+          "encoding": "WebP quality 90"
         },
         {
           "path": "public/workspaces/thumbs/slate.webp",
