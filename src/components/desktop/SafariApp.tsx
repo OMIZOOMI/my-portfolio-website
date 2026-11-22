@@ -100,7 +100,7 @@ function ProjectPage({ project, onNavigate, onExternal }: { project: ProjectData
   return (
     <div className="mx-auto w-full max-w-4xl px-8 py-8">
       <button type="button" onClick={() => onNavigate(SAFARI_START_URL, "Start Page")} className="mb-6 inline-flex items-center gap-1 text-xs font-semibold text-[var(--system-accent)] hover:underline">
-        <ChevronLeft size={14} /> Back to favorites
+        <ChevronLeft size={14} /> Back to Start Page
       </button>
       <div className="mb-7 rounded-3xl border border-gray-200 bg-white p-7 shadow-sm dark:border-white/10 dark:bg-white/[0.04]">
         <div className="mb-4 flex items-start justify-between gap-5">

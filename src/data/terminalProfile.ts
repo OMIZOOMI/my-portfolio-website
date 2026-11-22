@@ -57,7 +57,7 @@ export function terminalResponse(input: string): TerminalLine[] {
     { text: "CLOUD DIRECTION\nAWS and cloud architecture are part of my learning focus. Individual repositories show what is implemented today.", tone: "muted" },
   ];
   if (command === "experience") return [
-    { text: "Experience, through building", tone: "heading" },
+    { text: "What I’ve built and learned", tone: "heading" },
     { text: `${education} I’ve built a website checker, led a brand website audit, trained a detector to ignore lookalikes, and used graph data to explain fraud alerts.` },
     { text: "Building this desktop taught me how much the small details matter when people use an interface." },
     { text: "I value evidence over impressive labels, and systems that remain useful when something goes wrong.", tone: "muted" },

@@ -176,7 +176,7 @@ export function BootSequence({
               </div>
               <p className={styles.status} aria-hidden="true">{status}</p>
               <p className={styles.aside} aria-hidden="true" data-startup-aside>{LOADING_ASIDES[asideIndex]}</p>
-              {!ready && onUseFallback && <button type="button" className={styles.skip} onClick={onUseFallback}>Open flat desktop</button>}
+              {!ready && onUseFallback && <button type="button" className={styles.skip} onClick={onUseFallback}>Continue in Screen view</button>}
             </div>
           )}
           {error && (
@@ -185,7 +185,7 @@ export function BootSequence({
               <p className={styles.errorMessage}>{error}</p>
               <div className={styles.actions}>
                 {onRetry && <button type="button" onClick={onRetry}>Retry 3D view</button>}
-                {onUseFallback && <button type="button" className={styles.secondaryAction} onClick={onUseFallback}>Open flat desktop</button>}
+                {onUseFallback && <button type="button" className={styles.secondaryAction} onClick={onUseFallback}>Continue in Screen view</button>}
               </div>
             </div>
           )}

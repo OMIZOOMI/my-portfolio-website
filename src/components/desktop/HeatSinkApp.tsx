@@ -363,7 +363,7 @@ export function HeatSinkApp({ window }: { window: { id: string } }) {
           <div className={styles.instructions}>
             <span className={styles.kicker}><Flame size={12} aria-hidden="true" /> Field guide</span>
             <p>Pressure climbs every {SCORE_PER_PRESSURE_LEVEL} banked points. Red tiles give a heat spike and double heating while you stand on them.</p>
-            <p>Bank anytime on blue. Cooling needs time to recharge. Collect a rare bolt to equip an upgrade for this run.</p>
+            <p>Return to the blue cooling station to bank your cells. Cooling needs time to recharge. Collect a rare bolt to equip an upgrade for this run.</p>
           </div>
         </aside>
         <span className="sr-only" role="status">{feedback?.kind === "record" && "New high score! "}{feedback && feedback.kind !== "pickup" ? feedback.text : ""}</span>

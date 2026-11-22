@@ -19,7 +19,7 @@ const DEFAULT_NOTE_HTML = `<h1>Developer Log</h1>
 <p>Long before code, I built Lego robots and marvelled at Halo’s Spartan armor. That curiosity grew into a fascination with technology that extends what people can do.</p>
 <p>I’m Om Sawkare. ${profile.education} I work on computer vision, AI tools, and backend development.</p>
 <p>My main focus is <strong data-note-highlight="true">Veyra</strong>, a website investigation tool I’m building to turn page evidence into useful security reports. I want developers to see what needs attention, why it matters, and what the scanner actually checked.</p>
-<p>I was <strong data-note-highlight="true">Team Lead at Adobe Hackathon</strong>. We built a tool that checks how easily people and AI tools can use a brand website. Four checks share one set of pages and suggest practical fixes. Our team reached the <mark>top 45</mark> among roughly 100,000 teams.</p>
+<p>I led development on a three-person team at the <strong data-note-highlight="true">Adobe Hackathon</strong>. We built a tool that checks how easily people and AI tools can use a brand website. Four checks share one set of pages and suggest practical fixes. Our team reached the <mark>top 45</mark> among roughly 100,000 teams.</p>
 <p>White Box Detection taught me how to use YOLOv8 and OpenCV to spot a box among lookalikes. With TigerGraph I learned to explain fraud alerts, and with FastAPI I learned to organize related data.</p>
 <p data-note-signoff="true">Technology is only as powerful as the impact on a person's day to day</p>`;
 

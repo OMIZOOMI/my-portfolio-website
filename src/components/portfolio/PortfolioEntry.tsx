@@ -22,6 +22,7 @@ const MacBookScene = dynamic(() => import("../webcam/MacBookScene").then(module 
 
 export function PortfolioEntry({ overview, active = true, compact = false }: { overview: ReactNode; active?: boolean; compact?: boolean }) {
   const [sceneAvailable, setSceneAvailable] = useState(false);
+  const [projectionReady, setProjectionReady] = useState(false);
   const [desktopChromeReady, setDesktopChromeReady] = useState(false);
   const [backdropReady, setBackdropReady] = useState(false);
   const [desktopHost] = useState(() => {
@@ -33,6 +34,7 @@ export function PortfolioEntry({ overview, active = true, compact = false }: { o
     return host;
   });
   const [projectedSlot, setProjectedSlot] = useState<HTMLDivElement | null>(null);
+  const [paintedSlot, setPaintedSlot] = useState<HTMLDivElement | null>(null);
   const flatSlot = useRef<HTMLDivElement>(null);
   const [initialOfferReady, setInitialOfferReady] = useState(false);
   const screenView = useDisplayStore(state => state.screenView);
@@ -40,8 +42,8 @@ export function PortfolioEntry({ overview, active = true, compact = false }: { o
   const reduceMotion = useSystemStore(state => state.reduceMotion);
   const laptopRequested = !compact && displayHydrated && !screenView;
   const mountScene = laptopRequested || sceneAvailable;
-  const inProjection = sceneAvailable && !!projectedSlot;
-  const loadingLaptop = laptopRequested && !inProjection;
+  const inProjection = mountScene && projectionReady && !!projectedSlot;
+  const loadingLaptop = laptopRequested && !sceneAvailable;
   const available = compact || (displayHydrated && !loadingLaptop);
   const introductionStatus = useIntroductionStore(state => state.status);
   const welcomeVisible = !active || introductionStatus !== null || initialOfferReady;
@@ -57,10 +59,23 @@ export function PortfolioEntry({ overview, active = true, compact = false }: { o
   }, []);
   useLayoutEffect(() => {
     const destination = inProjection ? projectedSlot : flatSlot.current;
-    if (!desktopHost || !destination || desktopHost.parentElement === destination) return;
-    const focus = document.activeElement;
-    destination.append(desktopHost);
-    if (focus instanceof HTMLElement && desktopHost.contains(focus)) focus.focus({ preventScroll: true });
+    if (!desktopHost || !destination) return;
+    if (desktopHost.parentElement !== destination) {
+      const focus = document.activeElement;
+      destination.append(desktopHost);
+      if (focus instanceof HTMLElement && desktopHost.contains(focus)) focus.focus({ preventScroll: true });
+    }
+    if (!inProjection) return;
+    // Leave a rendering opportunity after placing the live desktop in the
+    // screen. Keep the still scenery and block interaction until the fade ends.
+    let paintFrame = 0;
+    const layoutFrame = requestAnimationFrame(() => {
+      paintFrame = requestAnimationFrame(() => setPaintedSlot(destination));
+    });
+    return () => {
+      cancelAnimationFrame(layoutFrame);
+      cancelAnimationFrame(paintFrame);
+    };
   }, [desktopHost, inProjection, projectedSlot]);
   useLayoutEffect(() => {
     if (displayHydrated) document.documentElement.removeAttribute("data-portfolio-boot-view");
@@ -123,6 +138,7 @@ export function PortfolioEntry({ overview, active = true, compact = false }: { o
       <div ref={flatSlot} className={styles.flatSurface} hidden={inProjection} inert={loadingLaptop}
         data-screen-surface={inProjection ? undefined : ""} data-screen-view={inProjection ? undefined : "focused"} />
       {mountScene && <MacBookScene active={active} onDesktopAvailabilityChange={setSceneAvailable}
+        onProjectionReadyChange={setProjectionReady} desktopPainted={inProjection && paintedSlot === projectedSlot}
         desktopChromeReady={desktopChromeReady} backdropReady={backdropReady} onUseScreenView={openScreenView}
         desktop={<div ref={setProjectedSlot} className="h-full w-full" />} />}
       {desktopHost && createPortal(<DesktopEnvironment introduction={introduction} onStartupChromeReady={chromeReady} />, desktopHost)}

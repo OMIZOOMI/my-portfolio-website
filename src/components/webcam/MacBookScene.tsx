@@ -166,13 +166,15 @@ interface MacBookSceneProps {
   debugOrbit?: boolean;
   active?: boolean;
   onDesktopAvailabilityChange?: (available: boolean) => void;
+  onProjectionReadyChange: (ready: boolean) => void;
+  desktopPainted: boolean;
   desktop: ReactNode;
   desktopChromeReady: boolean;
   backdropReady: boolean;
   onUseScreenView: () => void;
 }
 
-export function MacBookScene({ debugOrbit = false, active = true, onDesktopAvailabilityChange, desktop, desktopChromeReady, backdropReady, onUseScreenView }: MacBookSceneProps) {
+export function MacBookScene({ debugOrbit = false, active = true, onDesktopAvailabilityChange, onProjectionReadyChange, desktopPainted, desktop, desktopChromeReady, backdropReady, onUseScreenView }: MacBookSceneProps) {
   const [sceneError, setSceneError] = useState<string | null>(null);
   const [canvasKey, setCanvasKey] = useState(0);
   // Keep the server and first client render identical, including browsers
@@ -248,7 +250,7 @@ export function MacBookScene({ debugOrbit = false, active = true, onDesktopAvail
     const canvas = state.gl.domElement;
     const handleContextLost = (event: Event) => {
       event.preventDefault();
-      setSceneFailure("The browser lost the 3D graphics context. You can retry or continue in flat mode.");
+      setSceneFailure("The browser lost the 3D graphics context. You can retry or continue in Screen view.");
     };
 
     canvasCleanupRef.current?.();
@@ -274,9 +276,10 @@ export function MacBookScene({ debugOrbit = false, active = true, onDesktopAvail
     webglSupported === false ? "WebGL is unavailable, so the 3D MacBook cannot start here." : null
   );
   const sceneReady = isCriticalSceneReady(readiness) && !effectiveSceneError && webglSupported === true;
-  const loadingStatus = getSceneLoadingStatus(readiness);
+  const readyToReveal = sceneReady && desktopPainted;
+  const loadingStatus = sceneReady && !desktopPainted ? "Preparing the laptop screen…" : getSceneLoadingStatus(readiness);
   useEffect(() => {
-    if (!active || sceneReady || effectiveSceneError) return;
+    if (!active || readyToReveal || effectiveSceneError) return;
 
     // Reset the deadline when a critical stage progresses. This is an error
     // path for stalled requests/initialization, never a timed reveal.
@@ -287,7 +290,7 @@ export function MacBookScene({ debugOrbit = false, active = true, onDesktopAvail
       // failed render; give the stage its deadline when the visitor returns.
       if (document.visibilityState !== "visible") return;
       deadline = window.setTimeout(() => {
-        setSceneFailure(`${loadingStatus} This stage took too long. Retry the 3D view or open the flat desktop.`);
+        setSceneFailure(`${loadingStatus} This stage took too long. Retry the 3D view or continue in Screen view.`);
       }, SCENE_STALL_DEADLINE_MS);
     };
     watchVisibleStage();
@@ -296,8 +299,12 @@ export function MacBookScene({ debugOrbit = false, active = true, onDesktopAvail
       window.clearTimeout(deadline);
       document.removeEventListener("visibilitychange", watchVisibleStage);
     };
-  }, [active, canvasKey, effectiveSceneError, loadingStatus, sceneReady, setSceneFailure]);
-  const desktopAvailable = sceneReady && startupComplete;
+  }, [active, canvasKey, effectiveSceneError, loadingStatus, readyToReveal, setSceneFailure]);
+  useLayoutEffect(() => {
+    onProjectionReadyChange(sceneReady);
+    return () => onProjectionReadyChange(false);
+  }, [onProjectionReadyChange, sceneReady]);
+  const desktopAvailable = readyToReveal && startupComplete;
   useLayoutEffect(() => {
     onDesktopAvailabilityChange?.(desktopAvailable);
   }, [desktopAvailable, onDesktopAvailabilityChange]);
@@ -335,7 +342,7 @@ export function MacBookScene({ debugOrbit = false, active = true, onDesktopAvail
 
       <BootSequence
         key={`boot-${canvasKey}`}
-        ready={sceneReady}
+        ready={readyToReveal}
         status={loadingStatus}
         progress={getScenePreparationProgress(readiness)}
         reduceMotion={reduceMotion}

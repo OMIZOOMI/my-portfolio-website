@@ -55,7 +55,7 @@ export function ProjectCaseStudy({ project, onOpenInBrowser, onExternal, onBack,
 
   return <div className={styles.surface} data-project-case-study={project.id}>
     <article className={styles.article} aria-labelledby={`${id}-title`}>
-      {onBack && <button type="button" className={styles.back} onClick={onBack}>‹ Back to favorites</button>}
+      {onBack && <button type="button" className={styles.back} onClick={onBack}>‹ Back to Start Page</button>}
       <header className={styles.header}>
         <p className={styles.eyebrow}>{story.eyebrow}</p>
         <div className={styles.titleRow}>

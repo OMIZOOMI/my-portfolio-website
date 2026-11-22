@@ -145,7 +145,7 @@ function ProjectsSection() {
 
 function ExperienceSection() {
   return <section>
-    <h2 className={styles.sectionTitle}>Experience, through building</h2>
+    <h2 className={styles.sectionTitle}>What I’ve built and learned</h2>
     <p className={styles.body}>{profile.education} These projects show what I’ve learned by building on my own and with a team.</p>
     <div className={styles.skillList}>
       {PROJECT_EXPERIENCE.map(item => <article key={item.title} className={styles.card}>

@@ -166,7 +166,7 @@ test("Veyra's shared case study keeps the evidence example and unfinished work e
   const { ProjectCaseStudy } = load(resolve(root, "src/components/desktop/ProjectCaseStudy.tsx"));
   const project = getProjectById("veyra");
   const html = renderToStaticMarkup(createElement(ProjectCaseStudy, { project, onBack: () => {}, onExternal: () => {} }));
-  assert.ok(html.includes("Back to favorites"));
+  assert.ok(html.includes("Back to Start Page"));
   for (const text of ["The problem", "What I built", "Solo project", "Evidence before conclusions", "up to eight pages", "Zod", "Example from a scanner test", "imagesWithoutAlt: 1", "An image is missing alt text", "Observed", "Low severity", "sample data", "browser-based checks", "Where it stands"]) {
     assert.ok(html.includes(text), text);
   }

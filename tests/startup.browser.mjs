@@ -253,7 +253,7 @@ async function assertStableAnchor(page, start) {
 async function recovery(page) {
   await page.wait(`!!document.querySelector('[data-startup-overlay][data-state="error"]')`, "actionable startup error");
   assert.equal(await page.evaluate(`(() => {
-    const b = [...document.querySelectorAll('button')].find(b => b.textContent.includes('Open flat desktop'));
+    const b = [...document.querySelectorAll('button')].find(b => b.textContent.includes('Continue in Screen view'));
     return !!b && !b.closest('[aria-hidden="true"]') && !!b.closest('[role="alert"]');
   })()`), true, "Recovery controls must remain accessible outside the failed Canvas");
 }
@@ -530,7 +530,7 @@ try {
       };`,
   }, async (page) => {
     await page.navigate(); await recovery(page);
-    await clickButton(page, "Open flat desktop");
+    await clickButton(page, "Continue in Screen view");
     await page.wait(`!document.querySelector('[data-startup-overlay]') && !!document.querySelector('#desktop-root')`, "flat desktop");
     await clickAt(page, await page.wait(desktopPoint, "flat desktop dock"));
     await page.wait(`!!document.querySelector('[data-window-frame="app-notes"]')`, "usable flat desktop Notes");
@@ -557,7 +557,7 @@ try {
       await page.send("Fetch.enable", { patterns: [{ urlPattern: "*potsdamer_platz*.hdr*", requestStage: "Request" }] });
       await page.navigate(); await recovery(page);
       assert.ok(intercepted, "A pending HDR request must exercise the stalled-asset path");
-      await clickButton(page, "Open flat desktop");
+      await clickButton(page, "Continue in Screen view");
       await page.wait(`!!document.querySelector('#desktop-root') && !document.querySelector('[data-startup-overlay]')`, "fallback after asset deadline");
     } finally { listeners.delete(listener); await page.send("Fetch.disable"); }
   });
@@ -640,7 +640,7 @@ try {
     assert.equal(details.overflow, false, "The narrow largest notification must not create page overflow");
     assert.equal(details.iconScale, "1.4");
   });
-  await scenario("flat-start-defers-3d-and-keeps-windows", { cold: true, reduced: true }, async page => {
+  await scenario("flat-start-defers-3d-and-keeps-windows", { cold: true }, async page => {
     await page.send("Emulation.setDeviceMetricsOverride", { width: 1280, height: 720, deviceScaleFactor: 1, mobile: false });
     await page.navigate();
     await handoff(page);
@@ -648,19 +648,42 @@ try {
     assert.equal(await page.evaluate(`document.querySelectorAll('canvas').length === 0 &&
       !performance.getEntriesByType("resource").some(e => /macbook\\.glb|potsdamer_platz|workspaces\\/.+\\.(mp4|webp)/.test(e.name))`), true);
     for (const name of ["projects", "about-me"]) {
-      assert.equal(await page.evaluate(`(() => {
+      await page.wait(`(() => {
         const icon = document.querySelector('[data-desktop-icons] [data-file-icon="${name}"]');
+        if (!icon) return false;
         const r = icon.getBoundingClientRect();
         return icon.contains(document.elementFromPoint(r.x + r.width / 2, r.y + r.height / 2));
-      })()`), true, `Welcome keeps ${name} clickable`);
+      })()`, `Welcome keeps ${name} clickable after its entrance`);
     }
     await clickButton(page, "Dismiss");
     await clickSelector(page, '[data-dock-app="notes"]');
     await page.wait(`!!document.querySelector('[data-notes-app]')`, "Notes opens before requesting 3D");
     await page.evaluate(`void (window.__earlyNotes = document.querySelector('[data-notes-app]'))`);
     await clickSelector(page, '[data-workspace-trigger]');
+    await page.evaluate(`(() => {
+      const frames = window.__laptopRevealFrames = [];
+      function sample() {
+        if (document.querySelector('[data-startup-overlay][data-state="revealing"]')) {
+          const projection = document.querySelector('[data-desktop-projection]');
+          frames.push({
+            hasDesktop: !!projection?.querySelector('#desktop-root'),
+            inert: projection?.hasAttribute('inert') ?? false,
+            hasVideoSource: !!document.querySelector('[data-workspace-video][src]'),
+          });
+        }
+        window.__laptopRevealFrame = requestAnimationFrame(sample);
+      }
+      window.__laptopRevealFrame = requestAnimationFrame(sample);
+    })()`);
     await clickSelector(page, '[data-screen-view-toggle]');
     await page.wait(`!!document.querySelector('[data-screen-view="laptop"] #desktop-root') && !document.querySelector('[data-startup-overlay]')`, "Laptop presents the same desktop");
+    const reveal = await page.evaluate(`(() => {
+      cancelAnimationFrame(window.__laptopRevealFrame);
+      return window.__laptopRevealFrames;
+    })()`);
+    assert.ok(reveal.length > 0, "The laptop reveal was sampled");
+    assert.ok(reveal.every(frame => frame.hasDesktop && frame.inert && !frame.hasVideoSource),
+      "The desktop is in place behind the fade, with input and background video deferred");
     assert.equal(await page.evaluate(`window.__earlyNotes === document.querySelector('[data-notes-app]')`), true);
     await clickSelector(page, '[data-workspace-trigger]');
     await clickSelector(page, '[data-screen-view-toggle]');
