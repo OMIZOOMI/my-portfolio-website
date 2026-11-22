@@ -18,6 +18,7 @@ import { ProjectCaseStudy } from "./ProjectCaseStudy";
 import { PROJECTS, getProjectById, type ProjectData } from "../../data/projectsData";
 import { SAFARI_START_URL, currentSafariEntry, selectSafariSession, useSafariStore, type SafariHistoryEntry } from "./useSafariStore";
 import { ProfessionalProfiles } from "../portfolio/ProfessionalProfiles";
+import { useIntroductionStore } from "../portfolio/useIntroductionStore";
 import styles from "./SafariApp.module.css";
 import { GlassButton, GlassSurface } from "../ui/PortfolioGlass";
 import { useSystemStore } from "../window-manager/useSystemStore";
@@ -211,6 +212,7 @@ function SafariPageView({ tabId, entry, reloadNonce, active }: { tabId: string; 
 
 export function SafariApp({ window: win }: SafariWindowProps) {
   const reduceMotion = useSystemStore((state) => state.reduceMotion);
+  const introducingProfiles = useIntroductionStore(state => state.phase === "active" && state.step === "contact");
   const session = useSafariStore(selectSafariSession);
   const { tabs, activeTabId } = session;
   const bookmarksBarVisible = useSafariStore((state) => state.bookmarksBarVisible);
@@ -237,7 +239,9 @@ export function SafariApp({ window: win }: SafariWindowProps) {
   };
 
   return (
-    <div className={`${styles.app} flex h-full w-full flex-col overflow-hidden bg-[#f3f3f5] text-gray-900 dark:bg-[#1a1a1e] dark:text-gray-100 font-sans`} aria-label={win.title} data-safari-mode={privacyMode ? "private" : "normal"} data-reduced-motion={reduceMotion || undefined}>
+    <div className={`${styles.app} flex h-full w-full flex-col overflow-hidden bg-[#f3f3f5] text-gray-900 dark:bg-[#1a1a1e] dark:text-gray-100 font-sans`} aria-label={win.title}
+      data-safari-mode={privacyMode ? "private" : "normal"} data-reduced-motion={reduceMotion || undefined}
+      data-introduction-contact-active={introducingProfiles || undefined}>
       <div className={`${styles.tabStrip} flex h-9 shrink-0 items-center gap-2 border-b border-gray-300 bg-[#e7e7e9] px-2 dark:border-white/10 dark:bg-[#242428]`}>
         <div ref={tabListRef} role="tablist" aria-label={privacyMode ? "Private demo tabs" : "Browser tabs"} className="relative flex min-w-0 flex-1 items-center gap-2 overflow-x-auto">
           {tabs.map((tab) => {

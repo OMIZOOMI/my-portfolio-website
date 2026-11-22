@@ -63,7 +63,8 @@ export function GuideCursor({ step, target, available, reduceMotion, clip }: {
   const viewportWidth = typeof window === "undefined" ? 1100 : window.innerWidth;
   const viewportHeight = typeof window === "undefined" ? 800 : window.innerHeight;
   const center = cursorPointFromTarget(target);
-  const side = center && center.x > viewportWidth * .6 ? "left" : "right";
+  const split = clip ? clip.x + clip.width * .5 : viewportWidth * .6;
+  const side = center && center.x > split ? "left" : "right";
   const vertical = center && center.y > (clip ? clip.y + clip.height : viewportHeight) - 118 ? "above" : "below";
 
   useLayoutEffect(() => {
@@ -120,12 +121,17 @@ export function GuideCursor({ step, target, available, reduceMotion, clip }: {
 
 function GuideStep({ step, available, laptopAvailable, heading }: { step: IntroductionStep; available: boolean; laptopAvailable: boolean; heading: ReactNode }) {
   const screenView = useDisplayStore(state => state.screenView);
-  const terminal = useWindowStore(state => step === "terminal" ? Object.values(state.windows).find(window => window.kind === "terminal") : undefined);
-  const terminalInFront = useWindowStore(state => !terminal || (!terminal.closing && !terminal.minimized && state.focusedWindowId === terminal.id));
+  const guidedWindowId = useWindowStore(state => step === "terminal"
+    ? Object.values(state.windows).find(window => window.kind === "terminal")?.id
+    : step === "contact" ? state.windows["app-safari"]?.id : undefined);
+  const guidedWindowInFront = useWindowStore(state => {
+    const guidedWindow = guidedWindowId ? state.windows[guidedWindowId] : undefined;
+    return !guidedWindow || (!guidedWindow.closing && !guidedWindow.minimized && state.focusedWindowId === guidedWindow.id);
+  });
   const prefersReducedMotion = usePrefersReducedMotion();
   const reduceMotion = useSystemStore(state => state.reduceMotion) || prefersReducedMotion;
   const body = useRef<HTMLDivElement>(null);
-  const [measurement, setMeasurement] = useState<ReturnType<typeof measureIntroductionTarget>>({ desktopReady: false, target: null, terminalViewport: null });
+  const [measurement, setMeasurement] = useState<ReturnType<typeof measureIntroductionTarget>>({ desktopReady: false, target: null, viewport: null });
   useLayoutEffect(() => { if (body.current) body.current.scrollTop = 0; }, [step]);
   useLayoutEffect(() => {
     // Only the active step observes moving targets. It owns no scene animation,
@@ -133,13 +139,13 @@ function GuideStep({ step, available, laptopAvailable, heading }: { step: Introd
     return observeIntroductionTarget(step, next => {
       setMeasurement(previous => JSON.stringify(previous) === JSON.stringify(next) ? previous : next);
     }, screenView);
-  }, [available, step, screenView, terminal, terminalInFront]);
+  }, [available, step, screenView, guidedWindowId, guidedWindowInFront]);
   const ready = available && measurement.desktopReady;
-  const clip = step === "terminal" ? measurement.terminalViewport : null;
-  const target = step === "finish" || (terminal && (!terminalInFront || !clip)) ? null : measurement.target;
-  const clipPath = clip && typeof window !== "undefined" ? `inset(${clip.y}px ${window.innerWidth - clip.x - clip.width}px ${window.innerHeight - clip.y - clip.height}px ${clip.x}px)` : undefined;
+  const clip = guidedWindowId ? measurement.viewport : null;
+  const target = step === "finish" || (guidedWindowId && (!guidedWindowInFront || !clip)) ? null : measurement.target;
+  const clipPath = clip && target ? `inset(${clip.y}px ${window.innerWidth - clip.x - clip.width}px ${window.innerHeight - clip.y - clip.height}px ${clip.x}px)` : undefined;
   const visuals = <>
-    {available && target && !terminal && <div className={styles.target} aria-hidden="true" data-introduction-highlight data-reduced-motion={reduceMotion || undefined}
+    {available && target && !guidedWindowId && <div className={styles.target} aria-hidden="true" data-introduction-highlight data-reduced-motion={reduceMotion || undefined}
       style={{ left: target.x, top: target.y, width: target.width, height: target.height }} />}
     <div className={styles.cursorViewport} style={{ clipPath }}>
       <GuideCursor step={step} target={target} available={available} reduceMotion={reduceMotion} clip={clip} />
@@ -156,7 +162,7 @@ function GuideStep({ step, available, laptopAvailable, heading }: { step: Introd
         {featured.map(project => <GlassButton type="button" key={project.id} data-introduction-project={project.key} disabled={!ready} onClick={() => runPortfolioAction({ projectId: project.id })}>{project.key === "adobe" ? "Adobe case study" : project.name}</GlassButton>)}</div></>}
     {step === "terminal" && <><p>Terminal has real Projects, Skills, and About suggestions. Open it when you are ready; no command typing is required.</p>
       <div className={styles.actions}><GlassButton type="button" onClick={openTerminal}>Open Terminal</GlassButton></div>
-      {ready && !terminal && !measurement.target && <p className={styles.hint}>Terminal is not available right now. You can skip this step or reopen it.</p>}</>}
+      {ready && !guidedWindowId && !measurement.target && <p className={styles.hint}>Terminal is not available right now. You can skip this step or reopen it.</p>}</>}
     {step === "contact" && <><p>Use Mail to write to Om, or open Browser to find his GitHub and LinkedIn profiles.</p>
       <div className={styles.actions}><GlassButton type="button" onClick={() => runPortfolioAction("contact")}>Open Mail</GlassButton><GlassButton type="button" onClick={openProfiles}>Open GitHub &amp; LinkedIn</GlassButton></div></>}
     {step === "finish" && <><p>{laptopAvailable ? "You’ve seen both views. Choose how the portfolio should open next time. You can change it anytime in Settings." : "You can continue in Screen view. Laptop view is unavailable right now."}</p>

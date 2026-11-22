@@ -63,6 +63,12 @@
 .startPage { padding: 14px 18px 18px; }
 .startHeader { margin-bottom: 9px; }
 .startHeader h1 { color: var(--browser-text); font-size: 21px; line-height: 1.2; font-weight: 650; letter-spacing: -.025em; }
+:global([data-window-active="true"]:not([data-window-closing])) .app[data-introduction-contact-active]
+  :global([data-safari-page]:not([hidden]) [data-professional-profiles]) {
+  border-radius: 10px;
+  outline: 2px solid #77a0d1;
+  outline-offset: 2px;
+}
 .projectHeading { display: flex; gap: 7px; align-items: center; margin-bottom: 8px; }
 .projectHeading h2 { color: var(--browser-text); font-size: 15px; font-weight: 650; }
 .projectHeading > span { margin-inline-start: auto; color: var(--browser-muted); font-size: 11px; }

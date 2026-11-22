@@ -1,6 +1,15 @@
 import type { IntroductionStep } from "./useIntroductionStore";
 
 export interface IntroductionTarget { x: number; y: number; width: number; height: number }
+
+function clipToViewport(rect: DOMRect, viewport?: IntroductionTarget | null): IntroductionTarget {
+  const x = Math.max(rect.left, viewport?.x ?? 4);
+  const y = Math.max(rect.top, viewport?.y ?? 4);
+  const right = Math.min(rect.right, viewport ? viewport.x + viewport.width : window.innerWidth - 4);
+  const bottom = Math.min(rect.bottom, viewport ? viewport.y + viewport.height : window.innerHeight - 4);
+  return { x, y, width: right - x, height: bottom - y };
+}
+
 /** These are already viewport rectangles from the transformed DOM. No local
  * desktop point is treated as a client point, and no synthetic clicks occur. */
 export function measureIntroductionTarget(step: IntroductionStep, expectedScreenView?: boolean) {
@@ -9,29 +18,26 @@ export function measureIntroductionTarget(step: IntroductionStep, expectedScreen
     || (expectedScreenView !== undefined && !!surface && surface.dataset.screenView !== (expectedScreenView ? "focused" : "laptop"));
   const desktop = document.getElementById("desktop-root");
   const terminalIntro = step === "terminal" ? document.querySelector<HTMLElement>("[data-terminal-introduction]") : null;
-  const terminalFrame = terminalIntro?.closest<HTMLElement>("[data-window-frame]");
-  const transcriptRect = terminalIntro?.closest<HTMLElement>("[data-terminal-transcript]")?.getBoundingClientRect();
+  const browserFrame = step === "contact" ? document.querySelector<HTMLElement>('[data-window-frame="app-safari"]') : null;
+  const browserPage = browserFrame?.querySelector<HTMLElement>("[data-safari-page]:not([hidden])");
+  const profiles = browserPage?.querySelector<HTMLElement>("[data-professional-profiles]");
+  const frame = terminalIntro?.closest<HTMLElement>("[data-window-frame]") ?? browserFrame;
+  const scrollport = terminalIntro?.closest<HTMLElement>("[data-terminal-transcript]") ?? browserPage;
+  const viewport = scrollport ? clipToViewport(scrollport.getBoundingClientRect()) : null;
   const selector = step === "screen" || step === "laptop" ? "[data-workspace-trigger]"
     : step === "terminal" ? '[data-dock-app="terminal"]'
-    : step === "contact" ? (document.querySelector<HTMLElement>("[data-professional-profiles]") ? "[data-professional-profiles]" : '[data-dock-app="safari"]')
+    : step === "contact" && !browserFrame ? '[data-dock-app="safari"]'
     : step === "projects" ? '#desktop-root [data-file-icon="projects"]' : null;
   const element = (step === "projects" ? document.querySelector<HTMLElement>('[data-window-active="true"] [data-finder-content="projects"]') : null)
-    ?? terminalIntro ?? (selector ? document.querySelector<HTMLElement>(selector) : null);
+    ?? terminalIntro ?? profiles ?? (selector ? document.querySelector<HTMLElement>(selector) : null);
   const rect = element?.getBoundingClientRect();
-  const hidden = element?.closest('[inert],[aria-hidden="true"],[data-window-minimized="true"],[data-window-closing="true"]');
-  const visible = !transitioning && !hidden && (!terminalFrame || terminalFrame.dataset.windowActive === "true") && rect && rect.width > 1 && rect.height > 1
-    && rect.right > 0 && rect.bottom > 0 && rect.left < window.innerWidth && rect.top < window.innerHeight;
-  const terminalViewport = transcriptRect ? {
-    x: Math.max(4, transcriptRect.left), y: Math.max(4, transcriptRect.top),
-    width: Math.min(window.innerWidth - 4, transcriptRect.right) - Math.max(4, transcriptRect.left),
-    height: Math.min(window.innerHeight - 4, transcriptRect.bottom) - Math.max(4, transcriptRect.top),
-  } : null;
+  const hidden = element?.closest('[hidden],[inert],[aria-hidden="true"],[data-window-minimized="true"],[data-window-closing="true"]');
+  const visible = !transitioning && !hidden && (!frame || frame.dataset.windowActive === "true") && rect;
   let target: IntroductionTarget | null = null;
   if (visible) {
-    const left = Math.max(4, rect.left, terminalViewport?.x ?? 0), top = Math.max(4, rect.top, terminalViewport?.y ?? 0);
-    const right = Math.min(rect.right, terminalViewport ? terminalViewport.x + terminalViewport.width : window.innerWidth - 4);
-    const bottom = Math.min(rect.bottom, terminalViewport ? terminalViewport.y + terminalViewport.height : window.innerHeight - 4);
-    target = { x: left, y: top, width: right - left, height: bottom - top };
+    target = clipToViewport(rect, viewport);
+    const { x: left, y: top } = target;
+    const right = left + target.width, bottom = top + target.height;
     const panel = document.querySelector<HTMLElement>('[data-introduction-viewport] [data-introduction-panel]')?.getBoundingClientRect();
     if (panel && left < panel.right && right > panel.left && top < panel.bottom && bottom > panel.top) {
       const exposed = [
@@ -43,7 +49,7 @@ export function measureIntroductionTarget(step: IntroductionStep, expectedScreen
       target = exposed[0] ?? null;
     }
   }
-  return { desktopReady: !!desktop && !transitioning, target: target && target.width > 1 && target.height > 1 ? target : null, terminalViewport };
+  return { desktopReady: !!desktop && !transitioning, target: target && target.width > 1 && target.height > 1 ? target : null, viewport };
 }
 
 export function observeIntroductionTarget(step: IntroductionStep, notify: (measurement: ReturnType<typeof measureIntroductionTarget>) => void, expectedScreenView?: boolean) {

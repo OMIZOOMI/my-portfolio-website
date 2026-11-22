@@ -720,6 +720,68 @@ try {
     await clickAt(page, terminalDock);
     await page.wait(`!!document.querySelector('[data-window-frame="app-terminal"][data-window-active="true"]') && (${geometry}).nativeWithinTranscript && (${geometry}).cursorWithinVisibleIntro`, "Terminal highlight returns after refocus");
   });
+  await scenario("r02-browser-tour-highlight", { reduced: true }, async (page) => {
+    await page.navigate();
+    await page.wait(`!!document.querySelector('[data-introduction-panel][data-introduction-phase="welcome"]')`, "welcome for Browser highlight");
+    await takeTour(page);
+    for (const [step, next] of [
+      ["laptop", "Next: Screen view"], ["screen", "Next: Projects"], ["projects", "Next: Terminal"], ["terminal", "Next: Contact"],
+    ]) {
+      await waitTourStep(page, step, step === "laptop" ? "laptop" : "focused");
+      await clickTourButton(page, next);
+    }
+    await waitTourStep(page, "contact");
+    await clickTourButton(page, "Open GitHub & LinkedIn");
+    const frame = '[data-window-frame="app-safari"]';
+    const scope = `${frame} [data-safari-page]:not([hidden])`;
+    const profiles = `${scope} [data-professional-profiles]`;
+    const geometry = `(() => {
+      const profiles = document.querySelector('${profiles}');
+      if (!profiles) return {};
+      const r = profiles.getBoundingClientRect(), p = document.querySelector('${scope}').getBoundingClientRect();
+      const visibleTop = Math.max(r.top, p.top), visibleBottom = Math.min(r.bottom, p.bottom);
+      const cursor = document.querySelector('[data-introduction-cursor]'), c = cursor?.querySelector('svg').getBoundingClientRect();
+      return { visibleHeight: Math.max(0, visibleBottom - visibleTop), partlyScrolled: r.top < p.top && r.bottom > p.top,
+        localOutline: getComputedStyle(profiles).outlineStyle === 'solid',
+        portalOutline: !!document.querySelector('[data-introduction-highlight]'),
+        cursorClipped: !!cursor?.parentElement.style.clipPath,
+        tipInProfiles: !!c && c.top + 2.5 >= visibleTop - 1 && c.top + 2.5 <= visibleBottom + 1 &&
+          c.left + 3 >= Math.max(r.left, p.left) - 1 && c.left + 3 <= Math.min(r.right, p.right) + 1 };
+    })()`;
+    const localHint = `(() => { const g = ${geometry}; return g.localOutline && !g.portalOutline && g.cursorClipped && g.tipInProfiles; })()`;
+    await page.wait(localHint, "Browser highlights profiles within its active page");
+    const scrollProfiles = (part) => page.evaluate(`(() => {
+      const profiles = document.querySelector('${profiles}'), viewport = document.querySelector('${scope}');
+      viewport.scrollTop = 0;
+      const r = profiles.getBoundingClientRect(), p = viewport.getBoundingClientRect();
+      viewport.scrollTop = Math.max(0, r.top - p.top + r.height * ${part});
+    })()`);
+    await scrollProfiles(.5);
+    await page.wait(`(${geometry}).partlyScrolled && ${localHint}`, "The cursor follows the partially visible profiles and stays clipped below the toolbar");
+    await page.screenshot("r02-browser-highlight-partly-scrolled");
+    await scrollProfiles(1.25);
+    const noGuide = `!document.querySelector('[data-introduction-cursor], [data-introduction-highlight]')`;
+    await page.wait(`(${geometry}).visibleHeight === 0 && ${noGuide}`, "Scrolling the profiles out of view removes the cursor and leaves no floating outline");
+    await scrollProfiles(0);
+    await page.wait(localHint, "The Browser guide returns when profiles scroll into view");
+
+    const dockPoint = app => `(() => {
+      const button = document.querySelector('[data-dock-app="${app}"]'), r = button?.getBoundingClientRect();
+      if (!r) return false;
+      const x = r.left + r.width / 2, y = r.top + r.height / 2;
+      return button.contains(document.elementFromPoint(x, y)) ? { x, y } : false;
+    })()`;
+    await clickAt(page, await page.wait(dockPoint("terminal"), "Terminal Dock button"));
+    await page.wait(`!!document.querySelector('[data-window-frame="app-terminal"][data-window-active="true"]') && !(${geometry}).localOutline && ${noGuide}`, "Focus on Terminal removes the Browser outline and cursor");
+    await page.screenshot("r02-browser-highlight-unfocused");
+    await clickAt(page, await page.wait(dockPoint("safari"), "Browser Dock button"));
+    await page.wait(localHint, "Refocusing Browser restores the highlight and cursor");
+
+    await page.evaluate(`document.querySelector('${scope} [data-safari-projects] h3 button').click()`);
+    await page.wait(`!document.querySelector('${profiles}') && ${noGuide}`, "The hint clears when navigating away from the Browser profiles");
+    await clickTourButton(page, "Open GitHub & LinkedIn");
+    await page.wait(localHint, "The tour action restores the Browser profiles hint");
+  });
   await scenario("r02-reduced-motion", {
     reduced: true,
   }, async (page) => {

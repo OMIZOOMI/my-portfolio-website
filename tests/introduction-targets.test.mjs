@@ -73,6 +73,30 @@ test("Terminal points only to the visible transcript and stops when covered by a
   frame.dataset.windowActive = "true";
   assert.deepEqual(Object.values(h.measureIntroductionTarget("terminal").target), [220, 210, 360, 110]);
 });
+test("the contact guide follows profiles only within the active Browser tab and its scrollport", () => {
+  const h = harness();
+  h.nodes.set("desktop", {});
+  h.nodes.set('[data-dock-app="safari"]', h.node(400, 620, 32, 32));
+  assert.deepEqual(Object.values(h.measureIntroductionTarget("contact").target), [400, 620, 32, 32]);
+
+  let profiles = h.node(220, 170, 360, 70);
+  const page = { ...h.node(200, 200, 400, 220), querySelector: () => profiles };
+  const frame = { dataset: { windowActive: "true" }, querySelector: selector => selector === "[data-safari-page]:not([hidden])" ? page : null };
+  h.nodes.set('[data-window-frame="app-safari"]', frame);
+  let result = h.measureIntroductionTarget("contact");
+  assert.deepEqual(Object.values(result.target), [220, 200, 360, 40]);
+  assert.deepEqual(Object.values(result.viewport), [200, 200, 400, 220]);
+
+  profiles = h.node(220, 120, 360, 70);
+  assert.equal(h.measureIntroductionTarget("contact").target, null);
+  profiles = h.node(220, 220, 360, 70);
+  frame.dataset.windowActive = "false";
+  assert.equal(h.measureIntroductionTarget("contact").target, null);
+  frame.dataset.windowActive = "true";
+  assert.deepEqual(Object.values(h.measureIntroductionTarget("contact").target), [220, 220, 360, 70]);
+  profiles = null;
+  assert.equal(h.measureIntroductionTarget("contact").target, null);
+});
 test("active target observation follows moved/resized targets and cancels its timer/listener and late callbacks", () => {
   const h = harness(), values = [];
   const stop = h.observeIntroductionTarget("terminal", value => values.push(value));
