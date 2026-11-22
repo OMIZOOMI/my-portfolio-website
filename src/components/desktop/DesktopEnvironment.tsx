@@ -20,6 +20,7 @@ import { FileContextMenu } from "./FileContextMenu";
 import { useFileInteractionStore } from "./useFileInteractionStore";
 import { handleFileContextMenu, handleFileSurfaceKeyDown } from "./fileSurfaceEvents";
 import { bindProjectedDesktopScroll } from "./projectedDesktopScroll";
+import { useMusicStore } from "./useMusicStore";
 import styles from "./DesktopEnvironment.module.css";
 
 function DraggableDesktopItem({
@@ -173,6 +174,17 @@ export function DesktopEnvironment({ introduction, compact = false, onStartupChr
   }, [iconContentHeight, desktopSize.height]);
   const visibleDesktopIds = desktopIds.filter((id) => !trashItems.includes(id) && !deletedIds.includes(id));
 
+  const restartDesktop = () => {
+    useSystemStore.getState().endDrag();
+    useMusicStore.getState().stop();
+    useFileInteractionStore.setState(useFileInteractionStore.getInitialState());
+    const { windows, nextZIndex, focusedWindowId, isVMLocked } = useWindowStore.getInitialState();
+    useWindowStore.setState({ windows, nextZIndex, focusedWindowId, isVMLocked });
+    setGameMenuOpen(false);
+    if (iconsRef.current) iconsRef.current.scrollTop = 0;
+    desktopRef.current?.focus({ preventScroll: true });
+  };
+
   return (
     <div
       id="desktop-root"
@@ -204,7 +216,7 @@ export function DesktopEnvironment({ introduction, compact = false, onStartupChr
        style={{ backgroundColor: "#1e1e1e", width: `${100 / interfaceScale}%`, height: `${100 / interfaceScale}%`, transform: interfaceScale === 1 ? "none" : `scale(${interfaceScale})`, transformOrigin: "0 0", "--desktop-icon-scale": iconScale, "--desktop-icon-column-space": `${DESKTOP_ICON_W * iconScale + 28}px`, "--desktop-introduction-right": `${DESKTOP_ICON_W * iconScale + 28}px`, "--desktop-menu-height": `${desktopSize.menuHeight}px`, "--desktop-dock-inset": `${desktopSize.dockInset}px`, container: "desktop / inline-size" } as React.CSSProperties}
     >
       <WallpaperBackground compact={compact} />
-      <MenuBar compact={compact} />
+      <MenuBar compact={compact} onRestart={restartDesktop} />
 
       <div ref={iconsRef} data-desktop-icons data-top-inset={iconLayout.metrics.top} data-bottom-inset={iconBottomInset} className={iconStyles.desktopItems}
         role="group" aria-label="Desktop folders and files" tabIndex={iconContentHeight > desktopSize.height ? 0 : undefined}

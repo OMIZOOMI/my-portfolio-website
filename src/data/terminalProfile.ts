@@ -1,4 +1,5 @@
 import { PROJECTS, getProjectById, getProjectOverview } from "./projectsData";
+import { PORTFOLIO_PROFILE as profile } from "./portfolioProfile";
 
 export interface TerminalLine { text: string; tone?: "heading" | "muted" | "error"; href?: string }
 export interface TerminalProject { key: string; name: string; summary: string; stack: string; repository: string; detail: string; status: string }
@@ -13,9 +14,9 @@ export const TERMINAL_PROJECTS: TerminalProject[] = PROJECTS.map(project => ({
  * available in the prompt and help response for visitors who want it. */
 export const TERMINAL_SUGGESTIONS = ["projects", "skills", "about"];
 export const TERMINAL_INTRO: TerminalLine[] = [
-  { text: "Hello, I'm Om.", tone: "heading" },
-  { text: "Final-year Computer Science student at VIT. I build across computer vision, evidence-first AI workflows, backend systems, and interactive interfaces." },
-  { text: "Lego robots and Halo sparked the curiosity. Veyra and my Adobe hackathon work are where I'm taking it next." },
+  { text: "Hey there!", tone: "heading" },
+  { text: `${profile.education} I work on computer vision, AI tools, backends, and interactive apps.` },
+  { text: "Lego robots and Halo got me curious about technology. These days I’m building Veyra and experimenting with how people and AI tools read websites." },
   { text: "Type a command below, or choose a starting point. This is an interactive portfolio, not a system shell.", tone: "muted" },
 ];
 export function terminalResponse(input: string): TerminalLine[] {
@@ -24,7 +25,7 @@ export function terminalResponse(input: string): TerminalLine[] {
   if (["about", "whoami"].includes(command)) return [
     { text: "Om Sawkare / builder, learner, curious by default", tone: "heading" },
     { text: "Long before code, I built Lego robots and marvelled at Halo's Spartan armor. Today, that curiosity takes the form of computer vision, AI workflows, and backend development." },
-    { text: "My main focus is Veyra: helping people understand what a website's evidence actually supports. My Adobe hackathon team reached the top 45 among roughly 100,000 teams, as shared in my Developer Log." },
+    { text: "My main focus is Veyra, a tool that shows the evidence behind website issues. I also led an Adobe Hackathon team that reached the top 45 among roughly 100,000 teams." },
     { text: "Technology is only as powerful as the impact on a person's day to day.", tone: "muted" },
   ];
   if (command === "help") return [
@@ -46,7 +47,7 @@ export function terminalResponse(input: string): TerminalLine[] {
       : [{ text: "Choose a project: veyra, adobe, white-box, tigergraph, task-api, skywatch, portfolio.", tone: "muted" }];
   }
   if (command === "skills") return [
-    { text: "My toolkit / organized by what it helps me build", tone: "heading" },
+    { text: "My toolkit / what these tools help me build", tone: "heading" },
     { text: "LANGUAGES\nPython, TypeScript / JavaScript, C++, Java" },
     { text: "VISION & EDGE\nYOLOv8, OpenCV, Roboflow, LiteRT/TFLite: detection, hard negatives, and live camera pipelines." },
     { text: "EVIDENCE & AI WORKFLOWS\nTigerGraph, LangGraph, Gemini, pandas: connecting evidence to decisions people can inspect." },
@@ -56,8 +57,8 @@ export function terminalResponse(input: string): TerminalLine[] {
   ];
   if (command === "experience") return [
     { text: "Experience, through building", tone: "heading" },
-    { text: "I'm a final-year student at VIT. My experience comes from projects: investigating websites with Veyra, collaborating on the Adobe brand audit, testing vision against difficult distractors, and explaining graph-based decisions." },
-    { text: "Backend work taught me to validate inputs and model relationships. SkyWatch brought streaming data and geometry together. This portfolio keeps me honest about responsiveness, accessibility, and the details people actually touch." },
+    { text: `${profile.education} I’ve built a website checker, led a brand website audit, trained a detector to ignore lookalikes, and used graph data to explain fraud alerts.` },
+    { text: "The Task API taught me how to keep records linked and check incoming data. SkyWatch plots live air traffic. This portfolio has taught me how much the small details matter when people use an interface." },
     { text: "I value evidence over impressive labels, and systems that remain useful when something goes wrong.", tone: "muted" },
   ];
   if (command === "contact") return [

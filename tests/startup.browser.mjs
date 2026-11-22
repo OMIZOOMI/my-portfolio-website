@@ -96,7 +96,7 @@ async function pageFor(options = {}) {
       await writeFile(new URL(`${name}.png`, output), Buffer.from(data, "base64"));
     }
     return {
-      send, evaluate, wait, screenshot, errors, blockedRequests,
+      send, evaluate, wait, screenshot, errors, blockedRequests, browserContextId,
       async navigate() { await send("Page.navigate", { url: site }); },
       async close() { listeners.delete(onEvent); await command("Target.disposeBrowserContext", { browserContextId }); },
     };
@@ -126,6 +126,17 @@ async function clickAt(page, point) {
   await page.send("Input.dispatchMouseEvent", { type: "mouseMoved", ...point });
   await page.send("Input.dispatchMouseEvent", { type: "mousePressed", button: "left", clickCount: 1, ...point });
   await page.send("Input.dispatchMouseEvent", { type: "mouseReleased", button: "left", clickCount: 1, ...point });
+}
+
+async function clickSelector(page, selector) {
+  const point = await page.wait(`(() => {
+    const target = document.querySelector(${JSON.stringify(selector)}), r = target?.getBoundingClientRect();
+    if (!r) return false;
+    const x = r.left + r.width / 2, y = r.top + r.height / 2;
+    return target.contains(document.elementFromPoint(x, y)) ? { x, y } : false;
+  })()`, selector);
+  await clickAt(page, point);
+  return point;
 }
 
 async function touchViewport(page, width, height) {
@@ -280,7 +291,20 @@ try {
       await page.wait(`location.hash === '#reading-contact' && document.querySelector('[data-portfolio-reading]').scrollTop > 0`, "contact anchors on mobile");
       assert.equal(await page.evaluate(`document.querySelector('#reading-contact a[href^="mailto:"]').getAttribute('href')`), "mailto:sawkare.om@gmail.com");
       await tap(page, '[data-portfolio-reading] a[href="/projects/veyra"]');
+      const caseStudyUrl = new URL("/projects/veyra", site).href;
+      let popup;
+      for (let attempt = 0; attempt < 50 && !popup; attempt++) {
+        const { targetInfos } = await command("Target.getTargets");
+        popup = targetInfos.find(target => target.browserContextId === page.browserContextId && target.url === caseStudyUrl);
+        if (!popup) await sleep(100);
+      }
+      assert.ok(popup, "Read case study opens the public page in another tab");
+      assert.equal(await page.evaluate("location.pathname"), "/", "The portfolio stays open in the first tab");
+      await command("Target.closeTarget", { targetId: popup.targetId });
+      await page.send("Page.bringToFront");
+      await page.send("Page.navigate", { url: caseStudyUrl });
       await page.wait(`location.pathname === '/projects/veyra' && !!document.querySelector('[data-public-project]')`, "Veyra case study");
+      assert.ok(await page.evaluate(`[...document.querySelectorAll('[data-public-project] a[href="/"]')].some(link => link.textContent.includes('Back to Portfolio'))`));
       assert.equal(await page.evaluate(`(() => { const r=document.querySelector('[data-public-project]'); return r.scrollWidth <= r.clientWidth; })()`), true);
       await tap(page, '[data-public-project] nav a[href="/projects/adobe-brand-audit"]');
       await page.wait(`location.pathname === '/projects/adobe-brand-audit' && document.querySelector('[data-public-project]')?.textContent.includes('Adobe')`, "Adobe case study");
@@ -578,6 +602,60 @@ try {
     assert.equal(details.viewportWidth, 390);
     assert.equal(details.overflow, false, "The narrow largest notification must not create page overflow");
     assert.equal(details.iconScale, "1.4");
+  });
+  await scenario("desktop-polish-restart-mail-and-clicks", { reduced: true, init: `
+    localStorage.setItem('portfolio-introduction','{"status":"skipped"}');
+    localStorage.setItem('portfolio-readability','{"defaultView":"laptop"}');
+  ` }, async (page) => {
+    await page.navigate();
+    await handoff(page);
+    await page.wait(`document.querySelector('[data-screen-surface]')?.dataset.screenView === 'laptop'`, "projected Laptop view");
+    const frame = id => `[data-window-frame="${id}"]`;
+    const projects = await clickSelector(page, '[data-desktop-icons] [data-file-icon="projects"]');
+    assert.equal(await page.evaluate(`!!document.querySelector('${frame("finder-projects")}')`), false, "The first click selects the desktop folder");
+    await clickAt(page, { x: projects.x + 6, y: projects.y + 3 });
+    await page.wait(`!!document.querySelector('${frame("finder-projects")}')`, "Two nearby clicks open Projects on the laptop");
+    const file = await clickSelector(page, `${frame("finder-projects")} [data-file-icon="veyra"]`);
+    assert.equal(await page.evaluate(`!!document.querySelector('${frame("file-veyra")}')`), false, "The first Finder click selects the project");
+    await clickAt(page, { x: file.x + 5, y: file.y + 3 });
+    await page.wait(`document.querySelector('${frame("file-veyra")} img[src="/project-previews/veyra.webp"]')?.naturalWidth > 0`, "The Finder double-click opens the Veyra preview");
+    await clickSelector(page, '[data-dock-app="mail"]');
+    await clickButton(page, "Write to Om");
+    assert.ok(await page.evaluate(`document.querySelector('[data-mail-handoff]')?.disabled && document.querySelector('[data-mail-handoff]').textContent.trim() === 'Send'`));
+    await page.evaluate(`(() => {
+      window.__mailHandoff = [];
+      window.open = (...args) => { window.__mailHandoff.push(args); };
+      for (const [selector, text] of [['input[aria-label="Mail subject"]', 'A & B'], ['textarea[aria-label="Mail message"]', 'Hello Om']]) {
+        const field = document.querySelector(selector);
+        Object.getOwnPropertyDescriptor(Object.getPrototypeOf(field), 'value').set.call(field, text);
+        field.dispatchEvent(new Event('input', { bubbles: true }));
+      }
+    })()`);
+    await page.wait(`document.querySelector('[data-mail-handoff]')?.disabled === false`, "Send enables for a complete draft");
+    await clickSelector(page, '[data-mail-handoff]');
+    assert.deepEqual(await page.evaluate("window.__mailHandoff"), [["mailto:sawkare.om@gmail.com?subject=A%20%26%20B&body=Hello%20Om", "_self"]]);
+    await page.evaluate(`void (window.__restartScene = {
+      id: window.__startupDocument,
+      canvas: document.querySelector('canvas'),
+      environment: document.querySelector('[data-workspace-environment]')
+    })`);
+    await clickSelector(page, '[data-menu-key="Om"] > button');
+    await clickSelector(page, '[data-menu-action="Restart Portfolio"]');
+    await page.wait(`!document.querySelector('[data-window-frame]') && !!document.querySelector('#desktop-root')`, "Restart resets the desktop windows");
+    assert.equal(await page.evaluate(`window.__restartScene?.id === window.__startupDocument &&
+      window.__restartScene.canvas === document.querySelector('canvas') &&
+      window.__restartScene.environment === document.querySelector('[data-workspace-environment]') &&
+      document.querySelector('[data-screen-surface]')?.dataset.screenView === 'laptop'`), true, "Restart preserves the document, canvas, and scenery");
+    await clickSelector(page, '[data-dock-app="facetime"]');
+    await page.wait(`[...document.querySelectorAll('[data-window-frame] p')].some(p => p.textContent.includes('never collects or uploads camera data'))`, "Camera privacy note appears before permission");
+    await clickSelector(page, '[data-workspace-trigger]');
+    await clickSelector(page, '[data-screen-view-toggle]');
+    await page.wait(`!!document.querySelector('[data-screen-view="focused"]:not([data-transitioning])')`, "full-page Screen view");
+    const screenFolder = await clickSelector(page, '[data-desktop-icons] [data-file-icon="projects"]');
+    await clickAt(page, { x: screenFolder.x + 7, y: screenFolder.y + 2 });
+    const whiteBox = await clickSelector(page, `${frame("finder-projects")} [data-file-icon="edge-ai-hardware-state-detection"]`);
+    await clickAt(page, { x: whiteBox.x + 6, y: whiteBox.y + 2 });
+    await page.wait(`document.querySelector('${frame("file-edge-ai-hardware-state-detection")} img[src="/project-previews/white-box.webp"]')?.naturalWidth > 0`, "The Finder double-click opens the White Box preview in Screen view");
   });
   await scenario("r02-tour-skip-restores-view", {}, async (page) => {
     await page.navigate();

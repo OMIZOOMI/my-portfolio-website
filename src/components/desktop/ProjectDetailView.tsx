@@ -3,6 +3,7 @@
 import { ArrowUpRight, Code2, ExternalLink, GitBranch, Layers3 } from "lucide-react";
 import { ProjectScope } from "./ProjectScope";
 import { ProjectCaseStudy } from "./ProjectCaseStudy";
+import { ProjectPreview } from "./ProjectPreview";
 import { getProjectById } from "../../data/projectsData";
 import { useSafariStore } from "./useSafariStore";
 import { useWindowStore } from "../window-manager/useWindowStore";
@@ -78,6 +79,7 @@ export function ProjectDetailView({ window: win }: ProjectDetailViewProps) {
         </div>
       </div>
 
+      {project?.preview && <div className="px-7 pt-6"><ProjectPreview preview={project.preview} /></div>}
       <div className="grid gap-5 px-7 py-6 lg:grid-cols-[1.1fr_0.9fr]">
         <section className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm dark:border-white/10 dark:bg-white/[0.04]">
           <div className="mb-4 flex items-center gap-2 text-sm font-semibold">

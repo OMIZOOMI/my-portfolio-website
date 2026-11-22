@@ -10,6 +10,7 @@
 .entry { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 24px; }
 .entry p { font-size: 13px; opacity: .85; }
 .entry a, .footer > a { display: inline-flex; align-items: center; gap: 7px; min-height: 44px; padding: 9px 14px; border: 1px solid #8885; border-radius: 9px; font-size: 13px; font-weight: 600; text-decoration: none; color: inherit; }
+.entry .back { background: #285d92; color: #fff; border-color: transparent; }
 .page a:hover { text-decoration: underline; text-underline-offset: 4px; }
 .page a:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
 .footer { padding-block: 28px 44px; border-top: 1px solid #8884; }

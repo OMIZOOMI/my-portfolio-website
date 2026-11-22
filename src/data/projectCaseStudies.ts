@@ -35,31 +35,31 @@ export const veyraSource = (path: string) =>
   `https://github.com/OMIZOOMI/Cross-Exam/blob/${VEYRA_REVIEW_COMMIT}/${path}`;
 
 export const VEYRA_CASE_STUDY: ProjectCaseStudy = {
-  eyebrow: "An ongoing project by Om Sawkare",
-  role: "Solo project · Product, scanner & report interface",
-  problem: "A website report is useful when a developer can understand what was checked, see the evidence, and decide what to fix. I’m building Veyra to connect those steps, rather than leave someone with an unexplained list of warnings.",
+  eyebrow: "Case study by Om Sawkare",
+  role: "Solo project · Design and development",
+  problem: "A list of website warnings leaves developers with questions. Where did each issue come from? What should they fix first? Veyra puts the evidence and the next step alongside each finding.",
   // Full-project ownership was confirmed by Om; commit ownership alone is not that evidence.
   contributionHeading: "What I built",
-  contribution: "Veyra is my solo project: I built the investigation flow, the bounded HTTP/HTML scanner, the local scan handler, and the report interface. The work connects backend boundaries and typed data with an interface that lets people follow a finding back to its source.",
+  contribution: "I built the local app from end to end, from entering a website address to reading the finished report. The report makes it easy to follow a finding back to the page that triggered it.",
   decisionHeading: "Evidence before conclusions",
-  decision: "The current implementation keeps observations separate from conclusions. It collects eligible HTML and response headers from up to eight pages on one origin; deterministic rules then link findings to recorded evidence. Zod contracts check those references. A missing attribute can support a specific finding, but it cannot establish a complete accessibility or security verdict.",
-  tools: "Next.js and React present the reports; TypeScript and Zod define their contracts; Cheerio inspects the returned HTML.",
+  decision: "Veyra reads up to eight pages on the same site and applies the same checks to each page. The report shows what the scanner saw and what each observation supports. For example, finding one image without alt text tells you where to look first in an accessibility review.",
+  tools: "Next.js and React show the report. Cheerio reads the HTML, and Zod checks that the report links each issue to valid evidence.",
   evidenceExample: {
-    label: "Implementation diagram · Controlled test input",
-    title: "One missing attribute, one traceable finding",
+    label: "Example from a scanner test",
+    title: "How Veyra flags an image without alt text",
     steps: [
-      { label: "Returned HTML", content: '<img src="/image.png">', format: "code", note: "An image without an alt attribute." },
-      { label: "Observation", content: "imagesWithoutAlt: 1", format: "code", badge: "Observed", note: "Recorded as document structure." },
-      { label: "Finding", content: "Images omit the alt attribute", badge: "Derived · Low severity", note: "The rule points back to that observation." },
+      { label: "Page HTML", content: '<img src="/image.png">', format: "code", note: "The image has no alt attribute." },
+      { label: "What the scanner saw", content: "imagesWithoutAlt: 1", format: "code", badge: "Observed", note: "The scanner counts one image missing alt text." },
+      { label: "What the report shows", content: "An image is missing alt text", badge: "Low severity", note: "The finding links back to the count." },
     ],
     actionLabel: "Useful next step",
     recommendation: "Review the image’s purpose. Add meaningful alternative text for informative images, or an empty alt attribute for decorative ones.",
-    caveat: "This illustrates a controlled scanner test, not a live website report or product screenshot. Returned HTML alone cannot determine whether an image is informative or decorative.",
+    caveat: "This example uses test HTML. A person still needs to review the image and decide whether it needs a description.",
     sourceUrl: veyraSource("apps/scanner/src/investigate.test.ts#L311-L339"),
     sourceLabel: "Read the source test",
   },
   scopeNote: {
-    title: "Demo ≠ live investigation.",
-    detail: "The separate demo report is synthetic fixture data. Its agent activity, experiments, and performance charts are not results from the live HTTP/HTML investigator.",
+    title: "About the demo.",
+    detail: "The demo uses sample data to show how a report looks. Live reports from the local scanner show findings from the pages it reads.",
   },
 };

@@ -69,7 +69,7 @@ test("public pages render the approved evidence and limitations without any desk
   const { createElement } = require("react"), { renderToStaticMarkup } = require("react-dom/server");
   for (const project of PUBLIC_PROJECTS) {
     const html = renderToStaticMarkup(createElement(PublicProjectPage, { project }));
-    for (const text of [project.name, "The problem", "Where it stands", "Implementation sources", project.repositoryUrl]) assert.ok(html.includes(text), text);
+    for (const text of [project.name, "Back to Portfolio", "The problem", "Where it stands", "Implementation sources", project.repositoryUrl]) assert.ok(html.includes(text), text);
     assert.ok(html.includes(projectPortfolioPath(project.id).replaceAll("&", "&amp;")));
     assert.ok(html.includes(project.caseStudy.evidenceExample.sourceUrl));
     assert.ok(html.includes(project.caseStudy.evidenceExample.caveat));
@@ -88,16 +88,14 @@ test("route visibility is an ephemeral flag and never replaces app windows or hi
   assert.equal(activity.persist, undefined);
 });
 
-test("project links in separate HTML roots use only the registered router and retain identity aliases", () => {
-  const { navigatePublicProject, registerPublicProjectNavigator } = source("components/portfolio/publicProjectNavigation.ts");
-  assert.equal(navigatePublicProject("veyra"), false);
-  const calls = [], cleanupOld = registerPublicProjectNavigator(href => calls.push(["old", href]));
-  assert.equal(navigatePublicProject("Cross-Exam"), true);
-  const cleanupNew = registerPublicProjectNavigator(href => calls.push(["new", href]));
-  cleanupOld(); assert.equal(navigatePublicProject("adobe"), true);
-  assert.equal(navigatePublicProject("missing"), false);
-  cleanupNew(); assert.equal(navigatePublicProject("veyra"), false);
-  assert.deepEqual(calls, [["old", "/projects/veyra"], ["new", "/projects/adobe-brand-audit"]]);
+test("case studies open in a separate tab and still accept project aliases", () => {
+  const { ProjectPublicLink } = source("components/portfolio/ProjectPublicLink.tsx");
+  const { createElement } = require("react"), { renderToStaticMarkup } = require("react-dom/server");
+  for (const [projectId, path] of [["Cross-Exam", "/projects/veyra"], ["adobe", "/projects/adobe-brand-audit"]]) {
+    const html = renderToStaticMarkup(createElement(ProjectPublicLink, { projectId }));
+    assert.ok(html.includes(`href="${path}" target="_blank" rel="noopener noreferrer"`));
+  }
+  assert.equal(renderToStaticMarkup(createElement(ProjectPublicLink, { projectId: "missing" })), "");
 });
 
 test("entry intent waits for readiness, runs once per navigation and does not write real or simulated history", () => {

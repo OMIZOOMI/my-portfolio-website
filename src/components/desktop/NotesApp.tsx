@@ -6,6 +6,7 @@ import { create } from "zustand";
 import { useSystemStore } from "../window-manager/useSystemStore";
 import styles from "./NotesApp.module.css";
 import { getDesktopCoordinateSpace } from "../window-manager/desktopCoordinates";
+import { PORTFOLIO_PROFILE as profile } from "../../data/portfolioProfile";
 
 // --- 1. NOTES STORE (single rich-text HTML string per note + search state) ---
 interface Note {
@@ -16,10 +17,10 @@ interface Note {
 
 const DEFAULT_NOTE_HTML = `<h1>Developer Log</h1>
 <p>Long before code, I built Lego robots and marvelled at Halo’s Spartan armor. That curiosity grew into a fascination with technology that extends what people can do.</p>
-<p>I’m Om Sawkare, a final-year student at VIT, working across computer vision, AI workflows, and backend development.</p>
-<p>My main focus is <strong data-note-highlight="true">Veyra</strong>, a website investigation tool I’m building to turn page evidence into clear, useful reports. I want people to understand what needs attention, why it matters, and what the tool could actually verify.</p>
-<p>My <strong data-note-highlight="true">Adobe hackathon</strong> brand-audit project explores how websites communicate with people and AI systems. Four analyzers share a crawl to produce a report with evidence and practical recommendations. Our team reached the <mark>top 45</mark> among roughly 100,000 teams.</p>
-<p>White Box Detection gave me experience with YOLOv8 and OpenCV; my TigerGraph and FastAPI work strengthened my approach to evidence, data, and backend design.</p>
+<p>I’m Om Sawkare. ${profile.education} I work on computer vision, AI tools, and backend development.</p>
+<p>My main focus is <strong data-note-highlight="true">Veyra</strong>, a website investigation tool I’m building to turn page evidence into useful security reports. I want developers to see what needs attention, why it matters, and what the scanner actually checked.</p>
+<p>I was <strong data-note-highlight="true">Team Lead at Adobe Hackathon</strong>. We built a tool that checks how easily people and AI tools can use a brand website. Four checks share one set of pages and suggest practical fixes. Our team reached the <mark>top 45</mark> among roughly 100,000 teams.</p>
+<p>White Box Detection taught me how to use YOLOv8 and OpenCV to spot a box among lookalikes. With TigerGraph I learned to explain fraud alerts, and with FastAPI I learned to organize related data.</p>
 <p data-note-signoff="true">Technology is only as powerful as the impact on a person's day to day</p>`;
 
 const BLANK_NOTE_HTML = "";

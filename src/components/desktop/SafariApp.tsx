@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useLayoutEffect, useRef, useId, type FormEvent } from "react";
+import Image from "next/image";
 import {
   BookOpen,
   ChevronLeft,
@@ -15,6 +16,7 @@ import {
 } from "lucide-react";
 import { ProjectScope } from "./ProjectScope";
 import { ProjectCaseStudy } from "./ProjectCaseStudy";
+import { ProjectPreview } from "./ProjectPreview";
 import { PROJECTS, getProjectById, type ProjectData } from "../../data/projectsData";
 import { SAFARI_START_URL, currentSafariEntry, selectSafariSession, useSafariStore, type SafariHistoryEntry } from "./useSafariStore";
 import { ProfessionalProfiles } from "../portfolio/ProfessionalProfiles";
@@ -50,7 +52,10 @@ function ProjectCard({ project, onOpen, onExternal }: { project: ProjectData; on
           <ChevronRight size={15} aria-hidden="true" />
         </button>
       </h3>
-      <p className={styles.projectSummary}>{project.summary}</p>
+      <div className={styles.projectIntro}>
+        <p className={styles.projectSummary}>{project.summary}</p>
+        {project.preview && <Image src={project.preview.src} width={72} height={42} alt="" unoptimized className={styles.previewThumb} />}
+      </div>
       <details data-detail-key={project.id} className={styles.projectDetails}>
         <summary>Quick facts<span className="sr-only"> about {project.name}</span></summary>
         <div className={styles.projectFacts}>
@@ -119,6 +124,7 @@ function ProjectPage({ project, onNavigate, onExternal }: { project: ProjectData
         </div>
       </div>
 
+      {project.preview && <div className="mb-6"><ProjectPreview preview={project.preview} /></div>}
       <div className="grid gap-5 md:grid-cols-2">
         <section className="rounded-2xl border border-gray-200 bg-white p-5 dark:border-white/10 dark:bg-white/[0.04]">
           <h2 className="mb-4 text-sm font-semibold uppercase tracking-[0.16em] text-gray-500 dark:text-gray-400">Architecture</h2>

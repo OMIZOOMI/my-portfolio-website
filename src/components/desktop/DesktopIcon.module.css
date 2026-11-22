@@ -25,12 +25,13 @@
     border-radius: 8px;
     background: transparent;
     cursor: grab;
-    will-change: transform;
     user-select: none;
     -webkit-user-select: none;
     -webkit-user-drag: none;
     touch-action: none;
   }
+
+  .icon > * { pointer-events: none; }
 
   :global(body.is-finder-dragging) .icon,
   :global(body.is-finder-dragging) .icon * {

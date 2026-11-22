@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, type ReactNode } from "react";
 import Image from "next/image";
-import { motion, useReducedMotion } from "framer-motion";
 import styles from "./DesktopIcon.module.css";
 import { useSystemStore } from "../window-manager/useSystemStore";
 import { useFileInteractionStore } from "./useFileInteractionStore";
@@ -11,6 +10,9 @@ import { PROJECTS_BY_ID } from "../../data/projectsData";
 
 // 1. Importing your local asset!
 import FolderIconImg from "../../assets/FolderIcon.png";
+
+const TRACKPAD_CLICK_INTERVAL_MS = 500;
+const TRACKPAD_CLICK_SLOP_PX = 12;
 
 interface DesktopIconProps {
   label: string;
@@ -29,18 +31,15 @@ interface DesktopIconProps {
 
 export function DesktopIcon({ label, variant, glyph, accent = "#4c8dff", onOpen, tone = "desktop", layout = "desktop", selected = false, onSelect, surfaceId, itemId }: DesktopIconProps) {
   const isFileDragging = useSystemStore((s) => s.isDragging);
-  const reduceMotion = useSystemStore((s) => s.reduceMotion);
-  const prefersReducedMotion = useReducedMotion();
   const buttonRef = useRef<HTMLButtonElement>(null);
   const pointerPress = useRef<number | null>(null);
   const touchPress = useRef(false);
   const suppressPointerActivation = useRef(false);
-  const acceptedPointerClicks = useRef(0);
+  const previousClick = useRef<{ time: number; x: number; y: number } | null>(null);
   const ownSelected = useFileInteractionStore((state) => surfaceId && itemId ? state.selections[surfaceId] === itemId : false);
   const rename = useFileInteractionStore((state) => state.rename?.surfaceId === surfaceId && state.rename?.itemId === itemId ? state.rename : null);
   const isSelected = surfaceId && itemId ? ownSelected : selected;
   const projectIcon = variant === "file" && itemId ? PROJECTS_BY_ID[itemId]?.finderIcon : undefined;
-  const animate = layout !== "finder" && !isFileDragging && !reduceMotion && !prefersReducedMotion;
 
   // DragOverlay clears the drag store during pointerup, before the browser can
   // dispatch click/dblclick. Remember the actual shared drag decision so a
@@ -49,6 +48,7 @@ export function DesktopIcon({ label, variant, glyph, accent = "#4c8dff", onOpen,
     if (pointerPress.current !== null && state.isDragging && state.draggedItem?.id === itemId && state.dragPointerId === pointerPress.current) {
       suppressPointerActivation.current = true;
       pointerPress.current = null;
+      previousClick.current = null;
     }
   }), [itemId]);
 
@@ -59,7 +59,7 @@ export function DesktopIcon({ label, variant, glyph, accent = "#4c8dff", onOpen,
 
   return (
     <div className={`${styles.iconShell} ${layout === "finder" ? styles.finderShell : ""} ${surfaceId === "desktop" ? styles.desktopShell : ""}`} data-file-icon-shell={itemId}>
-    <motion.button
+    <button
       ref={buttonRef}
       type="button"
       className={`${styles.icon} ${layout === "finder" ? styles.finderIcon : ""} cursor-grab select-none`}
@@ -68,6 +68,7 @@ export function DesktopIcon({ label, variant, glyph, accent = "#4c8dff", onOpen,
       data-editing={!!rename || undefined}
       aria-pressed={onSelect || surfaceId ? isSelected : undefined}
       onFocus={() => { if (!rename) select(); }}
+      onBlur={() => { previousClick.current = null; }}
       onPointerDown={(event) => {
         if (event.button !== 0 || rename) return;
         pointerPress.current = event.pointerId;
@@ -79,31 +80,37 @@ export function DesktopIcon({ label, variant, glyph, accent = "#4c8dff", onOpen,
       onPointerCancel={() => {
         pointerPress.current = null;
         suppressPointerActivation.current = true;
-        acceptedPointerClicks.current = 0;
+        previousClick.current = null;
       }}
       onClick={(event) => {
         pointerPress.current = null;
-        if (rename || isFileDragging || (event.detail !== 0 && suppressPointerActivation.current)) {
+        if (rename || isFileDragging || (event.detail !== 0 && (suppressPointerActivation.current || event.ctrlKey))) {
           event.preventDefault();
           event.stopPropagation();
-          acceptedPointerClicks.current = 0;
+          previousClick.current = null;
           return;
         }
         select();
         // Assistive technology activates a button with a zero-detail click.
         // Physical Enter/Space are handled below and suppress native clicks.
-        if (event.detail === 0 || touchPress.current) {
-          acceptedPointerClicks.current = 0;
+        const previous = previousClick.current;
+        const closeTogether = previous && event.timeStamp - previous.time <= TRACKPAD_CLICK_INTERVAL_MS
+          && Math.hypot(event.clientX - previous.x, event.clientY - previous.y) <= TRACKPAD_CLICK_SLOP_PX;
+        // Read the system's multi-click count when present. Trackpads can
+        // also emit two single clicks when the pointer shifts a few pixels.
+        if (event.detail === 0 || touchPress.current || (previous && (event.detail > 1 || closeTogether))) {
+          previousClick.current = null;
           onOpen();
           return;
         }
-        acceptedPointerClicks.current = event.detail === 1 ? 1 : acceptedPointerClicks.current + 1;
+        previousClick.current = { time: event.timeStamp, x: event.clientX, y: event.clientY };
       }}
       onKeyDown={(event) => {
         if (event.key !== "Enter" && event.key !== " ") return;
         event.preventDefault();
         event.stopPropagation();
         if (event.repeat || event.nativeEvent.isComposing || event.metaKey || event.ctrlKey || event.altKey || isFileDragging || rename) return;
+        previousClick.current = null;
         select();
         onOpen();
       }}
@@ -112,15 +119,14 @@ export function DesktopIcon({ label, variant, glyph, accent = "#4c8dff", onOpen,
         event.preventDefault();
         event.stopPropagation();
       }}
-      onContextMenu={() => { if (touchPress.current) suppressPointerActivation.current = true; }}
+      onContextMenu={() => {
+        previousClick.current = null;
+        suppressPointerActivation.current = true;
+      }}
       onDoubleClick={(event) => {
         event.preventDefault();
         event.stopPropagation();
-        if (!rename && !isFileDragging && !suppressPointerActivation.current && acceptedPointerClicks.current >= 2) onOpen();
       }}
-      whileHover={animate && !rename ? { scale: 1.05, y: -2 } : undefined}
-      whileTap={animate && !rename ? { scale: 0.97, y: 0 } : undefined}
-      transition={{ type: "spring", duration: 0.3, bounce: 0 }}
       aria-label={`Open ${label}`}
       title={label}
     >
@@ -153,6 +159,7 @@ export function DesktopIcon({ label, variant, glyph, accent = "#4c8dff", onOpen,
           height={56}
           unoptimized
           loading="eager"
+          draggable={false}
           className="pointer-events-none select-none drop-shadow-md"
           style={{ width: "56px", height: "56px", objectFit: "contain" }}
         />
@@ -166,7 +173,7 @@ export function DesktopIcon({ label, variant, glyph, accent = "#4c8dff", onOpen,
       )}
       
       <span className={`${styles.label} ${tone === "window" ? styles.labelWindow : ""}`}>{label}</span>
-    </motion.button>
+    </button>
     {rename && <FolderRenameInput key={rename.token} session={rename} name={label} onRestoreFocus={() => buttonRef.current?.focus({ preventScroll: true })} />}
     </div>
   );

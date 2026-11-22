@@ -24,16 +24,17 @@ export function DragOverlay() {
   useEffect(() => {
     const onPointerMove = (e: PointerEvent) => {
       const st = useSystemStore.getState();
-      if (!st.isDragging && !st.pendingDrag) return;
+      if ((!st.isDragging && !st.pendingDrag) || e.pointerId !== st.dragPointerId) return;
       st.onDragPointerMove(e.clientX, e.clientY);
     };
     const onPointerUp = (e: PointerEvent) => {
       const st = useSystemStore.getState();
-      if (!st.isDragging && !st.pendingDrag) return;
+      if ((!st.isDragging && !st.pendingDrag) || e.pointerId !== st.dragPointerId) return;
       st.onDragPointerUp(e.clientX, e.clientY);
     };
-    const onPointerCancel = () => {
-      useSystemStore.getState().onDragPointerCancel();
+    const onPointerCancel = (event: PointerEvent) => {
+      const state = useSystemStore.getState();
+      if (event.pointerId === state.dragPointerId) state.onDragPointerCancel();
     };
     const onBlur = () => useSystemStore.getState().endDrag();
     const onKeyDown = (e: KeyboardEvent) => {

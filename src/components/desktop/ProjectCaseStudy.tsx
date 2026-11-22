@@ -4,6 +4,7 @@ import { useId, type MouseEvent, type ReactNode } from "react";
 import type { ProjectData } from "../../data/projectsData";
 import styles from "./ProjectCaseStudy.module.css";
 import { ProjectPublicLink } from "../portfolio/ProjectPublicLink";
+import { ProjectPreview } from "./ProjectPreview";
 
 interface ProjectCaseStudyProps {
   project: ProjectData;
@@ -19,6 +20,7 @@ export function ProjectCaseStudy({ project, onOpenInBrowser, onExternal, onBack,
   const story = project.caseStudy;
   if (!story) return null;
   const example = story.evidenceExample;
+  const inDevelopment = project.status === "In development";
   const external = (url: string) => (event: MouseEvent<HTMLAnchorElement>) => {
     // Preserve native modified-click behavior and the Browser app's external handoff feedback.
     if (onExternal && event.button === 0 && !event.metaKey && !event.ctrlKey && !event.shiftKey && !event.altKey) {
@@ -36,7 +38,7 @@ export function ProjectCaseStudy({ project, onOpenInBrowser, onExternal, onBack,
         <p className={styles.eyebrow}>{story.eyebrow}</p>
         <div className={styles.titleRow}>
           <h1 id={`${id}-title`}>{project.name}</h1>
-          <span className={styles.status}>{project.status}</span>
+          <span className={styles.status} data-in-development={inDevelopment || undefined}>{inDevelopment ? "(In Development)" : project.status}</span>
         </div>
         <p className={styles.summary}>{project.summary}</p>
         <p className={styles.role}>{story.role}</p>
@@ -53,6 +55,7 @@ export function ProjectCaseStudy({ project, onOpenInBrowser, onExternal, onBack,
         </aside>}
       </header>
 
+      {project.preview && <div className={styles.preview}><ProjectPreview preview={project.preview} /></div>}
       <div className={styles.intro}>
         <section aria-labelledby={`${id}-problem`}>
           <h2 id={`${id}-problem`}>The problem</h2>

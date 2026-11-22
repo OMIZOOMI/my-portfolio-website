@@ -100,6 +100,25 @@ test("focus selects an icon visibly, while single click selects and double click
   h.cleanup();
 });
 
+test("nearby trackpad clicks open once when both are reported as single clicks", () => {
+  const h = harness();
+  const press = (timeStamp, clientX) => {
+    const e = event({ timeStamp, clientX, clientY: 50 });
+    h.button.onPointerDown(e);
+    h.button.onPointerUp(e);
+    h.button.onClick(e);
+  };
+  press(100, 20);
+  press(700, 20);
+  press(810, 44);
+  assert.equal(h.opened, 0, "separate or distant clicks only select");
+  press(960, 50);
+  assert.equal(h.opened, 1);
+  press(1040, 50);
+  assert.equal(h.opened, 1, "a third click does not repeat activation");
+  h.cleanup();
+});
+
 test("assistive activation remains available after a completed pointer drag", () => {
   const h = harness();
   h.button.onPointerDown(event());

@@ -248,7 +248,9 @@ function FaceTimeContent({ window: win }: CameraWindowProps) {
         </div>}
         <p className={styles.photoStatus} role="status" aria-atomic="true">{photo.message}</p>
         {photo.photo && photo.downloadRequested && <a href={photo.photo.url} target="_blank" rel="noopener noreferrer" className={styles.photoFallback}>Open photo in a new tab</a>}
-        <p className={styles.privacy}><LockKeyhole size={11} aria-hidden="true" />{photo.photo ? "Camera frame only. Saved only when you choose Save photo." : "Video stays on this device. Photos don’t include gesture effects."}</p>
+        <p className={styles.privacy}><LockKeyhole size={11} aria-hidden="true" />
+          <span>This app never collects or uploads camera data. Photos stay on this device and are saved locally when you choose Save photo.</span>
+        </p>
       </footer>
     </div>
   );

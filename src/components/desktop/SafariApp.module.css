@@ -100,7 +100,9 @@
 .projectTitle:hover { background: var(--browser-control); }
 .projectTitle svg { color: var(--browser-project-accent); }
 .projectMark { align-self: start; width: 7px; height: 7px; margin-top: .38em; border-radius: 50%; }
-.projectSummary { margin: 0 10px 0 25px; font-size: 12px; line-height: 1.35; color: var(--browser-muted); overflow-wrap: anywhere; }
+.projectIntro { display: flex; align-items: flex-start; gap: 8px; margin: 0 10px 0 25px; }
+.projectSummary { flex: 1; min-width: 0; font-size: 12px; line-height: 1.35; color: var(--browser-muted); overflow-wrap: anywhere; }
+.previewThumb { width: min(30%, 72px); height: auto; aspect-ratio: 12 / 7; object-fit: cover; object-position: center top; border: 1px solid var(--browser-card-line); border-radius: 6px; }
 .projectDetails { margin: 1px 10px 3px 25px; color: var(--browser-muted); font-size: 11px; }
 .projectDetails > summary { width: fit-content; padding-block: 4px; color: var(--browser-project-accent); font-weight: 600; cursor: pointer; }
 .projectDetails > summary:hover { text-decoration: underline; }

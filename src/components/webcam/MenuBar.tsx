@@ -106,7 +106,7 @@ function openExternal(url: string) {
   globalThis.open(url, "_blank", "noopener,noreferrer");
 }
 
-export function MenuBar({ compact = false }: { compact?: boolean } = {}) {
+export function MenuBar({ compact = false, onRestart }: { compact?: boolean; onRestart: () => void }) {
   const time = useAccurateClock();
   const batteryLevel = useBattery();
   const savedEditor = useRef<EditorMenuTarget | null>(null);
@@ -208,7 +208,7 @@ export function MenuBar({ compact = false }: { compact?: boolean } = {}) {
       { label: "Portfolio overview", onSelect: () => window.dispatchEvent(new Event("portfolio:open-overview")) },
       ...(!compact ? [{ label: "Replay introduction", onSelect: () => useIntroductionStore.getState().replay() }] : []),
       { label: "Portfolio Settings…", onSelect: () => openSettings() },
-      { label: "Restart Portfolio", onSelect: () => globalThis.location.reload() },
+      { label: "Restart Portfolio", onSelect: onRestart },
       {
         label: "Close All Windows",
         onSelect: () => {

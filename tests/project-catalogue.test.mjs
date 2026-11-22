@@ -137,12 +137,12 @@ test("scope distinguishes shipped implementation, author notes and planned work"
   const api = getProjectById("task-api");
   assert.ok(api.stack.includes("SQLite"));
   for (const technology of ["AWS", "Docker", "PostgreSQL", "JWT"]) assert.equal(api.stack.includes(technology), false);
-  assert.match(api.futurePlans.join(" "), /PostgreSQL.*not implemented/);
+  assert.match(api.futurePlans.join(" "), /Move the database to PostgreSQL/);
   const white = getProjectById("white-box");
   assert.match(white.repositoryUrl, /edge-ai-white-box$/);
   assert.doesNotMatch([white.name, white.description, ...white.capabilities].join(" "), /modem|hardware.state/i);
   assert.ok(white.evidence.some(source => source.basis === "project-notes"));
-  assert.match(getProjectById("veyra").limitations.join(" "), /AI-provider execution are unavailable/);
+  assert.match(getProjectById("veyra").futurePlans.join(" "), /optional AI-assisted analysis/);
   for (const project of PROJECTS) {
     assert.ok(project.status && project.statusDetail && project.capabilities.length && project.limitations.length && project.evidence.length);
     for (const source of project.evidence) assert.equal(new URL(source.url).hostname, "github.com");
@@ -156,7 +156,7 @@ test("the existing detail renderer resolves retained file IDs and exposes factua
   for (const project of PROJECTS) {
     const html = renderToStaticMarkup(createElement(ProjectDetailView, { window: { id: `file-${project.id}`, title: "Previous display title" } }));
     assert.ok(html.includes(project.name));
-    assert.ok(html.includes(project.status));
+    assert.ok(html.includes(project.caseStudy && project.status === "In development" ? "(In Development)" : project.status));
     assert.ok(html.includes(project.caseStudy ? "Implementation sources" : "Scope &amp; evidence"));
     for (const source of project.evidence) assert.ok(html.includes(source.url));
     assert.equal(html.includes("Previous display title"), false);
@@ -170,15 +170,17 @@ test("Veyra's shared case study keeps the evidence example and unfinished work e
   const project = getProjectById("veyra");
   const html = renderToStaticMarkup(createElement(ProjectCaseStudy, { project, onBack: () => {}, onExternal: () => {} }));
   assert.ok(html.includes("Back to favorites"));
-  for (const text of ["The problem", "What I built", "solo project", "Evidence before conclusions", "up to eight pages", "Zod contracts", "Implementation diagram", "Controlled test input", "imagesWithoutAlt: 1", "Images omit the alt attribute", "Observed", "Derived", "Low severity", "not a live website report or product screenshot", "synthetic fixture data", "Browser scanning and AI-provider execution are unavailable", "Where it stands"]) {
+  for (const text of ["The problem", "What I built", "Solo project", "Evidence before conclusions", "up to eight pages", "Zod", "Example from a scanner test", "imagesWithoutAlt: 1", "An image is missing alt text", "Observed", "Low severity", "sample data", "browser-based checks", "Where it stands"]) {
     assert.ok(html.includes(text), text);
   }
   assert.ok(html.includes('href="https://github.com/OMIZOOMI/Cross-Exam"'));
   assert.ok(html.includes(project.caseStudy.evidenceExample.sourceUrl));
   assert.ok(html.includes('target="_blank" rel="noopener noreferrer"'));
   assert.match(project.caseStudy.evidenceExample.sourceUrl, /blob\/[a-f0-9]{40}\/apps\/scanner\/src\/investigate\.test\.ts#/);
-  assert.equal((html.match(/<figure\b/g) ?? []).length, 1);
-  assert.doesNotMatch(html, /<img\b|<iframe\b|<video\b|<canvas\b/);
+  assert.equal((html.match(/\(In Development\)/g) ?? []).length, 1);
+  assert.equal((html.match(/<figure\b/g) ?? []).length, 2);
+  assert.ok(html.includes(project.preview.src));
+  assert.doesNotMatch(html, /<iframe\b|<video\b|<canvas\b/);
   assert.doesNotMatch(html.replace(/href="[^"]+"/g, ""), /Cross-Exam|Open in Safari|LCP|\d+ users/);
 });
 
@@ -203,7 +205,7 @@ test("Adobe's case study distinguishes supplied team history, implementation and
   const project = getProjectById("adobe");
   const story = project.caseStudy;
   const html = renderToStaticMarkup(createElement(ProjectCaseStudy, { project, onBack: () => {}, onExternal: () => {} }));
-  for (const text of ["My contribution", "three-person team", "co-built", "one teammate", "Claude and GPT", "Top 45 teams", "approximately 100,000 teams", "supplied by Om", "not independently verified here", "One crawl, shared evidence", "stdin", "Four isolated analyzers", "Crawl &amp; HTML access", "AI citability cues", "Freshness &amp; corroboration", "Visitor engagement", "Prioritized JSON report", "NOT_EVALUATED", "FC-10", "synthetic", "not performance measurements or hackathon judging evidence", "do not measure or guarantee AI citations", "Target JavaScript is not executed", "not an official Adobe product"]) {
+  for (const text of ["My contribution", "three-person team", "one teammate", "Team Lead at Adobe Hackathon", "brand website", "Claude and GPT", "Top 45 teams", "approximately 100,000 teams", "reported by Om", "One crawl, shared evidence", "Four independent checks", "Page access", "How easy facts are to cite", "Ease of use", "NOT_EVALUATED", "FC-10", "test data", "Interactive pages need separate testing"]) {
     assert.ok(html.includes(text), text);
   }
   assert.ok(html.includes(project.repositoryUrl));

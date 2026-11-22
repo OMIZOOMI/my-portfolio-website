@@ -2,7 +2,7 @@ import { getDesktopCoordinateSpace } from "../window-manager/desktopCoordinates"
 import { clampDesktopIconPosition, desktopGridPosition, DESKTOP_SCREEN_W, DESKTOP_SCREEN_H, type DesktopIconLayout } from "./desktopIconLayout";
 export { DESKTOP_ICON_W, DESKTOP_ICON_H, DESKTOP_MENU_H, DESKTOP_SCREEN_W, DESKTOP_SCREEN_H } from "./desktopIconLayout";
 
-export const DRAG_THRESHOLD_PX = 6;
+export const DRAG_THRESHOLD_PX = 9;
 export const TRASH_PAD_PX = 40;
 export const DESKTOP_DOCK_H = 96;
 

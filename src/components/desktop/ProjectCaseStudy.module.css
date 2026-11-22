@@ -10,9 +10,12 @@
 .surface a:hover { text-decoration: underline; }
 .surface :is(a,button,summary):focus-visible { outline: 2px solid var(--case-link); outline-offset: 3px; }
 .header { padding-bottom: 26px; border-bottom: 1px solid var(--case-line); margin-bottom: 26px; }
+.preview { margin-bottom: 28px; }
 .surface .eyebrow { color: var(--case-muted); font-size: 11px; line-height: 1.5; letter-spacing: .06em; font-weight: 600; text-transform: uppercase; margin-bottom: 10px; }
 .titleRow { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 18px; }
 .status { border: 1px solid var(--lg-rim-border, var(--case-line)); border-radius: 999px; padding: 3px 11px; background: var(--lg-pill-bg); box-shadow: var(--lg-rim-highlight); font-size: 12px; color: var(--case-muted); white-space: nowrap; }
+.status[data-in-development] { color: #6b4a00; background: #fff0be; border-color: #ead281; box-shadow: none; font-weight: 650; }
+:global(.dark) .status[data-in-development] { color: #ffe28a; background: #483918; border-color: #76602d; }
 .surface .summary { font-size: 19px; line-height: 1.5; margin-top: 12px; max-width: 46ch; }
 .surface .role { font-size: 13px; color: var(--case-muted); margin-top: 10px; }
 .result { margin-top: 20px; padding: 14px 16px; border: 1px solid var(--lg-rim-border, var(--case-line)); border-radius: 14px; background: var(--lg-pill-bg, var(--case-inset)); box-shadow: var(--lg-pill-shadow); font-size: 14px; }

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useId, useRef, useState } from "react";
-import { Archive, ChevronLeft, ExternalLink, Inbox, Mail, SquarePen } from "lucide-react";
+import { Archive, ChevronLeft, Inbox, Mail, Send, SquarePen } from "lucide-react";
 import { useMailStore } from "../window-manager/useMailStore";
 import { PORTFOLIO_PROFILE as profile } from "../../data/portfolioProfile";
 import { isPortfolioWelcome } from "../../data/mailWelcome";
@@ -29,6 +29,7 @@ export function MailApp() {
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const subjectInput = useRef<HTMLInputElement>(null);
   const subjectId = useId();
+  const sendHintId = useId();
   const writeButton = useRef<HTMLButtonElement>(null);
   const returnToWrite = useRef(false);
   const list = mailbox === "inbox" ? inbox : sent;
@@ -100,9 +101,9 @@ export function MailApp() {
                 </button>
                 <h1>New message</h1>
               </div>
-              <button type="button" data-mail-handoff className={styles.primary} onClick={openDraftInEmailApp} disabled={!draftSubject.trim() || !draftBody.trim()}>
-                <ExternalLink size={15} aria-hidden="true" />
-                Open in your email app
+              <button type="button" data-mail-handoff className={styles.primary} aria-describedby={sendHintId} onClick={openDraftInEmailApp} disabled={!draftSubject.trim() || !draftBody.trim()}>
+                <Send size={15} aria-hidden="true" />
+                Send
               </button>
             </>
           ) : (
@@ -134,7 +135,7 @@ export function MailApp() {
                 </div>
                 <textarea aria-label="Mail message" value={draftBody} onChange={event => setDraftBody(event.target.value)} placeholder="Hi Om…" />
               </div>
-              <p className={styles.helper}>Finish sending in your own email app. Your draft stays here while this page is open.</p>
+              <p id={sendHintId} className={styles.helper}>Send opens your email app with this draft. Finish sending there.</p>
             </div>
           </div>
         ) : selected && mailbox === "inbox" && isPortfolioWelcome(selected) ? (
