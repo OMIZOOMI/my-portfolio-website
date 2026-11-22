@@ -14,8 +14,7 @@ export const FILE_SYSTEM: Record<string, FileItem[]> = {
       { id: "bin", name: "Bin", type: "folder" },
     ],
     "documents": [],
-    "projects": PROJECTS.filter((project) => !project.hideInFinder)
-      .map((project) => ({ id: project.id, name: project.name, type: "file" as const })),
+    "projects": PROJECTS.map((project) => ({ id: project.id, name: project.name, type: "file" as const })),
     "about-me": [],
     [APPS_FOLDER_ID]: [],
     "bin": []

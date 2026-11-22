@@ -28,7 +28,6 @@ export interface ProjectData {
   accent: string;
   finderIcon?: string;
   preview?: { src: string; width: number; height: number; alt: string; caption: string };
-  hideInFinder?: true;
   caseStudy?: ProjectCaseStudy;
   /** Public reading route; internal IDs and simulator addresses stay separate. */
   publicSlug?: string;
@@ -70,7 +69,7 @@ export const PROJECTS: readonly ProjectData[] = [
   {
     id: "adobe-brand-audit", key: "adobe", aliases: ["brand-ai-readiness-audit"],
     name: "Adobe Hackathon · Brand AI Readiness Audit", featured: true, publicSlug: "adobe-brand-audit",
-    summary: "One brand website audit, with clear fixes for visitors and AI tools.",
+    summary: "We audited a brand website and showed its team what to fix first.",
     description: "Our Adobe Hackathon project checks whether people and AI tools can find, understand, and trust information on a brand website. It puts four sets of checks into one report with suggested fixes.",
     status: "Hackathon project",
     statusDetail: "Our team built a working Python command-line tool that runs four sets of checks and produces a structured report for review.",
@@ -93,13 +92,16 @@ export const PROJECTS: readonly ProjectData[] = [
     ],
     repositoryUrl: github + "/brand-ai-readiness-audit", accent: "#a56253",
     finderIcon: "/project-icons/adobe-brand-audit.png",
+    preview: { src: "/project-previews/adobe-report.webp", width: 1200, height: 630,
+      alt: "Sample audit report showing that none of six pages had readable structured data and suggesting a fix for the home page.",
+      caption: "One finding and its suggested fix from the sample report in the project repository. The report uses test data." },
     caseStudy: ADOBE_CASE_STUDY,
   },
   {
     // This legacy ID already pointed to the white-box repository. Keep it so
     // moved files, open windows and browser histories retain their identities.
     id: "edge-ai-hardware-state-detection", key: "white-box", aliases: ["edge-ai-white-box"],
-    name: "White Box Detection", featured: false,
+    name: "White Box Detection", featured: false, publicSlug: "white-box",
     summary: "Teach a webcam to spot a small white box among lookalike objects.",
     description: "I trained a small YOLOv8 model to spot a white paper box on camera. I tested it against lookalikes such as sheets of paper and white chargers, then adjusted it to reduce false alarms.",
     status: "Vision prototype",
@@ -115,9 +117,33 @@ export const PROJECTS: readonly ProjectData[] = [
     ],
     repositoryUrl: github + "/edge-ai-white-box", accent: "#ff7a45",
     finderIcon: "/project-icons/white-box.png",
-    preview: { src: "/project-previews/white-box.webp", width: 668, height: 520,
-      alt: "A webcam frame showing a green detection box and confidence label around the white paper box.",
-      caption: "A frame from the White Box demo showing the model identifying the target on a webcam feed." },
+    preview: { src: "/project-previews/white-box.webp", width: 1000, height: 386,
+      alt: "Two webcam frames. The detector outlines a white box on the left. A flat white sheet on the right has no outline.",
+      caption: "The model marks the box on the left and leaves the paper unmarked in the frame on the right. The 96% label is the model’s confidence for that detection." },
+    caseStudy: {
+      eyebrow: "Computer vision case study",
+      role: "Dataset, model training, and webcam demo",
+      problem: "A small white box can look like a flat sheet of paper or a charger on a webcam. The challenge was to recognize the box and reduce false alarms from lookalikes.",
+      contributionHeading: "What I built",
+      contribution: "I prepared the dataset, trained a small YOLOv8 model, and exported it to LiteRT. I built a live webcam demo that draws a rectangle around each detection.",
+      decisionHeading: "Test with lookalikes",
+      decision: "I added photos of flat white paper as examples the model should ignore. I then tuned the confidence threshold so the rectangle stayed visible on the target during the demo.",
+      tools: "YOLOv8 and Roboflow for training, with LiteRT and OpenCV for the webcam demo.",
+      evidenceExample: {
+        label: "Webcam demo",
+        title: "One target and one lookalike",
+        steps: [
+          { label: "Show the target", content: "The detector draws a green rectangle around the white box.", note: "The label above it shows confidence for that frame." },
+          { label: "Show a lookalike", content: "The flat sheet of white paper is unmarked in the second frame.", note: "Both frames are from the original demo." },
+        ],
+        actionLabel: "How to read the result",
+        recommendation: "Use the frames to see what the model does. Testing more backgrounds, lighting, and cameras would show how consistently it works.",
+        caveat: "These are selected frames from the demo recording.",
+        sourceUrl: source("edge-ai-white-box", "README.md"),
+        sourceLabel: "See the demo and training notes",
+      },
+      scopeNote: { title: "Project files.", detail: "The repository includes the trained model and webcam script." },
+    },
   },
   {
     id: "tigergraph-fraud-investigation", key: "tigergraph", aliases: [],
@@ -138,43 +164,6 @@ export const PROJECTS: readonly ProjectData[] = [
     ],
     repositoryUrl: github + "/tigergraph-fraud-investigation", accent: "#8670a6",
     finderIcon: "/project-icons/tigergraph-fraud-investigation.png",
-  },
-  {
-    id: "cloud-native-asset-management-api", key: "task-api", aliases: ["cloud-native-task-api"],
-    name: "Cloud-Native Task API", featured: false, hideInFinder: true,
-    summary: "A small backend for organizing users, projects, and tasks.",
-    description: "This FastAPI prototype lets an app create users, projects, and tasks and see the task list. It checks incoming data and keeps the records linked in a local database.",
-    status: "Local API prototype",
-    statusDetail: "The API can create records and list tasks using local SQLite.",
-    stack: ["Python", "FastAPI", "Pydantic", "SQLAlchemy", "SQLite"],
-    architecture: ["Pydantic checks that incoming data is in the expected format.", "SQLAlchemy links users, projects, and tasks.", "SQLite saves the records locally."],
-    capabilities: ["Creates users, projects, and tasks", "Lists tasks", "Checks data before saving"],
-    limitations: ["The project runs locally and is intended for learning.", "Secure password storage and authentication would be needed before using real accounts."],
-    futurePlans: ["Move the database to PostgreSQL."],
-    evidence: [
-      { label: "FastAPI routes and models", url: source("cloud-native-task-api", "task_manager_api/main.py"), basis: "implementation" },
-      { label: "SQLite configuration", url: source("cloud-native-task-api", "task_manager_api/database.py"), basis: "implementation" },
-      { label: "Relational models", url: source("cloud-native-task-api", "task_manager_api/models.py"), basis: "implementation" },
-    ],
-    repositoryUrl: github + "/cloud-native-task-api", accent: "#4c8dff",
-  },
-  {
-    id: "skywatch", key: "skywatch", aliases: [], name: "SkyWatch", featured: false, hideInFinder: true,
-    summary: "Follow air traffic on a 3D globe and spot unexpected position changes.",
-    description: "SkyWatch displays aircraft positions from OpenSky on a globe. It estimates where each aircraft should appear next and flags large differences for a closer look.",
-    status: "Telemetry prototype",
-    statusDetail: "The Deno server sends aircraft updates and position flags to the globe.",
-    stack: ["Deno", "TypeScript", "WebSockets", "React", "React Three Fiber", "Three.js"],
-    architecture: ["One server fetches and formats OpenSky updates.", "It compares each new position with an estimate based on recent movement.", "WebSockets deliver the same updates to everyone viewing the globe."],
-    capabilities: ["Shares aircraft updates in real time", "Flags unexpected position changes", "Plots air traffic on a 3D globe"],
-    limitations: ["Position flags are prompts to inspect the data. They cannot establish an incident.", "Live coverage depends on the OpenSky feed."],
-    futurePlans: [],
-    evidence: [
-      { label: "Shared polling and WebSockets", url: source("Skywatch", "backend/mod.ts"), basis: "implementation" },
-      { label: "Anomaly engine", url: source("Skywatch", "backend/anomaly_engine.ts"), basis: "implementation" },
-      { label: "Globe dependencies", url: source("Skywatch", "frontend/package.json"), basis: "dependencies" },
-    ],
-    repositoryUrl: github + "/Skywatch", accent: "#528b82",
   },
   {
     id: "3d-macos-web-portfolio", key: "portfolio", aliases: ["my-portfolio-website"],

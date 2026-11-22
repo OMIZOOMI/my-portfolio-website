@@ -64,10 +64,10 @@ export function MailApp() {
             <span>Inbox</span>
             {unread > 0 && <span className={styles.count} aria-hidden="true">{unread}</span>}
           </button>
-          <button type="button" aria-pressed={mailbox === "sent" && !composing} aria-label="Previous copies, delivery unverified" onClick={() => switchMailbox("sent")}>
+          {sent.length > 0 && <button type="button" aria-pressed={mailbox === "sent" && !composing} aria-label="Previous copies, delivery unverified" onClick={() => switchMailbox("sent")}>
             <Archive size={16} aria-hidden="true" />
             <span>Previous copies</span>
-          </button>
+          </button>}
         </div>
         <div className={styles.messageList} role="group" aria-label={mailboxName}>
           {list.map(mail => (
@@ -103,7 +103,7 @@ export function MailApp() {
               </div>
               <button type="button" data-mail-handoff className={styles.primary} aria-describedby={sendHintId} onClick={openDraftInEmailApp} disabled={!draftSubject.trim() || !draftBody.trim()}>
                 <Send size={15} aria-hidden="true" />
-                Send
+                Send via email app
               </button>
             </>
           ) : (
@@ -135,7 +135,7 @@ export function MailApp() {
                 </div>
                 <textarea aria-label="Mail message" value={draftBody} onChange={event => setDraftBody(event.target.value)} placeholder="Hi Om…" />
               </div>
-              <p id={sendHintId} className={styles.helper}>Send opens your email app with this draft. Finish sending there.</p>
+              <p id={sendHintId} className={styles.helper}>Your email app opens with this draft. You can also copy the address and send it from webmail.</p>
             </div>
           </div>
         ) : selected && mailbox === "inbox" && isPortfolioWelcome(selected) ? (

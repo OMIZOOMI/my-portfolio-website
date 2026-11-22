@@ -29,8 +29,8 @@ const { PUBLIC_PROJECTS, getPublicProject, projectPublicPath, projectPortfolioPa
 const { getProjectById } = source("data/projectsData.ts");
 const { projectMetadata, PROJECT_NOT_FOUND_METADATA } = source("data/projectMetadata.ts");
 
-test("only the two reviewed flagship case studies have stable public reading paths", () => {
-  assert.deepEqual(PUBLIC_PROJECTS.map(project => project.id), ["veyra", "adobe-brand-audit"]);
+test("published case studies have stable public reading paths", () => {
+  assert.deepEqual(PUBLIC_PROJECTS.map(project => project.id), ["veyra", "adobe-brand-audit", "edge-ai-hardware-state-detection"]);
   assert.equal(projectPublicPath("veyra"), "/projects/veyra");
   assert.equal(projectPublicPath("adobe"), "/projects/adobe-brand-audit");
   for (const project of PUBLIC_PROJECTS) {
@@ -42,8 +42,8 @@ test("only the two reviewed flagship case studies have stable public reading pat
     }
     assert.ok(!projectPublicPath(project.id).includes("portfolio:"));
   }
-  for (const slug of ["missing", "Cross-Exam", "adobe", "white-box", "../veyra", "veyra/", "VEYRA"]) assert.equal(getPublicProject(slug), null);
-  assert.equal(projectPublicPath("white-box"), null); assert.equal(projectPublicPath("missing"), null);
+  for (const slug of ["missing", "Cross-Exam", "adobe", "../veyra", "veyra/", "VEYRA"]) assert.equal(getPublicProject(slug), null);
+  assert.equal(projectPublicPath("white-box"), "/projects/white-box"); assert.equal(projectPublicPath("missing"), null);
 });
 
 test("project metadata is specific and only emits absolute URLs from a validated configured origin", () => {
@@ -56,7 +56,7 @@ test("project metadata is specific and only emits absolute URLs from a validated
     const deployed = projectMetadata(project, "https://portfolio.example.org");
     assert.equal(deployed.alternates.canonical, `https://portfolio.example.org${projectPublicPath(project.id)}`);
     assert.equal(deployed.openGraph.url, deployed.alternates.canonical);
-    assert.equal(deployed.openGraph.images[0].url, "https://portfolio.example.org/identity/share.png");
+    assert.equal(deployed.openGraph.images[0].url, `https://portfolio.example.org${project.preview.src}`);
     for (const invalid of ["http://localhost:3012", "https://127.0.0.1", "https://portfolio.example.org/projects/veyra", "javascript:alert(1)"]) {
       assert.equal(projectMetadata(project, invalid).alternates, undefined);
     }

@@ -21,3 +21,10 @@ export function resolvePublicOrigin(value?: string): string | undefined {
     return url.origin;
   } catch { return undefined; }
 }
+
+export function getPortfolioPublicOrigin(configured = process.env.PORTFOLIO_PUBLIC_ORIGIN): string {
+  const origin = resolvePublicOrigin(configured);
+  // The previous deployment alias redirects to the public portfolio address.
+  return origin && origin !== "https://my-portfolio-website-nine-sooty.vercel.app"
+    ? origin : "https://omsawkare-portfolio.vercel.app";
+}

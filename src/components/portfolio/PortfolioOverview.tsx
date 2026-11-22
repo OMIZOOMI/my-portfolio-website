@@ -6,51 +6,67 @@ import { ProjectPublicLink } from "./ProjectPublicLink";
 import pageStyles from "./PortfolioReading.module.css";
 import { OmMark } from "./OmMark";
 import { ReadingGuide } from "./ReadingGuide";
+import { ContactEmail } from "./ContactEmail";
+import { ProjectPreview } from "../desktop/ProjectPreview";
 
 /** Server-rendered core content remains available independently of WebGL and scene assets. */
 export function PortfolioOverview({ page = false }: { page?: boolean } = {}) {
   const featured = PROJECTS.filter(project => project.featured);
+  const selected = PROJECTS.filter(project => project.featured || project.key === "white-box");
   if (page) return <main className={pageStyles.page} data-portfolio-reading aria-labelledby="reading-title">
     <div className={pageStyles.inner}>
       <header className={pageStyles.header}>
         <a href="#reading-title" className={pageStyles.wordmark} aria-label={`${profile.name}, top of portfolio`}><OmMark size={22} /></a>
         <nav className={pageStyles.nav} aria-label="Portfolio sections">
           <a href="#reading-projects">Projects</a>
+          <a href="#reading-about">About</a>
           <a href="#reading-contact">Contact</a>
         </nav>
       </header>
       <section className={pageStyles.intro} aria-labelledby="reading-title">
         <h1 id="reading-title" tabIndex={-1}>{profile.name}</h1>
-        <p className={pageStyles.role}>{profile.role}</p>
-        <p>{profile.education} <span className={pageStyles.longIntro}>{profile.introduction}</span></p>
+        <p className={pageStyles.role}>{profile.introduction}</p>
         <div className={pageStyles.actions}>
           <a className={pageStyles.primary} href="#reading-projects">See my work <ArrowDownRight size={18} aria-hidden="true" /></a>
           <Link className={pageStyles.secondary} href="/?view=desktop" prefetch={false} scroll={false}><Monitor size={18} aria-hidden="true" /> Open interactive desktop</Link>
         </div>
       </section>
-      <ReadingGuide />
       <section className={pageStyles.section} id="reading-projects" tabIndex={-1} aria-labelledby="reading-projects-title">
         <h2 id="reading-projects-title">Selected work</h2>
         <div className={pageStyles.projects}>
-          {featured.map(project => <article key={project.id} className={pageStyles.project}>
+          {selected.map(project => <article key={project.id} className={pageStyles.project}>
             <p className={pageStyles.status}>{project.status}</p>
             <h3>{project.name}</h3>
             <p>{project.summary}</p>
+            {project.key === "white-box" && project.preview && <ProjectPreview preview={project.preview} />}
             <div className={pageStyles.projectLinks}>
               <ProjectPublicLink projectId={project.id} name={project.name} />
               <a href={project.repositoryUrl} aria-label={`View source for ${project.name} on GitHub`}>View source <ArrowUpRight size={16} aria-hidden="true" /></a>
             </div>
           </article>)}
         </div>
+        <details className={pageStyles.moreProjects}>
+          <summary>More projects</summary>
+          <ul>{PROJECTS.filter(project => !selected.includes(project)).map(project => <li key={project.id}>
+            <strong>{project.name}</strong><p>{project.summary}</p>
+            <a href={project.repositoryUrl} target="_blank" rel="noopener noreferrer">View source ↗</a>
+          </li>)}</ul>
+        </details>
+      </section>
+      <section className={pageStyles.section} id="reading-about" aria-labelledby="reading-about-title">
+        <h2 id="reading-about-title">About me</h2>
+        <p>I’m a final-year Computer Science student at Vellore Institute of Technology. I like building tools that show people the evidence behind a result.</p>
       </section>
       <section className={`${pageStyles.section} ${pageStyles.contact}`} id="reading-contact" tabIndex={-1} aria-labelledby="reading-contact-title">
         <h2 id="reading-contact-title">Get in touch</h2>
+        <ContactEmail />
         <div className={pageStyles.actions}>
-          <a className={pageStyles.primary} href={`mailto:${profile.email}`}>{profile.email}</a>
+          <a className={pageStyles.primary} href={`mailto:${profile.email}`}>Email me</a>
           <a className={pageStyles.secondary} href={profile.github}>GitHub <ArrowUpRight size={17} aria-hidden="true" /></a>
           <a className={pageStyles.secondary} href={profile.linkedin}>LinkedIn <ArrowUpRight size={17} aria-hidden="true" /></a>
         </div>
       </section>
+      <ReadingGuide />
     </div>
   </main>;
   return <div className={styles.overviewContent}>

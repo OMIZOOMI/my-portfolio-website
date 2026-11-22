@@ -60,3 +60,7 @@
 @media (prefers-reduced-motion: reduce) {
   .copy { transition: none; }
 }
+
+@media (pointer: coarse) {
+  .copy { min-height: 44px; }
+}

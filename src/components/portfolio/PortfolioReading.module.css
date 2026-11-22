@@ -162,3 +162,13 @@
 .secondary:is(:hover, :active), .guideLinks a:is(:hover, :active) {
   background: var(--glass-hover);
 }
+
+.moreProjects { margin-top: 1rem; }
+.moreProjects summary { width: fit-content; min-height: 44px; padding-block: 10px; color: var(--accent); font-weight: 600; cursor: pointer; }
+.moreProjects ul { display: grid; gap: 12px; list-style: none; }
+.moreProjects li { padding: 12px 0; border-top: 1px solid var(--line); }
+.moreProjects a { display: inline-block; min-height: 44px; padding-block: 10px; color: var(--accent); }
+.project { background: var(--card); backdrop-filter: none; }
+.guide { margin-top: 1.4rem; grid-column: 1 / -1; }
+.contact .actions { margin-top: .8rem; }
+.section .projects figure { margin-block: .75rem; }

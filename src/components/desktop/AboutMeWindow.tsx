@@ -9,6 +9,7 @@ import { PORTFOLIO_PROFILE as profile, SKILL_GROUPS, PROJECT_EXPERIENCE } from "
 import { runPortfolioAction } from "../portfolio/portfolioActions";
 import { useSystemStore } from "../window-manager/useSystemStore";
 import { useDisplayStore } from "../window-manager/useDisplayStore";
+import { useWindowStore } from "../window-manager/useWindowStore";
 import styles from "./AboutMeWindow.module.css";
 
 type SectionId = "overview" | "skills" | "projects" | "experience";
@@ -105,6 +106,9 @@ function OverviewSection() {
     <p className={styles.body}>Lego robots and Halo sparked my curiosity about what technology could help people do. The building blocks have changed; I still care most about making something useful.</p>
     <h2 className={styles.sectionTitle}>Start with my current work</h2>
     <ProjectLinks projectKeys={PROJECTS.filter(project => project.featured).map(project => project.key)} />
+    <div className={styles.projectLinks}>
+      <button type="button" onClick={() => useWindowStore.getState().openWindow({ id: "secret-note", kind: "secret-note", title: "A little detour" })}>A little detour</button>
+    </div>
   </section>;
 }
 

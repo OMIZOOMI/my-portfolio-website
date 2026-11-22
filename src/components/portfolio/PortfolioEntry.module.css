@@ -118,3 +118,20 @@
   .secondaryButton, .fallbackOverview { transition: none; }
   .secondaryButton:hover:not(:disabled), .fallbackOverview:hover { transform: none; }
 }
+
+.flatSurface { position: fixed; inset: 0; z-index: 1; }
+.root { z-index: 2147483647; }
+.overviewSummary {
+  position: fixed; top: auto; right: 16px; bottom: 16px; left: auto; width: auto; height: auto; clip-path: none;
+  min-height: 42px; padding: 7px 13px; border: 1px solid #fff4; border-radius: 12px;
+  background: #202630ed !important; color: #f8fafc !important; font-size: 12px;
+}
+.overviewSummary span { color: #d4dbe5; font-weight: 450; }
+.overviewSummary:focus-visible { top: auto; left: auto; padding: 7px 13px; }
+@media (max-width: 900px) {
+  .overviewSummary { bottom: calc(14px + var(--overview-dock-clearance, 88px)); }
+}
+@media (max-width: 480px) {
+  .overviewSummary { right: 8px; }
+  .overviewSummary span { display: inline; }
+}

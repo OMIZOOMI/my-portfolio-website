@@ -23,7 +23,7 @@ const TIPS: Partial<Record<IntroductionStep, string>> = {
   screen: "Open Settings here to change the view or make text and icons larger.",
   projects: "Open Projects to explore my work.",
   terminal: "Use Projects, Skills, or About — no typing needed.",
-  contact: "Mail, GitHub, and LinkedIn are here.",
+  contact: "GitHub and LinkedIn links are here.",
 };
 const NEXT_LABELS = { laptop: "Next: Screen view", screen: "Next: Projects", projects: "Next: Terminal", terminal: "Next: Contact", contact: "Next: Choose a view", finish: "" };
 const featured = PROJECTS.filter(project => project.featured);
@@ -155,16 +155,16 @@ function GuideStep({ step, available, laptopAvailable, heading }: { step: Introd
     {typeof document !== "undefined" && document.body ? createPortal(visuals, document.body) : visuals}
     <div ref={body} className={styles.stepBody}>
     {heading}
-    {step === "laptop" && <p>{laptopAvailable ? "This is Laptop view. Open the gear at the bottom left to change the scenery, pause its motion, or change your display. Next, we’ll zoom back in." : "The 3D workspace is unavailable right now. You can keep exploring in Screen view."}</p>}
-    {step === "screen" && <p>Screen view fills the page so text is easier to read. The same gear lets you change the view or enlarge text and icons. Your apps stay open when you switch.</p>}
-    {step === "projects" && <><p>Open Projects to browse the work, or use the direct Veyra and Adobe actions below. Explore freely; this guide can wait.</p>
+    {step === "laptop" && <p>{laptopAvailable ? "This is Laptop view. Open Workspace at the bottom left to change the scenery, pause its motion, or change your display. Next, we’ll zoom back in." : "The 3D workspace is unavailable right now. You can keep exploring in Screen view."}</p>}
+    {step === "screen" && <p>Screen view fills the page so text is easier to read. Workspace lets you change the view or enlarge text and icons. Your apps stay open when you switch.</p>}
+    {step === "projects" && <><p>Browse all projects, or jump straight to Veyra or the Adobe case study.</p>
       <div className={styles.actions}><GlassButton type="button" disabled={!ready} onClick={() => runPortfolioAction("projects")}>Open projects</GlassButton>
         {featured.map(project => <GlassButton type="button" key={project.id} data-introduction-project={project.key} disabled={!ready} onClick={() => runPortfolioAction({ projectId: project.id })}>{project.key === "adobe" ? "Adobe case study" : project.name}</GlassButton>)}</div></>}
     {step === "terminal" && <><p>Terminal has real Projects, Skills, and About suggestions. Open it when you are ready; no command typing is required.</p>
       <div className={styles.actions}><GlassButton type="button" onClick={openTerminal}>Open Terminal</GlassButton></div>
       {ready && !guidedWindowId && !measurement.target && <p className={styles.hint}>Terminal is not available right now. You can skip this step or reopen it.</p>}</>}
     {step === "contact" && <><p>Use Mail to write to Om, or open Browser to find his GitHub and LinkedIn profiles.</p>
-      <div className={styles.actions}><GlassButton type="button" onClick={() => runPortfolioAction("contact")}>Open Mail</GlassButton><GlassButton type="button" onClick={openProfiles}>Open GitHub &amp; LinkedIn</GlassButton></div></>}
+      <div className={styles.actions}><GlassButton type="button" onClick={() => runPortfolioAction("contact")}>Open Mail</GlassButton><GlassButton type="button" onClick={openProfiles}>Show GitHub and LinkedIn links</GlassButton></div></>}
     {step === "finish" && <><p>{laptopAvailable ? "You’ve seen both views. Choose how the portfolio should open next time. You can change it anytime in Settings." : "You can continue in Screen view. Laptop view is unavailable right now."}</p>
       <div className={styles.actions} data-introduction-finish><GlassButton type="button" disabled={!ready} onClick={() => useIntroductionStore.getState().finish("screen")}>Start in Screen view</GlassButton>{laptopAvailable && <GlassButton type="button" disabled={!ready} onClick={() => useIntroductionStore.getState().finish("laptop")}>Start in Laptop view</GlassButton>}</div></>}
     {!ready && <p className={styles.hint} role="status">{available ? "Waiting for the desktop view to settle…" : "The desktop is still getting ready. You can wait, read Quick overview, or skip."}</p>}
@@ -224,7 +224,7 @@ export function PortfolioIntroduction({ active, available, onOverview, welcomeVi
   if (!active || (phase === "welcome" && (!available || !welcomeVisible)) || (phase !== "welcome" && phase !== "active")) return null;
   const steps: readonly IntroductionStep[] = tourCanPreviewLaptop === false ? INTRODUCTION_STEPS.filter(item => item !== "laptop") : INTRODUCTION_STEPS;
   const hasLaptop = tourCanPreviewLaptop !== false && typeof document !== "undefined" && !!document.querySelector('[data-screen-surface]');
-  const title = <h2 ref={heading} id="portfolio-introduction-title" aria-describedby="portfolio-introduction-progress" tabIndex={-1}>{phase === "welcome" ? `Welcome. I’m ${profile.name}.` : TITLES[step]}</h2>;
+  const title = <h2 ref={heading} id="portfolio-introduction-title" aria-describedby="portfolio-introduction-progress" tabIndex={-1}>{phase === "welcome" ? `Hi, I’m ${profile.name}.` : TITLES[step]}</h2>;
   const storageNotice = !storageAvailable && <p className={styles.hint}>This browser cannot save the introduction preference. It stays dismissed for this visit, but may return after a reload.</p>;
   const panel = <section className={`${styles.guide} ${phase === "active" ? styles.activeGuide : ""}`} aria-labelledby="portfolio-introduction-title" data-introduction-panel data-introduction-phase={phase} data-introduction-step={step} data-reduced-motion={reduceMotion || undefined}
     onKeyDown={event => {
@@ -232,12 +232,12 @@ export function PortfolioIntroduction({ active, available, onOverview, welcomeVi
         event.preventDefault(); event.stopPropagation(); useIntroductionStore.getState().skip();
       }
     }}>
-    <div className={styles.topline}><span id="portfolio-introduction-progress">{phase === "welcome" ? "A quick introduction · Your pace" : `Step ${steps.indexOf(step) + 1} of ${steps.length}`}</span>
+    <div className={styles.topline}><span id="portfolio-introduction-progress">{phase === "welcome" ? "A quick introduction" : `Step ${steps.indexOf(step) + 1} of ${steps.length}`}</span>
       <GlassButton type="button" onClick={() => useIntroductionStore.getState().skip()}>{phase === "welcome" ? "Dismiss" : "Skip"}</GlassButton></div>
-    {phase === "welcome" ? <>{title}<p>Hi, I’m {profile.name}. I build computer vision, AI workflows and backend systems. Welcome to my interactive portfolio.</p>
+    {phase === "welcome" ? <>{title}<p>I build computer vision tools, AI workflows, and backend systems. Explore my work or take a short desktop tour.</p>
       <div className={styles.actions}>
-        <GlassButton type="button" onClick={() => useIntroductionStore.getState().start(!!document.querySelector('[data-screen-surface]'))}>Take a tour</GlassButton>
         <GlassButton type="button" disabled={!available} onClick={() => { useIntroductionStore.getState().skip(); runPortfolioAction("projects"); }}>Explore projects</GlassButton>
+        <GlassButton type="button" onClick={() => useIntroductionStore.getState().start(!!document.querySelector('[data-screen-surface]'))}>Take a tour</GlassButton>
       </div>{storageNotice}</>
        : <GuideStep step={step} available={available} laptopAvailable={hasLaptop} heading={<>{title}{storageNotice}</>} />}
     {phase === "active" && <div className={styles.bottomline}><GlassButton type="button" onClick={onOverview}>Quick overview</GlassButton></div>}

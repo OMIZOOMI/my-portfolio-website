@@ -26,7 +26,6 @@ const HeatSinkApp = dynamic<WindowContentProps>(() => import("@/components/deskt
 });
 
 export interface WindowContext {
-  onActivateGameMenu: () => void;
   compact: boolean;
 }
 
@@ -56,12 +55,11 @@ const WINDOW_CONTENT: Record<string, ComponentType<WindowContentProps>> = {
 interface WindowManagerProps {
   compact?: boolean;
   dragConstraintsRef: React.RefObject<HTMLDivElement>;
-  onActivateGameMenu: () => void;
 }
 
-export function WindowManager({ dragConstraintsRef, onActivateGameMenu, compact = false }: WindowManagerProps) {
+export function WindowManager({ dragConstraintsRef, compact = false }: WindowManagerProps) {
   const windows = useWindowStore(state => state.windows);
-  const context = useMemo(() => ({ onActivateGameMenu, compact }), [onActivateGameMenu, compact]);
+  const context = useMemo(() => ({ compact }), [compact]);
 
 
   return (

@@ -12,17 +12,19 @@ import { useKeyboardSounds } from "../webcam/useKeyboardSounds";
 import { useDisplayStore } from "../window-manager/useDisplayStore";
 import { useWindowStore } from "../window-manager/useWindowStore";
 import { usePortfolioActivity } from "../portfolio/usePortfolioActivity";
+import { useReducedMotion } from "framer-motion";
 
 const CONTROL_IDLE_MS = 3000;
 
-export function WorkspaceEnvironment({ sceneUsable, reduceMotion, prepareMotion, waitForMotion, onBackdropSettled }: {
+export function WorkspaceEnvironment({ sceneUsable, reduceMotion: motionSetting, loadScenery, onBackdropSettled }: {
   sceneUsable: boolean;
   reduceMotion: boolean;
-  prepareMotion: boolean;
-  waitForMotion: boolean;
+  loadScenery: boolean;
   onBackdropSettled: () => void;
 }) {
   const desktopActive = usePortfolioActivity(s => s.desktopActive);
+  const prefersReducedMotion = useReducedMotion();
+  const reduceMotion = motionSetting || !!prefersReducedMotion;
   const [state, dispatch] = useReducer(workspaceTransition, EMPTY_WORKSPACE);
   const [menuOpen, setMenuOpen] = useState(false);
   const [paused, setPaused] = useState(false);
@@ -49,7 +51,7 @@ export function WorkspaceEnvironment({ sceneUsable, reduceMotion, prepareMotion,
   const destination = state.queued ?? incoming ?? active;
   const current = getWorkspace(active?.id);
   const activeId = active?.id;
-  const moving = desktopActive && !paused && !reduceMotion && pageVisible && !screenView && (sceneUsable || prepareMotion);
+  const moving = desktopActive && !paused && !reduceMotion && pageVisible && !screenView && sceneUsable;
   const animate = desktopActive && !paused && !reduceMotion && pageVisible;
 
   useLayoutEffect(() => {
@@ -91,18 +93,14 @@ export function WorkspaceEnvironment({ sceneUsable, reduceMotion, prepareMotion,
 
   useEffect(() => { useWorkspaceStore.getState().hydrate(); }, []);
   useEffect(() => {
-    if (!hydrated || initialized.current) return;
+    if (!hydrated || !loadScenery || initialized.current) return;
     initialized.current = true;
     choose(useWorkspaceStore.getState().environment);
-  }, [choose, hydrated]);
+  }, [choose, hydrated, loadScenery]);
   useEffect(() => {
-    // Screen view needs the still for a future switch. A visitor starting in
-    // Laptop view gets the selected live backdrop's first presented frame,
-    // or the still if playback cannot start within its deadline.
-    const motionSettled = !waitForMotion || !current.video || paused || reduceMotion ||
-      active?.motion === "playing" || active?.motion === "unavailable";
-    if (state.error || (active && motionSettled)) onBackdropSettled();
-  }, [active, current.video, onBackdropSettled, paused, reduceMotion, state.error, waitForMotion]);
+    // The poster is enough to start. Video can begin after the laptop is usable.
+    if (state.error || active) onBackdropSettled();
+  }, [active, onBackdropSettled, state.error]);
   useEffect(() => {
     if (!hydrated || handledReset.current === resetRevision) return;
     handledReset.current = resetRevision;
@@ -212,14 +210,14 @@ export function WorkspaceEnvironment({ sceneUsable, reduceMotion, prepareMotion,
         onPointerEnter={(event) => { if (event.pointerType !== "touch") { setPointerInside(true); setControlRevealed(true); } }}
         onPointerLeave={() => setPointerInside(false)}
         onFocusCapture={() => setControlRevealed(true)}>
-        <button ref={trigger} type="button" className={styles.trigger} aria-label="Portfolio settings" aria-expanded={menuOpen} aria-controls="workspace-choices" aria-haspopup="dialog" onClick={() => { setControlRevealed(true); setMenuOpen((open) => !open); }} data-workspace-trigger>
+        <button ref={trigger} type="button" className={styles.trigger} aria-label="Workspace" aria-expanded={menuOpen} aria-controls="workspace-choices" aria-haspopup="dialog" onClick={() => { setControlRevealed(true); setMenuOpen((open) => !open); }} data-workspace-trigger>
           <GlassSurface />
           <Settings size={17} strokeWidth={1.7} />
-          <span className={styles.triggerText}><span>Settings</span><strong>{screenView ? "Screen view" : active ? current.name : "Your workspace"}</strong></span>
+          <span className={styles.triggerText}><span>Workspace</span><strong>{screenView ? "Screen view" : active ? current.name : "Laptop view"}</strong></span>
           <ChevronUp size={13} className={styles.chevron} data-open={menuOpen || undefined} />
         </button>
 
-        {menuOpen && <section className={styles.panel} id="workspace-choices" role="dialog" aria-label="Portfolio settings" data-workspace-picker>
+        {menuOpen && <section className={styles.panel} id="workspace-choices" role="dialog" aria-label="Workspace" data-workspace-picker>
           <div className={styles.panelHeader}><div><h2>{screenView ? "Display options" : "Workspace settings"}</h2><p>{screenView ? "Switch views or make the desktop easier to read." : "Adjust the view or change the scenery around the laptop."}</p></div><button type="button" className={styles.close} aria-label="Close portfolio settings" onClick={() => closeMenu(true)}><X size={16} /></button></div>
           <div className={styles.viewControls}>
             <button ref={viewToggle} type="button" aria-pressed={screenView} data-screen-view-toggle onClick={() => { useDisplayStore.getState().setScreenView(!screenView); closeMenu(true); }}>

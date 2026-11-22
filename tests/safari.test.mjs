@@ -27,7 +27,7 @@ const session = () => selectSafariSession(state());
 const tab = (id = session().activeTabId) => session().tabs.find(item => item.id === id);
 const page = id => currentSafariEntry(tab(id));
 const A = "portfolio://project/edge-ai-hardware-state-detection";
-const B = "portfolio://project/cloud-native-asset-management-api";
+const B = "portfolio://project/tigergraph-fraud-investigation";
 const C = "portfolio://project/3d-macos-web-portfolio";
 beforeEach(() => store.setState(store.getInitialState(), true));
 

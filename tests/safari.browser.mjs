@@ -121,7 +121,7 @@ const before = process.env.SAFARI_BEFORE === "1";
 const report = {browser: version.Browser, host: {platform:os.platform(),release:os.release(),arch:os.arch()}, site, before,
  localBuildId: await readFile(new URL("../.next/BUILD_ID",import.meta.url),"utf8").then(s=>s.trim()),
  input:"Trusted synthetic CDP mouse/key/wheel input on macOS Chrome, plus labelled programmatic rapid-click stress. Not a native Safari app or physical trackpad test.",scenarios:[]};
-const A="portfolio://project/edge-ai-hardware-state-detection", B="portfolio://project/cloud-native-asset-management-api", C="portfolio://project/3d-macos-web-portfolio";
+const A="portfolio://project/edge-ai-hardware-state-detection", B="portfolio://project/tigergraph-fraud-investigation", C="portfolio://project/3d-macos-web-portfolio";
 const root='[data-window-frame="app-safari"]',visible=`${root} main:not([hidden])`,addressBar=`${root} input[aria-label="Safari address bar"]`;
 const activate=id=>`[data-safari-activate="${id}"]`;
 const closeTab=id=>`[data-safari-close="${id}"]`;

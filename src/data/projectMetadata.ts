@@ -12,11 +12,15 @@ export function projectMetadata(project: ProjectData, configuredOrigin?: string)
   const url = origin && path ? new URL(path, origin).href : undefined;
   const title = `${project.name} — ${profile.name}`;
   const description = `${project.summary} A case study by ${profile.name}. ${project.status}.`;
+  const images = origin && project.preview ? [{
+    url: new URL(project.preview.src, origin).href,
+    width: project.preview.width, height: project.preview.height, alt: project.preview.alt,
+  }] : undefined;
   return {
     ...base, title, description,
     ...(url ? { alternates: { canonical: url } } : {}),
-    openGraph: { ...base.openGraph, title, description, ...(url ? { url } : {}) },
-    twitter: { ...base.twitter, title, description },
+    openGraph: { ...base.openGraph, title, description, ...(url ? { url } : {}), ...(images ? { images } : {}) },
+    twitter: { ...base.twitter, title, description, ...(images ? { images } : {}) },
   };
 }
 

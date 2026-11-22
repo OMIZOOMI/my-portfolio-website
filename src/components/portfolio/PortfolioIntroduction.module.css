@@ -59,12 +59,12 @@
 @media (prefers-reduced-motion: reduce) { .cursor { transition-duration: 0ms !important; } .target { animation: none; } }
 @supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
   .guide {
-    background: linear-gradient(160deg, rgb(252 253 255 / .82) 0%, rgb(242 245 250 / .72) 100%);
+    background: linear-gradient(160deg, rgb(252 253 255 / .96) 0%, rgb(242 245 250 / .93) 100%);
     backdrop-filter: blur(22px) saturate(1.38);
     -webkit-backdrop-filter: blur(22px) saturate(1.38);
   }
   :global(.dark) .guide {
-    background: linear-gradient(160deg, rgb(44 47 56 / .82) 0%, rgb(30 32 38 / .74) 100%);
+    background: linear-gradient(160deg, rgb(44 47 56 / .96) 0%, rgb(30 32 38 / .94) 100%);
   }
 }
 @media (max-width: 600px) { .guide { right: 8px; width: calc(100% - 16px); padding: 16px; max-height: calc(100% - var(--desktop-menu-height, 32px) - var(--desktop-dock-inset, 96px) - 96px); } .guide h2 { font-size: 1.3em; } }
@@ -108,4 +108,9 @@
   .activeGuide h2 { margin-block: 5px 7px; }
   .activeGuide p { margin-block: 7px; }
   .activeGuide .navigation { padding-top: 5px; }
+}
+
+.guide[data-introduction-phase="welcome"] {
+  right: max(16px, var(--desktop-introduction-right, 112px));
+  width: min(390px, calc(100% - max(16px, var(--desktop-introduction-right, 112px)) - 16px));
 }

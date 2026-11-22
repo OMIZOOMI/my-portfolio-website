@@ -151,11 +151,7 @@ const desktopPoint = `(() => {
     hit?.closest('[data-dock-app="notes"]') === app ? {x,y} : false;
 })()`;
 async function handoff(page) {
-  await page.wait(`window.__startupObserved && !document.querySelector('[data-startup-overlay]') &&
-    !!document.querySelector('#desktop-root')`, "loader removal and desktop");
-  assert.equal(await page.evaluate(`(() => { const c = document.querySelector('canvas');
-    const r = c?.getBoundingClientRect(); return !!r && r.width > 100 && r.height > 100; })()`), true,
-  "The Canvas must have visible dimensions");
+  await page.wait(`!document.querySelector('[data-startup-overlay]') && !!document.querySelector('#desktop-root')`, "usable desktop");
   await page.wait(desktopPoint, "unobstructed desktop hit testing");
 }
 async function clickAt(page, point) {
@@ -262,6 +258,7 @@ async function recovery(page) {
   })()`), true, "Recovery controls must remain accessible outside the failed Canvas");
 }
 
+const savedLaptop = `localStorage.setItem("portfolio-readability", '{"defaultView":"laptop"}');`;
 let failed = 0;
 async function scenario(name, options, run) {
   if (filter && !name.includes(filter)) return;
@@ -293,14 +290,15 @@ try {
           touch: matchMedia('(pointer: coarse)').matches,
           routes: [...root.querySelectorAll('a[href^="/projects/"]')].map(link => link.getAttribute('href')),
           targets: [...root.querySelectorAll('a')].filter(link => link.getClientRects().length).every(link => link.getBoundingClientRect().height >= 44),
-          guide: root.querySelector('#reading-guide [aria-expanded]')?.getBoundingClientRect().bottom <= innerHeight && root.querySelector('#reading-guide')?.textContent.includes('laptop or desktop'),
+          guide: !!(root.querySelector('#reading-projects').compareDocumentPosition(root.querySelector('#reading-guide')) & Node.DOCUMENT_POSITION_FOLLOWING)
+            && root.querySelector('#reading-guide')?.textContent.includes('laptop or desktop'),
           heavy: performance.getEntriesByType('resource').filter(item => /macbook\.glb|mediapipe|\.hdr|\.mp4|wallpapers\/touch/.test(item.name)).length,
           desktop: !!document.querySelector('#desktop-root,canvas') };
       })()`);
       assert.equal(landing.width, width);
       assert.equal(landing.hasOverflow, false);
       assert.equal(landing.touch, true);
-      assert.deepEqual(landing.routes, ["/projects/veyra", "/projects/adobe-brand-audit"]);
+      assert.deepEqual(landing.routes, ["/projects/veyra", "/projects/adobe-brand-audit", "/projects/white-box"]);
       assert.equal(landing.targets, true);
       assert.equal(landing.guide, true);
       assert.equal(landing.heavy, 0);
@@ -428,8 +426,8 @@ try {
       assert.equal(await page.evaluate(`!!document.querySelector('[data-desktop-projection][inert]') && !!document.querySelector('[data-startup-aside][aria-hidden="true"]')`), true, "The loader keeps focus above the desktop and the quip is decorative");
       await page.screenshot("preparing-workspace-background");
       await page.send("Fetch.continueRequest", { requestId: posterRequest });
-      await page.wait(`!!document.querySelector('[data-workspace-video][src]')`, "the selected video starts behind the loader", 6000);
-      assert.equal(await page.evaluate(`!!document.querySelector('[data-startup-overlay]') && !document.querySelector('[data-workspace-video][data-frame-ready]')`), true, "Laptop view waits for the selected backdrop's first frame");
+      await page.wait(`!!document.querySelector('[data-workspace-video][src]')`, "the selected video starts after the still reveals the laptop", 6000);
+      assert.equal(await page.evaluate(`!document.querySelector('[data-startup-overlay]') && !document.querySelector('[data-workspace-video][data-frame-ready]')`), true, "Laptop view opens before the delayed video loads");
       for (let i = 0; i < 10 && !videoRequest; i++) await sleep(50);
       assert.ok(videoRequest);
       await page.send("Fetch.continueRequest", { requestId: videoRequest });
@@ -443,7 +441,7 @@ try {
     await clickAt(page, notes);
     await page.wait(`!!document.querySelector('[data-window-frame="app-notes"]')`, "Notes opens on the first click after reveal");
     assert.equal(await page.evaluate(`!!document.querySelector('[data-workspace-role="active"] img')?.naturalWidth`), true, "The still image is ready at handoff");
-    assert.equal(await page.evaluate(`!!document.querySelector('[data-workspace-video][data-frame-ready]')`), true, "The selected video has presented a frame at handoff");
+    await page.wait(`!!document.querySelector('[data-workspace-video][data-frame-ready]')`, "The selected video presents a frame after handoff");
     await sleep(3000);
     const clears = await page.evaluate("window.__laptopClears");
     assert.ok(clears > 0, "The scene rendered during entry");
@@ -460,13 +458,14 @@ try {
   }, async page => {
     await page.navigate();
     await handoff(page);
+    await page.wait(`document.querySelector('[data-workspace-video]').error || document.querySelector('[data-workspace-video]').networkState === 3`, "blocked video falls back");
     assert.ok(page.blockedRequests.length, "The selected video request was blocked");
     assert.equal(await page.evaluate(`
       !!document.querySelector('[data-workspace-role="active"] img')?.naturalWidth &&
       !document.querySelector('[data-workspace-video][data-frame-ready]')
     `), true, "A failed video reveals a decoded still and leaves the desktop ready");
   });
-  await scenario("cold-and-warm-handoff", { cold: true }, async (page) => {
+  await scenario("cold-and-warm-handoff", { cold: true, init: savedLaptop }, async (page) => {
     await page.navigate();
     await handoff(page);
     await assertMenuAtTop(page);
@@ -479,6 +478,9 @@ try {
     await page.wait(`window.__startupDocument && window.__startupDocument !== ${JSON.stringify(previousDocument)}`, "new document after reload");
     await handoff(page);
     await assertMenuAtTop(page);
+    await clickSelector(page, '[data-workspace-trigger]');
+    await clickSelector(page, '[data-screen-view-toggle]');
+    await page.wait(`!!document.querySelector('[data-screen-view="focused"]:not([data-transitioning])')`, "Screen view settles");
     await clickButton(page, "View");
     await page.wait(`!!document.querySelector('[data-menu-bar] [role="menu"]')`, "Screen view menu opens");
     await page.send("Input.dispatchKeyEvent", { type: "keyDown", key: "Escape", code: "Escape" });
@@ -505,7 +507,7 @@ try {
       "Changing motion preferences after handoff must not restore the loader");
   });
   for (const [name, block] of [["model", ["*/macbook.glb/scene.gltf*"]], ["lighting", ["*potsdamer_platz*.hdr*"]]]) {
-    await scenario(`${name}-failure-and-retry`, { cold: true, block }, async (page) => {
+    await scenario(`${name}-failure-and-retry`, { cold: true, block, init: savedLaptop }, async (page) => {
       await page.navigate(); await recovery(page);
       assert.ok(page.blockedRequests.length, "The intended critical asset request must have been blocked");
       await page.screenshot(`${name}-recovery`);
@@ -522,7 +524,7 @@ try {
     assert.equal(await page.evaluate(`!!document.querySelector('[data-startup-overlay][data-state="error"]')`), false);
   });
   await scenario("unavailable-webgl-flat-desktop", {
-    init: `const originalGetContext = HTMLCanvasElement.prototype.getContext;
+    init: `${savedLaptop} const originalGetContext = HTMLCanvasElement.prototype.getContext;
       HTMLCanvasElement.prototype.getContext = function(type,...args) {
         return /^webgl/.test(type) ? null : originalGetContext.call(this,type,...args);
       };`,
@@ -533,7 +535,7 @@ try {
     await clickAt(page, await page.wait(desktopPoint, "flat desktop dock"));
     await page.wait(`!!document.querySelector('[data-window-frame="app-notes"]')`, "usable flat desktop Notes");
   });
-  await scenario("context-loss-and-retry", {}, async (page) => {
+  await scenario("context-loss-and-retry", { init: savedLaptop }, async (page) => {
     await page.navigate(); await handoff(page);
     await page.evaluate(`document.querySelector('canvas').dispatchEvent(new Event('webglcontextlost',{cancelable:true}))`);
     await recovery(page); await page.screenshot("context-loss-recovery");
@@ -543,7 +545,7 @@ try {
     cold: true,
     // Accelerate only the application's 30-second recovery deadline, never its
     // entrance/animation timing. The real HDR request remains deliberately held.
-    init: `const nativeTimeout = window.setTimeout;
+    init: `${savedLaptop} const nativeTimeout = window.setTimeout;
       window.setTimeout = (fn,ms,...args) => nativeTimeout(fn,ms === 30000 ? 2500 : ms,...args);`,
   }, async (page) => {
     let intercepted = false;
@@ -586,7 +588,7 @@ try {
     const midpoint = await page.evaluate(`(() => { const panel = document.querySelector('[data-introduction-panel][data-introduction-phase="welcome"]'); const animation = panel?.getAnimations()[0]; return { transform: panel ? getComputedStyle(panel).transform : null, currentTime: animation?.currentTime ?? null, right: panel?.getBoundingClientRect().right ?? null, desktopRight: document.getElementById('desktop-root')?.getBoundingClientRect().right ?? null }; })()`);
     assert.ok(midpoint.transform && midpoint.transform !== "none", "The welcome must have a visible entry transform while it is entering");
     assert.ok(midpoint.currentTime !== null && midpoint.currentTime < 360, "The captured frame must be during the welcome animation");
-    assert.ok(midpoint.right > midpoint.desktopRight, "The midpoint must begin beyond the virtual desktop edge");
+    assert.ok(midpoint.right > (await page.evaluate(`document.querySelector('[data-desktop-icons] [data-file-icon="projects"]').getBoundingClientRect().left`)), "The card enters from the right before clearing the folder column");
     await page.screenshot("welcome-midpoint");
     await page.wait(`!document.querySelector('[data-introduction-panel][data-introduction-phase="welcome"]')?.getAnimations().some(animation => animation.playState === 'running')`, "welcome animation settle");
     await page.screenshot("welcome-settled");
@@ -638,6 +640,33 @@ try {
     assert.equal(details.overflow, false, "The narrow largest notification must not create page overflow");
     assert.equal(details.iconScale, "1.4");
   });
+  await scenario("flat-start-defers-3d-and-keeps-windows", { cold: true, reduced: true }, async page => {
+    await page.send("Emulation.setDeviceMetricsOverride", { width: 1280, height: 720, deviceScaleFactor: 1, mobile: false });
+    await page.navigate();
+    await handoff(page);
+    await page.wait(`!!document.querySelector('[data-introduction-phase="welcome"]')`, "welcome in the flat desktop");
+    assert.equal(await page.evaluate(`document.querySelectorAll('canvas').length === 0 &&
+      !performance.getEntriesByType("resource").some(e => /macbook\\.glb|potsdamer_platz|workspaces\\/.+\\.(mp4|webp)/.test(e.name))`), true);
+    for (const name of ["projects", "about-me"]) {
+      assert.equal(await page.evaluate(`(() => {
+        const icon = document.querySelector('[data-desktop-icons] [data-file-icon="${name}"]');
+        const r = icon.getBoundingClientRect();
+        return icon.contains(document.elementFromPoint(r.x + r.width / 2, r.y + r.height / 2));
+      })()`), true, `Welcome keeps ${name} clickable`);
+    }
+    await clickButton(page, "Dismiss");
+    await clickSelector(page, '[data-dock-app="notes"]');
+    await page.wait(`!!document.querySelector('[data-notes-app]')`, "Notes opens before requesting 3D");
+    await page.evaluate(`void (window.__earlyNotes = document.querySelector('[data-notes-app]'))`);
+    await clickSelector(page, '[data-workspace-trigger]');
+    await clickSelector(page, '[data-screen-view-toggle]');
+    await page.wait(`!!document.querySelector('[data-screen-view="laptop"] #desktop-root') && !document.querySelector('[data-startup-overlay]')`, "Laptop presents the same desktop");
+    assert.equal(await page.evaluate(`window.__earlyNotes === document.querySelector('[data-notes-app]')`), true);
+    await clickSelector(page, '[data-workspace-trigger]');
+    await clickSelector(page, '[data-screen-view-toggle]');
+    await page.wait(`!!document.querySelector('[data-screen-view="focused"]:not([data-transitioning]) #desktop-root')`, "return to Screen view");
+    assert.equal(await page.evaluate(`window.__earlyNotes === document.querySelector('[data-notes-app]')`), true);
+  });
   await scenario("desktop-polish-restart-mail-and-clicks", { reduced: true, init: `
     localStorage.setItem('portfolio-introduction','{"status":"skipped"}');
     localStorage.setItem('portfolio-readability','{"defaultView":"laptop"}');
@@ -660,7 +689,7 @@ try {
     assert.equal(await page.evaluate(`window.__caseStudyWindow === document.querySelector('${frame("file-veyra")}')`), true, "The original Finder project window is still open");
     await clickSelector(page, '[data-dock-app="mail"]');
     await clickButton(page, "Write to Om");
-    assert.ok(await page.evaluate(`document.querySelector('[data-mail-handoff]')?.disabled && document.querySelector('[data-mail-handoff]').textContent.trim() === 'Send'`));
+    assert.ok(await page.evaluate(`document.querySelector('[data-mail-handoff]')?.disabled && document.querySelector('[data-mail-handoff]').textContent.trim() === 'Send via email app'`));
     await page.evaluate(`(() => {
       window.__mailHandoff = [];
       window.open = (...args) => { window.__mailHandoff.push(args); };
@@ -697,6 +726,14 @@ try {
     await page.wait(`document.querySelector('${frame("file-edge-ai-hardware-state-detection")} img[src="/project-previews/white-box.webp"]')?.naturalWidth > 0`, "The Finder double-click opens the White Box preview in Screen view");
     await clickSelector(page, '[data-dock-app="terminal"]');
     await page.wait(`document.querySelector('[data-terminal-transcript]')?.textContent.includes('I’m a final-year Computer Science student at Vellore Institute of Technology.')`, "Terminal introduces Om in the first person");
+    const aboutFolder = await clickSelector(page, '[data-desktop-icons] [data-file-icon="about-me"]');
+    await clickAt(page, { x: aboutFolder.x + 5, y: aboutFolder.y + 2 });
+    const secretButton = "Array.from(document.querySelectorAll('[data-about-root] button')).find(button => button.textContent.trim() === 'A little detour')";
+    await page.wait(`!!${secretButton}`, "the optional arcade detour in About Me");
+    await page.evaluate(`${secretButton}.scrollIntoView({block:"nearest",inline:"nearest"})`);
+    await clickButton(page, "A little detour");
+    await clickButton(page, "Play Heat Sink");
+    await page.wait(`!!document.querySelector('[data-heat-sink]')`, "The secret note launches the playable game");
   });
   await scenario("r02-tour-skip-restores-view", {}, async (page) => {
     await page.navigate();
@@ -764,7 +801,7 @@ try {
     await clickTourButton(page, "Next: Contact");
     await waitTourStep(page, "contact");
     await assertStableAnchor(page, anchor);
-    await clickTourButton(page, "Open GitHub & LinkedIn");
+    await clickTourButton(page, "Show GitHub and LinkedIn links");
     await page.wait(`!!document.querySelector('[data-window-frame="app-safari"]')&&!!document.querySelector('[data-professional-profiles]')`, "Contact action");
     await sleep(300);
     await page.screenshot("r02-contact-cursor");
@@ -850,7 +887,7 @@ try {
       await clickTourButton(page, next);
     }
     await waitTourStep(page, "contact");
-    await clickTourButton(page, "Open GitHub & LinkedIn");
+    await clickTourButton(page, "Show GitHub and LinkedIn links");
     const frame = '[data-window-frame="app-safari"]';
     const scope = `${frame} [data-safari-page]:not([hidden])`;
     const profiles = `${scope} [data-professional-profiles]`;
@@ -898,7 +935,7 @@ try {
 
     await page.evaluate(`document.querySelector('${scope} [data-safari-projects] h3 button').click()`);
     await page.wait(`!document.querySelector('${profiles}') && ${noGuide}`, "The hint clears when navigating away from the Browser profiles");
-    await clickTourButton(page, "Open GitHub & LinkedIn");
+    await clickTourButton(page, "Show GitHub and LinkedIn links");
     await page.wait(localHint, "The tour action restores the Browser profiles hint");
   });
   await scenario("r02-reduced-motion", {

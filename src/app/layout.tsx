@@ -4,6 +4,7 @@ import "./globals.css";
 import { APPEARANCE_BOOTSTRAP } from "@/data/appearanceBootstrap";
 import { DISPLAY_BOOTSTRAP } from "@/data/displayPreferences";
 import { portfolioMetadata } from "@/data/siteMetadata";
+import { getPortfolioPublicOrigin } from "@/data/siteIdentity";
 import { PortfolioSiteShell } from "@/components/portfolio/PortfolioSiteShell";
 import { PortfolioOverview } from "@/components/portfolio/PortfolioOverview";
 import { Suspense } from "react";
@@ -18,7 +19,7 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata = portfolioMetadata(process.env.PORTFOLIO_PUBLIC_ORIGIN);
+export const metadata = portfolioMetadata(getPortfolioPublicOrigin());
 
 export default function RootLayout({
   children,

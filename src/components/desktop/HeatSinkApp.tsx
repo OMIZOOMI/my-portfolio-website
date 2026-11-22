@@ -286,14 +286,14 @@ export function HeatSinkApp({ window }: { window: { id: string } }) {
         <div className={styles.signature}><span className={styles.stamp}><Cpu size={21} aria-hidden="true" /></span><div><span className={styles.kicker}>Om’s arcade</span><h1>Heat Sink</h1></div></div>
         <div className={styles.toolbar}>
           <button type="button" className={styles.button} onClick={toggleSounds} aria-pressed={!profile.muted} aria-label="Game sound">{profile.muted ? <VolumeX size={15} aria-hidden="true" /> : <Volume2 size={15} aria-hidden="true" />}<span>{profile.muted ? "Muted" : "Sound"}</span></button>
-          <button type="button" ref={leaderboardButton} className={styles.button} onClick={scoresOpen ? closeScores : openScores} aria-expanded={scoresOpen}><Trophy size={15} aria-hidden="true" />{scoresOpen ? "Back to game" : "Top 10"}</button>
+          <button type="button" ref={leaderboardButton} className={styles.button} onClick={scoresOpen ? closeScores : openScores} aria-expanded={scoresOpen}><Trophy size={15} aria-hidden="true" />{scoresOpen ? "Back to game" : "Local leaderboard"}</button>
           {phase === "running" && !scoresOpen && <button type="button" className={styles.button} onClick={() => pause(true)}><Pause size={15} aria-hidden="true" />Pause</button>}
         </div>
       </header>
 
       {scoresOpen ? <section className={styles.scores} aria-labelledby={`${windowId}-scores`}>
-        <h2 ref={leaderboardHeading} tabIndex={-1} id={`${windowId}-scores`}>Top 10</h2>
-        <p>{storageAvailable ? "Scores are stored on this browser. Take turns and leave your initials." : "Browser storage is unavailable. Scores are kept for this visit only."}</p>
+        <h2 ref={leaderboardHeading} tabIndex={-1} id={`${windowId}-scores`}>Local leaderboard</h2>
+        <p>{storageAvailable ? "Scores are saved in this browser. Take turns and leave your initials." : "Browser storage is unavailable. Scores are kept for this visit only."}</p>
         <table className={styles.scoreTable}><thead><tr><th scope="col">Rank</th><th scope="col">Player</th><th scope="col">Score</th></tr></thead>
           <tbody>{profile.entries.length ? profile.entries.map((entry, rank) => <tr key={`${entry.at}-${rank}`} data-best={rank === 0 || undefined}><td>{String(rank + 1).padStart(2, "0")}</td><td>{entry.initials || "—"}</td><td>{prettyScore(entry.score)}</td></tr>) : <tr><td colSpan={3}>No runs yet. Set the first score.</td></tr>}</tbody>
         </table>

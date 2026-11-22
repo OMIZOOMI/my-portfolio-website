@@ -7,9 +7,9 @@ export default function NotFound() {
     <section className={styles.notFound}>
       <p>Om Sawkare’s portfolio</p>
       <h1>This page could not be found.</h1>
-      <p>The address may be incomplete or out of date. Read either flagship case study, or return to the interactive portfolio.</p>
+      <p>The address may be incomplete or out of date. Read a case study or return to the interactive portfolio.</p>
       <nav aria-label="Available portfolio pages">
-        {PUBLIC_PROJECTS.map(project => <Link key={project.id} href={projectPublicPath(project.id)!}>{project.key === "adobe" ? "Adobe hackathon case study" : "Veyra case study"}</Link>)}
+        {PUBLIC_PROJECTS.map(project => <Link key={project.id} href={projectPublicPath(project.id)!}>{project.key === "adobe" ? "Adobe hackathon case study" : `${project.name} case study`}</Link>)}
         <Link href="/">Interactive portfolio</Link>
       </nav>
     </section>

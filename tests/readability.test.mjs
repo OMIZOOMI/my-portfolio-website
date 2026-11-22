@@ -88,12 +88,12 @@ test('saved default view returns, while a tour preview cannot overwrite a saved 
 });
 const {TERMINAL_PROJECTS,terminalResponse}=load('data/terminalProfile.ts');
 test('project commands use distinct real repository links and preserve Veyra display naming',()=>{
- assert.equal(TERMINAL_PROJECTS.length,7);assert.equal(new Set(TERMINAL_PROJECTS.map(p=>p.repository)).size,7);
+ assert.equal(TERMINAL_PROJECTS.length,5);assert.equal(new Set(TERMINAL_PROJECTS.map(p=>p.repository)).size,5);
  const output=terminalResponse('PROJECTS');const links=output.filter(line=>line.href);
  for(const p of TERMINAL_PROJECTS)assert.ok(links.some(line=>line.href===p.repository));
  assert.equal(terminalResponse('project veyra')[0].text,'Veyra');assert.equal(terminalResponse('project veyra').at(-1).href,'https://github.com/OMIZOOMI/Cross-Exam');
- assert.equal(terminalResponse('projects skywatch').filter(line=>line.href).length,2);
- assert.match(terminalResponse('project task-api')[1].text,/SQLite/);
+ assert.equal(terminalResponse('projects skywatch').filter(line=>line.href).length,1);
+ assert.match(terminalResponse('project task-api')[0].text,/Choose a project/);
  assert.doesNotMatch(output.map(line=>line.text).join(' '),/hardware.state/i);
 });
 test('unknown terminal input stays literal text; partial project names have no external execution',()=>{

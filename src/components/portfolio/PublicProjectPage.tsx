@@ -15,13 +15,12 @@ export function PublicProjectPage({ project }: { project: ProjectData }) {
     <div className={styles.entry}>
       <BackToPortfolioLink className={styles.back} />
       <p className="touch-portfolio-only">For the full 3D experience, open the portfolio on a laptop or desktop.</p>
-      <Link href={projectPortfolioPath(project.id)!} scroll={false}>Explore this project in the portfolio <span aria-hidden="true">↗</span></Link>
     </div>
     <ProjectCaseStudy project={project} publicPage />
     <footer className={styles.footer}>
       <p>Explore more of Om’s work.</p>
       <div>{PUBLIC_PROJECTS.filter(item => item.id !== project.id).map(item => <Link key={item.id} href={projectPublicPath(item.id)!} scroll={false}>{item.name} →</Link>)}</div>
-      <Link href={projectPortfolioPath(project.id)!} scroll={false}>Enter the interactive portfolio</Link>
+      <Link href={projectPortfolioPath(project.id)!} scroll={false}>Explore this project in the portfolio <span aria-hidden="true">↗</span></Link>
     </footer>
   </main>;
 }

@@ -15,7 +15,6 @@ import { beginFilePointerDrag } from "./beginFilePointerDrag";
 import { DESKTOP_ICON_W, DESKTOP_MENU_H, layoutDesktopIcons } from "./desktopIconLayout";
 import iconStyles from "./DesktopIcon.module.css";
 import { useDisplayStore } from "../window-manager/useDisplayStore";
-import { GameMenu } from "../easter-egg/GameMenu";
 import { FileContextMenu } from "./FileContextMenu";
 import { useFileInteractionStore } from "./useFileInteractionStore";
 import { handleFileContextMenu, handleFileSurfaceKeyDown } from "./fileSurfaceEvents";
@@ -110,7 +109,6 @@ export function DesktopEnvironment({ introduction, compact = false, onStartupChr
     void Promise.allSettled(images.map(image => image.decode())).then(finish);
     return () => { settled = true; window.clearTimeout(deadline); };
   }, [onStartupChromeReady]);
-  const [gameMenuOpen, setGameMenuOpen] = React.useState(false);
   const trashItems = useSystemStore((s) => s.trashItems);
   const deletedIds = useSystemStore((s) => s.deletedIds);
   const desktopIds = useSystemStore((s) => s.desktopIds);
@@ -180,7 +178,6 @@ export function DesktopEnvironment({ introduction, compact = false, onStartupChr
     useFileInteractionStore.setState(useFileInteractionStore.getInitialState());
     const { windows, nextZIndex, focusedWindowId, isVMLocked } = useWindowStore.getInitialState();
     useWindowStore.setState({ windows, nextZIndex, focusedWindowId, isVMLocked });
-    setGameMenuOpen(false);
     if (iconsRef.current) iconsRef.current.scrollTop = 0;
     desktopRef.current?.focus({ preventScroll: true });
   };
@@ -245,24 +242,11 @@ export function DesktopEnvironment({ introduction, compact = false, onStartupChr
       <WindowManager
         compact={compact}
         dragConstraintsRef={desktopRef as React.RefObject<HTMLDivElement>}
-        onActivateGameMenu={() => setGameMenuOpen(true)}
       />
       <Dock />
       {introduction && <div className={styles.introductionLayer} data-introduction-layer>{introduction}</div>}
       <DragOverlay />
       <FileContextMenu />
-      <GameMenu
-        open={gameMenuOpen}
-        onClose={() => setGameMenuOpen(false)}
-        onLaunch={(id) => {
-          setGameMenuOpen(false);
-          useWindowStore.getState().openWindow({
-            id: `game-${id}`,
-            kind: "file-viewer",
-            title: id === "block-rush" ? "Block Rush" : "Kingdom Siege",
-          });
-        }}
-      />
     </div>
   );
 }

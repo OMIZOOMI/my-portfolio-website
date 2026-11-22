@@ -5,6 +5,7 @@ import {
   Suspense,
   useCallback,
   useEffect,
+  useLayoutEffect,
   useMemo,
   useRef,
   useState,
@@ -13,15 +14,12 @@ import {
 import { Canvas, type RootState } from "@react-three/fiber";
 import { Environment, OrbitControls, useEnvironment, useGLTF } from "@react-three/drei";
 import * as THREE from "three";
-import { DesktopEnvironment } from "../desktop/DesktopEnvironment";
 import { BootSequence } from "../boot/BootSequence";
 import { Laptop } from "./Laptop";
-import { useWindowStore } from "../window-manager/useWindowStore";
 import { useSystemStore } from "../window-manager/useSystemStore";
 import { getWallpaperUrl } from "../../data/wallpapers";
 import { loadWallpaper } from "../desktop/wallpaperLoader";
 import { getSceneLoadingStatus, getScenePreparationProgress, isCriticalSceneReady } from "./sceneReadiness";
-import { WorkspaceEnvironment } from "../workspace/WorkspaceEnvironment";
 import { useDisplayStore } from "../window-manager/useDisplayStore";
 import { ProjectionViewport } from "./ProjectionViewport";
 
@@ -46,20 +44,18 @@ function SceneGraph({
   onModelReady,
   onEnvironmentReady,
   onFirstRenderReady,
-  onDesktopChromeReady,
   assetsReady,
   interactive,
   reduceMotion,
-  introduction,
+  desktop,
 }: {
   onModelReady: () => void;
   onEnvironmentReady: () => void;
   onFirstRenderReady: () => void;
-  onDesktopChromeReady: () => void;
   assetsReady: boolean;
   interactive: boolean;
   reduceMotion: boolean;
-  introduction?: ReactNode;
+  desktop: ReactNode;
 }) {
   const modelReady = useRef(false);
   const environmentReady = useRef(false);
@@ -89,7 +85,7 @@ function SceneGraph({
             onModelReady();
           }}
         >
-          <DesktopEnvironment introduction={introduction} onStartupChromeReady={onDesktopChromeReady} />
+          {desktop}
         </Laptop>
       </Suspense>
     </>
@@ -166,37 +162,18 @@ function useInitialWallpaper(url: string, enabled: boolean) {
   return state;
 }
 
-function FlatDesktopFallback({ onRetry, introduction }: { onRetry: () => void; introduction?: ReactNode }) {
-  const openAboutMe = () => {
-    useWindowStore.getState().openWindow({ id: "about-me-fallback", kind: "about-me", title: "About Me" });
-  };
-
-  return (
-    <div className="absolute inset-0 bg-[#111]">
-      <DesktopEnvironment introduction={introduction} />
-      <aside className="absolute left-1/2 bottom-28 z-[10001] w-[min(92vw,34rem)] -translate-x-1/2 rounded-2xl border border-white/20 bg-black/65 p-4 text-center text-white shadow-2xl backdrop-blur-xl" role="status">
-        <p className="text-sm font-semibold">3D view is unavailable in this browser</p>
-        <p className="mt-1 text-xs leading-5 text-white/65">The portfolio desktop is still available in flat mode.</p>
-        <div className="mt-3 flex flex-wrap justify-center gap-2">
-          <button type="button" onClick={openAboutMe} className="rounded-full bg-white px-3 py-1.5 text-xs font-semibold text-black">About me</button>
-          <a href="https://github.com/OMIZOOMI" target="_blank" rel="noreferrer" className="rounded-full border border-white/25 px-3 py-1.5 text-xs font-semibold text-white">GitHub</a>
-          <button type="button" onClick={onRetry} className="rounded-full border border-white/25 px-3 py-1.5 text-xs font-semibold text-white">Retry 3D</button>
-        </div>
-      </aside>
-    </div>
-  );
-}
-
 interface MacBookSceneProps {
   debugOrbit?: boolean;
   active?: boolean;
   onDesktopAvailabilityChange?: (available: boolean) => void;
-  introduction?: ReactNode;
+  desktop: ReactNode;
+  desktopChromeReady: boolean;
+  backdropReady: boolean;
+  onUseScreenView: () => void;
 }
 
-export function MacBookScene({ debugOrbit = false, active = true, onDesktopAvailabilityChange, introduction }: MacBookSceneProps) {
+export function MacBookScene({ debugOrbit = false, active = true, onDesktopAvailabilityChange, desktop, desktopChromeReady, backdropReady, onUseScreenView }: MacBookSceneProps) {
   const [sceneError, setSceneError] = useState<string | null>(null);
-  const [sceneMode, setSceneMode] = useState<"3d" | "flat">("3d");
   const [canvasKey, setCanvasKey] = useState(0);
   // Keep the server and first client render identical, including browsers
   // without WebGL. The HTML recovery UI must hydrate before Canvas starts.
@@ -205,8 +182,6 @@ export function MacBookScene({ debugOrbit = false, active = true, onDesktopAvail
   const [modelReady, setModelReady] = useState(false);
   const [environmentReady, setEnvironmentReady] = useState(false);
   const [firstRenderReady, setFirstRenderReady] = useState(false);
-  const [desktopChromeReady, setDesktopChromeReady] = useState(false);
-  const [workspaceBackdropSettled, setWorkspaceBackdropSettled] = useState(false);
   const [startupComplete, setStartupComplete] = useState(false);
   const canvasCleanupRef = useRef<(() => void) | null>(null);
 
@@ -256,14 +231,12 @@ export function MacBookScene({ debugOrbit = false, active = true, onDesktopAvail
     // the same cached failure without making a fresh network request.
     useGLTF.clear("/macbook.glb/scene.gltf");
     useEnvironment.clear({ files: WORKSPACE_LIGHTING });
-    setSceneMode("3d");
     setSceneError(null);
     setWebglSupported(supportsWebGL());
     setRendererReady(false);
     setModelReady(false);
     setEnvironmentReady(false);
     setFirstRenderReady(false);
-    setDesktopChromeReady(false);
     setStartupComplete(false);
     setCanvasKey((key) => key + 1);
   }, []);
@@ -293,9 +266,9 @@ export function MacBookScene({ debugOrbit = false, active = true, onDesktopAvail
       wallpaperFailed: wallpaperState === "failed",
       firstRenderReady,
       desktopChromeReady,
-      backdropReady: workspaceBackdropSettled,
+      backdropReady,
     }),
-    [desktopChromeReady, environmentReady, firstRenderReady, modelReady, rendererReady, wallpaperState, workspaceBackdropSettled]
+    [backdropReady, desktopChromeReady, environmentReady, firstRenderReady, modelReady, rendererReady, wallpaperState]
   );
   const effectiveSceneError = sceneError ?? (
     webglSupported === false ? "WebGL is unavailable, so the 3D MacBook cannot start here." : null
@@ -303,7 +276,7 @@ export function MacBookScene({ debugOrbit = false, active = true, onDesktopAvail
   const sceneReady = isCriticalSceneReady(readiness) && !effectiveSceneError && webglSupported === true;
   const loadingStatus = getSceneLoadingStatus(readiness);
   useEffect(() => {
-    if (!active || sceneMode !== "3d" || sceneReady || effectiveSceneError) return;
+    if (!active || sceneReady || effectiveSceneError) return;
 
     // Reset the deadline when a critical stage progresses. This is an error
     // path for stalled requests/initialization, never a timed reveal.
@@ -323,69 +296,54 @@ export function MacBookScene({ debugOrbit = false, active = true, onDesktopAvail
       window.clearTimeout(deadline);
       document.removeEventListener("visibilitychange", watchVisibleStage);
     };
-  }, [active, canvasKey, effectiveSceneError, loadingStatus, sceneMode, sceneReady, setSceneFailure]);
-  const desktopAvailable = sceneMode === "flat" || (sceneReady && startupComplete);
-  useEffect(() => {
+  }, [active, canvasKey, effectiveSceneError, loadingStatus, sceneReady, setSceneFailure]);
+  const desktopAvailable = sceneReady && startupComplete;
+  useLayoutEffect(() => {
     onDesktopAvailabilityChange?.(desktopAvailable);
   }, [desktopAvailable, onDesktopAvailabilityChange]);
   const handleStartupComplete = useCallback(() => setStartupComplete(true), []);
-  const handleBackdropSettled = useCallback(() => setWorkspaceBackdropSettled(true), []);
-  const handleDesktopChromeReady = useCallback(() => setDesktopChromeReady(true), []);
 
   return (
-    <div style={{ position: "fixed", inset: 0, top: "var(--portfolio-header-offset, 0px)", background: "#283b3d", isolation: "isolate", overflow: "clip" }}>
-      {sceneMode === "flat" ? (
-        <FlatDesktopFallback onRetry={retryScene} introduction={introduction} />
-      ) : (
-        <>
-          <WorkspaceEnvironment sceneUsable={desktopAvailable} reduceMotion={reduceMotion}
-            waitForMotion={!screenView} prepareMotion={active && !effectiveSceneError && firstRenderReady && !startupComplete}
-            onBackdropSettled={handleBackdropSettled} />
-          <ProjectionViewport>
-          {webglSupported === true && appearanceHydrated && displayHydrated && (
-            <SceneErrorBoundary key={`scene-${canvasKey}`} resetKey={canvasKey} onError={setSceneFailure}>
-              <Canvas
-                frameloop={active ? "demand" : "never"}
-                shadows
-                resize={{ offsetSize: true }}
-                dpr={[1, 2]}
-                gl={{ antialias: true, alpha: true }}
-                camera={{ position: FRAMED_CAMERA_POS, fov: FOV_DEGREES, near: 0.1, far: 50 }}
-                onCreated={handleCanvasCreated}
-                style={{ touchAction: "auto", overflow: "clip" }}
-              >
-                <SceneGraph
-                  onModelReady={() => setModelReady(true)}
-                  onEnvironmentReady={() => setEnvironmentReady(true)}
-                  onFirstRenderReady={() => setFirstRenderReady(true)}
-                  onDesktopChromeReady={handleDesktopChromeReady}
-                  assetsReady={modelReady && environmentReady}
-                  interactive={desktopAvailable}
-                  reduceMotion={reduceMotion}
-                  introduction={introduction}
-                />
-                {debugOrbit && <OrbitControls target={[0, FRAMED_LOOK_AT_Y, 0]} />}
-              </Canvas>
-            </SceneErrorBoundary>
-          )}
-          </ProjectionViewport>
-
-          <BootSequence
-            key={`boot-${canvasKey}`}
-            ready={sceneReady}
-            status={loadingStatus}
-            progress={getScenePreparationProgress(readiness)}
-            reduceMotion={reduceMotion}
-            error={effectiveSceneError}
-            onRetry={retryScene}
-            onUseFallback={() => {
-              setWorkspaceBackdropSettled(false);
-              setSceneMode("flat");
-            }}
-            onComplete={handleStartupComplete}
-          />
-        </>
+    <div style={{ position: "fixed", inset: 0, zIndex: 2, visibility: screenView && !desktopAvailable ? "hidden" : undefined }}>
+      <ProjectionViewport>
+        {webglSupported === true && appearanceHydrated && displayHydrated && (
+        <SceneErrorBoundary key={`scene-${canvasKey}`} resetKey={canvasKey} onError={setSceneFailure}>
+          <Canvas
+            frameloop={active ? "demand" : "never"}
+            shadows
+            resize={{ offsetSize: true }}
+            dpr={[1, 2]}
+            gl={{ antialias: true, alpha: true }}
+            camera={{ position: FRAMED_CAMERA_POS, fov: FOV_DEGREES, near: 0.1, far: 50 }}
+            onCreated={handleCanvasCreated}
+            style={{ touchAction: "auto", overflow: "clip" }}
+          >
+            <SceneGraph
+              onModelReady={() => setModelReady(true)}
+              onEnvironmentReady={() => setEnvironmentReady(true)}
+              onFirstRenderReady={() => setFirstRenderReady(true)}
+              assetsReady={modelReady && environmentReady}
+              interactive={desktopAvailable}
+              reduceMotion={reduceMotion}
+              desktop={desktop}
+            />
+            {debugOrbit && <OrbitControls target={[0, FRAMED_LOOK_AT_Y, 0]} />}
+          </Canvas>
+        </SceneErrorBoundary>
       )}
+      </ProjectionViewport>
+
+      <BootSequence
+        key={`boot-${canvasKey}`}
+        ready={sceneReady}
+        status={loadingStatus}
+        progress={getScenePreparationProgress(readiness)}
+        reduceMotion={reduceMotion}
+        error={effectiveSceneError}
+        onRetry={retryScene}
+        onUseFallback={onUseScreenView}
+        onComplete={handleStartupComplete}
+      />
     </div>
   );
 }

@@ -31,7 +31,7 @@ export function terminalResponse(input: string): TerminalLine[] {
   ];
   if (command === "help") return [
     { text: "A few ways in", tone: "heading" },
-    { text: "about / whoami   The person behind the projects\nskills           Tools and the problems I use them for\nprojects / ls    Explore the projects and their repositories\nproject <name>   A closer look: veyra, adobe, white-box,\n                 tigergraph, task-api, skywatch, portfolio\nexperience       Learning through building\ncontact          Find me online\ngithub           Open my GitHub profile\npwd              Where you are\nclear            A fresh terminal" },
+    { text: "about / whoami   The person behind the projects\nskills           Tools and the problems I use them for\nprojects / ls    Explore the projects and their repositories\nproject <name>   A closer look: veyra, adobe, white-box,\n                 tigergraph, portfolio\nexperience       Learning through building\ncontact          Find me online\ngithub           Open my GitHub profile\npwd              Where you are\nclear            A fresh terminal" },
     { text: "↑ / ↓ recalls commands. Escape skips a response. Links open GitHub in a new tab.", tone: "muted" },
   ];
   if (["projects", "ls"].includes(command)) {
@@ -45,7 +45,7 @@ export function terminalResponse(input: string): TerminalLine[] {
     const reference = getProjectById(query) ?? PROJECTS.find(project => project.name.toLowerCase() === query);
     const p = reference && TERMINAL_PROJECTS.find(project => project.key === reference.key);
     return p ? [{ text: p.name, tone: "heading" }, { text: p.detail }, { text: p.stack, tone: "muted" }, { text: "View repository on GitHub ↗", href: p.repository }]
-      : [{ text: "Choose a project: veyra, adobe, white-box, tigergraph, task-api, skywatch, portfolio.", tone: "muted" }];
+      : [{ text: "Choose a project: veyra, adobe, white-box, tigergraph, portfolio.", tone: "muted" }];
   }
   if (command === "skills") return [
     { text: "My toolkit / what these tools help me build", tone: "heading" },
@@ -59,7 +59,7 @@ export function terminalResponse(input: string): TerminalLine[] {
   if (command === "experience") return [
     { text: "Experience, through building", tone: "heading" },
     { text: `${education} I’ve built a website checker, led a brand website audit, trained a detector to ignore lookalikes, and used graph data to explain fraud alerts.` },
-    { text: "The Task API taught me how to keep records linked and check incoming data. SkyWatch plots live air traffic. This portfolio has taught me how much the small details matter when people use an interface." },
+    { text: "Building this desktop taught me how much the small details matter when people use an interface." },
     { text: "I value evidence over impressive labels, and systems that remain useful when something goes wrong.", tone: "muted" },
   ];
   if (command === "contact") return [

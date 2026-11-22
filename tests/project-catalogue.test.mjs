@@ -40,9 +40,9 @@ beforeEach(() => {
 });
 
 test("one ordered catalogue supplies Finder's visible projects and all Terminal entries", () => {
-  assert.equal(PROJECTS.length, 7);
+  assert.equal(PROJECTS.length, 5);
   assert.deepEqual(PROJECTS.filter(project => project.featured).map(project => project.key), ["veyra", "adobe"]);
-  const finderProjects = PROJECTS.filter(project => !project.hideInFinder);
+  const finderProjects = PROJECTS;
   assert.deepEqual(finderProjects.map(project => project.key), ["veyra", "adobe", "white-box", "tigergraph", "portfolio"]);
   assert.deepEqual(FILE_SYSTEM.projects.map(file => [file.id, file.name]), finderProjects.map(project => [project.id, project.name]));
   assert.equal(new Set(finderProjects.map(project => project.finderIcon)).size, finderProjects.length);
@@ -67,7 +67,8 @@ test("legacy IDs and command aliases resolve to the same object without replacin
   }
   assert.equal(getProjectById("edge-ai-hardware-state-detection").id, "edge-ai-hardware-state-detection");
   assert.equal(getProjectById("white-box").name, "White Box Detection");
-  assert.equal(getProjectById("cloud-native-asset-management-api").key, "task-api");
+  assert.equal(getProjectById("cloud-native-asset-management-api"), null);
+  assert.equal(getProjectById("skywatch"), null);
   assert.equal(getProjectById("3d-macos-web-portfolio").key, "portfolio");
   // This is a different project, not another name for White Box.
   assert.equal(getProjectById("hardware-state-edge-ai-detector"), null);
@@ -88,7 +89,7 @@ test("old and alias Browser addresses retain their URL and resolve accurate titl
     }
   }
   const first = safari.getState().normalSession.activeTabId;
-  const oldUrl = "portfolio://project/cloud-native-asset-management-api";
+  const oldUrl = "portfolio://project/edge-ai-hardware-state-detection";
   safari.getState().navigate(oldUrl);
   const oldEntry = currentSafariEntry(selectSafariSession(safari.getState()).tabs[0]);
   const second = safari.getState().newTab("portfolio://project/veyra");
@@ -96,7 +97,7 @@ test("old and alias Browser addresses retain their URL and resolve accurate titl
   safari.getState().activateTab(first);
   assert.equal(currentSafariEntry(selectSafariSession(safari.getState()).tabs[0]), oldEntry);
   assert.equal(oldEntry.url, oldUrl);
-  assert.equal(oldEntry.title, "Cloud-Native Task API");
+  assert.equal(oldEntry.title, "White Box Detection");
   safari.getState().activateTab(second);
   safari.getState().goBack();
   assert.equal(currentSafariEntry(selectSafariSession(safari.getState()).tabs.find(tab => tab.id === second)).title, "Veyra");
@@ -110,7 +111,7 @@ test("project launchers ignore stale supplied titles while preserving file windo
     assert.equal(frame.kind, "file-viewer");
   }
   const before = Object.keys(windows.getState().windows).length;
-  openPortfolioItem({ id: "cloud-native-asset-management-api", name: "Old title again", type: "file" });
+  openPortfolioItem({ id: "edge-ai-hardware-state-detection", name: "Old title again", type: "file" });
   assert.equal(Object.keys(windows.getState().windows).length, before);
 });
 
@@ -134,10 +135,6 @@ test("moving, trashing, restoring and undoing a project file retain its catalogu
 });
 
 test("scope distinguishes shipped implementation, author notes and planned work", () => {
-  const api = getProjectById("task-api");
-  assert.ok(api.stack.includes("SQLite"));
-  for (const technology of ["AWS", "Docker", "PostgreSQL", "JWT"]) assert.equal(api.stack.includes(technology), false);
-  assert.match(api.futurePlans.join(" "), /Move the database to PostgreSQL/);
   const white = getProjectById("white-box");
   assert.match(white.repositoryUrl, /edge-ai-white-box$/);
   assert.doesNotMatch([white.name, white.description, ...white.capabilities].join(" "), /modem|hardware.state/i);
@@ -195,7 +192,7 @@ test("retained Veyra references render the same case study alongside the separat
     assert.ok(html.includes("Useful next step"));
     assert.equal(html.includes("Old display title"), false);
   }
-  assert.deepEqual(PROJECTS.filter(item => item.caseStudy).map(item => item.id), ["veyra", "adobe-brand-audit"]);
+  assert.deepEqual(PROJECTS.filter(item => item.caseStudy).map(item => item.id), ["veyra", "adobe-brand-audit", "edge-ai-hardware-state-detection"]);
 });
 
 test("Adobe's case study distinguishes supplied team history, implementation and fixture evidence", () => {
