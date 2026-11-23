@@ -160,7 +160,7 @@ async function verifyAfter(page,result) {
   await click(page,`${frame} button[aria-label="Back"]`);await current(page,'desktop');
   await click(page,`${frame} button[aria-label="Forward"]`);await current(page,'documents');
   result.checks.push("Working back/forward and immediate navigation selection");
-  assert.match(await page.evaluate(`document.querySelector('${frame} [data-finder-content="documents"]').textContent`),/This folder is empty/);
+  assert.equal(await page.evaluate(`document.querySelectorAll('${frame} [data-finder-content="documents"] [data-file-item]').length`),3);
   await click(page,nav('game'));await current(page,'game');
   assert.equal(await page.evaluate(`document.querySelectorAll('${frame} [data-finder-app] img').length`),9);
   assert.equal(await page.evaluate(`document.querySelector('${frame} button[aria-label="New Folder"]').disabled`),true);
@@ -171,7 +171,7 @@ async function verifyAfter(page,result) {
   await page.wait(`!!document.querySelector('[data-window-frame="app-heat-sink"][data-window-active="true"]')`,"Enter launches Heat Sink");
   await click(page,'[data-window-frame="app-heat-sink"] [data-window-control="close"]');
   await page.wait(`!document.querySelector('[data-window-frame="app-heat-sink"]')`,"Heat Sink closes");
-  result.checks.push("Documents stays empty; Apps displays launcher artwork and Enter opens the game");
+  result.checks.push("Documents contains the three PDFs; Apps displays launcher artwork and Enter opens the game");
   await click(page,nav('desktop'));await current(page,'desktop');
   result.resizes=[];
   for(const width of[480,360,640]){

@@ -33,6 +33,7 @@ test("Dock exposes one named native button per app, minimized window and Bin wit
   const portfolioApps = compile("data/portfolioApps.ts", { "./appIdentity": appIdentity });
   const launcher = compile("components/desktop/visitorLaunchers.ts", {
     "../../data/projectsData": {},
+    "../../data/fileSystem": { PORTFOLIO_DOCUMENTS: new Map() },
     "../../data/portfolioApps": portfolioApps,
     "../window-manager/useWindowStore": { useWindowStore },
   });

@@ -26,7 +26,7 @@ function load(filename) {
   return loaded.exports;
 }
 const { PROJECTS, PROJECTS_BY_ID, getProjectById, getProjectOverview } = load(resolve(root, "src/data/projectsData.ts"));
-const { FILE_SYSTEM } = load(resolve(root, "src/data/fileSystem.ts"));
+const { FILE_SYSTEM, PORTFOLIO_DOCUMENTS } = load(resolve(root, "src/data/fileSystem.ts"));
 const { TERMINAL_PROJECTS, terminalResponse } = load(resolve(root, "src/data/terminalProfile.ts"));
 const { useSafariStore: safari, selectSafariSession, currentSafariEntry, resolveSafariAddress } = load(resolve(root, "src/components/desktop/useSafariStore.ts"));
 const { useWindowStore: windows } = load(resolve(root, "src/components/window-manager/useWindowStore.ts"));
@@ -232,8 +232,17 @@ test("Adobe aliases retain the file association and both featured cases are equa
   assert.equal(getProjectById("veyra").caseStudy.reportedResult, undefined);
 });
 
-test("Documents is empty and the Apps location retains the old game folder identity", () => {
-  assert.deepEqual(FILE_SYSTEM.documents, []);
+test("Documents lists the three portfolio PDFs and Apps retains the old game folder identity", () => {
+  assert.deepEqual(FILE_SYSTEM.documents.map(file => [file.id, file.type]), [
+    ["resume", "file"],
+    ["google-it-support-certificate", "file"],
+    ["internship-certificate", "file"],
+  ]);
+  for (const file of FILE_SYSTEM.documents) {
+    const document = PORTFOLIO_DOCUMENTS.get(file.id);
+    assert.equal(file.name, document.name);
+    assert.equal(readFileSync(resolve(root, `public${document.url}`)).subarray(0, 5).toString(), "%PDF-");
+  }
   assert.deepEqual(FILE_SYSTEM.game, []);
   assert.deepEqual(FILE_SYSTEM["about-me"], []);
   assert.equal(system.getState().createFolder("game", "Not an app"), null);

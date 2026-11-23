@@ -2,7 +2,7 @@
 
 import { getProjectById } from "../../data/projectsData";
 
-import type { FileItem } from "../../data/fileSystem";
+import { PORTFOLIO_DOCUMENTS, type FileItem } from "../../data/fileSystem";
 import { APPS_FOLDER_ID, portfolioAppForFile, portfolioAppName, type PortfolioAppId } from "../../data/portfolioApps";
 import { useWindowStore } from "../window-manager/useWindowStore";
 
@@ -39,5 +39,10 @@ export function openPortfolioItem(item: FileItem, options: { navigateFolder?: (i
   }
   const app = item.type === "app" ? portfolioAppForFile(item.id) : undefined;
   if (app) { openPortfolioApp(app); return; }
+  const document = item.type === "file" ? PORTFOLIO_DOCUMENTS.get(item.id) : undefined;
+  if (document) {
+    globalThis.open(document.url, "_blank", "noopener,noreferrer");
+    return;
+  }
   useWindowStore.getState().openWindow({ id: `file-${item.id}`, kind: "file-viewer", title: (item.type === "file" ? getProjectById(item.id)?.name : null) ?? item.name });
 }

@@ -211,12 +211,12 @@ await scenario('mail-cancelled-handoff-preserves-draft-and-legacy-copies',async(
  await page.evaluate('window.open=()=>{throw new Error("no email handler fixture")}');await choose(page,'Mail','Open in your email app');await check();assert.match(await page.evaluate(`document.querySelector('[data-window-frame="app-mail"] [role="status"]').textContent`),/could not be opened/);
  result.requests=await page.evaluate('window.__handoffs');assert.equal(result.requests.length,2);result.retainedLegacyCopies=1;result.cancelFixture='window.open returns null; sending is not attempted or asserted';await page.screenshot('mail-preserved-draft');
 },true);
-await scenario('documents-stay-empty-and-apps-launch-heat-sink',async(page,result)=>{
+await scenario('documents-list-pdfs-and-apps-launch-heat-sink',async(page,result)=>{
  await choose(page,'Go','Documents');const finder=await page.evaluate(`document.querySelector('[data-window-frame][data-window-active="true"]').dataset.windowFrame`);const window=`[data-window-frame="${finder}"]`;
- assert.match(await page.evaluate(`document.querySelector('${window} [data-finder-content="documents"]').textContent`),/This folder is empty/);
+ assert.equal(await page.evaluate(`document.querySelectorAll('${window} [data-finder-content="documents"] [data-file-item]').length`),3);
  await click(page,`${window} [data-finder-location="game"]`);await click(page,`${window} [data-finder-app="heat-sink"]`);
  await page.wait(`!!document.querySelector('[data-window-frame="app-heat-sink"][data-window-active="true"]')`,'Heat Sink launches from Apps');
- result.launcher='The Apps favorite opens the game window; Documents stays empty.';
+ result.launcher='The Apps favorite opens the game window; Documents contains the three PDFs.';
 });
 }
 await mkdir(output,{recursive:true});await writeFile(new URL(before?'before-browser-results.json':'browser-results.json',output),JSON.stringify(report,null,2)+'\n');socket.close();if(failures)process.exitCode=1;
