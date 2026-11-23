@@ -6,6 +6,7 @@
   box-shadow: var(--lg-rim-highlight), 0 3px 10px #0000000a;
 }
 .app .sizeOptions button { height: auto; padding: 8px 11px; flex-direction: column; }
+.app .sizeOptions button[data-interface-size] { min-inline-size: max-content; padding-inline: 8px; white-space: nowrap; }
 .app .actionButton { height: auto; padding: 8px 12px; }
 .app .sizeOptions button[aria-pressed="true"] { color: #fff; }
 .app .navigation { min-height: 36px; border-radius: 9px; transition: background-color 120ms ease-out, color 120ms ease-out, box-shadow 120ms ease-out; }

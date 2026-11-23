@@ -273,7 +273,7 @@ export function SettingsApp({ window, context }: { window: WindowState; context?
               <h3>Text & interface size</h3>
               <p>Enlarge text, controls, and the Dock together.</p>
               <div className={styles.sizeOptions} role="group" aria-label="Text and interface size">
-                {DISPLAY_SIZES.map((size, index) => <GlassButton key={size} type="button" data-interface-size={size} aria-pressed={interfaceScale === size} onClick={() => useDisplayStore.getState().setInterfaceScale(size)}>{["Default", "Larger", "Large", "Largest"][index]}<small>{Math.round(size * 100)}%</small></GlassButton>)}
+                {DISPLAY_SIZES.map((size, index) => <GlassButton key={size} type="button" data-interface-size={size} aria-pressed={interfaceScale === size} onClick={() => useDisplayStore.getState().setInterfaceScale(size)}>{["Default", "Large", "Larger", "Largest"][index]}<small>{Math.round(size * 100)}%</small></GlassButton>)}
               </div>
             </div>
             <div className={styles.readabilityCard}>
